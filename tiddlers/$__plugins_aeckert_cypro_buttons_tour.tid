@@ -1,0 +1,20 @@
+caption: {{$:/plugins/tiddlywiki/tour/tour-button-icon}} Tour
+created: 20260430000000000
+description: Tour starten
+modified: 20260430000000000
+title: $:/plugins/aeckert/cypro/buttons/tour
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\import [[$:/plugins/tiddlywiki/tour/variables]]
+
+<!-- Button — (re)starts the onboarding tour via the core tour plugin's <<tour-restart>>.
+     See tour/onboarding and the tour/onboarding/* tiddlers. -->
+<$button
+    tooltip="Tour starten"
+    aria-label="Tour starten"
+    class="cypro-btn cypro-btn-secondary"
+>
+<<tour-restart>>
+{{$:/core/images/globe}} Tour starten
+</$button>

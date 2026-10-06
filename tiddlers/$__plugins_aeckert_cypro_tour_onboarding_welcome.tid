@@ -1,0 +1,18 @@
+caption: Willkommen bei CyPro
+created: 20260430121757531
+display-mode: fullscreen
+enter-actions: <$action-navigate $to="$:/cypro/data/company"/>
+modified: 20260513101456190
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/welcome
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — welcome/intro (fullscreen); navigates to the company page on enter. -->
+
+!! Dem Assistenten für das Cybersicherheitsprogramm
+
+''CyPro'' unterstützt kleine Unternehmen und Organisationen bei der systematischen Dokumentation ihres Cybersicherheitsprogramms nach DVO (EU) 2019/1583.
+
+Die DVO (EU) 2019/1583 verpflichtet die Mitglieder der Sicheren Lieferkette Deutschland nach § 9a LuftSiG zur Erstellung und Pflege eines Cybersicherheitsprogramms, wobei CyPro unterstützt.
+
+Am Ende erhalten Sie eine ''druckfertige Anlage zum Sicherheitsprogramm'', welche zur Genehmigung bei der zuständigen Behörde eingereicht werden kann.

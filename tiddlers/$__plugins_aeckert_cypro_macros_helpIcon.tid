@@ -1,0 +1,15 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/helpIcon
+type: text/vnd.tiddlywiki
+
+\define cypro-help(tiddler)
+<!--
+  cypro-help(tiddler) — render a small "?" help icon with a click-to-open popup.
+
+  Pass the title of a help tiddler; the popup shows that tiddler's `caption` as a
+  heading and its `text` as the body. The popup open/closed state is kept in a
+  per-help-tiddler state tiddler ($:/state/cypro/help-popup/<tiddler>) so several
+  help icons on the same page open independently.
+-->
+<span class="cypro-help-icon"><$button popup="$:/state/cypro/help-popup/$tiddler$" class="tc-btn-invisible cypro-help-btn" tooltip="Hilfe"><$transclude tiddler="$:/core/images/help"/></$button><$reveal type="popup" state="$:/state/cypro/help-popup/$tiddler$" position="below"><div class="cypro-help-popup"><div class="cypro-help-popup-title"><$transclude tiddler="$tiddler$" field="caption"/></div><$transclude tiddler="$tiddler$" field="text" mode="block"/></div></$reveal></span>
+\end

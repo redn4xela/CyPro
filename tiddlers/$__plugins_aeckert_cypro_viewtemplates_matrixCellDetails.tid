@@ -1,0 +1,77 @@
+list-after: $:/core/ui/ViewTemplate/body
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/matrixCellDetails
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+
+<!--
+  matrixCellDetails — root viewtemplate for `matrix-detail` tiddlers (the drill-down
+  shown when the user clicks a cell of the risk matrix on the overview). It reads the
+  cell's fields: row (Schadenshöhe / impact), col (Eintrittshäufigkeit / probability),
+  value (risk = row x col), count, and `matches` (a comma-separated list of the threat
+  titles that fall in this cell). `riskDanger` flags values >= 10 as "Inakzeptabel".
+  Below the summary table it lists each matching threat with a link to its KIKS.
+-->
+<$list filter="[all[current]tag[matrix-detail]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+<$set name="riskDanger" value={{{ [<currentTiddler>get[value]compare:number:gteq[10]then[yes]else[no]] }}}>
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<div class="kiks-body-area">
+
+<table>
+<tr>
+<td style="width:50%; padding:6px 10px; background:#f5f5f5; font-weight:600;">Schadenshöhe</td>
+<td style="padding:6px 10px;">{{!!row}}</td>
+</tr>
+<tr>
+<td style="padding:6px 10px; background:#f5f5f5; font-weight:600;">Eintrittshäufigkeit</td>
+<td style="padding:6px 10px;">{{!!col}}</td>
+</tr>
+<tr>
+<td style="padding:6px 10px; background:#f5f5f5; font-weight:600;">Risikowert</td>
+<td style="padding:6px 10px;">
+<strong>{{!!value}}</strong>
+<$list filter="[<riskDanger>match[yes]]" variable="null">
+<span style="margin-left:8px; display:inline-block; padding:2px 8px; background:#fee2e2; color:#dc2626; border-radius:3px; font-size:0.75em; font-weight:600; text-transform:uppercase;">Inakzeptabel</span>
+</$list>
+</td>
+</tr>
+<tr>
+<td style="padding:6px 10px; background:#f5f5f5; font-weight:600;">Anzahl</td>
+<td style="padding:6px 10px;">{{!!count}}</td>
+</tr>
+</table>
+</div>
+
+<$set name="detailTiddler" value=<<currentTiddler>>>
+<$list filter="[<detailTiddler>get[matches]split[,]trim[]!is[blank]limit[1]]" variable="null" emptyMessage="<div class='kiks-empty-message'>Keine Bedrohungen in dieser Zelle.</div>">
+<table class="cypro-table">
+<thead>
+<tr>
+<th>KIKS</th>
+<th>Gefährdung</th>
+<th class="right">Risikowert</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[<detailTiddler>get[matches]split[,]trim[]!is[blank]]" variable="threatTitle">
+<$set name="kiksTitle" value={{{ [<threatTitle>get[kiks]] }}}>
+<tr>
+<td><$link to=<<kiksTitle>>><$view tiddler=<<kiksTitle>> field="caption"><$text text={{{ [<kiksTitle>get[id]removeprefix[K]addprefix[KIKS ]] }}}/></$view></$link></td>
+<td><$link to=<<threatTitle>>><$view tiddler=<<threatTitle>> field="caption"><$text text=<<threatTitle>>/></$view></$link></td>
+<td class="right bold"><$view tiddler=<<threatTitle>> field="final_risk"/></td>
+</tr>
+</$set>
+</$list>
+</tbody>
+</table>
+</$list>
+</$set>
+
+</$set>
+</$set>
+</$list>

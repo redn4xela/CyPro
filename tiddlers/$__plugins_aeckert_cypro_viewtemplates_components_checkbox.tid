@@ -1,0 +1,20 @@
+created: 20260328134027961
+modified: 20260328134051528
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/components/checkbox
+type: text/vnd.tiddlywiki
+
+<!--
+  checkbox — a labeled yes/no checkbox bound to the field named in <<fieldParam>>,
+  with the visible label from <<labelParam>>. Stores "yes"/"no"; disabled when the
+  page is locked. (Reusable form component — see components/captionFix for the contract.)
+-->
+<$let fieldName=<<fieldParam>> labelText=<<labelParam>>>
+<div class="cypro-field">
+<label class="cypro-toggle-row">
+<$checkbox field=<<fieldName>> checked="yes" unchecked="no"
+  disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>
+<span><<labelText>></span>
+</label>
+</div>
+</$let>

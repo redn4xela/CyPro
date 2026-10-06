@@ -1,0 +1,35 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/identificationKIKS
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the KIKS-identification method page (pattern as form/company).
+     Two checkboxTextGen blocks: which departments were involved, and which approach was
+     used. Each generates prose from its JSON paragraphs data tiddler. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/identificationKIKS]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$let pageTiddler=<<currentTiddler>>
+      targetField="kiks-method-persons"
+      textField="kiks-method-persons-text"
+      additionalField="kiks-method-persons-additional"
+      labelParam="Welche Abteilungen waren neben dem/der Luftsicherheitsbeauftragten beteiligt?"
+      optionsFilter="[[Informationssicherheit]] [[Informationstechnik (IT)]] [[Frachtabfertigung]]"
+      paragraphsTiddler="$:/plugins/aeckert/cypro/data/identificationKIKSPersons">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen}}
+</$let>
+
+<$let pageTiddler=<<currentTiddler>>
+      targetField="kiks-method-approach"
+      textField="kiks-method-approach-text"
+      additionalField="kiks-method-approach-additional"
+      labelParam="Welches Vorgehen wurde gewählt?"
+      optionsFilter="[[Begehung vor Ort]] [[Dokumentenanalyse]] [[Interviews mit Fachabteilungen]] [[Netzwerkscan]] [[Workshop]]"
+      paragraphsTiddler="$:/plugins/aeckert/cypro/data/identificationKIKSApproach">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen}}
+</$let>
+
+</$set>
+</$list>

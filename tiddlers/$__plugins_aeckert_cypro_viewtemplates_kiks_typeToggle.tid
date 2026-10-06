@@ -1,0 +1,23 @@
+created: 20260213073540447
+modified: 20260213153756516
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/typeToggle
+type: text/vnd.tiddlywiki
+
+<!-- kiks/typeToggle — radio choice for the `kiks` field: "system" or "data".
+     This drives e.g. whether kiks/dataField is shown. -->
+<div class="kiks-body-area">
+    <div class="kiks-field-label">
+        Typ:
+    </div>
+    <div class="kiks-type-toggle">
+        <label class="kiks-radio-label">
+            <$radio field="kiks" value="system" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/> 
+            System
+        </label>
+        <label class="kiks-radio-label">
+            <$radio field="kiks" value="data" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/> 
+            Daten
+        </label>
+    </div>
+</div>

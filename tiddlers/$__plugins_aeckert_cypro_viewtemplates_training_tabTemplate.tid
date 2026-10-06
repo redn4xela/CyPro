@@ -1,0 +1,9 @@
+created: 20260428000000000
+modified: 20260428000000000
+tags: $:/tags/Tab
+title: $:/plugins/aeckert/cypro/viewtemplates/training/tabTemplate
+type: text/vnd.tiddlywiki
+
+<!-- training/tabTemplate — label renderer for the core $:/tags/Tab mechanism:
+     shows a training's caption (or its title if unnamed). -->
+<$view tiddler=<<currentTab>> field="caption" emptyValue=<<currentTab>>/>

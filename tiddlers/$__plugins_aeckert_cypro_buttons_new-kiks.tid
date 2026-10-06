@@ -1,0 +1,20 @@
+caption: {{$:/core/images/new-button}} new KIKS
+created: 20260211101823396
+description: Erstellt ein neues kritisches System bzw. Daten
+modified: 20260404114555319
+tags:
+title: $:/plugins/aeckert/cypro/buttons/new-kiks
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<!-- Button — creates a new KIKS (plus its catalog threats) via kiks-create-action.
+     See macros/create-kiks. Shown per the PageControlButtons visibility config. -->
+<$button
+    actions=<<kiks-create-action>>
+    tooltip="Neues KIKS anlegen"
+    aria-label="Neues KIKS anlegen"
+    class={{{ [<tv-config-toolbar-class>] [[cypro-toolbar-btn]] +[join[ ]] }}}
+>
+    {{$:/core/images/new-button}}
+</$button>

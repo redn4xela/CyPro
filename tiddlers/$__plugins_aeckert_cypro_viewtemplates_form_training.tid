@@ -1,0 +1,56 @@
+created: 20260420140421583
+modified: 20260428000000023
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/training
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the training page (pattern as form/company). Unlike the other
+     forms, training data lives in SEPARATE tiddlers (tag `training`), so this renders a
+     tab strip: "Neue Schulung" (runs training-create-action) plus one tab per training.
+     The selected tab (state: selectedTab) shows that training via training/fields. Shows
+     an empty-state hint when no trainings exist yet. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/training]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<!-- Button strip: "Neue Schulung" on the left, one button per training to its right -->
+<$let defaultTab={{{ [tag[training]sort[id]first[]] }}}>
+<div class="tc-tab-set cypro-training-tabset">
+<div class="tc-tab-buttons cypro-training-tabbar">
+<$button class="cypro-training-newbtn" tooltip="Neue Schulung anlegen" actions=<<training-create-action>>>
+<span class="cypro-btn-icon">{{$:/core/images/new-button}}</span><span class="cypro-btn-label">Neue Schulung</span>
+</$button>
+<$list filter="[tag[training]sort[id]]" variable="tr">
+<$button set="$:/state/cypro/training/selectedTab" setTo=<<tr>> default=<<defaultTab>> selectedClass="cypro-training-tab-selected" class="cypro-training-tab">
+  <$view tiddler=<<tr>> field="caption" emptyValue=<<tr>>/>
+</$button>
+</$list>
+</div>
+
+<!-- Selected training's settings / info -->
+<$list filter="[tag[training]count[]!match[0]]" variable="null">
+<div class="tc-tab-divider"/>
+<div class="tc-tab-content">
+<$list filter="[tag[training]sort[id]]" variable="tr">
+<$reveal type="match" state="$:/state/cypro/training/selectedTab" text=<<tr>> default=<<defaultTab>> tag="div">
+<$set name="pageTiddler" value=<<tr>>>
+{{||$:/plugins/aeckert/cypro/viewtemplates/training/fields}}
+</$set>
+</$reveal>
+</$list>
+</div>
+</$list>
+
+<!-- Empty state: no trainings exist yet -->
+<$list filter="[tag[training]count[]match[0]]" variable="null">
+<div class="cypro-empty-state">
+<p>Noch keine Schulung angelegt. Legen Sie mit „Neue Schulung“ die erste Schulung an.</p>
+</div>
+</$list>
+</div>
+</$let>
+
+</$set>
+</$list>

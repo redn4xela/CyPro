@@ -1,0 +1,40 @@
+list-after: $:/core/ui/ViewTemplate/body
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/listKIKS
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the "Auflistung KIKS" overview page. Read-only table of all
+     KIKS (isLocked is hard-set to "yes"): ID, name, and the highest residual risk among
+     its applicable threats (max of final_risk). The "Neues KIKS anlegen" button lives in
+     the bottom toolbar. -->
+<$list filter="[all[current]field:title[$:/plugins/aeckert/cypro/pages/listKIKS]]" variable="null">
+<$set name="isLocked" value="yes">
+
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<table class="cypro-table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Bezeichnung</th>
+<th class="center">Max. Risiko</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[KIKS]sort[id]]">
+<tr>
+<td><$link to=<<currentTiddler>>>{{!!id}}</$link></td>
+<td><$macrocall $name="cypro-kiks-caption" t=<<currentTiddler>>/></td>
+<td class="center bold"><$text text={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[final_risk]nsort[]last[]] }}}/></td>
+</tr>
+</$list>
+</tbody>
+</table>
+
+<!-- Prepared/preset KIKS offerings (data-driven; see components/presetKIKS) -->
+<$transclude tiddler="$:/plugins/aeckert/cypro/viewtemplates/components/presetKIKS"/>
+
+</$set>
+</$list>

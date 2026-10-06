@@ -1,0 +1,27 @@
+created: 20260213073618457
+modified: 20260213153106491
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/protectionGoals
+type: text/vnd.tiddlywiki
+
+<!-- kiks/protectionGoals — three yes/no checkboxes for the CIA protection goals:
+     Vertraulichkeit (confidentiality), Integrität (integrity), Verfügbarkeit (availability). -->
+<div class="kiks-body-area">
+    <div class="kiks-field-label">
+        Schutzziele:
+    </div>
+    <div class="kiks-type-toggle">
+        <label class="kiks-radio-label">
+            <$checkbox field="confidentiality" checked="yes" unchecked="no" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>
+                Vertraulichkeit
+        </label>
+        <label class="kiks-radio-label">
+            <$checkbox field="integrity" checked="yes" unchecked="no" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>
+                Integrität
+        </label>
+        <label class="kiks-radio-label">
+            <$checkbox field="availability" checked="yes" unchecked="no" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>
+                Verfügbarkeit
+        </label>
+    </div>
+</div>

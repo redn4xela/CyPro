@@ -1,0 +1,21 @@
+created: 20260213154003386
+modified: 20260213154134783
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/header
+type: text/vnd.tiddlywiki
+
+<!-- threat/header — editable title (`caption` field). Also reused by the measure
+     root template, so the placeholder adapts to the entity type. Sub-template;
+     relies on the ambient `isLocked` variable. -->
+<$set name="headerPlaceholder" filter="[<currentTiddler>tag[measure]then[Maßnahme]]" emptyValue="Gefährdung">
+<div class="threat-header">
+    <div class="threat-title-wrapper">
+        <$edit-text
+            field="caption"
+            class={{{ [<isLocked>match[yes]then[threat-title-input threat-field-disabled]else[threat-title-input]] }}}
+            placeholder=<<headerPlaceholder>>
+            disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}
+        />
+    </div>
+</div>
+</$set>

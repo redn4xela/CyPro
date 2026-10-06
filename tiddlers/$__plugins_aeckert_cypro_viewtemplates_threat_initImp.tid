@@ -1,0 +1,12 @@
+tags:
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/initImp
+type: text/vnd.tiddlywiki
+
+<!--
+  threat/initImp — thin parameterised caller: renders the Schadenshöhe
+  (initial_impact, levels 1-4) scale radio. All markup lives in the shared
+  components/scaleRadio (Phase 3 consolidation).
+-->
+<$let fieldParam="initial_impact" labelParam="Schadenshöhe:" o1Param="vernachlässigbar" o2Param="begrenzt" o3Param="beträchtlich" o4Param="existenzbedrohend">
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/scaleRadio}}
+</$let>

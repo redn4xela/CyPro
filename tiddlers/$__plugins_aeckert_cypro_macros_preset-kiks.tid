@@ -1,0 +1,68 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/preset-kiks
+type: text/vnd.tiddlywiki
+
+<!--
+  preset-kiks — data-driven "prepared" KIKS offerings shown on the KIKS overview.
+
+  Catalog: plugin-shipped tiddlers under `$:/plugins/aeckert/cypro/data/preset-kiks/`
+  (one tiddler per preset). Each preset carries `name` and an `applicable` list of threat
+  suffixes (e.g. "T01 T05"), plus optional KIKS fields (kiks, confidentiality, integrity,
+  availability, influence, provider, data, text, initial_impact, initial_probability).
+
+  Visibility: presets are always listed (they never disappear), so the same template can
+  be used to create several KIKS.
+-->
+
+\define kiks-preset-create-action(preset)
+<!--
+  kiks-preset-create-action(preset) — one-click creation of a KIKS from a preset.
+
+  Reuses the standard kiks-create-action (creates the KIKS + the 13 catalog threats and
+  navigates to it), then overrides the KIKS `caption` and any additional fields the preset
+  supplies, and sets each threat's `applicable` from the preset's list. Severity is copied
+  only when the preset actually carries it, so a preset without severity leaves the risk
+  fields empty instead of writing a bogus 0. No confirmation.
+-->
+<$let presetTitle=<<__preset__>>
+      presetName={{{ [<presetTitle>get[name]] }}}
+      applicableList={{{ [<presetTitle>get[applicable]] }}}
+      presetImpact={{{ [<presetTitle>get[initial_impact]] }}}
+      presetProbability={{{ [<presetTitle>get[initial_probability]] }}}>
+<$let nextID={{{ [function[cypro-next-id],[KIKS],[K]] }}}>
+
+<!-- 1. Standard creation path: KIKS + catalog threats (unchanged macro) -->
+<<kiks-create-action>>
+
+<!-- 2. Copy the preset's fields onto the new KIKS (absent ones stay empty). -->
+<$action-setfield $tiddler=<<nextID>> caption=<<presetName>>
+    kiks={{{ [<presetTitle>get[kiks]] }}}
+    confidentiality={{{ [<presetTitle>get[confidentiality]] }}}
+    integrity={{{ [<presetTitle>get[integrity]] }}}
+    availability={{{ [<presetTitle>get[availability]] }}}
+    influence={{{ [<presetTitle>get[influence]] }}}
+    provider={{{ [<presetTitle>get[provider]] }}}
+    data={{{ [<presetTitle>get[data]] }}}
+    text={{{ [<presetTitle>get[text]] }}}/>
+
+<!-- 3. Applicability per threat, only when the preset defines a list. Iterate the
+     catalog (which exists before the click) and target the future threat titles
+     "<nextID><suffix>" — the action tree is rendered BEFORE the create action runs,
+     so filtering [tag[threat]kiks<nextID>] here would see nothing. A preset that
+     supplies initial severity gets those copied to its applicable threats and the
+     derived risk fields written directly (the KIKS is brand new, so final = initial;
+     no measures exist yet). Presets without severity leave the risk fields empty. -->
+<$list filter="[<presetTitle>has[applicable]]" variable="null">
+<$list filter="[[$:/plugins/aeckert/cypro/data/default-threats]indexes[]suffix[.caption]removesuffix[.caption]]" variable="suffix">
+  <$action-setfield $tiddler={{{ [<nextID>addsuffix<suffix>] }}} applicable={{{ [<applicableList>split[ ]match<suffix>] :then[[yes]] :else[[no]] }}}/>
+  <$list filter="[<applicableList>split[ ]match<suffix>]" variable="null">
+  <$list filter="[<presetTitle>has[initial_impact]has[initial_probability]]" variable="null">
+    <$action-setfield $tiddler={{{ [<nextID>addsuffix<suffix>] }}} initial_impact=<<presetImpact>> initial_probability=<<presetProbability>> initial_risk={{{ [<presetImpact>multiply<presetProbability>] }}} final_impact=<<presetImpact>> final_probability=<<presetProbability>> final_risk={{{ [<presetImpact>multiply<presetProbability>] }}}/>
+  </$list>
+  </$list>
+</$list>
+</$list>
+
+</$let>
+</$let>
+\end

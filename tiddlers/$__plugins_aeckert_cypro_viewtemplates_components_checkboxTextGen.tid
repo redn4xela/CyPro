@@ -1,0 +1,75 @@
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen
+type: text/vnd.tiddlywiki
+
+<!--
+  checkboxTextGen — pick options from a checkbox list and auto-generate prose from them.
+
+  Used on the "method" pages (KIKS identification, risk, monitoring, Weitere Maßnahmen...). The user
+  ticks options (stored in the list-field <<targetField>> of <<pageTiddler>>); the
+  component then writes a generated sentence into the text-field <<textField>>.
+
+  Generation is "paragraph mode" (<<paragraphsTiddler>> set): the generated text is
+  looked up reactively from a JSON data tiddler, keyed by the sorted+joined selection
+  (genKey). Read-only display — no editable textarea. (The former legacy/editable mode
+  driven by <<prefix>> was removed — no callers used it.)
+
+  Optional <<additionalField>> adds a free-text "Ergänzende Angaben" textarea.
+  Optional <<optionsInfoFilter>> shows a help "?" icon next to options that have a
+  matching help tiddler. (Reusable form component — see components/captionFix.)
+-->
+<div class="cypro-checkbox-group">
+<b><<labelParam>></b>
+
+<!-- Multi-select options: only visible when unlocked -->
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<div class="cypro-checkbox-options">
+<$list filter=<<optionsFilter>> variable="opt">
+<div>
+<label>
+<$checkbox tiddler=<<pageTiddler>> listField=<<targetField>> checked=<<opt>> unchecked="" disabled="no"
+  actions="""
+<$list filter="[<paragraphsTiddler>minlength[1]]" variable="null">
+<$action-setfield $tiddler=<<pageTiddler>> $field=<<textField>> $value={{{ [<pageTiddler>get<targetField>enlist-input[]] +[sort[]] +[join[|]] :map[<paragraphsTiddler>get[text]jsonget<currentTiddler>] }}}/>
+</$list>
+  """/>
+<$text text=<<opt>>/>
+</label>
+<$list filter="[<optionsInfoFilter>!is[blank]]" variable="null">
+<$set name="infoTitle" value={{{ [[$:/plugins/aeckert/cypro/help/]addsuffix<opt>] }}}>
+<$list filter="[<infoTitle>is[tiddler]]" variable="null">
+<$macrocall $name="cypro-help" tiddler=<<infoTitle>>/>
+</$list>
+</$set>
+</$list>
+</div>
+</$list>
+</div>
+</$list>
+
+<!-- Paragraph mode: reactive readonly from JSON data tiddler -->
+<$list filter="[<paragraphsTiddler>minlength[1]]" variable="null">
+<$set name="genKey" value={{{ [<pageTiddler>get<targetField>enlist-input[]] +[sort[]] +[join[|]] }}}>
+<$list filter="[<genKey>minlength[1]]" variable="null">
+<$set name="genPara" value={{{ [<paragraphsTiddler>get[text]jsonget<genKey>] }}}>
+<$list filter="[<genPara>minlength[1]]" variable="null">
+<div class="cypro-gen-text"><$text text=<<genPara>>/></div>
+</$list>
+</$set>
+</$list>
+</$set>
+</$list>
+
+<!-- Additional freetext (when additionalField is set) -->
+<$list filter="[<additionalField>minlength[1]]" variable="null">
+<$list filter="[<isLocked>match[yes]]" variable="null">
+<$list filter="[<pageTiddler>get<additionalField>minlength[1]]" variable="null">
+<div class="cypro-locked-text"><$view tiddler=<<pageTiddler>> field=<<additionalField>> format="text"/></div>
+</$list>
+</$list>
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<$edit-text tiddler=<<pageTiddler>> field=<<additionalField>> tag="textarea" class="cypro-textarea" placeholder="Ergänzende Angaben (optional)..."/>
+</$list>
+</$list>
+
+</div>

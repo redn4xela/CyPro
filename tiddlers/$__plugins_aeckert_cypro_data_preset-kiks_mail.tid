@@ -1,0 +1,10 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/mail
+preset-id: p-mail
+name: E-Mail-Kommunikation
+applicable: T01 T02 T03 T05 T07 T11 T12
+kiks: data
+confidentiality: yes
+integrity: yes
+data: E-Mail-Nachrichten und Anhänge
+text: E-Mail-Dienst zur Übermittlung von Nachrichten und Dokumenten.
+type: text/vnd.tiddlywiki

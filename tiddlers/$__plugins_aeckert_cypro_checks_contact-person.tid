@@ -1,0 +1,14 @@
+caption: Ansprechperson Cybersecurity fehlt
+created: 20260510000000001
+filter: [[$:/cypro/data/contactPerson]!has[alt-contact]] [[$:/cypro/data/contactPerson]field:alt-contact[no]] [[$:/cypro/data/contactPerson]field:alt-contact[yes]has[alt-contact-name]has[alt-contact-email]]
+modified: 20260824145215091
+page: $:/cypro/data/contactPerson
+section: 0
+tags: cypro-check
+title: $:/plugins/aeckert/cypro/checks/contact-person
+type: text/vnd.tiddlywiki
+
+Geben Sie eine Ansprechperson für Cybersicherheit an.
+
+<!-- cypro-check: passes when no separate contact is selected, or when a separate
+     contact has both a name and an email address. -->

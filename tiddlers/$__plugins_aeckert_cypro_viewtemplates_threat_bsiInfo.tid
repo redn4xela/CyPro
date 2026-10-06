@@ -1,0 +1,38 @@
+created: 20260923120000000
+modified: 20260923120000000
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/bsiInfo
+type: text/vnd.tiddlywiki
+
+<!--
+  threat/bsiInfo — collapsible BSI "Elementare Gefährdungen" reference block.
+
+  Resolves the help tiddler for the current threat at render time from its
+  `threat_no` (task 144): title = $:/plugins/aeckert/cypro/help/<threat_no>,
+  e.g. help/G0.14. Spaces in the stored number are stripped first, so legacy
+  "G 0.14" values resolve identically. Nothing is stored on the threat — no
+  transclusion is written into `threat.text`, and the BSI text lives only in
+  the help tiddler.
+
+  Graceful degradation: no `threat_no`, or no matching help tiddler, renders
+  nothing at all (no empty control). Uses the native HTML <details>/<summary>
+  disclosure (triangle marker, no JavaScript), consistent with the no-JS rule.
+
+  View-template-only; deliberately not part of the print template.
+-->
+<$let
+    threatNo={{{ [<currentTiddler>get[threat_no]search-replace:g[ ],[]] }}}
+    helpTitle={{{ [<threatNo>addprefix[$:/plugins/aeckert/cypro/help/]] }}}
+>
+<$list filter="[<helpTitle>!is[missing]]" variable="null">
+<div class="cypro-bsi-block">
+<details class="cypro-bsi-details">
+<summary class="cypro-bsi-summary">Mehr Informationen</summary>
+<div class="cypro-bsi-content">
+<div class="cypro-bsi-title"><$transclude tiddler=<<helpTitle>> field="caption"/></div>
+<$transclude tiddler=<<helpTitle>> field="text" mode="block"/>
+</div>
+</details>
+</div>
+</$list>
+</$let>

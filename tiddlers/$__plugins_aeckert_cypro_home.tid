@@ -1,0 +1,66 @@
+caption: Übersicht
+created: 20260418143130826
+tags: navigation
+title: $:/plugins/aeckert/cypro/home
+type: text/vnd.tiddlywiki
+
+<div class="cypro-home-top">
+
+<div class="cypro-card cypro-stats-card">
+<div class="cypro-stats-grid">
+<div class="cypro-stat-box">
+<div class="cypro-stat-value"><$set name="n" filter="[tag[KIKS]count[]]"><$text text=<<n>>/></$set></div>
+<div class="cypro-stat-label">KIKS</div>
+</div>
+<div class="cypro-stat-box">
+<div class="cypro-stat-value"><$set name="n" filter="[tag[threat]applicable[yes]count[]]"><$text text=<<n>>/></$set></div>
+<div class="cypro-stat-label">Anwendbare Bedrohungen</div>
+</div>
+<div class="cypro-stat-box">
+<div class="cypro-stat-value"><$set name="n" filter="[tag[measure]count[]]"><$text text=<<n>>/></$set></div>
+<div class="cypro-stat-label">Maßnahmen</div>
+</div>
+<div class="cypro-stat-box">
+<$set name="n" filter="[tag[threat]applicable[yes]get[final_risk]nsort[]last[]]" emptyValue="0">
+<$list filter="[<n>compare:number:gteq[10]]" variable="null"><div class="cypro-stat-value cypro-stat-danger"><$text text=<<n>>/></div></$list>
+<$list filter="[<n>compare:number:lt[10]]" variable="null"><div class="cypro-stat-value"><$text text=<<n>>/></div></$list>
+</$set>
+<div class="cypro-stat-label">Max. Restrisiko</div>
+</div>
+</div>
+</div>
+
+<$list filter="[tag[KIKS]count[]compare:number:gt[0]]" variable="null">
+<div class="cypro-card cypro-matrix-card">
+{{$:/plugins/aeckert/cypro/risk-matrix}}
+</div>
+</$list>
+</div>
+
+<$list filter="[tag[KIKS]count[]compare:number:eq[0]]">
+<div class="cypro-empty-state">
+<div class="cypro-empty-state-icon">{{$:/core/images/globe}}</div>
+<h3 class="cypro-empty-state-title">Noch keine KIKS erfasst</h3>
+<p class="cypro-empty-state-text">
+Beginnen Sie mit der Dokumentation Ihrer kritischen Informations- und Kommunikationssysteme.
+</p>
+<!-- Sample-data CTA is a dev-mode-only demo aid (TASK-153): it overwrites the 8
+     form pages and seeds a sample programme, so it must not appear in a customer
+     build. Shown only while $:/config/cypro/DevMode is "yes". -->
+<$list filter="[[$:/config/cypro/DevMode]text[yes]]" variable="null">
+<p class="cypro-empty-state-cta">
+<$button class="cypro-btn cypro-btn-primary" actions=<<cypro-sample-load>>>
+Beispieldaten laden
+</$button>
+</p>
+</$list>
+</div>
+</$list>
+
+<$list filter="[tag[KIKS]count[]compare:number:gt[0]]">
+<h3 class="cypro-section-title">KIKS</h3>
+{{$:/plugins/aeckert/cypro/pages/listKIKSDetail}}
+
+<h3 class="cypro-section-title">Maßnahmen</h3>
+{{$:/plugins/aeckert/cypro/pages/listMeasuresDetail}}
+</$list>

@@ -1,0 +1,22 @@
+created: 20260428000000004
+modified: 20260428000000004
+list-after: $:/core/ui/ViewTemplate/body
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/training
+type: text/vnd.tiddlywiki
+
+
+<!-- Root viewtemplate for training entities (same pattern as viewtemplates/kiks).
+     Shows the caption, then the training/fields sub-template. `pageTiddler` is set
+     so the shared field components know which tiddler to read/write. -->
+<$list filter="[all[current]tag[training]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$let pageTiddler=<<currentTiddler>>>
+{{||$:/plugins/aeckert/cypro/viewtemplates/training/fields}}
+</$let>
+
+</$set>
+</$list>

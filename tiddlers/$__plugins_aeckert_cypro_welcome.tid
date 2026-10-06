@@ -1,0 +1,35 @@
+caption: Willkommen
+created: 20260327213426452
+modified: 20260428201500000
+tags: navigation
+title: $:/plugins/aeckert/cypro/welcome
+type: text/vnd.tiddlywiki
+
+\import [[$:/plugins/tiddlywiki/tour/variables]]
+Der ''CSP-Assistent'' unterstützt Sie bei der systematischen Dokumentation Ihrer kritischen informations- und kommunikationstechnischen Systeme und kritischen Daten (KIKS) — im Einklang mit den Anforderungen der [[DVO (EU) 2019/1583|https://eur-lex.europa.eu/eli/reg_impl/2019/1583/oj/deu]] und den jeweils aktuellen Anwendungsgrundsätzen des Luftfahrt-Bundesamtes.
+
+Ob bei der initialen Erstellung Ihres Cybersicherheitsprogramms oder bei dessen fortlaufender Pflege: Dieses Werkzeug ist darauf ausgelegt, den Aufwand gering zu halten und sich flexibel an künftige regulatorische Änderungen anzupassen.
+
+!! Was Sie wissen sollten
+
+#. Dieses Tool ist ''kein offizielles Werkzeug'' des Luftfahrt-Bundesamtes.
+#. Sämtliche Daten verbleiben ''ausschließlich lokal'' — am Ablageort Ihrer HTML-Datei. Es findet keinerlei Datenübertragung statt.
+#. Sie tragen die ''volle Verantwortung'' für den Schutz und die sichere Aufbewahrung dieser Datei.
+#. Eine erfolgreiche Plausibilitätsprüfung innerhalb des Tools stellt ''keine Garantie'' für eine behördliche Genehmigung dar.
+#. Für inhaltliche oder technische Fehler wird ''keine Haftung'' übernommen.
+#. Der CSP-Assistent basiert auf [[TiddlyWiki|https://tiddlywiki.com]], einem bewährten Open-Source-Werkzeug.
+
+!! Nächster Schritt
+
+<div class="cypro-welcome-actions">
+<$button class="cypro-btn cypro-btn-primary">
+<<tour-start "$:/plugins/aeckert/cypro/tour/onboarding">>
+🚀 Tour starten
+</$button>
+
+<$button class="cypro-btn cypro-btn-secondary">
+<$action-setfield $tiddler="$:/config/ShowTour" text="hide"/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/home"/>
+Überspringen
+</$button>
+</div>

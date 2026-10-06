@@ -1,0 +1,21 @@
+caption: Speicherung
+created: 20260327221207647
+modified: 20260421071508220
+tags: tutorial help
+title: $:/plugins/aeckert/cypro/help/save
+tutorial-order: 3
+type: text/vnd.tiddlywiki
+
+<!-- Help topic (tutorial) — how saving the file works. -->
+
+Ihre Eingaben werden nicht auf herkömmlichem Weg gespeichert. Stattdessen erstellen Sie über den {{$:/core/images/save-button}}-Button in der Seitenleiste eine Kopie der gesamten Datei. Diese wird von Ihrem Browser als Download im jeweiligen Downloads-Ordner abgelegt.
+
+Sobald Sie Änderungen vorgenommen haben, färbt sich der Button rot. Erstellen Sie dann bitte am Ende Ihrer Bearbeitung der Inhalte eine neue Kopie.
+
+@@.tc-alert
+⚠️ ''Wichtig:'' Die ursprünglich geöffnete Datei bleibt dabei ''unverändert''. Arbeiten Sie daher stets mit der zuletzt heruntergeladenen Kopie weiter.
+@@
+
+Durch Schließen des Browserfensters ohne vorheriges Speichern werden sämtliche Änderungen verworfen. Beim erneuten Öffnen der Datei befinden Sie sich wieder auf dem ursprünglichen Stand.
+
+💡 Tipp: Durch bewusstes Ablegen und Benennen der Dateikopien lässt sich auf einfache Weise eine Versionierung Ihres Cybersicherheitsprogramms aufbauen.

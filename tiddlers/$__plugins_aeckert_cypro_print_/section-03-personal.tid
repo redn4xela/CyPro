@@ -1,0 +1,46 @@
+caption: 3 – Personalangelegenheiten
+order: 3
+tags: cypro-print-section
+title: $:/plugins/aeckert/cypro/print/section-03-personal
+type: text/vnd.tiddlywiki
+
+<div class="page-break"></div>
+
+!! 3 – Personalangelegenheiten
+
+!!! 3.1 Zuverlässigkeitsüberprüfung
+
+{{$:/cypro/data/backgroundcheck!!backgroundcheck_description}}
+
+!!! 3.2 Eignung
+
+Für die Personen, welche die Maßnahmen nach Abschnitt 2.4 (Risikobehandlung) umsetzen, wird mithilfe des im Sicherheitsprogramm beschriebenen Konzepts gewährleistet, dass sie über die erforderlichen Fähigkeiten und Fertigkeiten verfügen.
+
+!!! 3.3 Schulung
+
+Die Dokumentation für alle Personen, welche an Fortbildungsmaßnahmen / Schulungen im Bereich Cybersicherheit teilnehmen, wird auf dem neuesten Stand gehalten. Auf Verlangen wird Einsicht in die Dokumentation gewährt.
+
+<$list filter="[tag[training]sort[id]]">
+<div class="training-block">
+
+<b>{{!!id}}: {{!!caption}}</b>
+
+<table style="width:100%; border-collapse:collapse; margin-bottom:1.5em;">
+  <tbody>
+    <tr>
+      <td style="width:35%; padding:4px 8px; background:#f0f0f0; font-weight:bold;">Zielgruppe</td>
+      <td style="padding:4px 8px;"><$transclude field="audience"/></td>
+    </tr>
+    <tr>
+      <td style="padding:4px 8px; background:#f0f0f0; font-weight:bold;">Interne Richtlinien</td>
+      <td style="padding:4px 8px;"><$transclude field="internals_text"/></td>
+    </tr>
+    <tr>
+      <td style="padding:4px 8px; background:#f0f0f0; font-weight:bold;">Schulungsinhalte</td>
+      <td style="padding:4px 8px;"><$list filter="[all[current]get[topics]enlist-input[]]" variable="topic" join=", "><<topic>></$list></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</$list>

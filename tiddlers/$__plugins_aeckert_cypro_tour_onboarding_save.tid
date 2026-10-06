@@ -1,0 +1,24 @@
+caption: Ihre Daten sichern
+created: 20260502185336367
+display-mode: fullscreen
+enter-actions: <$action-setfield $tiddler="$:/config/AutoStartTour" text="no"/> <$action-navigate $to="$:/plugins/aeckert/cypro/home"/>
+modified: 20260513101524356
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/save
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — saving the wiki to a file. -->
+
+!! Jetzt speichern
+
+Klicken Sie auf ''Datei herunterladen'' oben rechts (oder drücken Sie ''Strg+S''), um Ihre Arbeit zu sichern.
+
+Ersetzen Sie die alte HTML-Datei durch die neue — oder legen Sie eine Sicherungskopie mit Datum im Dateinamen an:
+
+`cypro-2026-04-30.html`
+
+!! Tour abgeschlossen
+
+Beim nächsten Öffnen der Datei startet die Tour ''nicht'' mehr automatisch. Sie können sie jederzeit über den Tour-Button in der Toolbar neu starten.
+
+Viel Erfolg bei der Erstellung Ihres Cybersicherheitsprogramms!

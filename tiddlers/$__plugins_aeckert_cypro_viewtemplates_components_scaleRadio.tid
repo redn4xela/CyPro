@@ -1,0 +1,39 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/components/scaleRadio
+type: text/vnd.tiddlywiki
+
+<!--
+  scaleRadio — the 1..4 risk-scale radio row (Schadenshöhe / Eintrittshäufigkeit).
+  Parameters via an enclosing <$let>:
+    fieldParam       — threat field ("initial_impact" / "initial_probability")
+    labelParam       — the visible field label ("Schadenshöhe:" …)
+    o1Param..o4Param — the four level captions (vernachlässigbar..existenzbedrohend
+                       / selten..sehr häufig)
+  Every click runs update-risk-actions to recompute the threat's risk scores.
+  Ambient: isLocked from the enclosing viewtemplate.
+  (Phase 3: initImp/initProb are now thin parameterised callers of this.)
+-->
+<div class="kiks-body-area">
+	<div class="kiks-field-label">
+		<$text text=<<labelParam>>/>
+	</div>
+	<div class="kiks-type-toggle">
+		<$let disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}>
+			<label class="kiks-radio-label">
+				<$radio field=<<fieldParam>> value="1" actions=<<update-risk-actions>> disabled=<<disabled>>/>
+				<$text text=<<o1Param>>/>
+			</label>
+			<label class="kiks-radio-label">
+				<$radio field=<<fieldParam>> value="2" actions=<<update-risk-actions>> disabled=<<disabled>>/>
+				<$text text=<<o2Param>>/>
+			</label>
+			<label class="kiks-radio-label">
+				<$radio field=<<fieldParam>> value="3" actions=<<update-risk-actions>> disabled=<<disabled>>/>
+				<$text text=<<o3Param>>/>
+			</label>
+			<label class="kiks-radio-label">
+				<$radio field=<<fieldParam>> value="4" actions=<<update-risk-actions>> disabled=<<disabled>>/>
+				<$text text=<<o4Param>>/>
+			</label>
+		</$let>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+caption: 0 – Ansprechperson Cybersecurity
+order: 0
+tags: cypro-print-section
+title: $:/plugins/aeckert/cypro/print/section-00-contact
+type: text/vnd.tiddlywiki
+
+!! 0 – Ansprechperson Cybersecurity
+
+<% if [{$:/cypro/data/contactPerson!!alt-contact}!match[yes]] %>
+Die Ansprechperson Cybersecurity ist identisch mit der Person der/des (Luft-)Sicherheitsbeauftragten.
+<% else %>
+''Name:'' {{$:/cypro/data/contactPerson!!alt-contact-name}}<br>
+''Telefon:'' {{$:/cypro/data/contactPerson!!alt-contact-phone}}<br>
+''E-Mail:'' {{$:/cypro/data/contactPerson!!alt-contact-email}}
+<% endif %>

@@ -1,0 +1,23 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/BSIPortal
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the BSI-Portal page (same pattern as form/company). Shows the
+     help text as an alert, then a single yes/no checkbox bound to the `reporting` field. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/BSIPortal]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+@@.tc-alert
+<$transclude tiddler="$:/plugins/aeckert/cypro/help/BSIPortal" mode="block"/>
+@@
+
+<$let fieldParam="reporting" labelParam="Registrierung im BSI-Portal ist erfolgt.">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkbox}}
+</$let>
+
+</$set>
+
+</$list>

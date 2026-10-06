@@ -1,0 +1,27 @@
+caption: 1 – Grundsätzliches
+order: 1
+tags: cypro-print-section
+title: $:/plugins/aeckert/cypro/print/section-01-grundsatz
+type: text/vnd.tiddlywiki
+
+<div class="page-break"></div>
+
+!! 1 – Grundsätzliches
+
+!!! 1.4 Melde- und Informationswesen
+
+''Melde- und Informationsportal des BSI''
+
+<% if [{$:/cypro/data/BSIPortal!!reporting}match[yes]] %>
+Wir haben uns bereits im BSI-Portal registriert.
+<% else %>
+⬜ Registrierung im BSI-Portal steht noch aus.
+<% endif %>
+
+''Informationsquellen''
+
+Die folgenden Quellen für Informationen zur Cybersicherheit in der zivilen Luftfahrt sind uns bekannt:
+
+* Bausteine des BSI-Grundschutz i. V. m. der Kreuzreferenztabelle zum IT-Grundschutz-Kompendium
+* Aktuelle Warnungen der Allianz für Cyber-Sicherheit des BSI
+* Aktuelle Lagebilder der Bereiche IT-Sicherheit und Cybercrime vom BSI bzw. Bundeskriminalamt

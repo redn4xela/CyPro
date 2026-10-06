@@ -1,0 +1,56 @@
+created: 20260421074953845
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20260421074955011
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks
+type: text/vnd.tiddlywiki
+
+
+<!--
+  ROOT VIEWTEMPLATE for KIKS entities. This is the canonical example of the pattern
+  every cypro entity root uses:
+
+  - It is tagged `$:/tags/ViewTemplate` with `list-after: .../ViewTemplate/body`, so
+    TiddlyWiki renders it right after the normal tiddler body for EVERY tiddler.
+  - The outer <$list filter="[all[current]tag[KIKS]]"> is a GUARD: the template only
+    produces output when the tiddler being rendered carries the KIKS tag, so it stays
+    inert for everything else.
+  - `lock-state` resolves to this tiddler's per-tiddler lock flag
+    ($:/state/cypro/locked/<title>); the <$set> reads it into the `isLocked` variable
+    ("yes"/"no") that all the transcluded sub-templates and components below rely on.
+
+  The body just composes the sub-templates (header, id, type, protection goals,
+  influence, provider, data, threats, description) in display order. Each {{||...}}
+  transcludes another tiddler using THIS tiddler as the current tiddler.
+-->
+<$list filter="[all[current]tag[KIKS]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/header}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/idField}}
+
+<table style="width: 100%; max-width: 100%; border: none; border-collapse: collapse;">
+    <tr>
+        <td style="border: none; vertical-align: top;">
+            {{||$:/plugins/aeckert/cypro/viewtemplates/kiks/typeToggle}}
+        </td>
+        <td style="border: none; vertical-align: top;">
+            {{||$:/plugins/aeckert/cypro/viewtemplates/kiks/protectionGoals}}
+        </td>
+    </tr>
+</table>
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/influenceField}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/providerField}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/dataField}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/threats}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/description}}
+
+</$set>
+</$list>

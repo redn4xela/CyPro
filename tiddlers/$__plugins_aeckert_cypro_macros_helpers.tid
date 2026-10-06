@@ -1,0 +1,48 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/helpers
+type: text/vnd.tiddlywiki
+
+<!--
+  helpers — shared small globals, Phase 3 rule "no copy-paste" (AGENTS.md).
+
+  cypro-lock-state — the per-tiddler lock state title used by every form/entity
+  viewtemplate: `$:/state/cypro/locked/<currentTiddler>`. Written by editControl
+  (§11 architecture); "$set name=isLocked filter=[<cypro-lock-state>text[yes]]"
+  derives isLocked. One definition here replaces the per-file \define
+  (20 copies) in all viewtemplates.
+
+  cypro-kiks-caption — display name for a KIKS: its `caption` if set (found after
+  saving), otherwise "KIKS <nn>" derived from the id (first-run / unsaved).
+
+  cypro-next-id(tag, prefix) — the single ID generator for every entity: reads the
+  `id` field (never the title) of all tiddlers tagged <tag>, strips <prefix>, keeps
+  the numeric remainder, takes the numeric maximum, adds 1 and zero-pads to at least
+  two digits. Using the `id` field (not a title prefix) and nsort means K99 -> K100,
+  M99 -> M100, TR99 -> TR100 without collision — the old title-slicing helpers broke
+  past 99. (The sample-data measures carry ids M01/M02 since TASK-153, so they
+  participate in the sequence like any other measure.)
+-->
+\define cypro-lock-state() $:/state/cypro/locked/$(currentTiddler)$
+
+\procedure cypro-kiks-caption(t)
+<$text text={{{ [<t>get[caption]] :else[<t>get[id]removeprefix[K]addprefix[KIKS ]] }}}/>
+\end
+
+\procedure cypro-threat-no-label(t)
+<!--
+  cypro-threat-no-label(t) — human-readable BSI number of a threat.
+
+  The stored `threat_no` is space-free (e.g. "G0.14") so it can be matched
+  against the BSI help-tiddler title (`$:/plugins/aeckert/cypro/help/G0.14`,
+  task 144). For display the space is re-inserted after the leading "G". Any
+  spaces in the stored value are stripped first, so legacy "G 0.14" values
+  resolve/label identically. An absent/empty `threat_no` renders nothing
+  (get[] drops empty results).
+-->
+<$text text={{{ [<t>get[threat_no]search-replace:g[ ],[]removeprefix[G]addprefix[G ]] }}}/>
+\end
+
+\function cypro-next-id(tag, prefix)
+[<tag>tagging[]!has[draft.of]get[id]removeprefix<prefix>regexp[^\d+$]nsort[]last[]] ~[[0]] +[add[1]pad[2]addprefix<prefix>]
+\end
+

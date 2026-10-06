@@ -1,0 +1,131 @@
+created: 20260428000000005
+modified: 20260428000000005
+tags: $:/tags/Stylesheet
+title: $:/plugins/aeckert/cypro/styles/training
+type: text/css
+
+/* Stylesheet for the training page's tab strip and tab content. */
+
+/* ============================================
+   TRAINING BUTTON STRIP
+   "Neue Schulung" on the left, one button per training to its right
+   ============================================ */
+
+.cypro-training-tabbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    border-bottom: none;
+    margin-bottom: 0.25rem;
+}
+
+/* New-training action button (leftmost, visually distinct) */
+.cypro-training-tabbar .cypro-training-newbtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.85rem;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    color: var(--lba-blue, #051571);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cypro-training-tabbar .cypro-training-newbtn:hover {
+    background: #eef0f8;
+    border-color: #aab3dd;
+}
+
+.cypro-training-tabbar .cypro-training-newbtn svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+/* Each training rendered as a button */
+.cypro-training-tabbar .cypro-training-tab {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.9rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    color: #374151;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cypro-training-tabbar .cypro-training-tab:hover {
+    background: #eef0f8;
+    border-color: #aab3dd;
+}
+
+.cypro-training-tabbar .cypro-training-tab-selected,
+.cypro-training-tabbar .cypro-training-tab-selected:hover {
+    background: var(--lba-blue, #051571);
+    border-color: var(--lba-blue, #051571);
+    color: #ffffff;
+}
+
+/* ============================================
+   TRAINING EMPTY STATE
+   ============================================ */
+
+.cypro-empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #888;
+}
+
+/* ============================================
+   CUSTOM TOPIC INPUT
+   ============================================ */
+
+.cypro-custom-topic {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    align-items: center;
+}
+
+.cypro-custom-topic .cypro-field-input {
+    flex: 1;
+}
+
+/* ============================================
+   TOPIC LIST ITEMS
+   ============================================ */
+
+.cypro-topic-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cypro-topic-item:last-child {
+    border-bottom: none;
+}
+
+.cypro-topic-remove {
+    padding: 0.1rem 0.4rem;
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #999;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+.cypro-topic-remove:hover {
+    background: #fee;
+    border-color: #f99;
+    color: #c00;
+}

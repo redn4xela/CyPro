@@ -1,0 +1,21 @@
+created: 20260213073707070
+modified: 20260402084335394
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/dataField
+type: text/vnd.tiddlywiki
+
+<!-- kiks/dataField — editable "Daten" field. Only shown when the KIKS `kiks` field
+     is "system" (i.e. this KIKS is a system that stores/exchanges data). -->
+<$list filter="[all[current]kiks[system]]" variable="null">
+<div class="kiks-body-area">
+    <div class="kiks-field-label">
+        Daten:
+    </div>
+    <$edit-text
+        field="data"
+        class={{{ [<isLocked>match[yes]then[kiks-field-disabled kiks-field-textarea]else[kiks-field-textarea]] }}}
+        placeholder="Art gespeicherter oder ausgetauschter Daten..."
+        disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}
+    />
+</div>
+</$list>

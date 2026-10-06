@@ -1,0 +1,225 @@
+created: 20260502214206870
+modified: 20260502215946034
+tags: $:/tags/Stylesheet
+title: $:/plugins/aeckert/cypro/styles/tour
+type: text/vnd.tiddlywiki
+
+/* Stylesheet — visual overrides for the core tour plugin's panel, sizing and styling it
+   to match the cypro look. Used by the onboarding tour (tour/onboarding). */
+
+/* ============================================
+   CYPRO TOUR PANEL OVERRIDES
+   ============================================ */
+
+.tc-tour-panel:not(.tc-tour-panel-fullscreen) {
+    width: 580px;
+    max-width: 92vw;
+}
+
+/* Fullscreen steps: wider readable column, centered */
+.tc-tour-panel-fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 12vh;
+    overflow-y: auto;
+}
+
+/* Fullscreen steps: wider readable column, centered */
+.tc-tour-panel-top-left {
+  bottom: auto;
+	top: 0;
+}
+
+.tc-tour-panel-bottom-right {
+  left: auto;
+	right: 0;
+}
+
+.tc-tour-panel-fullscreen .tc-tour-panel-inner {
+    max-width: 900px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tc-tour-panel-inner {
+    padding: 0;
+}
+
+/* Navigation buttons: match cypro toolbar style */
+.tc-tour-panel .tc-tour-panel-navigation {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.tc-tour-panel .tc-btn-big-green {
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.tc-tour-panel .tc-tour-panel-navigation-next {
+    background: var(--lba-blue, #051571);
+    color: white;
+    margin-left: auto;
+}
+
+.tc-tour-panel .tc-tour-panel-navigation-back {
+    background: transparent;
+    color: #555;
+    border: 1px solid #ccc !important;
+}
+
+.tc-tour-panel .tc-tour-panel-navigation-hint {
+    background: #ff9800;
+    color: white;
+}
+
+/* Step done confirmation */
+.tc-tour-step-done {
+    color: #4CAF50;
+    font-weight: 600;
+    margin: 0.5rem 0;
+}
+
+/* Suppress the tour chooser dropdown (single-tour setup) */
+.tc-tour-panel-list-button {
+    display: none;
+}
+
+/* Demo buttons in tour panel — visual only, no hover/click */
+.tc-tour-panel .cypro-btn {
+    pointer-events: none;
+    cursor: default;
+}
+
+/* Disclaimer warning box */
+.cypro-disclaimer-box {
+    border: 2px solid #c62828;
+    border-left: 6px solid #c62828;
+    background: #fff8f8;
+    border-radius: 4px;
+    padding: 1rem 1.4rem;
+    margin: 0.8rem 0;
+}
+.cypro-disclaimer-box h3 {
+    color: #c62828;
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+}
+.cypro-disclaimer-item {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #f0c8c8;
+    line-height: 1.5;
+}
+.cypro-disclaimer-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* ============================================
+   HINT PULSE — active when $:/state/tour/hint = yes
+   ============================================ */
+
+<$list filter="[[$:/state/tour/hint]text[yes]]">
+button[aria-label="Neues KIKS anlegen"] {
+    outline: 3px solid #ff9800;
+    outline-offset: 3px;
+    animation: cypro-tour-pulse 0.9s ease-in-out infinite;
+    border-radius: 4px;
+}
+@keyframes cypro-tour-pulse {
+    0%, 100% { outline-color: rgba(255, 152, 0, 0.2); }
+    50%       { outline-color: rgba(255, 152, 0, 1);   }
+}
+</$list>
+
+/* ============================================
+   STRUCTURE SPOTLIGHT — only active while on the structure step
+   Uses text[] to check $:/state/tour/step content — auto-clears on advance
+   ============================================ */
+
+<$list filter="[[$:/config/ShowTour]!text[no]]">
+<$list filter="[[$:/state/tour/step]text[$:/plugins/aeckert/cypro/tour/onboarding/structure]]">
+.tc-story-river {
+    opacity: 0.15;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.tc-topbar {
+    opacity: 0.15;
+    transition: opacity 0.3s ease;
+}
+.cypro-sidebar-legend,
+.cypro-sidebar-devmode,
+.tc-site-title,
+.tc-site-subtitle,
+.tc-search,
+.tc-sidebar-lists,
+.tc-page-controls,
+.tc-alert {
+    opacity: 0.15;
+    transition: opacity 0.3s ease;
+}
+.cypro-sidebar-chapters {
+    border-left: 4px solid #e53935;
+    padding-left: 10px;
+    animation: cypro-tour-structure-glow 1.5s ease-in-out infinite;
+}
+@keyframes cypro-tour-structure-glow {
+    0%, 100% { border-left-color: rgba(229, 57, 53, 0.3); }
+    50%       { border-left-color: rgba(229, 57, 53, 1);   }
+}
+</$list>
+</$list>
+
+/* ============================================
+   THREAT ROW SPOTLIGHT — only active while on the threats step
+   ============================================ */
+
+<$list filter="[[$:/config/ShowTour]!text[no]]">
+<$list filter="[[$:/state/tour/step]text[$:/plugins/aeckert/cypro/tour/onboarding/threats]]">
+.cypro-tour-threat-row td {
+    background: #fff8e1;
+}
+.cypro-tour-threat-row {
+    outline: 3px solid #ff9800;
+    outline-offset: -2px;
+    animation: cypro-tour-threats-glow 1.5s ease-in-out infinite;
+}
+.cypro-tour-threat-row td:first-child {
+    border-left: 3px solid #ff9800;
+}
+@keyframes cypro-tour-threats-glow {
+    0%, 100% { outline-color: rgba(255, 152, 0, 0.3); }
+    50%       { outline-color: rgba(255, 152, 0, 1); }
+}
+</$list>
+</$list>
+
+/* ============================================
+   MEASURES SPOTLIGHT — only active while on the threats-measures step
+   ============================================ */
+
+<$list filter="[[$:/config/ShowTour]!text[no]]">
+<$list filter="[[$:/state/tour/step]text[$:/plugins/aeckert/cypro/tour/onboarding/threats-measures]]">
+.cypro-measures-section {
+    border: 3px solid #ff9800;
+    border-radius: 6px;
+    padding: 1rem;
+    background: #fff8e1;
+    animation: cypro-tour-measures-glow 1.5s ease-in-out infinite;
+}
+@keyframes cypro-tour-measures-glow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 152, 0, 0.3); }
+    50%       { box-shadow: 0 0 20px rgba(255, 152, 0, 0.7); }
+}
+</$list>
+</$list>

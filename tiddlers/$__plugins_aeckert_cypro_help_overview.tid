@@ -1,0 +1,63 @@
+caption: Informationsbereich
+created: 20260418171421338
+modified: 20260502195813296
+tags: help
+title: $:/plugins/aeckert/cypro/help/overview
+type: text/vnd.tiddlywiki
+
+<!--
+  help/overview — the hub of the in-app help (opened by the help toolbar button). It
+  auto-lists every `help`-tagged tiddler, split into two groups: tutorial topics (also
+  tagged `tutorial`, ordered by `tutorial-order`) and the remaining reference topics
+  (ordered by caption). It also offers the encrypt-file and start-tour tools. Individual
+  help tiddlers are also surfaced as context popups by the cypro-help macro (helpIcon).
+-->
+Hier finden Sie Erläuterungen zu den wichtigsten Konzepten, Werkzeugen und Arbeitsabläufen. Klicken Sie auf einen Eintrag, um die zugehörige Hilfe zu öffnen.
+
+!! Grundlagen
+
+Themen, die Sie auch im einführenden Tutorial finden:
+
+<ul>
+<$list filter="[all[shadows+tiddlers]tag[help]tag[tutorial]!title[$:/plugins/aeckert/cypro/help/overview]sort[tutorial-order]]">
+<li><$link to=<<currentTiddler>>><$view field="caption"><$view field="title"/></$view></$link></li>
+</$list>
+</ul>
+
+!! Weitere Hilfethemen
+
+Vertiefende Erläuterungen zu einzelnen Fachbegriffen und externen Diensten:
+
+<ul>
+<$list filter="[all[shadows+tiddlers]tag[help]!tag[tutorial]!tag[bsi-gefaehrdung]!title[$:/plugins/aeckert/cypro/help/overview]sort[caption]]">
+<li><$link to=<<currentTiddler>>><$view field="caption"><$view field="title"/></$view></$link></li>
+</$list>
+</ul>
+
+<$list filter="[all[shadows+tiddlers]tag[bsi-gefaehrdung]limit[1]]" variable="null">
+
+!! BSI Elementare Gefährdungen
+
+Erläuterungen des BSI zu den im Assistenten verwendeten elementaren Gefährdungen:
+
+<ul>
+<$list filter="[all[shadows+tiddlers]tag[bsi-gefaehrdung]sort[caption]]">
+<li><$link to=<<currentTiddler>>><$view field="caption"><$view field="title"/></$view></$link></li>
+</$list>
+</ul>
+
+</$list>
+
+!! Werkzeuge
+
+<div class="cypro-help-tools">
+<$button class="cypro-btn cypro-btn-secondary">
+<$action-sendmessage $message="tm-set-password"/>
+{{$:/core/images/locked-padlock}} Datei verschlüsseln
+</$button>
+{{$:/plugins/aeckert/cypro/buttons/tour}}
+</div>
+
+---
+
+💡 ''Tipp:'' An vielen Stellen im Assistenten finden Sie kleine {{$:/core/images/help}}-Symbole. Ein Klick darauf öffnet einen Hilfetext direkt im Kontext des jeweiligen Feldes.

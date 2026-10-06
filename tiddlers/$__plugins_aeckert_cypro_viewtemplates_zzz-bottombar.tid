@@ -1,0 +1,22 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/zzz-bottombar
+tags: $:/tags/ViewTemplate
+list-after: $:/plugins/aeckert/cypro/viewtemplates/threat
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<!--
+  zzz-bottombar — pins the action toolbar (components/toolbar) to the bottom of the
+  page. The "zzz" prefix and `list-after` ordering make it render last. The long
+  filter is the WHERE-clause: show the bottom bar on every entity (KIKS / threat /
+  measure / training / matrix-detail) and on cypro tiddlers (code pages under the
+  pages/ prefix + user-data pages under $:/cypro/data/), but NOT on the
+  print/overview/list-detail pages, which have their own chrome.
+-->
+<$list filter="[all[current]tag[KIKS]] [all[current]tag[threat]] [all[current]tag[measure]] [all[current]tag[training]] [all[current]tag[matrix-detail]] [all[current]prefix[$:/plugins/aeckert/cypro/pages/]] [all[current]prefix[$:/cypro/data/]] -[[$:/plugins/aeckert/cypro/pages/printCheck]] -[[$:/plugins/aeckert/cypro/pages/checksOverview]] -[[$:/plugins/aeckert/cypro/pages/listKIKSDetail]] -[[$:/plugins/aeckert/cypro/pages/listMeasuresDetail]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+<div class="cypro-toolbar cypro-toolbar-bottom">
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/toolbar}}
+</div>
+</$set>
+</$list>

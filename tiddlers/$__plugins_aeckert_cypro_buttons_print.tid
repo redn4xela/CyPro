@@ -1,0 +1,19 @@
+caption: {{$:/core/images/print-button}} Programm prüfen
+description: Prüft das Sicherheitsprogramm und öffnet die Druckansicht
+tags: $:/tags/PageControls
+title: $:/plugins/aeckert/cypro/buttons/print
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\import [[$:/plugins/aeckert/cypro/macros/runChecks]]
+
+<!-- Toolbar button — runs cypro-run-checks (re-evaluate all checks, then open the
+     printable check page). See macros/runChecks. -->
+<$button
+    tooltip="Sicherheitsprogramm prüfen und drucken"
+    aria-label="Sicherheitsprogramm prüfen und drucken"
+    class={{{ [<tv-config-toolbar-class>] [[cypro-toolbar-btn]] +[join[ ]] }}}
+    actions=<<cypro-run-checks>>
+>
+    {{$:/core/images/print-button}}
+</$button>

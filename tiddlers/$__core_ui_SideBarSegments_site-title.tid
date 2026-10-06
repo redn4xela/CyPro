@@ -1,0 +1,9 @@
+title: $:/core/ui/SideBarSegments/site-title
+tags: $:/tags/SideBarSegment
+type: text/vnd.tiddlywiki
+
+<h1 class="tc-site-title">
+
+[img class="cypro-site-logo" [$:/plugins/aeckert/cypro/images/cypro-logo.png]]
+
+</h1>

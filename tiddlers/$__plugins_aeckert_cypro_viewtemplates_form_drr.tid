@@ -1,0 +1,49 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/drr
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the Weitere Maßnahmen page (grouping handle drr:
+     Detection-Response-Recovery; pattern as form/company). Three checkboxTextGen blocks
+     — Detection, Response, Recovery — each turning ticked options into generated prose
+     via its JSON paragraphs data tiddler. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/drr]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$let pageTiddler=<<currentTiddler>>
+      targetField="drr-detection-method"
+      textField="drr-detection-method-text"
+      additionalField="drr-detection-method-additional"
+      labelParam="Welche Maßnahmen wurden zur Erkennung eines Cyberangriffs eingeführt?"
+      optionsInfoFilter="yes"
+      optionsFilter="[[Sensibilisierung der Mitarbeitenden]] [[Monitoring und Überwachung von Netzwerken]] [[Protokollierung und Analyse von Sicherheitsereignissen]]"
+      paragraphsTiddler="$:/plugins/aeckert/cypro/data/drrDetectionMethod">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen}}
+</$let>
+
+<$let pageTiddler=<<currentTiddler>>
+      targetField="drr-response-method"
+      textField="drr-response-method-text"
+      additionalField="drr-response-method-additional"
+      labelParam="Welche Maßnahmen wurden zur Reaktion auf einen Cyberangriff eingeführt?"
+      optionsInfoFilter="yes"
+      optionsFilter="[[Befolgung eines IT-Notfallplans]] [[Durchführung von Beweissicherungsmaßnahmen]] [[Berücksichtigung festgelegter Krisenkommunikation]]"
+      paragraphsTiddler="$:/plugins/aeckert/cypro/data/drrResponseMethod">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen}}
+</$let>
+
+<$let pageTiddler=<<currentTiddler>>
+      targetField="drr-recovery-method"
+      textField="drr-recovery-method-text"
+      additionalField="drr-recovery-method-additional"
+      labelParam="Welche Maßnahmen wurden zur Bewältigung eines Cybersicherheitsvorfalls und zur Wiederherstellung eines sicheren Systemzustandes eingeführt?"
+      optionsInfoFilter="yes"
+      optionsFilter="[[Wiederherstellung aus Datensicherungen]] [[Isolierung betroffener Systeme]] [[Einleitung forensischer Maßnahmen]] [[Benachrichtigung betroffener Stellen]]"
+      paragraphsTiddler="$:/plugins/aeckert/cypro/data/drrRecoveryMethod">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen}}
+</$let>
+
+</$set>
+</$list>

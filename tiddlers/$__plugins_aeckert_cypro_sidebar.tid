@@ -1,0 +1,70 @@
+tags: $:/tags/SideBarSegment
+title: $:/plugins/aeckert/cypro/sidebar
+
+<!--
+  sidebar — DATA-DRIVEN (Phase 3, task 137 step 3.4).
+
+  One section block per "<n>-caption" index of $:/config/cypro/Sections; within
+  each, one entry per slug from "<n>-pages". For every slug `pg` the config also
+  carries `pg` (the navigated tiddler) and `pg-caption` (display label fallback
+  for the first run; the data tiddler's own `caption` field wins once it exists).
+  The green/red light = ALL checks whose `page` field targets that tiddler pass.
+  No page titles are hard-coded here anymore. See the config tiddler's comments.
+-->
+<$let conf="$:/config/cypro/Sections">
+
+<div class="cypro-sidebar-chapters">
+
+<$list filter="[[$:/config/cypro/Sections]indexes[]regexp[^\d+-caption$]]" variable="skey">
+	<$set name="snum" value={{{ [<skey>removesuffix[-caption]] }}}>
+	<$set name="pagesKey" value={{{ [<snum>addsuffix[-pages]] }}}>
+	<div class="cypro-sidebar-section">
+	<h3><$text text={{{ [<conf>getindex<skey>] }}}/></h3>
+	<$list filter="[<conf>getindex<pagesKey>enlist-input[]]" variable="pg">
+		<$set name="pTid" value={{{ [<conf>getindex<pg>] }}}>
+		<$set name="capKey" value={{{ [<pg>addsuffix[-caption]] }}}>
+		<$set name="total" value={{{ [all[shadows+tiddlers]tag[cypro-check]page<pTid>count[]] }}}>
+		<$set name="passing" value={{{ [all[shadows+tiddlers]tag[cypro-check]page<pTid>] :filter[all[tiddlers]subfilter{!!filter}] +[count[]] }}}>
+		<h4 class="cypro-section-item">
+			<$list filter="[<passing>compare:integer:eq<total>]" emptyMessage="""<<cypro-circle-popup "🔴" "x">>""">
+				<<cypro-circle-popup "🟢" "x">>
+			</$list>
+			<$link to=<<pTid>>><$text text={{{ [<pTid>get[caption]] :else[<conf>getindex<capKey>] }}}/></$link>
+		</h4>
+		</$set>
+		</$set>
+		</$set>
+		</$set>
+	</$list>
+	</div>
+	</$set>
+	</$set>
+</$list>
+
+</div>
+
+<div class="cypro-sidebar-section">
+<div class="cypro-sidebar-legend">
+<span class="cypro-status-dot cypro-status-ok"/> vollständig &nbsp; <span class="cypro-status-dot cypro-status-todo"/> unvollständig
+</div>
+</div>
+
+<div class="cypro-sidebar-devmode">
+<$let devNow={{{ [{$:/config/cypro/DevMode}] }}}>
+<$button class="cypro-devmode-slider">
+<$action-setfield $tiddler="$:/config/cypro/ShowOriginalSidebar" text={{{ [<devNow>match[yes]then[no]else[yes]] }}}/>
+<$action-setfield $tiddler="$:/config/cypro/ShowOriginalPageControls" text={{{ [<devNow>match[yes]then[no]else[yes]] }}}/>
+<$action-setfield $tiddler="$:/view" text={{{ [<devNow>match[yes]then[zoomin]else[classic]] }}}/>
+<$action-setfield $tiddler="$:/config/cypro/DevMode" text={{{ [<devNow>match[yes]then[no]else[yes]] }}}/>
+<span class={{{ [<devNow>match[yes]then[cypro-slider-track cypro-slider-on]else[cypro-slider-track]] }}}><span class="cypro-slider-thumb"/></span> Entwicklermodus
+</$button>
+</$let>
+</div>
+
+<div class="cypro-sidebar-logo">
+<a href="https://www.lba.de" target="_blank" rel="noopener">
+[img[$:/plugins/aeckert/cypro/images/lba-logo.png]]
+</a>
+</div>
+
+</$let>

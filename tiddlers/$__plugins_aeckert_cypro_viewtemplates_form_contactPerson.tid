@@ -1,0 +1,38 @@
+created: 20260418092842013
+modified: 20260418092845996
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/contactPerson
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the Ansprechperson page (pattern as form/company). A checkbox
+     (`alt-contact`) toggles whether a SEPARATE security contact exists; if yes, name /
+     phone / email input fields appear. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/contactPerson]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+@@.tc-alert
+<$transclude tiddler="$:/plugins/aeckert/cypro/help/contactPerson" mode="block"/>
+@@
+
+<$let fieldParam="alt-contact" labelParam="Ansprechperson Cybersecurity">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkbox}}
+</$let>
+
+<$list filter="[all[current]get[alt-contact]match[yes]]" variable="null">
+  <$let fieldParam="alt-contact-name" labelParam="Name">
+    {{||$:/plugins/aeckert/cypro/viewtemplates/components/inputField}}
+  </$let>
+  <$let fieldParam="alt-contact-phone" labelParam="Telefon">
+    {{||$:/plugins/aeckert/cypro/viewtemplates/components/inputField}}
+  </$let>
+  <$let fieldParam="alt-contact-email" labelParam="E-Mail">
+    {{||$:/plugins/aeckert/cypro/viewtemplates/components/inputField}}
+  </$let>
+</$list>
+
+</$set>
+
+</$list>

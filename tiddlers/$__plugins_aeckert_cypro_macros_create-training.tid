@@ -1,0 +1,39 @@
+created: 20260428000000001
+modified: 20260428000000001
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/create-training
+type: text/vnd.tiddlywiki
+
+\define training-create-action()
+<!--
+  training-create-action — create a new awareness-training entry (tag `training`).
+
+  Mirrors create-kiks: derive the next id "TR<nn>" from the highest existing one,
+  give it a default caption ("Schulung N"). The FIRST training created defaults
+  its audience to "Alle Mitarbeitenden" (everyone); later ones default to "Alle
+  restlichen Mitarbeitenden" (everyone else), since the first usually covers all
+  staff. Finally it selects the new training's tab in the training UI.
+-->
+<$vars nextID={{{ [function[cypro-next-id],[training],[TR]] }}}>
+<$vars nextNum={{{ [<nextID>removeprefix[TR]add[0]] }}}>
+<$vars nextCaption={{{ [<nextNum>addprefix[Schulung ]] }}}>
+<$let isFirst={{{ [tag[training]count[]match[0]then[yes]else[no]] }}}>
+<$let defaultAudience={{{ [<isFirst>match[yes]then[Alle Mitarbeitenden]else[Alle restlichen Mitarbeitenden]] }}}>
+
+<$action-createtiddler
+  $basetitle=<<nextID>>
+  tags="training"
+  caption=<<nextCaption>>
+  id=<<nextID>>
+  audience=<<defaultAudience>>
+  audience_default="yes"
+  internals="no"
+  internals_text="Unternehmensinterne Richtlinien und Verfahren zum Schutz vor und Verhalten bei Cyberangriffen werden gesondert vermittelt."
+  topics=""
+  text=""
+>
+  <$action-setfield $tiddler="$:/state/cypro/training/selectedTab" text=<<createTiddler-title>>/>
+</$action-createtiddler>
+
+</$let></$let></$vars></$vars></$vars>
+\end

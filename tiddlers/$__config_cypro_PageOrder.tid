@@ -1,0 +1,5 @@
+title: $:/config/cypro/PageOrder
+type: text/vnd.tiddlywiki
+list: $:/cypro/data/company $:/cypro/data/contactPerson $:/cypro/data/BSIPortal $:/cypro/data/identificationKIKS $:/plugins/aeckert/cypro/pages/listKIKS $:/cypro/data/identificationRisk $:/cypro/data/monitoring $:/cypro/data/drr $:/cypro/data/backgroundcheck $:/cypro/data/training
+
+Geführte Reihenfolge der Hauptseiten (Sidebar oben→unten) für die Weiter/Zurück-Navigation.

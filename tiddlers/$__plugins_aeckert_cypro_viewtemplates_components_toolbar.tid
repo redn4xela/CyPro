@@ -1,0 +1,146 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/components/toolbar
+
+\whitespace trim
+\import [[$:/plugins/aeckert/cypro/macros/editControl]]
+\import [[$:/plugins/aeckert/cypro/macros/runChecks]]
+
+<!--
+  toolbar — the per-page action bar transcluded by every cypro page/entity (see
+  zzz-bottombar, which pins it to the bottom). Two halves:
+
+  LEFT:  context-dependent "back" button (threat -> its KIKS, KIKS -> KIKS list,
+         measure -> measures list, matrix-detail -> overview) AND the mode/cancel
+         action(s): "Neues KIKS anlegen" on the KIKS list; otherwise "Bearbeiten"
+         when locked, or "Verwerfen" (discard, only if a snapshot exists) plus the
+         entity's delete button when unlocked. Actions come from macros/editControl.
+  RIGHT: the primary confirm/forward action, kept on the right in both states:
+         when locked, forward-only guided navigation — "Weiter" to the next page in
+         the guided order ($:/config/cypro/PageOrder), or "Programm prüfen" on the
+         final step (runs the checks and opens the print view, macros/runChecks);
+         when unlocked (editing), "Übernehmen" (save). Weiter and Übernehmen never
+         show together (Weiter is locked-only, Übernehmen unlocked-only).
+
+  The `isLocked` variable is provided by the enclosing viewtemplate.
+-->
+<div class="cypro-toolbar-bar">
+
+<div class="cypro-toolbar-left">
+
+<!-- Structural back for subpages, derived from title/tag (always available) -->
+<$list filter="[<currentTiddler>tag[threat]]" variable="null">
+<$let parentKiks={{{ [<currentTiddler>get[kiks]] }}}>
+<$button class="cypro-btn cypro-btn-ghost" tooltip="Zurück zum KIKS">
+<$action-sendmessage $message="tm-close-tiddler" $param=<<currentTiddler>>/>
+<$action-navigate $to=<<parentKiks>>/>
+<span class="cypro-btn-icon">{{$:/core/images/chevron-left}}</span>
+<span class="cypro-btn-label"><$text text={{{ [<parentKiks>addprefix[KIKS ]] }}}/></span>
+</$button>
+</$let>
+</$list>
+<$list filter="[<currentTiddler>tag[KIKS]]" variable="null">
+<$button class="cypro-btn cypro-btn-ghost" tooltip="Zurück zur KIKS-Liste">
+<$action-sendmessage $message="tm-close-tiddler" $param=<<currentTiddler>>/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/listKIKS"/>
+<span class="cypro-btn-icon">{{$:/core/images/chevron-left}}</span>
+<span class="cypro-btn-label">Auflistung KIKS</span>
+</$button>
+</$list>
+<$list filter="[<currentTiddler>tag[measure]]" variable="null">
+<$button class="cypro-btn cypro-btn-ghost" tooltip="Zurück zur Maßnahmen-Liste">
+<$action-sendmessage $message="tm-close-tiddler" $param=<<currentTiddler>>/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/listMeasures"/>
+<span class="cypro-btn-icon">{{$:/core/images/chevron-left}}</span>
+<span class="cypro-btn-label">Auflistung Schutzmaßnahmen</span>
+</$button>
+</$list>
+<$list filter="[<currentTiddler>tag[matrix-detail]]" variable="null">
+<$button class="cypro-btn cypro-btn-ghost" tooltip="Zurück zur Übersicht">
+<$action-sendmessage $message="tm-close-tiddler" $param=<<currentTiddler>>/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/home"/>
+<span class="cypro-btn-icon">{{$:/core/images/chevron-left}}</span>
+<span class="cypro-btn-label">Übersicht</span>
+</$button>
+</$list>
+
+<!-- Context actions on the LEFT (blue/primary) so the focus stays here; Weiter is the lighter button on the right -->
+<$list filter="[all[current]field:title[$:/plugins/aeckert/cypro/pages/listKIKS]]" variable="null">
+<div class="cypro-toolbar-group">
+<$button class="cypro-btn cypro-btn-create" actions=<<kiks-create-action>>
+         tooltip="Neues KIKS anlegen" aria-label="Neues KIKS anlegen">
+<span class="cypro-btn-label">Neues KIKS anlegen</span>
+</$button>
+</div>
+</$list>
+
+<$list filter="[all[current]] -[[$:/plugins/aeckert/cypro/pages/listKIKS]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]] -[all[current]tag[matrix-detail]]" variable="null">
+<$list filter="[<isLocked>match[yes]]" variable="null">
+<div class="cypro-toolbar-group">
+<$button class="cypro-btn cypro-btn-secondary" actions=<<cypro-snapshot>>>
+<span class="cypro-btn-label">Bearbeiten</span>
+</$button>
+</div>
+</$list>
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<div class="cypro-toolbar-group">
+<$list filter="[<currentTiddler>tag[KIKS]]" variable="null">
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/deleteButton}}
+</$list>
+<$list filter="[<currentTiddler>tag[threat]]" variable="null">
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/deleteButton}}
+</$list>
+<$list filter="[<currentTiddler>tag[measure]]" variable="null">
+{{||$:/plugins/aeckert/cypro/viewtemplates/measure/deleteButton}}
+</$list>
+<$list filter="[<currentTiddler>tag[training]]" variable="null">
+{{||$:/plugins/aeckert/cypro/viewtemplates/training/deleteButton}}
+</$list>
+<$list filter="[<currentTiddler>!tag[matrix-detail]]" variable="null">
+<!-- Verwerfen only when a snapshot exists to restore from (i.e. after Bearbeiten on saved data) -->
+<$list filter="[<currentTiddler>addprefix[$:/state/cypro/snapshot/]is[tiddler]]" variable="null">
+<$button class="cypro-btn cypro-btn-ghost" actions=<<cypro-discard>>>
+<span class="cypro-btn-label">Verwerfen</span>
+</$button>
+</$list>
+<!-- Übernehmen (save) lives on the RIGHT now (see cypro-toolbar-right), not here -->
+</$list>
+</div>
+</$list>
+</$list>
+</div>
+
+<div class="cypro-toolbar-right">
+
+<!-- Primary confirm action (Übernehmen / save) on the RIGHT while editing; only on editable entities/pages when unlocked. Mirrors Weiter's position; the two never show together (Weiter is locked-only, Übernehmen is unlocked-only). -->
+<$list filter="[all[current]] -[[$:/plugins/aeckert/cypro/pages/listKIKS]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]] -[all[current]tag[matrix-detail]]" variable="null">
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<$button class="cypro-btn cypro-btn-primary" actions=<<cypro-save>>>
+<span class="cypro-btn-label">Übernehmen</span>
+</$button>
+</$list>
+</$list>
+
+<!-- Forward-only guided navigation (lighter button, no "Weiter:" prefix); only on pages that are part of the guided order, when locked or on the KIKS list -->
+<$list filter="[list[$:/config/cypro/PageOrder]match<currentTiddler>]" variable="null">
+<$list filter="[<isLocked>match[yes]then<currentTiddler>] [<currentTiddler>field:title[$:/plugins/aeckert/cypro/pages/listKIKS]] +[unique[]]" variable="null">
+<$let nextPage={{{ [list[$:/config/cypro/PageOrder]after<currentTiddler>] }}}>
+<$list filter="[<nextPage>!is[blank]]" variable="null">
+<$button class="cypro-btn cypro-btn-forward" tooltip={{{ [<nextPage>get[caption]addprefix[Weiter zu: ]] }}}>
+<$action-sendmessage $message="tm-close-tiddler" $param=<<currentTiddler>>/>
+<$action-navigate $to=<<nextPage>>/>
+<span class="cypro-btn-label">Weiter</span>
+<span class="cypro-btn-icon">{{$:/core/images/chevron-right}}</span>
+</$button>
+</$list>
+<!-- Last step of the tour: review the checks and open the print view -->
+<$list filter="[<nextPage>is[blank]]" variable="null">
+<$button class="cypro-btn cypro-btn-forward" tooltip="Sicherheitsprogramm prüfen und Druckansicht öffnen" actions=<<cypro-run-checks>>>
+<span class="cypro-btn-label">Programm prüfen</span>
+<span class="cypro-btn-icon">{{$:/core/images/chevron-right}}</span>
+</$button>
+</$list>
+</$let>
+</$list>
+</$list>
+</div>
+
+</div>

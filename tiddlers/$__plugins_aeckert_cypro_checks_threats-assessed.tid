@@ -1,0 +1,20 @@
+caption: Gefährdungen nicht bewertet
+created: 20260923120000000
+filter: [tag[threat]!field:applicable[no]] -[has[initial_impact]has[initial_probability]] +[count[]match[0]]
+modified: 20260923120000000
+page: $:/plugins/aeckert/cypro/pages/listKIKS
+section: 2.3
+tags: cypro-check
+title: $:/plugins/aeckert/cypro/checks/threats-assessed
+type: text/vnd.tiddlywiki
+
+Bewerten Sie jede anwendbare Gefährdung mit Eintrittshäufigkeit und Schadenshöhe
+und entscheiden Sie die Anwendbarkeit jeder Gefährdung (Ja/Nein).
+
+<!-- cypro-check (TASK-127): passes when no threat is left "unassessed".
+     Unassessed = a threat whose applicability is not "no" (so undecided OR applicable)
+     AND that is missing either initial_impact or initial_probability. `has[field]`
+     without a suffix tests the field value for non-emptiness (a present-but-empty
+     field counts as missing). The set difference removes fully assessed threats and
+     `count[]match[0]` passes only when none remain. Blocks the pre-print check, so an
+     unassessed/undecided threat prevents printing. -->

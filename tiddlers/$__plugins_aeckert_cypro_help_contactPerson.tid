@@ -1,0 +1,12 @@
+caption: Ansprechperson Cybersecurity
+created: 20260328135716898
+modified: 20260328143222273
+tags: help
+title: $:/plugins/aeckert/cypro/help/contactPerson
+type: text/vnd.tiddlywiki
+
+<!-- Help topic — about the cybersecurity contact person. Embedded on viewtemplates/form/contactPerson. -->
+
+Die Angabe einer //Ansprechperson Cybersecurity// ist ''nicht verpflichtend''.
+
+Diese optionale Angabe ermöglicht es, für behördliche Kontaktaufnahmen im Bereich Cybersecurity eine andere Person als den Luftsicherheitsbeauftragten zu benennen.

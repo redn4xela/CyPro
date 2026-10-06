@@ -1,0 +1,67 @@
+created: 20260121202232617
+modified: 20260421064118562
+tags: $:/tags/Stylesheet
+title: $:/plugins/aeckert/cypro/styles/layout
+type: text/vnd.tiddlywiki
+
+
+/* Stylesheet (wikitext-generated CSS). This is the master "kiosk mode" sheet: it hides
+   TiddlyWiki's own chrome so end users see ONLY the cypro UI. Each rule is wrapped in a
+   <$list> on a config flag, so the dev-mode toggle (buttons/dev-mode) can switch the raw
+   TW UI back on. */
+
+/* Hide ALL standard ViewTemplate elements for entity tiddlers */
+<$list filter="[[$:/config/cypro/DevMode]!text[yes]]">
+.tc-tiddler-frame[data-tags*="KIKS"],
+.tc-tiddler-frame[data-tags*="threat"],
+.tc-tiddler-frame[data-tags*="measure"],
+.tc-tiddler-frame[data-tags*="form"],
+.tc-tiddler-frame[data-tags*="help"],
+.tc-tiddler-frame[data-tags*="navigation"],
+.tc-tiddler-frame[data-tags*="tutorial"],
+.tc-tiddler-frame[data-tags*="matrix-detail"] {
+    & .tc-tiddler-title,
+    & .tc-subtitle,
+    & .tc-tags-wrapper,
+    & .tc-tiddler-controls,
+    & .tc-tiddler-body {
+        display: none !important;
+    }
+}
+.tc-tiddler-frame[data-tiddler-title="$:/plugins/aeckert/cypro/pages/printCheck"] .tc-tiddler-title,
+.tc-tiddler-frame[data-tiddler-title="$:/plugins/aeckert/cypro/pages/printCheck"] .tc-subtitle,
+.tc-tiddler-frame[data-tiddler-title="$:/plugins/aeckert/cypro/pages/printCheck"] .tc-tags-wrapper,
+.tc-tiddler-frame[data-tiddler-title="$:/plugins/aeckert/cypro/pages/printCheck"] .tc-tiddler-controls {
+    display: none !important;
+}
+</$list>
+
+/* Only show the most recently opened tiddler (last article in story river).
+   Previous articles remain in the StoryList for back-button navigation
+   but are hidden visually. Disabled in DevMode. */
+<$list filter="[[$:/config/cypro/DevMode]!text[yes]]">
+.tc-story-river > .tc-tiddler-frame:not(:last-of-type) {
+  display: none;
+}
+</$list>
+
+/* Hide the standard sidebar tabs (Open/Recent/Tools/More) unless in developer mode. The search box stays visible in both modes. */
+<$list filter="[[$:/config/cypro/ShowOriginalSidebar]!text[yes]]">
+.tc-sidebar-scrollable .tc-sidebar-tabs {
+    display: none !important;
+}
+</$list>
+
+/* Hide the standard toolbar buttons (all except the cypro buttons, recognized by the cypro-toolbar-btn class) */
+<$list filter="[[$:/config/cypro/ShowOriginalPageControls]!text[yes]]">
+.tc-page-controls > button:not(.cypro-toolbar-btn) {
+    display: none !important;
+}
+</$list>
+
+.small-icon svg {
+  width: 1em !important;
+  height: 1em !important;
+  vertical-align: middle;
+  opacity: 0.6;
+}

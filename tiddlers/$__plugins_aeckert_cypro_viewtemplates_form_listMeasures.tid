@@ -1,0 +1,32 @@
+list-after: $:/core/ui/ViewTemplate/body
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/listMeasures
+
+
+<!-- Form viewtemplate for the "Auflistung Schutzmaßnahmen" overview page. Read-only
+     table of all measures (isLocked hard-set to "yes"): ID and name, each linking to
+     the measure's detail page. -->
+<$list filter="[all[current]field:title[$:/plugins/aeckert/cypro/pages/listMeasures]]" variable="null">
+<$set name="isLocked" value="yes">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<table class="cypro-table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Bezeichnung</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[measure]sort[id]]">
+<tr>
+<td><$link to=<<currentTiddler>>>{{!!id}}</$link></td>
+<td><$text text={{!!caption}}/></td>
+</tr>
+</$list>
+</tbody>
+</table>
+
+</$set>
+</$list>

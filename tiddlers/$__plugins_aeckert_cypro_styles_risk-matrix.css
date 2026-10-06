@@ -1,0 +1,158 @@
+/* Stylesheet for the risk matrix shown on the overview page (impact x probability grid
+   with colored cells). */
+
+/* === RISK MATRIX STRUCTURE === */
+.risk-matrix {
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.risk-matrix .axis-label-vertical {
+  vertical-align: middle;
+  text-align: center;
+  width: 30px;
+  padding: 4px;
+  background: transparent;
+  font-weight: bold;
+  font-size: 0.95em;
+  color: #333;
+}
+
+.risk-matrix .axis-label-vertical .vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+.risk-matrix .axis-label-horizontal {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.95em;
+  color: #333;
+  padding: 8px 4px 4px 4px;
+  background: transparent;
+}
+
+.risk-matrix .cell {
+  width: 50px;
+  height: 50px;
+  background: #f5f5f5;
+  transition: all 0.2s;
+  padding: 0;
+  position: relative; /* ⭐ WICHTIG: Damit corner-badge positioniert werden kann */
+}
+
+.risk-matrix .cell.unacceptable {
+  background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+}
+
+.risk-matrix .label {
+  font-weight: bold;
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  padding: 5px;
+  background: #fafafa;
+  box-shadow: none;
+  min-width: 25px;
+}
+
+.risk-matrix .vertical-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+	font-weight: bold;
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  padding: 5px;
+  background: #fafafa;
+  box-shadow: none;
+  min-width: 25px;
+}
+
+/* === ACTIVE CELL WITH BUTTON === */
+.risk-cell-button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* ⭐ HINZUGEFÜGT */
+}
+
+.risk-cell-button:hover {
+  transform: scale(1.08);
+  z-index: 10; /* ⭐ HINZUGEFÜGT: Badge bleibt sichtbar beim Hover */
+}
+
+.risk-cell-button .risk-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  line-height: 1;
+}
+
+.cell.unacceptable .risk-cell-button .risk-value {
+  color: white;
+  font-size: 18px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* === EMPTY CELL (NO RISKS) === */
+.risk-cell-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  padding: 0;
+}
+
+.risk-value-static {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  line-height: 1;
+}
+
+.cell.unacceptable .risk-value-static {
+  color: white;
+  opacity: 0.9;
+}
+
+/* === CORNER BADGE === */
+.risk-badge {
+  position: absolute;
+  top: 2px; /* ⭐ GEÄNDERT: von -13px zu 2px */
+  right: 2px;
+  background: rgba(0,0,0,0.8); /* ⭐ GEÄNDERT: etwas dunkler */
+  color: white;
+  border-radius: 50%;
+  min-width: 18px; /* ⭐ GEÄNDERT: von 16px zu 18px */
+  height: 18px; /* ⭐ GEÄNDERT: von 16px zu 18px */
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px; /* ⭐ GEÄNDERT: von 10px zu 11px */
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4); /* ⭐ GEÄNDERT: stärkerer Schatten */
+  line-height: 1;
+  border: 2px solid white; /* ⭐ HINZUGEFÜGT: weißer Rand */
+  pointer-events: none; /* ⭐ HINZUGEFÜGT: Badge blockiert keine Klicks */
+}
+
+.cell.unacceptable .risk-badge {
+  background: rgba(255,255,255,0.95);
+  color: #d32f2f;
+  border: 2px solid rgba(211,47,47,0.3); /* ⭐ GEÄNDERT: passender zum Hintergrund */
+  font-weight: 900;
+}

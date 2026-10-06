@@ -1,0 +1,26 @@
+T01.threat_no: G0.14
+T01.caption: Ausspähen von Informationen / Spionage
+T02.threat_no: G0.15
+T02.caption: Abhören
+T03.threat_no: G0.16
+T03.caption: Diebstahl von Geräten, Datenträgern oder Dokumenten
+T04.threat_no: G0.18
+T04.caption: Fehlplanung oder fehlende Anpassung
+T05.threat_no: G0.19
+T05.caption: Offenlegung schützenswerter Informationen
+T06.threat_no: G0.21
+T06.caption: Manipulation von Hard- oder Software
+T07.threat_no: G0.22
+T07.caption: Manipulation von Informationen
+T08.threat_no: G0.23
+T08.caption: Unbefugtes Eindringen in IT-Systeme
+T09.threat_no: G0.25
+T09.caption: Ausfall von Geräten oder Systemen
+T10.threat_no: G0.26
+T10.caption: Fehlfunktion von Geräten oder Systemen
+T11.threat_no: G0.28
+T11.caption: Software-Schwachstellen oder -Fehler
+T12.threat_no: G0.30
+T12.caption: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+T13.threat_no: G0.31
+T13.caption: Fehlerhafte Nutzung oder Administration von Geräten und Systemen

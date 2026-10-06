@@ -1,0 +1,11 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/server
+preset-id: p-server
+name: Server und zentrale Dienste
+applicable: T01 T05 T06 T08 T09 T10 T11 T12 T13
+kiks: system
+confidentiality: yes
+integrity: yes
+availability: yes
+influence: hoch
+text: Zentrale Server- und Virtualisierungssysteme, deren Ausfall oder Kompromittierung den Betrieb der Organisation erheblich beeinträchtigt.
+type: text/vnd.tiddlywiki

@@ -1,0 +1,30 @@
+tags: $:/tags/PageControls
+type: text/vnd.tiddlywiki
+caption: {{$:/core/images/download-button}} Speichern
+description: Datei speichern
+title: $:/plugins/aeckert/cypro/buttons/save
+
+\whitespace trim
+<!-- Toolbar button — saves/downloads the wiki as a single HTML file. cyproSaveActions
+     wikifies the configured filename ($:/config/SaveWikiButton/Filename) and triggers
+     tm-download-file with the configured save template. Hidden in DevMode. -->
+\procedure cyproSaveActions()
+<$wikify name="cypro-filename-raw" text={{$:/config/SaveWikiButton/Filename}}>
+<$let cypro-filename={{{ [<cypro-filename-raw>trim[]] }}}>
+<$action-sendmessage $message="tm-download-file" $param={{$:/config/SaveWikiButton/Template}} filename=<<cypro-filename>>/>
+</$let>
+</$wikify>
+\end
+
+<$list filter="[[$:/config/cypro/DevMode]!text[yes]]" variable="null">
+<$button
+    tooltip="Datei speichern"
+    aria-label="Speichern"
+    actions=<<cyproSaveActions>>
+    class={{{ [<tv-config-toolbar-class>] [[cypro-toolbar-btn]] +[join[ ]] }}}
+>
+<span class="tc-dirty-indicator">
+{{$:/core/images/download-button}}
+</span>
+</$button>
+</$list>

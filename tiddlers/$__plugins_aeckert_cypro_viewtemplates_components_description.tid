@@ -1,0 +1,18 @@
+created: 20260213073736905
+modified: 20260402093825427
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/components/description
+type: text/vnd.tiddlywiki
+
+<!-- description — a "Beschreibung" textarea bound to the `text` field; read-only when locked. -->
+<div class="kiks-body-area">
+    <div class="kiks-field-label">
+        Beschreibung:
+    </div>
+    <$edit-text 
+        field="text" 
+        class={{{ [<isLocked>match[yes]then[kiks-field-textarea kiks-field-disabled]else[kiks-field-textarea]] }}}
+        rows="3" 
+        disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}
+    />
+</div>

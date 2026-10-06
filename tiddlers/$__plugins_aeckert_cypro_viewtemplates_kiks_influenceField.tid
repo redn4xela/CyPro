@@ -1,0 +1,18 @@
+created: 20260213073556400
+modified: 20260213074004451
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/influenceField
+type: text/vnd.tiddlywiki
+
+<!-- kiks/influenceField — editable "Einfluss auf die Luftsicherheit" field (mandatory). -->
+<div class="kiks-body-area">
+    <div class="kiks-field-label">
+        Einfluss auf die Luftsicherheit:
+    </div>
+    <$edit-text
+        field="influence"
+        class={{{ [<isLocked>match[yes]then[kiks-field-disabled kiks-field-textarea kiks-field-mandatory]else[kiks-field-textarea kiks-field-mandatory]] }}}
+        placeholder=""
+        disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}
+    />
+</div>

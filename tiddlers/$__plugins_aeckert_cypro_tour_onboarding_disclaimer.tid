@@ -1,0 +1,26 @@
+caption: Disclaimer
+created: 20260501213302845
+display-mode: fullscreen
+modified: 20260502185428002
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/disclaimer
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — legal disclaimer shown during onboarding. -->
+
+<div class="cypro-disclaimer-box">
+
+<div class="cypro-disclaimer-item">
+''Kein behördliches Werkzeug'' — Dieses Tool ist kein offizielles Werkzeug des Luftfahrt-Bundesamtes oder einer anderen Behörde.
+</div>
+<div class="cypro-disclaimer-item">
+''Verantwortung'' — Sie tragen die volle Verantwortung für den Schutz und die sichere Aufbewahrung dieser Datei.
+</div>
+<div class="cypro-disclaimer-item">
+''Keine Genehmigungsgarantie'' — Eine erfolgreiche Plausibilitätsprüfung innerhalb des Tools stellt keine Garantie für eine behördliche Genehmigung dar.
+</div>
+<div class="cypro-disclaimer-item">
+''Haftungsausschluss'' — Für inhaltliche oder technische Fehler wird keine Haftung übernommen.
+</div>
+
+</div>

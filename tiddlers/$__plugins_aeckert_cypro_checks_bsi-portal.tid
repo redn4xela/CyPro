@@ -1,0 +1,13 @@
+caption: BSI-Portal Registrierung fehlt
+created: 20260510000000002
+filter: [[$:/cypro/data/BSIPortal]get[reporting]match[yes]]
+modified: 20260824145215091
+page: $:/cypro/data/BSIPortal
+section: 1.4
+tags: cypro-check
+title: $:/plugins/aeckert/cypro/checks/bsi-portal
+type: text/vnd.tiddlywiki
+
+Registrieren Sie sich im BSI-Portal für das Melde- und Informationswesen.
+
+<!-- cypro-check: passes when the BSIPortal page's `reporting` field equals "yes". -->

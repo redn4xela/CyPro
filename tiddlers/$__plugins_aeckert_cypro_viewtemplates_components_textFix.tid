@@ -1,0 +1,12 @@
+created: 20260327233834334
+modified: 20260328122031982
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/components/textFix
+type: text/vnd.tiddlywiki
+
+<!-- textFix — render the current tiddler's `text` field (the rich body) as a styled block. -->
+<div class="cypro-text">
+	<div class="threat-title-wrapper">
+		<$transclude tiddler=<<currentTiddler>> field="text" mode="block"/>
+	</div>
+</div>

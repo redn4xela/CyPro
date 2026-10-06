@@ -1,0 +1,122 @@
+created: 20260428000000003
+modified: 20260428000000021
+title: $:/plugins/aeckert/cypro/viewtemplates/training/fields
+type: text/vnd.tiddlywiki
+
+<!--
+  training/fields — the editable body of one training (tag `training`). Operates on
+  <<pageTiddler>> (set by the training root or tab template). Four sections:
+    - Bezeichnung (caption)
+    - Zielgruppe (audience): a checkbox sets the default audience label (the first
+      training defaults to "Alle Mitarbeitenden", later ones to "Alle restlichen
+      Mitarbeitenden"); unchecking reveals a free-text audience field.
+    - Interne Richtlinien: a checkbox that swaps the generated `internals_text`.
+    - Schulungsinhalte (topics): predefined + custom topics stored in the `topics`
+      list-field, each removable.
+  Ends with a delete button (only when unlocked). All editing is gated on `isLocked`.
+-->
+<!-- Caption -->
+<div class="kiks-field-section">
+<span class="kiks-field-label">Bezeichnung</span>
+<$list filter="[<isLocked>match[yes]]" variable="null">
+<div class="kiks-field-readonly"><$view tiddler=<<pageTiddler>> field="caption"/></div>
+</$list>
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<$edit-text tiddler=<<pageTiddler>> field="caption" tag="input" class="kiks-title-input" placeholder="Bezeichnung der Schulung..."/>
+</$list>
+</div>
+
+<!-- Audience -->
+<div class="kiks-field-section">
+<span class="kiks-field-label">Zielgruppe</span>
+<$set name="defaultLabel" filter="[tag[training]sort[id]first[]match<pageTiddler>]" value="Alle Mitarbeitenden" emptyValue="Alle restlichen Mitarbeitenden">
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<label class="cypro-toggle-row">
+<$checkbox tiddler=<<pageTiddler>> field="audience_default" checked="yes" unchecked="no" default="yes" disabled="no"
+  checkactions="""<$action-setfield $tiddler=<<pageTiddler>> audience=<<defaultLabel>>/>"""
+  uncheckactions="""<$action-setfield $tiddler=<<pageTiddler>> audience=""/>"""/>
+<span><<defaultLabel>></span>
+</label>
+</$list>
+<$list filter="[<pageTiddler>get[audience_default]else[yes]!match[yes]]" variable="null">
+<$list filter="[<isLocked>match[yes]]" variable="null">
+<div class="kiks-field-readonly"><$view tiddler=<<pageTiddler>> field="audience"/></div>
+</$list>
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<$edit-text tiddler=<<pageTiddler>> field="audience" tag="input" class="cypro-field-input" placeholder="Zielgruppe beschreiben..."/>
+</$list>
+</$list>
+<$list filter="[<isLocked>match[yes]]" variable="null">
+<$list filter="[<pageTiddler>get[audience_default]else[yes]match[yes]]" variable="null">
+<div class="kiks-field-readonly"><<defaultLabel>></div>
+</$list>
+</$list>
+</$set>
+</div>
+
+<!-- Internals -->
+<div class="kiks-field-section">
+<span class="kiks-field-label">Interne Richtlinien</span>
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<label class="cypro-toggle-row">
+<$checkbox tiddler=<<pageTiddler>> field="internals" checked="yes" unchecked="no" default="no" disabled="no"
+  checkactions="""<$action-setfield $tiddler=<<pageTiddler>> internals_text="Die Schulung enthält unternehmensinterne Richtlinien und Verfahren zum Schutz vor und Verhalten bei Cyberangriffen."/>"""
+  uncheckactions="""<$action-setfield $tiddler=<<pageTiddler>> internals_text="Unternehmensinterne Richtlinien und Verfahren zum Schutz vor und Verhalten bei Cyberangriffen werden gesondert vermittelt."/>"""/>
+<span>Unternehmensinterne Richtlinien sind Bestandteil der Schulung.</span>
+</label>
+</$list>
+<$list filter="[<pageTiddler>get[internals_text]minlength[1]]" variable="null">
+<div class="cypro-gen-text"><$view tiddler=<<pageTiddler>> field="internals_text"/></div>
+</$list>
+</div>
+
+<!-- Topics -->
+<div class="kiks-field-section">
+<span class="kiks-field-label">Schulungsinhalte</span>
+
+<!-- Edit mode: predefined checkboxes + custom topic input -->
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<div class="cypro-checkbox-options">
+<$list filter="[[Clean Desk]] [[Internetsicherheit]] [[Passwörter]] [[Phishing]] [[Social Engineering]] [[Verhalten bei einem Sicherheitsvorfall]]" variable="opt">
+<div><label>
+<$checkbox tiddler=<<pageTiddler>> listField="topics" checked=<<opt>> unchecked="" default=""/>
+<$text text=<<opt>>/>
+</label></div>
+</$list>
+</div>
+<div class="cypro-custom-topic">
+<$edit-text tiddler="$:/state/cypro/training/newTopic" field="text" tag="input" class="cypro-field-input" placeholder="Eigenes Thema eingeben..."/>
+<$button class="cypro-btn cypro-btn-secondary">
+  <$action-listops $tiddler=<<pageTiddler>> $field="topics" $subfilter="+[!is[blank]] [{$:/state/cypro/training/newTopic}!is[blank]]"/>
+  <$action-setfield $tiddler="$:/state/cypro/training/newTopic" text=""/>
+  Hinzufügen
+</$button>
+</div>
+</$list>
+
+<!-- Topics list (edit + locked) with remove buttons when unlocked -->
+<$list filter="[<pageTiddler>get[topics]enlist-input[]]" variable="topic">
+<div class="cypro-topic-item">
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<$button class="cypro-topic-remove">
+  <$action-listops $tiddler=<<pageTiddler>> $field="topics" $subfilter="-[<topic>]"/>
+  ×
+</$button>
+</$list>
+<$text text=<<topic>>/>
+</div>
+</$list>
+
+</div>
+
+<!-- Delete button -->
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #fee;">
+<$button class="cypro-btn cypro-btn-danger" tooltip="Schulung löschen">
+  <$action-confirm $message="Möchten Sie diese Schulung wirklich löschen?">
+    <$macrocall $name="cypro-training-delete-actions" trainingTitle=<<pageTiddler>>/>
+  </$action-confirm>
+  <span class="cypro-btn-label">Schulung löschen</span>
+</$button>
+</div>
+</$list>

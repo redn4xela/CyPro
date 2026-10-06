@@ -1,0 +1,41 @@
+created: 20260903152000000
+modified: 20260923120000000
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/riskDisplay
+type: text/vnd.tiddlywiki
+
+<!--
+  threat/riskDisplay — read-only risk summary on the threat page, placed between
+  the evaluation radios (initImp/initProb) and the measures section.
+
+  TASK-127/145 semantics: a threat is "assessed" only when BOTH initial_impact and
+  initial_probability carry a value; only then does update-risk-actions write the
+  derived final_risk. This block therefore renders only for an applicable threat
+  with a determined final_risk and shows just the final Risikowert (no fabricated
+  "Initial → Final" for a partially rated threat). Non-applicable, undecided and
+  unassessed threats render nothing, matching the KIKS threats table.
+
+  The final value gets the kiks-risk-alert class (red) when >= 10, and the same
+  condition adds an orange hint (cypro-risk-hint, styled like .kiks-name-hint)
+  telling the user to take mitigating measures. The >= 10 threshold is shared with
+  viewtemplates/kiks/threats and checks/measures-maxrisk.
+-->
+<$list filter="[all[current]field:applicable[yes]]" variable="null">
+<$list filter="[<currentTiddler>has[final_risk]]" variable="null">
+<div class="kiks-body-area cypro-risk-display">
+    <div class="kiks-field-label">
+        Risikowert:
+    </div>
+    <div class="cypro-risk-values">
+        <span class={{{ [<currentTiddler>get[final_risk]compare:number:gteq[10]then[kiks-risk-alert]] }}}>
+            <b><$view field="final_risk"/></b>
+        </span>
+    </div>
+    <$list filter="[<currentTiddler>get[final_risk]compare:number:gteq[10]]" variable="null">
+    <div class="cypro-risk-hint">
+        Es müssen Maßnahmen zur Risikominimierung getroffen werden.
+    </div>
+    </$list>
+</div>
+</$list>
+</$list>

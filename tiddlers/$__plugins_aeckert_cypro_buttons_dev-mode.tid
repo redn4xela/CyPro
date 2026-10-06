@@ -1,0 +1,85 @@
+created: 20260121204214762
+modified: 20260421064203580
+tags:
+title: $:/plugins/aeckert/cypro/buttons/dev-mode
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\define config-title() $:/config/cypro/DevMode
+
+<!--
+  Developer-mode toggle
+  =====================
+
+  A single click flips the whole UI between the END-USER perspective (for
+  distribution / printing / daily use) and the DEVELOPER perspective (for editing
+  the plugin's source tiddlers).
+
+  The button manages FOUR config states together. Turning it on sets all of them to
+  "yes", turning it off sets all to "no", so the UI can never be left in an
+  inconsistent half-state (e.g. when switching back to normal view before an export).
+
+  Controlled states:
+
+  1. $:/config/cypro/DevMode
+     When "yes", styles/layout stops hiding the cypro ViewTemplates for tiddlers
+     tagged KIKS / threat / measure / form / help / navigation / tutorial and shows
+     the raw TW view (title, tags, body) so the underlying tiddlers can be edited.
+
+  2. $:/view
+     Set to "classic" (several tiddlers visible at once, classic story-river view) or
+     back to "zoomin" (focus on a single tiddler — the cypro UI's default).
+
+  3. $:/config/cypro/ShowOriginalSidebar
+     When "yes", styles/layout shows TiddlyWiki's standard sidebar — the search box
+     and the Open/Recent/Tools/More tabs — above the cypro sidebar. When "no" only the
+     cypro sidebar remains.
+
+  4. $:/config/cypro/ShowOriginalPageControls
+     When "yes", styles/layout shows all the standard page-control buttons (save, home,
+     control panel, manager, new tiddler, import, export, etc.). The cypro buttons
+     (new-kiks, dev-mode, print, help) carry the class cypro-toolbar-btn, which is how
+     the CSS tells them apart from the standard ones.
+
+  Important for distribution:
+  The shipped state is "all flags = no / $:/view = zoomin". In that state the exported
+  TiddlyWiki file shows only the cypro UI — no original sidebar, no original toolbar,
+  no raw ViewTemplates. So always make sure the toggle is OFF before exporting.
+-->
+
+<$button
+    tooltip="Entwickler-Modus"
+    aria-label="Entwickler-Modus"
+    class={{{
+        [[tc-btn-invisible ]]
+        [<tv-config-toolbar-class>]
+        [[cypro-toolbar-btn]]
+        [<config-title>get[text]match[yes]then[tc-selected]]
+        +[join[ ]]
+    }}}
+>
+    <!--
+      Order matters: set DevMode LAST so the first three actions still read the OLD
+      value. Otherwise actions 2-4 would already read the newly-set DevMode and run
+      inverted.
+    -->
+    <$action-setfield
+        $tiddler="$:/config/cypro/ShowOriginalSidebar"
+        text={{{ [<config-title>get[text]match[yes]then[no]else[yes]] }}}
+    />
+    <$action-setfield
+        $tiddler="$:/config/cypro/ShowOriginalPageControls"
+        text={{{ [<config-title>get[text]match[yes]then[no]else[yes]] }}}
+    />
+    <$action-setfield
+        $tiddler="$:/view"
+        text={{{ [<config-title>get[text]match[yes]then[zoomin]else[classic]] }}}
+    />
+    <$action-setfield
+        $tiddler=<<config-title>>
+        text={{{ [<config-title>get[text]match[yes]then[no]else[yes]] }}}
+    />
+    <span class={{{ [<config-title>get[text]match[yes]then[cypro-devmode-active]] }}}>
+        {{$:/core/images/theme-button}}
+    </span>
+</$button>

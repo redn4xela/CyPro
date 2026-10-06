@@ -1,0 +1,17 @@
+created: 20260428000000002
+modified: 20260428000000002
+title: $:/plugins/aeckert/cypro/viewtemplates/training/deleteButton
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+<!-- training/deleteButton — delete the current training (with confirmation) and
+     return to the training page. Used by the bottom toolbar. The cleanup itself
+     (clear the selected tab, drop the training's snapshot/lock state, navigate,
+     delete) lives in the shared macro cypro-training-delete-actions so this and
+     the inline delete in training/fields cannot drift apart. -->
+<$button class="cypro-btn cypro-btn-danger" tooltip="Schulung löschen">
+  <$action-confirm $message="Möchten Sie diese Schulung wirklich löschen?">
+    <$macrocall $name="cypro-training-delete-actions" trainingTitle=<<currentTiddler>>/>
+  </$action-confirm>
+  <span class="cypro-btn-label">Löschen</span>
+</$button>

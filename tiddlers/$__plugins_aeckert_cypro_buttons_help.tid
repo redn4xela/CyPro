@@ -1,0 +1,19 @@
+caption: {{$:/core/images/help}} Hilfe
+created: 20260418171406605
+description: Öffnet die Hilfeseite
+modified: 20260502193534709
+tags: $:/tags/PageControls
+title: $:/plugins/aeckert/cypro/buttons/help
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<!-- Toolbar button — navigates to the help overview page (help/overview). -->
+<$button
+    tooltip="Informationsbereich"
+    aria-label="Informationsbereich"
+    class={{{ [<tv-config-toolbar-class>] [[cypro-toolbar-btn]] +[join[ ]] }}}
+>
+<$action-navigate $to="$:/plugins/aeckert/cypro/help/overview"/>
+{{$:/core/images/tip}}
+</$button>

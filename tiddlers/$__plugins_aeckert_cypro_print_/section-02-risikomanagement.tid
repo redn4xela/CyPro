@@ -1,0 +1,294 @@
+caption: 2 – Risikomanagement
+order: 2
+tags: cypro-print-section
+title: $:/plugins/aeckert/cypro/print/section-02-risikomanagement
+type: text/vnd.tiddlywiki
+
+<div class="page-break"></div>
+
+!! 2 – Risikomanagement
+
+Wir haben einen Risikomanagementprozess unter Berücksichtigung der folgenden Unterabschnitte etabliert.
+
+!!! 2.2 Ermittlung kritischer informations- und kommunikationstechnischer Systeme und Daten
+
+!!!! 2.2.1 Methodik
+
+''Vorgehensweise zur Identifizierung von KIKS:''<br>
+{{$:/cypro/data/identificationKIKS!!kiks-method-approach-text}}
+{{$:/cypro/data/identificationKIKS!!kiks-method-approach-additional}}
+
+''Einbezogene Funktionsbezeichnungen:''<br>
+{{$:/cypro/data/identificationKIKS!!kiks-method-persons-text}}
+{{$:/cypro/data/identificationKIKS!!kiks-method-persons-additional}}
+
+!!!! 2.2.2 Auflistung KIKS
+
+Basierend auf den Begriffsbestimmungen in Abschnitt 1.2 der Grundsätze wurden die durch uns und auftragsgemäß für uns durch Dienstleister betriebenen informations- und kommunikationstechnischen Systeme und Daten ermittelt, welche aufgrund ihrer Bedeutung oder ihres Einflusses auf die Luftsicherheit als kritisch zu bewerten sind und in der Bundesrepublik Deutschland einer Interaktion zugeführt werden oder unter der deutschen Gerichtsbarkeit stehen.
+
+Die Erhebung erfolgte unabhängig des Umstandes, ob bereits Sicherheitsmaßnahmen etabliert wurden.
+
+<$list filter="[tag[KIKS]!prefix[Draft]sort[id]]">
+<div class="kiks-block">
+
+<b>{{!!id}}: {{!!caption}}</b>
+
+<table style="width:100%; border-collapse:collapse; margin-bottom:1.5em;">
+  <tbody>
+    <tr>
+      <td style="width:35%; padding:4px 8px; background:#f0f0f0; font-weight:bold;">Verkaufender/Dienstleistender</td>
+      <td style="padding:4px 8px;"><$transclude field="provider"/></td>
+    </tr>
+    <tr>
+      <td style="padding:4px 8px; background:#f0f0f0; font-weight:bold;">Schutzziel(e)</td>
+      <td style="padding:4px 8px;">
+        <% if [<currentTiddler>get[confidentiality]match[yes]] %>Vertraulichkeit <% endif %>
+        <% if [<currentTiddler>get[integrity]match[yes]] %>Integrität <% endif %>
+        <% if [<currentTiddler>get[availability]match[yes]] %>Verfügbarkeit <% endif %>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:4px 8px; background:#f0f0f0; font-weight:bold;">Art des Einflusses auf die Luftsicherheit</td>
+      <td style="padding:4px 8px;"><$transclude field="influence"/></td>
+    </tr>
+    <tr>
+      <td style="padding:4px 8px; background:#f0f0f0; font-weight:bold;">Art gespeicherter oder ausgetauschter Daten</td>
+      <td style="padding:4px 8px;"><$transclude field="data"/></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</$list>
+
+<div class="page-break"></div>
+
+!!! 2.3 Risikobeurteilung – Risk assessment
+
+!!! 2.3.1 Gefährdungsübersicht – Risk identification
+
+!!! 2.3.1.1 Methodik
+
+''Vorgehensweise zur Identifizierung von Gefährdungen:''<br>
+{{$:/cypro/data/identificationRisk!!risk-method-text}}
+{{$:/cypro/data/identificationRisk!!risk-method-additional}}
+
+!!! 2.3.1.2 Auflistung Gefährdungen
+<$list filter="[tag[KIKS]!prefix[Draft]sort[id]]">
+<$set name="KIKS" value=<<currentTiddler>>>
+
+''{{!!id}}: {{!!caption}}''
+
+<$list filter="[tag[threat]kiks<KIKS>sort[threat_no]applicable[yes]] :filter[has[initial_impact]has[initial_probability]]" variable="threatTiddler">
+<$let
+  riField={{{ [<threatTiddler>get[title]addsuffix[_RI]] }}}
+  rpField={{{ [<threatTiddler>get[title]addsuffix[_RP]] }}}
+>
+
+<div class="threat-block">
+<table style="width:100%; border-collapse:collapse; margin-bottom:0.5em;">
+  <thead>
+    <tr style="background:#e8e8e8;">
+      <th colspan="2" style="padding:4px 8px; text-align:left;">
+        <$macrocall $name="cypro-threat-no-label" t=<<threatTiddler>>/> – 
+        <$transclude tiddler=<<threatTiddler>> field="caption"/>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="width:40%; padding:4px 8px;">Anwendbarkeit</td>
+      <td style="padding:4px 8px;">Ja</td>
+    </tr>
+    <$list filter="[<threatTiddler>has[protection_goal]]" variable="null">
+    <tr>
+      <td style="width:40%; padding:4px 8px;">Schutzziel</td>
+      <td style="padding:4px 8px;"><$transclude tiddler=<<threatTiddler>> field="protection_goal"/></td>
+    </tr>
+    </$list>
+    <tr>
+      <td style="padding:4px 8px;">Eintrittshäufigkeit (initial)</td>
+      <td style="padding:4px 8px;"><$transclude tiddler=<<threatTiddler>> field="initial_probability"/></td>
+    </tr>
+    <tr>
+      <td style="padding:4px 8px;">Schadenshöhe (initial)</td>
+      <td style="padding:4px 8px;"><$transclude tiddler=<<threatTiddler>> field="initial_impact"/></td>
+    </tr>
+    <tr>
+      <td style="padding:4px 8px;"><strong>Initialer Risikowert</strong></td>
+      <td style="padding:4px 8px;"><strong><$transclude tiddler=<<threatTiddler>> field="initial_risk"/></strong></td>
+    </tr>
+
+    <$list filter="[tag[measure]tag<threatTiddler>sort[title]]" variable="measureTiddler" counter="measureCounter">
+      <$let
+        riField={{{ [<threatTiddler>get[title]addsuffix[_RI]] }}}
+        rpField={{{ [<threatTiddler>get[title]addsuffix[_RP]] }}}
+      >
+        <% if [<measureCounter>match[1]] %>
+        <tr>
+          <td colspan="2" style="padding:4px 8px; background:#f5f5f5;">
+            <strong>Maßnahmen:</strong>
+          </td>
+        </tr>
+        <% endif %>
+
+        <tr>
+          <td colspan="2" style="padding:0 8px 0 2em;">
+            <table style="width:100%; border-collapse:collapse; border-left: 3px solid #ccc;">
+              <tr style="background:#fafafa;">
+                <td colspan="2" style="padding:4px 8px;">
+                  <strong><$transclude tiddler=<<measureTiddler>> field="caption"/></strong>
+                </td>
+              </tr>
+              <tr>
+                <td style="width:40%; padding:4px 8px; padding-left:1.5em;">Beschreibung</td>
+                <td style="padding:4px 8px;"><$transclude tiddler=<<measureTiddler>> field="text"/></td>
+              </tr>
+              <tr>
+                <td style="padding:4px 8px; padding-left:1.5em;">Auswirkung auf Eintrittshäufigkeit</td>
+                <td style="padding:4px 8px;"><$transclude tiddler=<<measureTiddler>> field=<<rpField>>/></td>
+              </tr>
+              <tr>
+                <td style="padding:4px 8px; padding-left:1.5em;">Auswirkung auf Schadenshöhe</td>
+                <td style="padding:4px 8px;"><$transclude tiddler=<<measureTiddler>> field=<<riField>>/></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </$let>
+    </$list>
+
+    <tr>
+      <td style="padding:4px 8px;"><strong>Finaler Risikowert</strong></td>
+      <td style="padding:4px 8px;"><strong><$transclude tiddler=<<threatTiddler>> field="final_risk"/></strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</$let>
+</$list>
+
+<$list filter="[tag[threat]kiks<KIKS>sort[threat_no]field:applicable[no]]" variable="threatTiddler">
+<div class="threat-block">
+<table style="width:100%; border-collapse:collapse; margin-bottom:0.5em;">
+  <thead>
+    <tr style="background:#e8e8e8;">
+      <th colspan="2" style="padding:4px 8px; text-align:left;">
+        <$macrocall $name="cypro-threat-no-label" t=<<threatTiddler>>/> – 
+        <$transclude tiddler=<<threatTiddler>> field="caption"/>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="width:40%; padding:4px 8px;">Anwendbar</td>
+      <td style="padding:4px 8px;">Nicht anwendbar</td>
+    </tr>
+    <$list filter="[<threatTiddler>has[protection_goal]]" variable="null">
+    <tr>
+      <td style="width:40%; padding:4px 8px;">Schutzziel</td>
+      <td style="padding:4px 8px;"><$transclude tiddler=<<threatTiddler>> field="protection_goal"/></td>
+    </tr>
+    </$list>
+  </tbody>
+</table>
+</div>
+</$list>
+
+<!-- TASK-127: threats without a determined risk — undecided applicability, or
+     applicable but missing Schadenshöhe/Eintrittshäufigkeit — are flagged as
+     "Nicht bewertet" instead of being mislabelled "Nicht anwendbar". The
+     checks/threats-assessed check normally prevents printing this state. -->
+<$list filter="[tag[threat]kiks<KIKS>sort[threat_no]!field:applicable[no]] -[has[initial_impact]has[initial_probability]]" variable="threatTiddler">
+<div class="threat-block">
+<table style="width:100%; border-collapse:collapse; margin-bottom:0.5em;">
+  <thead>
+    <tr style="background:#e8e8e8;">
+      <th colspan="2" style="padding:4px 8px; text-align:left;">
+        <$macrocall $name="cypro-threat-no-label" t=<<threatTiddler>>/> – 
+        <$transclude tiddler=<<threatTiddler>> field="caption"/>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="width:40%; padding:4px 8px;">Anwendbarkeit</td>
+      <td style="padding:4px 8px;">Nicht bewertet</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</$list>
+
+</$set>
+</$list>
+
+!!! 2.3.2 Risikoeinschätzung – Risk analysis
+
+Die Eintrittshäufigkeiten und die Schadenshöhen sind im unmittelbaren Zusammenhang mit den konkretisierten Gefährdungen der KIKS in den Anlagen gemäß Kapitel 2.3.1.2 angegeben.
+
+!!! 2.3.3 Risikobewertung – Risk evaluation
+
+!!! 2.3.3.1 Methodik
+
+Die folgende qualitative Risikomatrix wurde genutzt:
+
+{{$:/plugins/aeckert/cypro/risk-matrix}}
+
+!!! 2.3.3.2 Auflistung Risikowerte
+
+Die Ergebnisse der Risikobewertung sind im unmittelbaren Zusammenhang mit den konkretisierten Gefährdungen in den Anlagen gemäß Kapitel 2.3.1.2 angegeben.
+
+!!! 2.4 Risikobehandlung – Risk treatment
+
+Die Schutzmaßnahmen sind mit ihren Auswirkungen auf die Risikowerte der konkretisierten Gefährdungen zu den KIKS in den Anlagen gemäß Kapitel 2.3.1.2 angegeben.
+
+<$list filter="[tag[measure]!tag[threat]count[]compare:number:gt[0]]" variable="null">
+
+!!! 2.4.1 Maßnahmen ohne Gefährdungsbezug
+
+<table style="width:100%; border-collapse:collapse; margin-bottom:1.5em;">
+  <thead>
+    <tr style="background:#e8e8e8;">
+      <th style="padding:4px 8px; text-align:left;">ID</th>
+      <th style="padding:4px 8px; text-align:left;">Bezeichnung</th>
+      <th style="padding:4px 8px; text-align:left;">Beschreibung</th>
+    </tr>
+  </thead>
+  <tbody>
+    <$list filter="[tag[measure]!tag[threat]sort[id]]" variable="freeMeasure">
+    <tr>
+      <td style="padding:4px 8px;"><$transclude tiddler=<<freeMeasure>> field="id"/></td>
+      <td style="padding:4px 8px;"><$transclude tiddler=<<freeMeasure>> field="caption"/></td>
+      <td style="padding:4px 8px;"><$transclude tiddler=<<freeMeasure>> field="text"/></td>
+    </tr>
+    </$list>
+  </tbody>
+</table>
+</$list>
+
+!!! 2.5 Überwachung – Monitoring
+
+{{$:/cypro/data/monitoring!!monitoring-method-text}}
+{{$:/cypro/data/monitoring!!monitoring-method-additional}}
+
+<div class="page-break"></div>
+
+!!! 2.6 Weitere Maßnahmen
+
+!!! 2.6.1 Erkennung
+
+{{$:/cypro/data/drr!!drr-detection-method-text}}
+{{$:/cypro/data/drr!!drr-detection-method-additional}}
+
+!!! 2.6.2 Reaktion
+
+Im Rahmen der Reaktion auf einen Cybersicherheitsvorfall liegt unser Hauptaugenmerk auf der Gewährleistung der Luftsicherheit. Durch die enge Einbindung der/des (Luft-)Sicherheitsbeauftragten und die damit einhergehende unmittelbare Informationssteuerung ist sichergestellt, dass umgehend alle notwendigen Schritte unternommen werden, um die Luftsicherheit weiterhin zu gewährleisten.
+
+{{$:/cypro/data/drr!!drr-response-method-text}}
+{{$:/cypro/data/drr!!drr-response-method-additional}}
+
+!!! 2.6.3 Bewältigung
+
+{{$:/cypro/data/drr!!drr-recovery-method-text}}
+{{$:/cypro/data/drr!!drr-recovery-method-additional}}

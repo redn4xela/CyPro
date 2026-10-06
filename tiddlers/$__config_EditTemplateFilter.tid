@@ -1,0 +1,7 @@
+created: 20260119211104590
+modified: 20260119211137495
+tags: 
+title: $:/config/EditTemplateFilter
+type: text/vnd.tiddlywiki
+
+[tag[XYZ]then[$:/plugins/aeckert/cypro/edittemplates/xyz]else[$:/plugins/aeckert/cypro/edittemplates/default]]

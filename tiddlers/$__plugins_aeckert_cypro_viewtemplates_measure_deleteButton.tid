@@ -1,0 +1,67 @@
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/measure/deleteButton
+type: text/vnd.tiddlywiki
+
+<!--
+  measure/deleteButton — delete this measure and recompute the risk of every threat
+  it affected. Affected threats are found from this measure's tags ending in T<nn>.
+  For each one it re-sums the OTHER measures' reductions and rewrites the threat's
+  initial_/final_ risk fields, then removes the measure from the StoryList and deletes it.
+
+  Reductions are stored as NEGATIVE numbers, so we ADD redI/redP to the initial values
+  (consistent with macros/update-risk-actions) and floor at 1 with max[1]. redI/redP are
+  summed over the OTHER measures (the current one is excluded, since it is being deleted),
+  giving the threat's risk as it will be once this measure is gone.
+
+  TASK-127: no `else[1]` defaulting — a threat missing a source value is "unassessed"
+  and its derived fields are cleared (empty), never fabricated as 1x1. The math is
+  inlined (not delegated to update-risk-actions) because a macro call's <$let> would be
+  evaluated at render time, before the measure is actually deleted, so it would still
+  see this measure in the reduction sum.
+-->
+<$list filter="[<currentTiddler>!field:mandatory[yes]]">
+<$button class="cypro-btn cypro-btn-danger" tooltip="Maßnahme löschen">
+  <$action-confirm $message="Möchten Sie diese Maßnahme wirklich löschen?">
+    <$let 
+      navigate_to={{{ [<currentTiddler>tags[]regexp[T\d+$]first[]] }}}
+      affected_threats={{{ [<currentTiddler>tags[]regexp[T\d+$]] }}}
+    >
+      <$action-navigate $to=<<navigate_to>>/>
+
+      <$list filter="[enlist<affected_threats>]" variable="thr">
+        <$let
+          rifield={{{ [<thr>addsuffix[_RI]] }}}
+          rpfield={{{ [<thr>addsuffix[_RP]] }}}
+          assessed={{{ [<thr>has[initial_impact]has[initial_probability]then[yes]] }}}
+          initI={{{ [<thr>get[initial_impact]max[1]min[4]] }}}
+          initP={{{ [<thr>get[initial_probability]max[1]min[4]] }}}
+          redI={{{ [tag[measure]tag<thr>] -[<currentTiddler>] +[get<rifield>sum[]else[0]] }}}
+          redP={{{ [tag[measure]tag<thr>] -[<currentTiddler>] +[get<rpfield>sum[]else[0]] }}}
+          finalI={{{ [<initI>add<redI>max[1]] }}}
+          finalP={{{ [<initP>add<redP>max[1]] }}}
+        >
+          <$list filter="[<assessed>match[yes]]" variable="null">
+          <$action-setfield 
+            $tiddler=<<thr>>
+            initial_risk={{{ [<initI>multiply<initP>] }}}
+            final_impact=<<finalI>>
+            final_probability=<<finalP>>
+            final_risk={{{ [<finalI>multiply<finalP>] }}}
+          />
+          </$list>
+          <$list filter="[<assessed>match[yes]] +[count[]match[0]]" variable="null">
+          <$action-setfield 
+            $tiddler=<<thr>>
+            initial_risk="" final_impact="" final_probability="" final_risk=""
+          />
+          </$list>
+        </$let>
+      </$list>
+
+      <$action-listops $tiddler="$:/StoryList" $subfilter="-[<currentTiddler>]"/>
+      <$action-deletetiddler $tiddler=<<currentTiddler>>/>
+    </$let>
+  </$action-confirm>
+  <span class="cypro-btn-label">Löschen</span>
+</$button>
+</$list>

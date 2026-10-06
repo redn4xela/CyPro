@@ -1,0 +1,43 @@
+created: 20260420115844832
+modified: 20260420201452000
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/backgroundcheck
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the Personalverfahren/background-check page (pattern as
+     form/company). A checkbox (`backgroundcheck_as_sp`) fills `backgroundcheck_description`
+     with boilerplate "as described in the security programme"; otherwise the user types a
+     free-text description. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/backgroundcheck]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$list filter="[<isLocked>!match[yes]]" variable="null">
+<label class="cypro-toggle-row">
+<$checkbox tiddler=<<currentTiddler>> field="backgroundcheck_as_sp" checked="yes" unchecked="" default="" disabled=<<isLocked>>
+  checkactions="""<$action-setfield $tiddler=<<currentTiddler>> backgroundcheck_description="Das Verfahren für die Einstellung und Überprüfung, einschließlich der Zuverlässigkeitsüberprüfung, wird wie im Sicherheitsprogramm beschrieben umgesetzt."/>"""
+  uncheckactions="""<$action-setfield $tiddler=<<currentTiddler>> backgroundcheck_description=""/>"""/>
+<span>Wie im Sicherheitsprogramm beschrieben</span>
+</label>
+</$list>
+
+<$list filter="[all[current]field:backgroundcheck_as_sp[yes]]" variable="null">
+  <div class="cypro-gen-text">Das Verfahren für die Einstellung und Überprüfung, einschließlich der Zuverlässigkeitsüberprüfung, wird wie im Sicherheitsprogramm beschrieben umgesetzt.</div>
+</$list>
+
+<$list filter="[all[current]!field:backgroundcheck_as_sp[yes]]" variable="null">
+  <$list filter="[<isLocked>!match[yes]]" variable="null">
+    <$edit-text field="backgroundcheck_description" tag="textarea" class="cypro-textarea"
+      placeholder="Verfahren zur Einstellung und Überprüfung, einschließlich der Zuverlässigkeitsüberprüfung beschreiben..."/>
+  </$list>
+  <$list filter="[<isLocked>match[yes]]" variable="null">
+    <$list filter="[all[current]get[backgroundcheck_description]minlength[1]]" variable="null">
+      <div class="cypro-gen-text"><$transclude field="backgroundcheck_description"/></div>
+    </$list>
+  </$list>
+</$list>
+
+</$set>
+</$list>

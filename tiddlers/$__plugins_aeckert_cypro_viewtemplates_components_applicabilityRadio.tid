@@ -1,0 +1,21 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/components/applicabilityRadio
+type: text/vnd.tiddlywiki
+
+<!--
+  applicabilityRadio — the Anwendbar Ja/Nein toggle bound to the `applicable`
+  field of the current tiddler. Ambient: isLocked (disabled when locked).
+  No actions: changing applicability does not change the stored risk scores
+  (the KIKS threats table hides the risk value for non-applicable threats).
+  Reused by threat/applicabilityToggle (threat page) and the KIKS threats row
+  (task 146), which wraps it in <$tiddler> so it targets the threat.
+-->
+<div class="kiks-type-toggle">
+	<label class="kiks-radio-label">
+		<$radio field="applicable" value="yes" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>
+		Ja
+	</label>
+	<label class="kiks-radio-label">
+		<$radio field="applicable" value="no" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>
+		Nein
+	</label>
+</div>

@@ -1,0 +1,22 @@
+created: 20260420130615013
+modified: 20260420130616830
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/circlePopup
+type: text/vnd.tiddlywiki
+
+\define cypro-circle-popup(icon, skey)
+<!--
+  cypro-circle-popup(icon, skey) — render a small status dot.
+
+  Despite the name it draws a colored dot, not a popup. If `icon` is the green
+  emoji it renders the "ok/complete" dot, otherwise the "todo/incomplete" dot.
+  Used in lists to show at a glance whether an entry is fully filled in. The
+  `skey` parameter is currently unused.
+-->
+<$let
+  dotClass={{{ [[$icon$]match[🟢]then[cypro-status-dot cypro-status-ok]else[cypro-status-dot cypro-status-todo]] }}}
+  dotTitle={{{ [[$icon$]match[🟢]then[vollständig]else[unvollständig]] }}}
+>
+<span class=<<dotClass>> title=<<dotTitle>>/>
+</$let>
+\end

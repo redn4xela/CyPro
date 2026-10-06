@@ -1,0 +1,18 @@
+caption: {{$:/language/Search/DefaultResults/Caption}}
+first-search-filter: [tag[KIKS]search:title,caption<userInput>] [tag[measure]search:title,caption<userInput>] [tag[training]search:title,caption<userInput>] [tag[threat]search:title,caption<userInput>] [prefix[$:/cypro/data/]search:caption<userInput>] [prefix[$:/plugins/aeckert/cypro/pages/]search:caption<userInput>] [prefix[$:/plugins/aeckert/cypro/help/]search<userInput>] +[!is[draft]sort[title]limit[250]]
+second-search-filter: [tag[cypro-no-such-tag]]
+tags: $:/tags/SearchResults
+title: $:/core/ui/DefaultSearchResultList
+type: text/vnd.tiddlywiki
+
+\define searchResultList()
+\whitespace trim
+<$list filter="[<userInput>minlength[1]]" variable="ignore">
+<$list filter={{{ [<configTiddler>get[first-search-filter]] }}} emptyMessage={{$:/language/Search/Matches/NoResult}}>
+<span class={{{[<currentTiddler>addsuffix[-primaryList]] -[<searchListState>get[text]] +[then[]else[tc-list-item-selected]] }}}>
+<div class="tc-menu-list-item"><$link to=<<currentTiddler>>><$transclude field="caption"><$view field="title"/></$transclude></$link></div>
+</span>
+</$list>
+</$list>
+\end
+<<searchResultList>>

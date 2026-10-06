@@ -1,0 +1,31 @@
+created: 20260421074641658
+modified: 20260421075116163
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/deleteButton
+type: text/vnd.tiddlywiki
+
+<!--
+  threat/deleteButton — delete this threat (only if it is not a `mandatory` catalog
+  threat). With confirmation: navigate to the parent KIKS (via the threat's `kiks`
+  field, not a title slice — K100T01 must resolve to K100, not K10), remove this
+  threat's exact per-threat fields <title>_RI and <title>_RP from every measure
+  (field-name loop by #128 was prefix-wide; exact names keep unrelated fields safe),
+  untag any tiddler tagged with this threat, drop it from the StoryList, then delete it.
+-->
+<$list filter="[<currentTiddler>!field:mandatory[yes]]" variable="null">
+<$button class="cypro-btn cypro-btn-danger" tooltip="Gefährdung löschen">
+  <$action-confirm $message="Möchten Sie diese Gefährdung und alle zugehörigen Maßnahmen-Felder wirklich löschen?">
+    <$action-navigate $to={{{ [<currentTiddler>get[kiks]] }}}/>
+    <$list filter="[tag[measure]]" variable="measureTiddler">
+      <$action-deletefield $tiddler=<<measureTiddler>> $field={{{ [<currentTiddler>addsuffix[_RI]] }}}/>
+      <$action-deletefield $tiddler=<<measureTiddler>> $field={{{ [<currentTiddler>addsuffix[_RP]] }}}/>
+    </$list>
+    <$list filter="[tag<currentTiddler>]" variable="taggedTiddler">
+      <$action-listops $tiddler=<<taggedTiddler>> $tags="-[<currentTiddler>]"/>
+    </$list>
+    <$action-listops $tiddler="$:/StoryList" $subfilter="-[<currentTiddler>]"/>
+    <$action-deletetiddler $tiddler=<<currentTiddler>>/>
+  </$action-confirm>
+  <span class="cypro-btn-label">Löschen</span>
+</$button>
+</$list>

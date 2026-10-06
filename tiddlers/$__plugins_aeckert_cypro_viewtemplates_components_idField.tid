@@ -1,0 +1,10 @@
+created: 20260213073522700
+modified: 20260402093044168
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/components/idField
+type: text/vnd.tiddlywiki
+
+<!-- idField — show the current tiddler's `id` field (e.g. K01, K01T02) as a label. -->
+<div class="kiks-field-label">
+    ID: <$view field="id"/>
+</div>
