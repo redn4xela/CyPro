@@ -1,0 +1,18 @@
+caption: Erstes KIKS anlegen
+condition: [tag[KIKS]count[]compare:number:eq[0]]
+created: 20260502194933679
+hint-selector: .tc-btn-\%24\%3A\%2Fplugins\%2Faeckert\%2Fcypro\%2Fbuttons\%2Fnew-kiks
+hint-text: Wo?
+modified: 20260502212751105
+step-success-filter: [tag[KIKS]count[]compare:number:gt[0]]
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/first-kiks
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — guides the user to create their first KIKS (spotlights the + button; advances once a KIKS exists). -->
+
+!! Legen Sie Ihr erstes KIKS an
+
+Klicken Sie auf den markierten ''+ Button'' in der Toolbar, um ein neues KIKS anzulegen.
+
+Im KIKS-Formular können nun alle erforderlichen Informationen erfasst werden.

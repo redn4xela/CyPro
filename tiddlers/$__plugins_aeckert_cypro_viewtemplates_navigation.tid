@@ -1,0 +1,17 @@
+created: 20260328001926150
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20260328002055835
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/navigation
+type: text/vnd.tiddlywiki
+
+
+<$list filter="[all[current]tag[navigation]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/textFix}}
+
+</$set>
+</$list>

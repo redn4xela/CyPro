@@ -1,0 +1,49 @@
+caption: Programmprüfung
+tags: 
+title: $:/plugins/aeckert/cypro/pages/printCheck
+type: text/vnd.tiddlywiki
+
+\import [[$:/plugins/aeckert/cypro/macros/runChecks]]
+
+<!--
+  printCheck — the "is the programme complete?" gate page (opened by the print button /
+  the final "Weiter" step). It evaluates every cypro-check LIVE: if all pass it shows a
+  success message with a "Programm drucken" button that opens the print document
+  (print/shell) in a new window; otherwise it lists each unmet check (grouped by
+  section) with a link to the page where it can be fixed.
+-->
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$set name="cypro-pass" filter="[all[shadows+tiddlers]tag[cypro-check]] :filter[all[tiddlers]subfilter{!!filter}]">
+
+<$list filter="[all[shadows+tiddlers]tag[cypro-check]] -[enlist<cypro-pass>]" variable="null"
+       emptyMessage="""<div class="cypro-check-ok">
+
+✅ ''Alle Angaben vollständig.''
+
+Das Cybersicherheitsprogramm kann gedruckt werden.
+
+<$button class="cypro-btn cypro-btn-primary" message="tm-open-window" param="$:/plugins/aeckert/cypro/print/shell" windowTitle="Druckansicht" template="$:/plugins/aeckert/cypro/print/shell"><span class="cypro-btn-label">Programm drucken</span></$button>
+
+</div>""">
+</$list>
+
+<$list filter="[all[shadows+tiddlers]tag[cypro-check]] -[enlist<cypro-pass>] +[limit[1]]" variable="null">
+
+⚠️ ''Folgende Angaben sind noch unvollständig:''
+
+<$list filter="[all[shadows+tiddlers]tag[cypro-check]] -[enlist<cypro-pass>] +[nsort[section]]" variable="checkTiddler">
+<div class="cypro-check-item">
+<span class="cypro-check-section">''<$transclude tiddler=<<checkTiddler>> field="section"/>''</span>
+<$link to={{{ [<checkTiddler>get[page]] }}}><$transclude tiddler=<<checkTiddler>> field="caption"/></$link>
+<$transclude tiddler=<<checkTiddler>> mode="block"/>
+</div>
+</$list>
+
+</$list>
+
+</$set>
+
+<div class="cypro-check-adminlink">
+<$link to="$:/plugins/aeckert/cypro/pages/checksOverview">Prüf-Logik anzeigen →</$link>
+</div>

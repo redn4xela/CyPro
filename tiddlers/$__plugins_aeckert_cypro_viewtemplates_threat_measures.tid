@@ -1,0 +1,166 @@
+created: 20260223141627487
+modified: 20260403114128403
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/measures
+type: text/vnd.tiddlywiki
+
+
+<!--
+  threat/measures — the measure table on a threat. Adding/removing a threat tag
+  on a measure changes which reductions update-risk-actions must sum, so both the
+  ✖ (remove) and the search-dropdown (re-link) buttons run $action-listops and then
+  the macro. A sibling action's attributes are computed at the initial render of the
+  action string, BEFORE the listops executes, so the macro's <$let> would read the
+  stale tag set and write the pre-change risk. Wrapping the sequence in
+  tv-action-refresh-policy=always forces the macro to re-read AFTER the listops
+  (same idiom as cypro-discard; see docs/learnings.md). Radios need no wrapper
+  because $radio sets the field before invoking its actions.
+-->
+<!-- Lock-Status ermitteln -->
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+<!-- MEASURES -->
+<div class="kiks-body-area cypro-measures-section">
+    <div class="kiks-field-label cypro-measures-header">
+        Maßnahmen:
+    </div>
+    
+    <$let 
+        currentTag={{{ [<currentTiddler>get[title]] }}}
+        riField={{{ [<currentTiddler>get[title]addsuffix[_RI]] }}}
+        rpField={{{ [<currentTiddler>get[title]addsuffix[_RP]] }}}
+        searchState={{{ [[$:/temp/cypro/measure-search/]addsuffix<currentTiddler>] }}}
+    >
+    
+    <!-- TABELLE -->
+    <$list filter="[tag[measure]tag<currentTag>limit[1]]" emptyMessage="<div class='kiks-empty-message'>Noch keine Maßnahmen zugeordnet.</div>" variable="null">
+        <table class="measure-table tc-table sortable">
+            <thead>
+                <tr>
+                    <th>Maßnahme</th>
+                    <th>Auswirkungen Schadenshöhe</th>
+                    <th>Auswirkungen Eintrittshäufigkeit</th>
+										<$list filter="[<isLocked>!match[yes]]" variable="ignore">
+                    	<th></th>
+										</$list>
+                </tr>
+            </thead>
+            <tbody>
+                <$list filter="[tag[measure]tag<currentTag>sort[title]]" variable="measureTiddler">
+                    <$let
+                        measureCaption={{{ [<measureTiddler>get[caption]else<measureTiddler>] }}}
+                    >
+                        <tr>
+                            <!-- Spalte 1: Name/Link -->
+                            <td>
+                                <$link to=<<measureTiddler>>>
+                                    <$text text=<<measureCaption>>/>
+                                </$link>
+                            </td>
+                            <!-- Spalte 2: RI Buttons -->\
+                            <td class="measure-col-ri">
+								<$list filter="[<isLocked>match[yes]]" variable="ignore">
+                                	<$text text={{{ [<measureTiddler>get<riField>else[-]] }}}/>
+                                </$list>
+								<$list filter="[<isLocked>!match[yes]]" variable="ignore">
+									<$let tParam=<<measureTiddler>> fParam=<<riField>>>
+										{{||$:/plugins/aeckert/cypro/viewtemplates/components/reductionRadio}}
+									</$let>
+								</$list>
+                            </td>
+                            <!-- Spalte 3: RP Buttons -->
+                            <td class="measure-col-rp">
+                                <!-- Locked: nur Text -->
+                                <$list filter="[<isLocked>match[yes]]" variable="ignore">
+                                    <$text text={{{ [<measureTiddler>get<rpField>else[-]] }}}/>
+                                </$list>
+								<$list filter="[<isLocked>!match[yes]]" variable="ignore">
+									<$let tParam=<<measureTiddler>> fParam=<<rpField>>>
+										{{||$:/plugins/aeckert/cypro/viewtemplates/components/reductionRadio}}
+									</$let>
+								</$list>
+                            </td>
+                            <!-- Spalte 4: Entfernen-Button -->
+													<$list filter="[<isLocked>!match[yes]]" variable="ignore">
+                            <td>
+                                <$button class="kiks-remove-button" tooltip="Maßnahme entfernen">
+																	<$set name="tv-action-refresh-policy" value="always">
+                                    <$action-listops $tiddler=<<measureTiddler>> $tags="-[<currentTag>]"/>
+																		<<update-risk-actions>>
+																	</$set>
+                                    ✖
+                                </$button>
+                            </td>
+														</$list>
+                        </tr>
+                    </$let>
+                </$list>
+            </tbody>
+        </table>
+    </$list>
+    
+	<$list filter="[<isLocked>!match[yes]]" variable="ignore">
+		<!-- SUCHFELD + HINZUFÜGEN -->
+    <div class="kiks-measure-add-area">
+        <div class="kiks-measure-search-wrapper">
+            <!-- Suchfeld -->
+            <$edit-text 
+                tiddler=<<searchState>> 
+                field="text"
+                placeholder="Maßnahme suchen oder neue anlegen..." 
+                class="kiks-measure-search-input cypro-field-input" 
+                tag="input"
+            />
+            
+            <!-- Dropdown mit Ergebnissen: nur Measures OHNE currentTag -->
+            <$let searchText={{{ [<searchState>get[text]else[]] }}}>
+                <$list filter="[<searchText>length[]compare:number:gteq[1]]" variable="ignore">
+                    <div class="kiks-measure-dropdown">
+                        <$list filter="[tag[measure]!tag<currentTag>search:title,caption<searchText>sort[caption]limit[10]]" variable="result" emptyMessage="<div class='kiks-dropdown-empty'>Keine passende Maßnahme gefunden – neu anlegen mit + Button</div>">
+                            <$let resultCaption={{{ [<result>get[caption]else<result>] }}}>
+                                <div class="kiks-dropdown-item">
+                                    <$button class="kiks-dropdown-button">
+																			<$set name="tv-action-refresh-policy" value="always">
+                                        <$action-listops $tiddler=<<result>> $tags="[<currentTag>]"/>
+                                        <$action-setfield $tiddler=<<searchState>> text=""/>
+																				<<update-risk-actions>>
+																			</$set>
+                                        <$text text=<<resultCaption>>/>
+                                    </$button>
+                                </div>
+                            </$let>
+                        </$list>
+                    </div>
+                </$list>
+            </$let>
+        </div>
+		
+        <!-- Button: Neue Maßnahme anlegen -->
+        <$let searchText={{{ [<searchState>get[text]else[]] }}}>
+            <$button class="cypro-btn cypro-btn-primary">
+                
+                <span class="cypro-btn-label">+ Neue Maßnahme</span>
+                
+                <!-- Nächste freie Nummer ermitteln -->
+                <$let
+    newTitle={{{ [function[cypro-next-id],[measure],[M]] }}}
+    inputText={{{ [<searchState>get[text]else[Neue Maßnahme]] }}}
+    newTags={{{ [[measure]] [<currentTag>] +[join[ ]] }}}
+>
+    <$action-createtiddler 
+        $basetitle=<<newTitle>>
+        id=<<newTitle>>
+        caption=<<inputText>>
+        tags=<<newTags>>
+    />
+                </$let>
+                    <$action-setfield $tiddler=<<searchState>> text=""/>
+            </$button>
+                </$let>
+    </div>
+	</$list>
+    
+    </$let>
+</div>
+
+</$set>

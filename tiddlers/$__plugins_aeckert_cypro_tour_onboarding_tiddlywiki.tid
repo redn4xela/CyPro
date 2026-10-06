@@ -1,0 +1,25 @@
+caption: Wie funktioniert Cypro?
+created: 20260502185653466
+display-mode: fullscreen
+modified: 20260502193405268
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/tiddlywiki
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — explains how CyPro works (a single-file TiddlyWiki). -->
+
+CyPro basiert auf TiddlyWiki — eine komplette Anwendung in ''einer einzigen HTML-Datei''. Es gibt keinen Server, keine Cloud und nichts zu installieren.
+
+!! Speichern = Herunterladen
+
+Änderungen werden gespeichert, indem Sie die Datei herunterladen und die alte Version ersetzen.
+
+Klicken Sie dazu auf den Speichern-Button in der Toolbar (oben rechts). Sobald Änderungen vorliegen, erscheint er rot: {{ $:/core/images/save-button-dynamic}}
+
+!! Empfehlung: Sicherungskopien
+
+Benennen Sie Sicherungskopien mit dem Datum im Dateinamen, z.B.:
+
+`cypro-2026-04-30.html`
+
+So können Sie jederzeit auf eine frühere Version zurückgreifen.

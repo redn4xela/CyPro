@@ -1,0 +1,16 @@
+author: A. Eckert
+core-version: >=5.4.0
+created: 20260115213714442
+dependents: tiddlywiki/tour tiddlywiki/dynannotate
+description: Dieses Plugin verwandelt TiddlyWiki 5.4+ in ein Management-Tool für das Cybersicherheitsprogramm nach DVO (EU) 2019/1583.
+extra-tiddlers: $:/SiteTitle $:/SiteSubtitle $:/config/AnimationDuration $:/DefaultTiddlers $:/layout $:/config/SaveWikiButton/Filename $:/config/Search/AutoFocus $:/config/AutoStartTour $:/config/ShowTour $:/config/CurrentTour $:/config/cypro/PageOrder $:/config/cypro/Sections $:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/control-panel $:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/encryption $:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/home $:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/manager $:/config/PageControlButtons/Visibility/$:/plugins/aeckert/cypro/buttons/dev-mode $:/config/PageControlButtons/Visibility/$:/plugins/aeckert/cypro/buttons/new-kiks $:/config/PageControlButtons/Visibility/$:/plugins/tiddlywiki/tour/start-tour-button $:/tags/PageControls $:/tags/SideBarSegment $:/tags/Tour/CyproOnboarding $:/core/ui/SideBarSegments/site-title $:/core/ui/SideBarSegments/site-subtitle $:/core/ui/SideBarSegments/tabs $:/core/ui/DefaultSearchResultList $:/core/images/cancel-button $:/core/images/plus-button $:/core/ui/Buttons/new-tiddler
+version: 1.0.16
+modified: 20260420110244265
+name: Cybersicherheitsprogramm
+plugin-draft: plugin
+release: yes
+resource-tiddlers: [[What to do after export?]]
+stability: STABILITY_1_EXPERIMENTAL
+template: 
+title: $:/plugins/aeckert/cypro
+type: application/json

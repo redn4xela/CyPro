@@ -1,0 +1,22 @@
+caption: {{$:/core/images/home-button}} Übersicht
+created: 20260424120000000
+description: Zur Übersicht (Startseite) navigieren
+modified: 20260424120000000
+tags: $:/tags/PageControls
+title: $:/plugins/aeckert/cypro/buttons/home
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<!-- Toolbar button (tag $:/tags/PageControls) — navigates to the cypro overview/home.
+     Hidden in DevMode (the outer $list), where the standard TW toolbar is shown instead. -->
+<$list filter="[[$:/config/cypro/DevMode]!text[yes]]" variable="null">
+<$button
+    tooltip="Zur Übersicht"
+    aria-label="Übersicht"
+    class={{{ [<tv-config-toolbar-class>] [[cypro-toolbar-btn]] +[join[ ]] }}}
+>
+<$action-navigate $to="$:/plugins/aeckert/cypro/home"/>
+{{$:/core/images/home-button}}
+</$button>
+</$list>

@@ -1,0 +1,5 @@
+caption: Auflistung Maßnahmen
+tags: form
+title: $:/plugins/aeckert/cypro/pages/listMeasures
+type: text/vnd.tiddlywiki<!-- Page anchor for the "Auflistung Maßnahmen" overview. The body is intentionally empty:
+     the table is rendered by viewtemplates/form/listMeasures (matched on this title). -->

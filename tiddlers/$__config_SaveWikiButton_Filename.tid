@@ -1,0 +1,4 @@
+title: $:/config/SaveWikiButton/Filename
+type: text/vnd.tiddlywiki
+
+cypro-{{{ [[$:/cypro/data/company]get[company-name]search-replace:g[ ],[_]] ~[[CyPro]] }}}-<<now "YYYY-0MM-0DD">>.html

@@ -1,0 +1,10 @@
+dependents: 
+description: Show trailing space in CodeMirror
+list: readme
+name: CodeMirror Show Trailing Space
+parent-plugin: $:/plugins/tiddlywiki/codemirror
+plugin-type: plugin
+stability: STABILITY_2_STABLE
+title: $:/plugins/tiddlywiki/codemirror-trailingspace
+type: application/json
+version: 5.3.8

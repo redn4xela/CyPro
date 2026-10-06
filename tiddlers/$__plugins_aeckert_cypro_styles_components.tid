@@ -1,0 +1,1091 @@
+tags: $:/tags/Stylesheet
+title: $:/plugins/aeckert/cypro/styles/components
+type: text/css
+
+/* Stylesheet — shared cypro UI components: CSS variables (LBA corporate colors),
+   buttons (cypro-btn*), form fields, toolbar, popups, tables. The base look used across
+   all cypro pages. */
+
+/* LBA corporate design — primary color RGB 5,21,113 */
+:root {
+  --lba-blue: #051571;
+  --lba-blue-dark: #030e4f;
+  --lba-blue-light: #aab3dd;
+  --lba-blue-tint: #eef0f8;
+  --lba-focus-ring: rgba(5, 21, 113, 0.15);
+  /* Link color: same hue family as LBA blue but brightened — the full
+     #051571 is too dark to be recognizable as a link next to black text */
+  --lba-link: #2444c0;
+}
+
+/* Checks overview admin table (issue #90) — keep the dense filter
+   column readable instead of overflowing */
+.cypro-checks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+}
+.cypro-checks-table th,
+.cypro-checks-table td {
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.cypro-checks-table code {
+  white-space: normal;
+  word-break: break-all;
+}
+
+/* Site title and subtitle in LBA blue */
+.tc-site-title,
+.tc-site-subtitle {
+  color: var(--lba-blue);
+}
+
+/* Internal links in the brightened LBA-family blue */
+a.tc-tiddlylink {
+  color: var(--lba-link);
+}
+
+/* CyPro logo replacing the site title — transparent PNG that blends
+   into the sidebar, pulled up toward the top of the sidebar.
+   Trim the core 71px top padding so the sidebar fits without
+   scrolling (issue #85). */
+.tc-sidebar-scrollable {
+  padding-top: 24px;
+}
+
+.tc-sidebar-header .tc-site-title {
+  margin: 0 0 2px;
+  text-align: left;
+}
+
+/* Tighten the gap between the logo and the icon bar below it (issue #85).
+   The page-controls sit inside a <p> whose default top margin opens the gap. */
+.tc-sidebar-header .tc-page-controls {
+  margin-top: 0;
+}
+
+/* The logo <img> is wrapped in a <p> with large default paragraph
+   margins — that bottom margin was the whole gap below the logo. */
+.tc-sidebar-header .tc-site-title p {
+  margin: 0;
+}
+
+.tc-sidebar-header p:has(.tc-page-controls) {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+/* Subtitle lives inside the logo image, so hide the now-empty slot */
+.tc-sidebar-header .tc-site-subtitle {
+  display: none;
+}
+
+/* Text-only wordmark (icon/plane dropped, issue #85) — short enough to
+   enlarge for readability while keeping the sidebar non-scrolling.
+   Left-aligned to match the search box / nav text. */
+.cypro-site-logo {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 0;
+}
+
+/* Tighter vertical rhythm in the chapter nav so the whole sidebar
+   fits without scrolling (issue #85) */
+.cypro-sidebar-chapters h3 {
+  margin: 0.5em 0 0.25em;
+}
+
+/* LBA logo at the bottom of the sidebar — transparent PNG that blends
+   into the grey background, no white card (issue #85) */
+.cypro-sidebar-logo {
+  margin-top: 0.75em;
+  padding-right: 0.75em;
+  text-align: center;
+}
+
+.cypro-sidebar-logo a {
+  display: inline-block;
+  line-height: 0;
+}
+
+.cypro-sidebar-logo img {
+  max-width: 96px;
+  height: auto;
+}
+
+/* Toolbar */
+
+.tc-tiddler-frame .tc-tiddler-body {
+    padding-top: 0;
+    font-size: inherit !important;
+}
+
+.cypro-toolbar-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+
+.cypro-toolbar-left,
+.cypro-toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.cypro-toolbar-left {
+    gap: 8px;
+}
+
+.cypro-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Danger — delete */
+.cypro-btn-danger {
+    background: #ffffff !important;
+    color: #dc2626 !important;
+    border-color: #dc2626 !important;
+}
+
+.cypro-btn-danger:hover {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+}
+
+/* Base button */
+.cypro-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 0.9em;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.cypro-btn:focus {
+    outline: 2px solid var(--lba-blue);
+    outline-offset: 2px;
+}
+
+.cypro-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+}
+
+.cypro-btn-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.cypro-btn-label {
+    display: inline-block;
+}
+
+/* Ghost — back / home / verwerfen */
+.cypro-btn-ghost {
+    background: transparent !important;
+    color: #4b5563 !important;
+    border-color: transparent !important;
+}
+
+.cypro-btn-ghost:hover {
+    background: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+/* Secondary — bearbeiten */
+.cypro-btn-secondary {
+    background: #ffffff !important;
+    color: var(--lba-blue) !important;
+    border-color: var(--lba-blue) !important;
+}
+
+.cypro-btn-secondary:hover {
+    background: var(--lba-blue) !important;
+    color: #ffffff !important;
+}
+
+/* Primary — speichern */
+.cypro-btn-primary {
+    background: var(--lba-blue) !important;
+    color: #ffffff !important;
+    border-color: var(--lba-blue) !important;
+}
+
+.cypro-btn-primary:hover {
+    background: var(--lba-blue-dark) !important;
+    border-color: var(--lba-blue-dark) !important;
+}
+
+/* Create button — full blue, like primary is green */
+.cypro-btn-create {
+    background: var(--lba-blue) !important;
+    color: #ffffff !important;
+    border-color: var(--lba-blue) !important;
+}
+
+.cypro-btn-create:hover {
+    background: var(--lba-blue-dark) !important;
+    border-color: var(--lba-blue-dark) !important;
+}
+
+/* Forward — guided "Weiter" navigation: the lighter button (white/blue),
+   so the focus stays on the blue context action on the left */
+.cypro-btn-forward {
+    background: #ffffff !important;
+    color: var(--lba-blue) !important;
+    border-color: var(--lba-blue) !important;
+    font-weight: 600;
+    padding-right: 12px;
+}
+
+/* Stay FULL WHITE with blue text on hover (only the border darkens + the
+   chevron nudges). The forward button shares its right-side slot with the
+   "Übernehmen" button: on short pages, clicking Übernehmen leaves the cursor
+   hovering the freshly-shown Weiter, so any hover background would tint it.
+   Keeping hover white makes Weiter look identical in every state and on every
+   page (short or tall), regardless of where the cursor lands. */
+.cypro-btn-forward:hover {
+    background: #ffffff !important;
+    color: var(--lba-blue) !important;
+    border-color: var(--lba-blue-dark) !important;
+}
+
+/* Nudge the chevron rightward on hover for a clear "forward" cue */
+.cypro-btn-forward .cypro-btn-icon {
+    transition: transform 0.15s ease;
+}
+
+.cypro-btn-forward:hover .cypro-btn-icon {
+    transform: translateX(3px);
+}
+
+.cypro-caption-block {
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--cypro-text, #333);
+    padding: 0 0 4px 0;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    border: none;
+}
+
+.cypro-section-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 16px;
+  margin: 2px 0;
+}
+
+/* Flat status indicator dots (replaces the 🟢/🔴 emoji lights) */
+.cypro-status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.cypro-status-ok {
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.16);
+}
+
+.cypro-status-todo {
+  background: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.16);
+}
+
+/* Sidebar */
+
+.cypro-sidebar-section {
+  margin-bottom: 0.6em;
+  padding-bottom: 0.35em;
+  padding-right: 0.75em;
+  border-bottom: 1px solid #ddd;
+}
+
+.tc-sidebar-scrollable .tc-alert {
+  color: #000;
+}
+
+.cypro-sidebar-devmode {
+  margin-top: 0.75em;
+  padding-top: 0.5em;
+  text-align: left;
+  font-size: 0.8em;
+  color: var(--muted-foreground, #999);
+}
+
+.cypro-devmode-slider {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.cypro-slider-track {
+  display: inline-block;
+  width: 2.4em;
+  height: 1.3em;
+  background: #ccc;
+  border-radius: 0.65em;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.cypro-slider-thumb {
+  position: absolute;
+  top: 0.15em;
+  left: 0.15em;
+  width: 1em;
+  height: 1em;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.cypro-slider-on {
+  background: var(--lba-blue);
+}
+
+.cypro-slider-on .cypro-slider-thumb {
+  transform: translateX(1.1em);
+}
+
+/* Toolbar */
+
+.cypro-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: -1em;
+  margin-bottom: 0.25em;
+}
+
+/* Single action bar rendered at the bottom of the page (issue #93) */
+.cypro-toolbar-bottom {
+  margin-top: 1.5em;
+  margin-bottom: 0;
+  padding-top: 0.75em;
+  border-top: 1px solid #ddd;
+}
+
+.cypro-toolbar button {
+  vertical-align: middle;
+}
+
+.cypro-toolbar svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+
+/* Home dashboard */
+
+/* Home top area: 2x2 stat grid and risk matrix as two equal-sized cards */
+.cypro-home-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 1.25em;
+  margin-bottom: 1.75em;
+}
+
+/* Shared outer frame for the stats grid and the matrix */
+.cypro-card {
+  flex: 1 1 320px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.cypro-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  gap: 0.75em;
+  height: 100%;
+}
+
+/* Center the matrix within its frame so it keeps its ratio */
+.cypro-matrix-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cypro-stat-box {
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: 0.6em 0.75em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cypro-stat-value {
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #111827;
+}
+
+.cypro-stat-danger {
+  color: #dc2626;
+}
+
+.cypro-stat-label {
+  font-size: 0.8em;
+  color: #6b7280;
+  margin-top: 0.25em;
+}
+
+/* Dashboard section headers (KIKS / Maßnahmen): like the general page header
+   (.cypro-caption-block), just a bit smaller */
+.cypro-section-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--cypro-text, #333);
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+/* Empty state */
+
+.cypro-empty-state {
+  text-align: center;
+  padding: 2.5em 2em;
+  border: 2px dashed var(--tiddler-border-color, #ccc);
+  border-radius: 6px;
+  margin: 1em 0;
+}
+
+.cypro-empty-state-icon {
+  opacity: 0.35;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 0.75em auto;
+}
+
+.cypro-empty-state-title {
+  font-size: 1.15em;
+  font-weight: 600;
+  margin: 0 0 0.4em 0;
+  color: var(--foreground, #333);
+}
+
+.cypro-empty-state-text {
+  color: var(--muted-foreground, #666);
+  max-width: 400px;
+  margin: 0 auto 1em auto;
+  line-height: 1.5;
+}
+
+/* Tables */
+
+.cypro-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cypro-table th {
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 2px solid var(--tiddler-border-color, #ddd);
+}
+
+.cypro-table th.right,
+.cypro-table td.right {
+  text-align: right;
+}
+
+.cypro-table th.center,
+.cypro-table td.center {
+  text-align: center;
+}
+
+.cypro-table td {
+  padding: 4px 8px;
+}
+
+.cypro-table td.muted {
+  font-size: 0.85em;
+  color: var(--muted-foreground, #666);
+}
+
+.cypro-table td.bold {
+  font-weight: bold;
+}
+
+/* Help icon */
+
+.cypro-help-icon {
+  display: inline-block;
+  vertical-align: text-top;
+  line-height: 0;
+  margin-left: 4px;
+}
+
+.cypro-help-btn {
+  padding: 0 !important;
+  line-height: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.cypro-help-btn svg {
+  width: 1em;
+  height: 1em;
+  display: block;
+  fill: var(--muted-foreground, #888);
+}
+
+.cypro-help-popup {
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 0.75em 1em;
+  max-width: 320px;
+  font-size: 0.9em;
+  line-height: 1.5;
+  z-index: 1000;
+  position: relative;
+}
+
+.cypro-help-popup-title {
+  font-weight: 700;
+  margin-bottom: 0.4em;
+  color: var(--cypro-text, #333);
+}
+
+/* Circle popup button */
+
+.cypro-circle-btn {
+  padding: 0 !important;
+  line-height: 1;
+  cursor: pointer;
+  background: none !important;
+  border: none !important;
+  font-size: 1em;
+}
+
+/* Collapsible sidebar list button */
+
+.cypro-collapsible-btn {
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none !important;
+  border: none !important;
+  padding: 0 0 0 0.8em !important;
+  text-align: left;
+}
+
+/* Sidebar legend */
+
+.cypro-sidebar-legend {
+  font-size: 0.78em;
+  line-height: 1.6;
+  color: var(--muted-foreground, #666);
+  padding: 0.5em 0 0 16px;
+}
+
+.cypro-help-tools {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1em 0;
+}
+
+.cypro-btn-add {
+  margin-top: 0.75em;
+}
+
+/* Measure search / add area */
+.kiks-measure-add-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1em;
+}
+
+.kiks-measure-add-area .cypro-btn {
+  padding: 6px 14px;
+  font-size: 0.9em;
+}
+
+.kiks-measure-add-area .cypro-btn p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.kiks-measure-search-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.kiks-measure-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+.kiks-dropdown-item {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.kiks-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.kiks-dropdown-button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #374151;
+  font-family: inherit;
+}
+
+.kiks-dropdown-button:hover {
+  background: var(--lba-blue-tint);
+  color: var(--lba-blue);
+}
+
+.kiks-dropdown-empty {
+  padding: 8px 12px;
+  font-size: 0.85em;
+  color: #9ca3af;
+}
+
+/* Measure table column widths */
+.measure-col-ri,
+.measure-col-rp {
+  width: 180px;
+  min-width: 160px;
+}
+
+/* Measure RI/RP toggle buttons (compact radio group inside table cells) */
+.cypro-measure-toggle {
+  display: flex;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cypro-measure-radio {
+  flex: 1;
+  text-align: center;
+  padding: 2px 4px;
+  font-size: 0.82em;
+  cursor: pointer;
+  background: #f9fafb;
+  border-right: 1px solid #d1d5db;
+  transition: all 0.15s;
+  user-select: none;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.cypro-measure-radio:last-child {
+  border-right: none;
+}
+
+.cypro-measure-radio:hover {
+  background: var(--lba-blue-tint);
+}
+
+.cypro-measure-radio:has(input:checked) {
+  background: var(--lba-blue);
+  color: white;
+}
+
+.cypro-measure-radio:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.cypro-measure-radio input[type="radio"] {
+  display: none;
+}
+
+.cypro-measure-clear {
+  color: #9ca3af;
+}
+
+.cypro-measure-clear:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.cypro-measure-clear:has(input:checked) {
+  background: #6b7280;
+  color: white;
+}
+
+
+
+
+
+.tc-tiddler-body h3 {
+    margin-top: 1.5em;
+}
+
+/* Fix <p> wrapping around the caption block */
+p:has(> .cypro-caption-block) {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Hide the right side of the toolbar in help tiddlers */
+.cypro-toolbar-help .cypro-toolbar-right {
+    display: none !important;
+}
+
+/* Fix <p> wrapping around the toolbar */
+p:has(> .cypro-toolbar) {
+  margin: 0;
+  padding: 0;
+}
+
+/* Hidden toolbar for navigation pages (like Home) so the header height perfectly matches pages with a toolbar */
+.cypro-toolbar-hidden {
+  visibility: hidden;
+}
+
+
+/* === Toggle Switch (single yes/no fields) === */
+
+/* Templates wrap </> + <span> inside <label class="cypro-toggle-row">
+   so the <input> sits directly inside the label — enabling label-click-to-toggle. */
+label.cypro-toggle-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1em;
+  line-height: 1.4;
+  margin: 0.75em 0;
+}
+
+label.cypro-toggle-row:has(input:disabled) {
+  cursor: default;
+}
+
+label.cypro-toggle-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 32px;
+  height: 18px;
+  min-width: 32px;
+  background: #d1d5db;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  border: none;
+  outline: none;
+  margin: 0;
+}
+
+label.cypro-toggle-row input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: left 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+label.cypro-toggle-row input[type="checkbox"]:checked {
+  background: var(--lba-blue);
+}
+
+label.cypro-toggle-row input[type="checkbox"]:checked::after {
+  left: 16px;
+}
+
+label.cypro-toggle-row input[type="checkbox"]:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
+label.cypro-toggle-row input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(5, 21, 113, 0.35);
+}
+
+/* === Multi-select checkbox options (unlocked checkboxTextGen) === */
+
+.cypro-checkbox-group {
+  margin: 0.5em 0 1em 0;
+}
+
+.cypro-checkbox-group > b {
+  display: block;
+  font-weight: 600;
+  font-size: 0.82em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 0.5em;
+}
+
+.cypro-checkbox-options {
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.25em 0.5em;
+  margin-bottom: 0.75em;
+}
+
+.cypro-checkbox-options > div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cypro-checkbox-options label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.45em 0.5em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.12s;
+  user-select: none;
+}
+
+.cypro-checkbox-options label:hover {
+  background: var(--lba-blue-tint);
+}
+
+.cypro-checkbox-options label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.cypro-checkbox-options label input[type="checkbox"]:checked {
+  background: var(--lba-blue);
+  border-color: var(--lba-blue);
+}
+
+.cypro-checkbox-options label input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10l4 4 8-8' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 14px 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* === Auto-growing textarea === */
+
+.cypro-textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1em;
+  line-height: 1.65;
+  padding: 0.6em 0.75em;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  background: #f9fafb;
+  resize: none;
+  min-height: 4.5em;
+  field-sizing: content;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  margin-top: 0.5em;
+  display: block;
+}
+
+.cypro-textarea:focus {
+  outline: none;
+  border-color: var(--lba-blue);
+  box-shadow: 0 0 0 3px var(--lba-focus-ring);
+  background: #ffffff;
+}
+
+/* === Generated / programme-content text === */
+
+.cypro-gen-text,
+.cypro-locked-text {
+  margin: 0.75em 0;
+  padding: 0.75em 1.1em;
+  background: #f0fdf4;
+  border-left: 3px solid #10b981;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.75;
+  color: #1a2e20;
+  font-size: 0.95em;
+}
+
+.cypro-gen-text {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.cypro-locked-text {
+  white-space: pre-wrap;
+}
+
+/* === Form input fields === */
+
+.cypro-field {
+  margin: 1em 0;
+}
+
+.cypro-field > label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.82em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 0.4em;
+}
+
+.cypro-field-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1em;
+  line-height: 1.5;
+  padding: 0.5em 0.75em;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  background: #f9fafb;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  display: block;
+}
+
+.cypro-field-input:focus {
+  outline: none;
+  border-color: var(--lba-blue);
+  box-shadow: 0 0 0 3px var(--lba-focus-ring);
+  background: #ffffff;
+}
+
+.cypro-field-value {
+  display: block;
+  font-size: 1em;
+  color: #111827;
+  padding: 0.5em 0.75em;
+  border: 1.5px solid transparent;
+  border-radius: 6px;
+  min-height: 1.5em;
+  line-height: 1.5;
+}
+
+/* Welcome page action buttons */
+.cypro-welcome-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 1em;
+}
+
+/* More space between alert box and following toggle on form pages */
+.tc-tiddler-frame .tc-alert {
+  margin-bottom: 2em;
+}
+
+
+
+/* Phase 5: dirty banner (shown when body has tc-dirty = unsaved changes) */
+.cypro-dirty-banner { display: none; position: fixed; bottom: 1em; right: 1em;
+  max-width: 26em; padding: 0.8em 1em; background: #fff3cd; color: #664d03;
+  border: 1px solid #ffe69c; border-radius: 6px; font-size: 0.9em; z-index: 900;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.tc-dirty .cypro-dirty-banner { display: block; }
+@media print { .cypro-dirty-banner { display: none !important; } }
+
+/* Inline per-row threat assessment on the KIKS page (replaces the Phase 5 grid).
+   The leading column holds the row's Bearbeiten / Übernehmen / Verwerfen button,
+   the trailing column links to the threat page; the sub-row reveals the
+   Schadenshöhe / Eintrittshäufigkeit scales and the Anwendbar cell becomes a
+   green/red Ja/Nein toggle. */
+.threat-table .threat-edit-col { width: 1%; white-space: nowrap; padding-right: 0.5em; }
+.threat-row-btn { font-size: 0.8em; padding: 3px 8px; }
+.threat-subrow > td { background: #fafafa; padding: 0.5em 0.75em; }
+.threat-subrow .kiks-body-area { display: inline-block; vertical-align: top; margin: 0 1em 0 0; padding: 0; }
+.threat-subrow .kiks-field-label { font-size: 0.75rem; margin-bottom: 0.2em; }
+.threat-subrow .kiks-radio-label { font-size: 0.85em; padding: 3px 8px; }
+.threat-applicable .kiks-radio-label { font-size: 0.85em; padding: 3px 8px; }
+.threat-applicable .kiks-radio-label:first-child:has(input:checked) { background: #2e7d32; color: #ffffff; }
+.threat-applicable .kiks-radio-label:last-child:has(input:checked) { background: #c62828; color: #ffffff; }
+.threat-table .threat-link-col { width: 1%; white-space: nowrap; text-align: center; }
+.threat-table .threat-risk-cell { text-align: center; }
+.threat-open-link { display: inline-flex; align-items: center; justify-content: center;
+  width: 1.8em; height: 1.8em; border-radius: 4px; text-decoration: none;
+  color: var(--lba-blue); background: var(--lba-blue-tint); }
+.threat-open-link:hover { background: var(--lba-blue); color: #ffffff; }
+.threat-open-arrow { font-size: 1.1em; font-weight: 700; line-height: 1; }

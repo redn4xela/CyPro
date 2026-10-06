@@ -1,0 +1,21 @@
+caption: Start: Unternehmensdaten
+created: 20260502190026820
+enter-actions: <$action-navigate $to="$:/cypro/data/company"/>
+modified: 20260513110000000
+step-success-filter: [[$:/cypro/data/company]get[company-name]!is[blank]][[$:/cypro/data/company]get[reg-no]!is[blank]]+[count[]compare:integer:gteq[2]]
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/company
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — the starting point: entering the company data. -->
+
+Zu Beginn sollten Sie Ihren Firmennamen und die Registriernummer eintragen. Diese Angaben erscheinen auf der Druckvorlage Ihres Cybersicherheitsprogramms.
+
+<div style="display:flex; gap:0.6rem; margin:0.7rem 0 0.3rem 0; align-items:center;">
+<$button class="cypro-btn cypro-btn-primary">Übernehmen</$button> sperrt die Felder — Angaben werden schreibgeschützt.
+</div> 
+
+
+<div style="display:flex; gap:0.6rem; margin:0.7rem 0 0.3rem 0; align-items:center;">
+<$button class="cypro-btn cypro-btn-secondary">Bearbeiten</$button> ermöglicht eine Bearbeitung der gesperrten Felder.
+</div>

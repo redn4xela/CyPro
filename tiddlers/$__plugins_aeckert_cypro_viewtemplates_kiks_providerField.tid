@@ -1,0 +1,18 @@
+created: 20260213073649366
+modified: 20260213153826486
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/providerField
+type: text/vnd.tiddlywiki
+
+<!-- kiks/providerField — editable "Dienstleister" (service provider) field. -->
+<div class="kiks-body-area">
+    <div class="kiks-field-label">
+        Dienstleister:
+    </div>
+    <$edit-text
+        field="provider"
+        class={{{ [<isLocked>match[yes]then[kiks-field-disabled kiks-field-textarea]else[kiks-field-textarea]] }}}
+        placeholder="Name des Dienstleisters..."
+        disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}
+    />
+</div>

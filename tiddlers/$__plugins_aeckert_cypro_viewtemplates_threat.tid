@@ -1,0 +1,32 @@
+created: 20260421074909327
+modified: 20260421075124847
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/threat
+type: text/vnd.tiddlywiki
+
+
+<!-- Root viewtemplate for threat entities (same ViewTemplate/guard/isLocked pattern
+     as viewtemplates/kiks). Composes the threat sub-templates: header, id,
+     applicability toggle, initial impact, initial probability, risk summary,
+     and measures. -->
+<$list filter="[all[current]tag[threat]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/header}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/idField}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/bsiInfo}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/applicabilityToggle}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/initImp}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/initProb}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/riskDisplay}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/measures}}
+
+</$set>
+</$list>

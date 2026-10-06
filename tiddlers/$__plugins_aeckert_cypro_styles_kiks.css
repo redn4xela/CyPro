@@ -1,0 +1,327 @@
+/* Stylesheet (tag $:/tags/Stylesheet) for the KIKS / threat / measure detail views:
+   headers, fields, body areas, the threats/measures tables and their toggles. */
+
+/* ============================================
+   KIKS BASE LAYOUT
+   ============================================ */
+
+.kiks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.kiks-title-wrapper {
+    flex: 1;
+}
+
+.kiks-field-section {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 1rem;
+}
+
+.kiks-field-label {
+    font-weight: 600;
+    color: #555;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.kiks-body-area {
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.kiks-field-readonly {
+    padding: 0.6rem 0.8rem;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    min-height: 40px;
+    line-height: 1.8;
+    color: inherit;
+}
+
+.kiks-field-readonly br {
+    line-height: 1.4;
+}
+
+.kiks-type-toggle .kiks-radio-label input[type="checkbox"] {
+    display: none;
+}
+
+/* ============================================
+   MANDATORY FIELD VALIDATION (Universal)
+   ============================================ */
+
+/* Edit-Modus: Leere Pflichtfelder */
+.kiks-field-mandatory:not(.kiks-field-disabled):placeholder-shown,
+.kiks-field-mandatory:not(.kiks-field-disabled):invalid,
+.kiks-field-mandatory:not(.kiks-field-disabled)[data-empty="yes"] {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 0 1px rgba(255, 77, 77, 0.1) !important;
+}
+
+
+/* Edit-Modus: Focus auf leeren Pflichtfeldern */
+.kiks-field-mandatory:not(.kiks-field-disabled):placeholder-shown:focus,
+.kiks-field-mandatory:not(.kiks-field-disabled):invalid:focus,
+.kiks-field-mandatory:not(.kiks-field-disabled)[data-empty="yes"]:focus {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.2) !important;
+}
+
+/* View-Modus: Leere Pflichtfelder */
+.kiks-field-mandatory.kiks-field-disabled:placeholder-shown,
+.kiks-field-mandatory.kiks-field-disabled[data-empty="yes"] {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 0 1px rgba(255, 77, 77, 0.1) !important;
+    background: #fff5f5 !important;
+}
+
+
+/* Für Container ohne Border (Checkboxen, Radio) */
+.kiks-field-mandatory[data-empty="yes"] > label,
+.kiks-field-mandatory[data-empty="yes"] > .kiks-label {
+    color: #ff4d4d;
+    font-weight: 600;
+}
+
+.kiks-field-mandatory[data-empty="yes"]::before {
+    content: "⚠";
+    color: #ff4d4d;
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+/* ============================================
+   KIKS TEXTAREA FIELDS
+   ============================================ */
+
+.kiks-field-textarea {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1rem;
+    font-family: inherit;
+		font-style: italic;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 60px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Edit-Modus */
+.kiks-field-textarea:not(.kiks-field-disabled) {
+    background: #f5f5f5;
+    border-color: #e0e0e0;
+}
+
+.kiks-field-textarea:not(.kiks-field-disabled):focus {
+    border-color: var(--lba-blue);
+    box-shadow: 0 0 0 3px var(--lba-focus-ring);
+}
+
+/* View-Modus */
+.kiks-field-textarea.kiks-field-disabled {
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+    color: inherit;
+    resize: none;
+}
+
+.kiks-field-textarea.kiks-field-disabled:focus {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.kiks-add-button {
+    margin-top: 0.5em;
+}
+
+.kiks-button-icon {
+    font-weight: bold;
+    margin-right: 0.3em;
+}
+
+.kiks-empty-message {
+    color: #999;
+    font-style: italic;
+    padding: 0.5em;
+}
+
+.applicability {
+		text-align: center;
+}
+
+/* ============================================
+   KIKS TITLE FIELD
+   ============================================ */
+
+.kiks-title-input {
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    font-family: inherit;
+    padding: 0.4rem 0.6rem;
+    margin: 0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+/* Edit-Modus */
+.kiks-title-input:not(.kiks-field-disabled) {
+    background: #f5f5f5;
+    border-color: #e0e0e0;
+}
+
+.kiks-title-input:not(.kiks-field-disabled):focus {
+    outline: none;
+    border-color: var(--lba-blue);
+    box-shadow: 0 0 0 3px var(--lba-focus-ring);
+}
+
+/* View-Modus */
+.kiks-title-input.kiks-field-disabled {
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+    color: inherit;
+}
+
+.kiks-title-input.kiks-field-disabled:focus {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.kiks-type-toggle {
+    display: inline-flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.kiks-radio-label {
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #f5f5f5;
+    transition: all 0.2s;
+    border-right: 1px solid #ccc;
+}
+
+.kiks-radio-label:last-child {
+    border-right: none;
+}
+
+.kiks-radio-label:has(input:checked) {
+    background: var(--lba-blue);
+    color: white;
+}
+
+.kiks-radio-label:has(input:disabled) {
+    cursor: not-allowed;
+    opacity: 0.2;
+}
+
+.kiks-radio-label:has(input:disabled:checked) {
+    background: var(--lba-blue-light);
+    color: black;
+    opacity: 1;
+}
+
+.kiks-radio-label input[type="radio"] {
+    display: none;
+}
+
+/* ============================================
+   KIKS NAME VALIDATION HINT
+   ============================================ */
+
+.kiks-name-hint {
+    background: #fff8e1;
+    border: 1px solid #ffb74d;
+    border-left: 4px solid #ff9800;
+    border-radius: 4px;
+    padding: 0.5rem 0.8rem;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: #795548;
+    line-height: 1.4;
+}
+
+.kiks-name-hint ~ .kiks-name-hint {
+    display: none;
+}
+
+/* ============================================
+   PRESET ("Vorlagen") LIST
+   ============================================ */
+
+/* Prepared offerings shown as a separate list below the real KIKS tables. */
+.kiks-preset-section {
+    margin-top: 1.5rem;
+}
+
+.kiks-preset-heading {
+    margin: 0 0 0.4rem 0;
+    color: #555;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.kiks-preset-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.kiks-preset-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.2em 0;
+    color: #4a5568;
+    font-style: italic;
+}
+
+.kiks-preset-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--lba-blue, #1f5c99);
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.kiks-preset-add:hover {
+    opacity: 0.65;
+}
+
+.kiks-preset-add svg {
+    display: block;
+    padding: 0;
+    fill: currentColor;
+}

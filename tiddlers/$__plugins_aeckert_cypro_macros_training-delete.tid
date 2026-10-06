@@ -1,0 +1,27 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/training-delete
+type: text/vnd.tiddlywiki
+
+\procedure cypro-training-delete-actions(trainingTitle)
+<!--
+  cypro-training-delete-actions(trainingTitle) — everything that must happen when a
+  training is deleted, shared by the two delete buttons (the inline button in
+  training/fields and the toolbar training/deleteButton) so they cannot drift
+  apart (TASK-151).
+
+  - Clear $:/state/cypro/training/selectedTab. The training form renders the
+    selected training via a $reveal whose `default` is the first remaining
+    training, so an empty selection falls back to that (or to the empty state
+    when no training survives) — no tab can point at the deleted tiddler.
+  - Drop the per-training edit lifecycle state created by editControl
+    ($:/state/cypro/snapshot/<title> and $:/state/cypro/locked/<title>). Both
+    are title-scoped and would otherwise linger once the tiddler is gone.
+  - Navigate to the training page (covers deletion from the toolbar, which does
+    not already navigate there) and finally delete the training.
+-->
+<$action-setfield $tiddler="$:/state/cypro/training/selectedTab" text=""/>
+<$action-deletetiddler $tiddler={{{ [<trainingTitle>addprefix[$:/state/cypro/snapshot/]] }}}/>
+<$action-deletetiddler $tiddler={{{ [<trainingTitle>addprefix[$:/state/cypro/locked/]] }}}/>
+<$action-navigate $to="$:/cypro/data/training"/>
+<$action-deletetiddler $tiddler=<<trainingTitle>>/>
+\end

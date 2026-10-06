@@ -1,0 +1,14 @@
+title: $:/plugins/aeckert/cypro/tour/onboarding/check
+tags: $:/tags/Tour/CyproOnboarding
+caption: Vollständigkeitsprüfung
+
+<!-- Tour step — introduces the completeness check / print gate. -->
+
+!! Vollständigkeitsprüfung
+
+Die Ampeln in der Seitenleiste zeigen den Bearbeitungsstand jedes Bereichs:
+
+* 🟢 — vollständig ausgefüllt
+* 🔴 — noch offene Pflichtfelder
+
+Alle Bereiche sollten auf 🟢 stehen, bevor Sie die Druckvorlage erstellen.

@@ -1,0 +1,13 @@
+caption: Gefährdungen
+display-mode: bottom-right
+enter-actions: <$action-navigate $to="K01"/>
+step-success-filter: [list[$:/StoryList]match[K01T07]]
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/threats
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — introduces the threats (Gefaehrdungen) of a KIKS. -->
+
+Die verpflichtend zu betrachtenden Gefährdungen werden direkt mit einem KIKS erstellt und befinden sich in der Liste „Gefährdungen“.
+
+Klicken Sie auf die Gefährdung ''„Manipulation von Informationen"'' (G 0.22), um sie zu öffnen und zu bewerten.

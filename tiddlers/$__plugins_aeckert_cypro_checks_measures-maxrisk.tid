@@ -1,0 +1,15 @@
+caption: Kein Risiko ≥ 10
+created: 20260612185626446
+filter: [tag[threat]applicable[yes]get[final_risk]compare:integer:gteq[10]count[]match[0]]
+modified: 20260824145215091
+section: 2.4
+page: $:/plugins/aeckert/cypro/pages/listMeasures
+tags: cypro-check
+title: $:/plugins/aeckert/cypro/checks/measures-maxrisk
+type: text/vnd.tiddlywiki
+
+Es darf kein Risikowert von 10 oder höher vorliegen.
+
+<!-- cypro-check: passes when NO applicable threat still has a high residual risk.
+     It counts applicable threats whose final_risk >= 10 and passes only if that
+     count is 0 (match[0]). I.e. measures must bring every risk below 10. -->

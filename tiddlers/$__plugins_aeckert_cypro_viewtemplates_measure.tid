@@ -1,0 +1,25 @@
+created: 20260421075001962
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20260421075002828
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/measure
+type: text/vnd.tiddlywiki
+
+
+<!-- Root viewtemplate for measure entities (same pattern as viewtemplates/kiks).
+     Reuses the threat/header sub-template, shows the id, the impact table (which
+     threats this measure reduces and by how much), and the description. -->
+<$list filter="[all[current]tag[measure]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/threat/header}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/idField}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/measure/impactTable}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/description}}
+
+</$set>
+</$list>

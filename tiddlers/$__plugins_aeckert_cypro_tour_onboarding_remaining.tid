@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/tour/onboarding/remaining
+tags: $:/tags/Tour/CyproOnboarding
+display-mode: fullscreen
+caption: Was noch zu tun ist
+
+<!-- Tour step — summarizes what is still left to do. -->
+
+!! Weitere Bereiche des Cybersicherheitsprogramms
+
+Neben KIKS, Bedrohungen und Maßnahmen verlangt die Verordnung noch weitere Dokumentationen. Diese finden Sie in der Seitenleiste und sind mit 🔴 markiert, solange sie unvollständig sind.
+
+|!Bereich |!Inhalt |
+|Gefährdungsanalyse |Beschreibung der angewandten Methodik |
+|Monitoringmaßnahmen |Wie wird das Programm laufend überwacht? |
+|Weitere Maßnahmen |Reaktionsplan bei Cybersicherheitsvorfällen |
+|Zuverlässigkeitsüberprüfung |Dokumentation der Personalprüfung |
+|Schulung |Schulungsnachweise der Mitarbeitenden |
+
+Diese Bereiche können nach der Tour in Ihrem eigenen Tempo ausgefüllt werden.

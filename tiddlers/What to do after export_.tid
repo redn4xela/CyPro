@@ -1,0 +1,12 @@
+created: 20260115230948772
+modified: 20260402074103219
+tags: 
+title: What to do after export?
+type: text/vnd.tiddlywiki
+
+1. edit $:/tags/SideBarSegment
+
+* delete `$:/core/ui/SideBarSegments/tabs`
+* add `$:/plugins/aeckert/cypro/sidebar`
+
+2. edit Buttons

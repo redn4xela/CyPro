@@ -1,0 +1,6 @@
+title: $:/core/ui/SideBarSegments/site-subtitle
+tags: $:/tags/SideBarSegment
+type: text/vnd.tiddlywiki
+
+<!-- Subtitle is part of the CyPro logo (issue #85); the original
+     $:/SiteSubtitle text is intentionally not rendered here. -->

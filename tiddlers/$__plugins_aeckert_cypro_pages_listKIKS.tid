@@ -1,0 +1,8 @@
+caption: Auflistung KIKS
+tags: form
+title: $:/plugins/aeckert/cypro/pages/listKIKS
+type: text/vnd.tiddlywiki
+
+<!-- Page anchor for the "Auflistung KIKS" overview. The body is intentionally empty:
+     the table is rendered by viewtemplates/form/listKIKS (matched on this title). -->
+

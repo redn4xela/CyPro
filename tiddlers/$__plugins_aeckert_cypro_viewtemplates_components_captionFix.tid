@@ -1,0 +1,19 @@
+created: 20260327233711166
+modified: 20260328000657385
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/components/captionFix
+type: text/vnd.tiddlywiki
+
+<!--
+  Reusable form component. CyPro form viewtemplates transclude these snippets and
+  pass parameters via an enclosing <$let> (e.g. fieldParam / labelParam) plus an
+  ambient `isLocked` variable ("yes" when the page is read-only). See
+  viewtemplates/form/company for a typical caller.
+
+  captionFix — render the current tiddler's `caption` field as a styled heading block.
+  (Falls back to the formatted tiddler title on first-run, when the data tiddler
+  does not exist yet and editing creates it without a caption.)
+-->
+<div class="cypro-caption-block">
+	<$view field="caption" format="text"/>
+</div>

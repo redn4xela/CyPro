@@ -1,0 +1,28 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/components/reductionRadio
+type: text/vnd.tiddlywiki
+
+<!--
+  reductionRadio — the 0 / -1 / -2 / -3 / -4 toggle for a measure's per-threat
+  risk reduction. Parameters via an enclosing <$let>:
+    tParam — the measure tiddler that is edited
+    fParam — the reduction field name ("K01T07_RI" / "_RP", negative values)
+  Each click runs update-risk-actions so the threat's final risk recomputes.
+  (Phase 3: replaces the two 32-line RI/RP column copies in threat/measures.)
+
+  Ambient: isLocked is set by the enclosing viewtemplate, though this component
+  is only rendered in unlocked state by its callers.
+-->
+<div class="cypro-measure-toggle">
+	<label class="cypro-measure-radio cypro-measure-clear">
+		<$radio tiddler=<<tParam>> field=<<fParam>> value="" actions=<<update-risk-actions>>/>
+		0
+	</label>
+	<$list filter="[range[1,4]]" variable="n">
+		<$let v={{{ [<n>negate[]] }}}>
+			<label class="cypro-measure-radio">
+				<$radio tiddler=<<tParam>> field=<<fParam>> value=<<v>> actions=<<update-risk-actions>>/>
+				<$text text=<<v>>/>
+			</label>
+		</$let>
+	</$list>
+</div>

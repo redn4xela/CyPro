@@ -1,0 +1,25 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/monitoring
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the monitoring page (pattern as form/company). One
+     checkboxTextGen block: how the risk assessment is kept complete and up to date. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/monitoring]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$let pageTiddler=<<currentTiddler>>
+      targetField="monitoring-method"
+      textField="monitoring-method-text"
+      additionalField="monitoring-method-additional"
+      labelParam="Welche Maßnahmen wurden etabliert, um die Vollständigkeit, Richtigkeit und Aktualität der Risikobeurteilung und der Risikobehandlung sicherzustellen?"
+      optionsInfoFilter="yes"
+      optionsFilter="[[Wiedervorlageterminierung]] [[externe Audits]] [[Reviewtrigger]]"
+      paragraphsTiddler="$:/plugins/aeckert/cypro/data/monitoringMethod">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen}}
+</$let>
+
+</$set>
+</$list>

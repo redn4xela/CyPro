@@ -1,0 +1,71 @@
+created: 20260403104706021
+modified: 20260403111345803
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/create-kiks
+type: text/vnd.tiddlywiki
+
+\define kiks-create-action()
+<!--
+  kiks-create-action — create a new KIKS entry plus its default catalog threats.
+
+  A KIKS ("Kritische Infrastruktur-Komponente / Schutzobjekt") is the central
+  data entity. Each one is a tiddler tagged `KIKS` with an id like "K01", "K02".
+
+  Steps:
+    1. Find the highest existing KIKS number and derive the next id (K + zero-
+       padded number, e.g. K07).
+    2. Seed the standard set of threats from the catalog data tiddler
+       data/default-threats: for every "<suffix>.caption" index we create one
+       threat tiddler titled "<KIKS-id><suffix>" (e.g. K07T01), tagged `threat`
+       and linked back to the KIKS via the `kiks` field.
+    3. Create the KIKS tiddler itself and navigate to it. It starts unlocked
+       (no $:/state/cypro/locked/<title> tiddler exists yet, and the lock-state
+       check's emptyValue is "no"), so it opens directly in edit mode.
+-->
+
+<!-- 1. Find the highest existing KIKS number and derive the next id (shared helper,
+     also used by macros/preset-kiks so the preset action can address the new KIKS) -->
+<$vars nextID={{{ [function[cypro-next-id],[KIKS],[K]] }}}>
+
+<!-- 2. Create the default threats from the catalog (one per ".caption" index) -->
+<$list 
+  filter="[[$:/plugins/aeckert/cypro/data/default-threats]indexes[]suffix[.caption]removesuffix[.caption]]" 
+  variable="suffix"
+>
+  <$let 
+    threatTitle={{{ [<nextID>addsuffix<suffix>] }}}
+    threat_no={{{ [<suffix>addsuffix[.threat_no]] }}}
+    threat_caption={{{ [<suffix>addsuffix[.caption]] }}}
+  >
+    <$action-createtiddler 
+      $basetitle=<<threatTitle>>
+      tags="threat" 
+      id=<<threatTitle>>
+      kiks=<<nextID>> 
+      threat_no={{{ [[$:/plugins/aeckert/cypro/data/default-threats]getindex<threat_no>] }}}
+      caption={{{ [[$:/plugins/aeckert/cypro/data/default-threats]getindex<threat_caption>] }}}
+      mandatory="yes" 
+      initial_impact=""
+      initial_probability="" 
+      final_probability="" 
+      final_impact="" 
+      final_risk="" 
+      applicable=""
+      text="" 
+    />
+  </$let>
+</$list>
+
+<!-- 3. Create the KIKS itself and navigate to it (opens unlocked by default) -->
+<$action-createtiddler 
+  $basetitle=<<nextID>>
+  tags="KIKS"
+  caption=""
+  id=<<nextID>>
+  text=""
+>
+  <$action-navigate $to=<<createTiddler-title>>/>
+</$action-createtiddler>
+
+</$vars>
+\end

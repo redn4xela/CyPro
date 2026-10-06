@@ -1,0 +1,11 @@
+title: $:/plugins/aeckert/cypro/tour/onboarding/threats-evaluate
+tags: $:/tags/Tour/CyproOnboarding
+caption: Schadenshöhe und Eintrittshäufigkeit
+step-success-filter: [title[K01T07]get[initial_impact]addprefix[impact:]] [title[K01T07]get[initial_probability]addprefix[prob:]] +[count[]compare:integer:gteq[2]]
+enter-actions: <$action-navigate $to="K01T07"/>
+
+<!-- Tour step — rating a threat's impact (Schadenshoehe) and probability (Eintrittshaeufigkeit). -->
+
+Bewerten Sie nun die ''Schadenshöhe'' und die ''Eintrittshäufigkeit'' dieser Gefährdung.
+
+Wählen Sie jeweils einen Wert aus den Dropdown-Feldern unter „Schadenshöhe" und „Eintrittshäufigkeit" aus.

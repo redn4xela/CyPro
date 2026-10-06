@@ -1,0 +1,20 @@
+created: 20260328135112007
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20260328135629763
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/help
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+<!-- Root viewtemplate for `help` tiddlers (same pattern as viewtemplates/kiks):
+     just renders their caption and text as a styled read-only block. -->
+<$list filter="[all[current]tag[help]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/textFix}}
+
+</$set>
+</$list>

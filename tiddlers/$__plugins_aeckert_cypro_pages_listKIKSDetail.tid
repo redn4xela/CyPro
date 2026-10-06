@@ -1,0 +1,34 @@
+caption: KIKS-Details
+tags: form
+title: $:/plugins/aeckert/cypro/pages/listKIKSDetail
+type: text/vnd.tiddlywiki
+
+<!--
+  listKIKSDetail — a richer KIKS overview table (ID, name, max applicable risk, and the
+  linked measures). Note: pages/listKIKS itself is an empty anchor rendered by
+  viewtemplates/form/listKIKS (which shows a 3-column version); this "Detail" page adds
+  the Maßnahmen column. Both exist — see the architecture notes about this overlap.
+-->
+<table class="cypro-table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Bezeichnung</th>
+<th class="center">Max. Risiko</th>
+<th>Maßnahmen</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[KIKS]sort[id]]">
+<tr>
+<td><$link to=<<currentTiddler>>>{{!!id}}</$link></td>
+<td><$macrocall $name="cypro-kiks-caption" t=<<currentTiddler>>/></td>
+<td class="center bold"><$text text={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[final_risk]nsort[]last[]] }}}/></td>
+<td class="muted"><$set name="kiksTitle" value=<<currentTiddler>>><$list filter="[tag[threat]kiks<kiksTitle>tagging[]tag[measure]sort[id]]" variable="mTiddler"><$link to=<<mTiddler>>><$view tiddler=<<mTiddler>> field="id"/></$link> </$list></$set></td>
+</tr>
+</$list>
+</tbody>
+</table>
+
+<!-- Prepared/preset KIKS offerings (data-driven; see components/presetKIKS) -->
+<$transclude tiddler="$:/plugins/aeckert/cypro/viewtemplates/components/presetKIKS"/>

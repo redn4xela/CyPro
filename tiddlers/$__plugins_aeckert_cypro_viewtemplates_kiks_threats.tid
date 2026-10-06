@@ -1,0 +1,146 @@
+created: 20260213073722203
+modified: 20260923101115338
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/threats
+type: text/vnd.tiddlywiki
+
+\import [[$:/plugins/aeckert/cypro/macros/editControl]]
+
+\define threat-applicability-icon()
+<$reveal type="nomatch" stateTitle=<<threatTiddler>> stateField="applicable" text="yes">
+	<$reveal type="nomatch" stateTitle=<<threatTiddler>> stateField="applicable" text="no">
+		<div class="applicability">🆕</div>
+	</$reveal>
+</$reveal>
+<$reveal type="match" stateTitle=<<threatTiddler>> stateField="applicable" text="no">
+	<div class="applicability">❌</div>
+</$reveal>
+<$reveal type="match" stateTitle=<<threatTiddler>> stateField="applicable" text="yes">
+	<div class="applicability">✅</div>
+</$reveal>
+\end
+
+<!--
+  kiks/threats — the "Gefährdungen" (threats) table inside a KIKS. Lists every
+  threat tiddler linked to this KIKS (filter: tag[threat] kiks<kiksId>), showing an
+  applicability icon (🆕 undecided / ✅ yes / ❌ no), the threat number, a link to the
+  threat, and its residual risk (final_risk, highlighted red when >= 10). The
+  "Neue Bedrohung" button runs threat-create-action (macros/create-threat).
+  Note: the K01T07 row gets a special class used by the onboarding tour.
+
+  Per-row inline assessment (replaces the standalone threat grid of task 139):
+  each row offers "Bearbeiten", which opens a per-threat edit session using the
+  standard editControl snapshot ($:/state/cypro/snapshot/<threat>). The sub-row
+  then shows the Schadenshöhe and Eintrittshäufigkeit scales, the Anwendbar cell
+  turns into the (green/red) Ja/Nein toggle, and the row buttons become
+  "Übernehmen" / "Verwerfen".
+
+  IMPORTANT: the threat list is NOT gated by the KIKS lock. Threats are entities
+  with their own lock/snapshot, and "Neue Bedrohung" was never gated either, so
+  the list behaves the same whether the KIKS is locked or in edit mode (the
+  threat page is likewise editable while the KIKS is locked). Each session is
+  still explicit (Bearbeiten, snapshot, Verwerfen), so nothing is edited by
+  accident. The trailing arrow links to the threat page in every state.
+-->
+<div class="kiks-body-area">
+    <div class="kiks-field-label">
+        Gefährdungen:
+    </div>
+    
+    <$let kiksId={{{ [<currentTiddler>get[id]] }}}>
+    
+    <$list filter="[tag[threat]kiks<kiksId>limit[1]]" emptyMessage="<div class='kiks-empty-message'>Noch keine Bedrohungen erfasst.</div>" variable="null">
+        <table class="threat-table tc-table sortable">
+            <thead>
+                <tr>
+								<th class="threat-edit-col"></th>
+								<th>Anwendbar</th>
+    					  <th>Gefährdungsnr.</th>
+    					  <th>Bedrohung</th>
+								<!--<th>Eintrittswahrscheinlichkeit</th> -->
+							 	<!--<th>Schadensausmaß</th> -->
+      					<th class="threat-risk-cell">Risikowert</th>
+								<th class="threat-link-col"></th>
+                </tr>
+            </thead>
+            <tbody>
+    <$list filter="[tag[threat]kiks<kiksId>sort[title]each[id]]" variable="threatTiddler">
+        <$let 
+            threatId={{{ [<threatTiddler>get[title]] }}}
+            threatCaption={{{ [<threatTiddler>get[caption]else<threatId>] }}}
+            snapshotTitle={{{ [<threatTiddler>addprefix[$:/state/cypro/snapshot/]] }}}
+        >
+            <$set name="isLocked" value="no">
+            <tr class={{{ [<threatId>match[K01T07]then[cypro-tour-threat-row]] }}}>
+								<td class="threat-edit-col">
+										<$list filter="[<snapshotTitle>is[tiddler]]" variable="null">
+											<$tiddler tiddler=<<threatTiddler>> islink="no">
+												<$button class="cypro-btn cypro-btn-primary threat-row-btn" actions=<<cypro-save>> tooltip="Änderungen übernehmen">
+													<span class="cypro-btn-label">Übernehmen</span>
+												</$button>
+												<$button class="cypro-btn cypro-btn-ghost threat-row-btn" actions=<<cypro-discard>> tooltip="Änderungen verwerfen">
+													<span class="cypro-btn-label">Verwerfen</span>
+												</$button>
+											</$tiddler>
+										</$list>
+										<$list filter="[<snapshotTitle>!is[tiddler]]" variable="null">
+											<$tiddler tiddler=<<threatTiddler>> islink="no">
+												<$button class="cypro-btn cypro-btn-secondary threat-row-btn" actions=<<cypro-snapshot>> tooltip="Gefährdung bearbeiten">
+													<span class="cypro-btn-label">Bearbeiten</span>
+												</$button>
+											</$tiddler>
+										</$list>
+								</td>
+								<td class="threat-appl-cell">
+										<$list filter="[<snapshotTitle>is[tiddler]]" variable="null">
+											<$tiddler tiddler=<<threatTiddler>> islink="no">
+												<div class="threat-applicable">{{||$:/plugins/aeckert/cypro/viewtemplates/components/applicabilityRadio}}</div>
+											</$tiddler>
+										</$list>
+										<$list filter="[<snapshotTitle>!is[tiddler]]" variable="null">
+											<<threat-applicability-icon>>
+										</$list>
+								</td>
+
+								<td><$macrocall $name="cypro-threat-no-label" t=<<threatTiddler>>/></td>
+                <td><$link to=<<threatTiddler>>><$text text=<<threatCaption>>/></$link></td>
+    						<td class="threat-risk-cell">
+									<%if [<threatTiddler>get[applicable]match[yes]] %>
+										<%if [<threatTiddler>get[final_risk]compare:number:gteq[10]] %>
+											<span class="kiks-risk-alert">
+												<$transclude tiddler=<<threatTiddler>> field="final_risk"/>
+        							</span>
+										<%else%>
+											<$transclude tiddler=<<threatTiddler>> field="final_risk"/>
+										<%endif%>
+									<%endif%>
+								</td>
+								<td class="threat-link-col">
+									<$link to=<<threatTiddler>> class="threat-open-link" tooltip="Gefährdung öffnen">
+										<span class="threat-open-arrow">→</span>
+									</$link>
+								</td>
+            </tr>
+            <$list filter="[<snapshotTitle>is[tiddler]]" variable="null">
+                <tr class="threat-subrow">
+                    <td colspan="6">
+                        <$tiddler tiddler=<<threatTiddler>> islink="no">
+                            {{||$:/plugins/aeckert/cypro/viewtemplates/threat/initImp}}
+                            {{||$:/plugins/aeckert/cypro/viewtemplates/threat/initProb}}
+                        </$tiddler>
+                    </td>
+                </tr>
+            </$list>
+            </$set>
+        </$let>
+    </$list>
+</tbody>
+
+        </table>
+    </$list>
+    
+    <$button class="cypro-btn cypro-btn-secondary" tooltip="Neue Bedrohung anlegen" actions=<<threat-create-action>>>
+      <span class="cypro-btn-label">Neue Bedrohung</span>
+    </$button>
+    </$let>
+</div>

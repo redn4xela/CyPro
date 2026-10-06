@@ -1,0 +1,18 @@
+caption: Präzise Benennung
+created: 20260502195327023
+enter-actions: <$action-setfield $tiddler="$:/state/tour/hint" text="no"/>
+modified: 20260513101417643
+step-success-filter: [title[K01]get[caption]match[Outlook]]
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/kiks-name-hint
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — hint to name a KIKS precisely (the data/system, not just a software product). -->
+
+Versuchen Sie die kritischen Systeme und vor allem Daten so präzise wie möglich zu erfassen.
+
+Vermeiden Sie allgemeine Software wie ''Outlook'' als KIKS zu erfassen.
+
+Ein orangefarbener Hinweis wird erscheinen, wenn Ihre Eingabe vermutlich noch etwas präziser gefasst werden kann.
+
+''Probieren Sie es einmal aus!''

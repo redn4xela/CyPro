@@ -1,0 +1,13 @@
+title: $:/plugins/aeckert/cypro/tour/onboarding/threats-measures
+tags: $:/tags/Tour/CyproOnboarding
+caption: Maßnahmen zuordnen
+display-mode: bottom-right
+enter-actions: <$action-navigate $to="K01T07"/>
+
+<!-- Tour step — assigning mitigating measures to a threat. -->
+
+Sollte der resultierende Risikowert inakzeptabel sein, so können Sie direkt zu dieser Gefährdung Maßnahmen erfassen.
+
+Im Bereich ''„Maßnahmen"'' können Sie über das Suchfeld passende Maßnahmen auswählen oder mit dem Button ''„+ Neue Maßnahme"'' eigene Maßnahmen anlegen.
+
+Jede zugeordnete Maßnahme reduziert die Schadenshöhe und/oder Eintrittshäufigkeit — der Risikowert wird automatisch neu berechnet.

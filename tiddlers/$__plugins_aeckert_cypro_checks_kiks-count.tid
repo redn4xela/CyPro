@@ -1,0 +1,14 @@
+caption: Keine KIKS erfasst
+created: 20260418113823918
+filter: [tag[KIKS]!prefix[Draft]count[]compare:integer:gteq[1]]
+modified: 20260824145215091
+page: $:/plugins/aeckert/cypro/pages/listKIKS
+section: 2.2
+tags: cypro-check
+title: $:/plugins/aeckert/cypro/checks/kiks-count
+type: text/vnd.tiddlywiki
+
+Es muss mindestens ein KIKS erfasst sein.
+
+<!-- cypro-check: passes when at least one real KIKS exists — count of `KIKS`-tagged
+     tiddlers (excluding drafts via !prefix[Draft]) is >= 1. -->

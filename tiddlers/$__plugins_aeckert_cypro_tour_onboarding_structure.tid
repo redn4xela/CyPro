@@ -1,0 +1,17 @@
+caption: Übersicht
+created: 20260501195316234
+enter-actions: <$action-setfield $tiddler="$:/config/AnimationDuration" text="400"/><$action-setfield $tiddler="$:/state/tour/hint" text="sidebar"/>
+modified: 20260502194756739
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/structure
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — overview of the app structure / sidebar navigation. -->
+
+CyPro besteht aus drei zentralen Bereichen, angelehnt an die bestehenden Musterprogramme:
+
+# Grundsätzliches
+# Risikomanagement
+# Personalangelegenheiten
+
+Diese Aufteilung findet sich in der Seitenleiste wieder und ermöglicht eine direkte Navigation.

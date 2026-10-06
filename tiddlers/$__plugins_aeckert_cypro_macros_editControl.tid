@@ -1,0 +1,116 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/editControl
+type: text/vnd.tiddlywiki
+
+\procedure cypro-snapshot()
+<!--
+  editControl — the edit lifecycle for CyPro pages and entities (generic, Phase 3).
+
+  CyPro pages are normally LOCKED (read-only). Editing follows a three-step
+  "snapshot / save / discard" pattern:
+
+    cypro-snapshot : copy ALL custom fields into a backup tiddler
+                     ($:/state/cypro/snapshot/<title>) and UNLOCK the page
+                     ($:/state/cypro/locked/<title> = "no"). Click "Bearbeiten".
+    cypro-save     : accept the edits — delete the backup, apply defaults,
+                     re-lock. Click "Übernehmen".
+    cypro-discard  : reject the edits — restore every field from the backup,
+                     delete the backup, re-lock. Click "Verwerfen".
+
+  GENERIC FIELD COPY (replaces the per-entity field lists): every procedure
+  loops over `fields[]`, skipping only structural fields
+  (title/tags/type/created/modified/text). Adding a field to a form
+  viewtemplate needs NO editControl change; measures (tag "measure") get a
+  working snapshot/discard for the first time (issue #115).
+  Checks are evaluated LIVE — nothing is written for them here.
+  See docs/architecture.md §11.
+
+  Training is special: trainings are separate TR* tiddlers — each one is
+  snapshot with the same loop, and `training_ids` remembers which existed
+  before editing (ones created during an edit are deleted on discard).
+-->
+<$vars snapshotTiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/snapshot/]] }}}>
+	<$action-deletetiddler $tiddler=<<snapshotTiddler>>/>
+	<$list filter="[<currentTiddler>fields[]] -[title[title]] -[title[tags]] -[title[type]] -[title[created]] -[title[modified]] -[title[text]]" variable="f">
+		<$action-setfield $tiddler=<<snapshotTiddler>> $field=<<f>> $value={{{ [<currentTiddler>get<f>] }}}/>
+	</$list>
+	<!-- Training: snapshot each existing TR* tiddler and remember the id list -->
+	<$list filter="[<currentTiddler>match[$:/cypro/data/training]]" variable="null">
+		<$action-setfield $tiddler=<<snapshotTiddler>> training_ids={{{ [tag[training]sort[id]join[ ]] }}}/>
+		<$list filter="[tag[training]sort[id]]" variable="tr">
+			<$let trSnap={{{ [<tr>addprefix[$:/state/cypro/snapshot/]] }}}>
+				<$list filter="[<tr>fields[]] -[title[title]] -[title[tags]] -[title[type]] -[title[created]] -[title[modified]] -[title[text]]" variable="tf">
+					<$action-setfield $tiddler=<<trSnap>> $field=<<tf>> $value={{{ [<tr>get<tf>] }}}/>
+				</$list>
+			</$let>
+		</$list>
+	</$list>
+	<$action-setfield $tiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/locked/]] }}} text="no"/>
+</$vars>
+\end
+
+\procedure cypro-save()
+<!-- Accept edits: drop the backup, apply defaults (auto-caption new KIKS),
+     drop per-training snapshots, re-lock. Live checks; no returned payloads. -->
+<$vars snapshotTiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/snapshot/]] }}}>
+	<$action-deletetiddler $tiddler=<<snapshotTiddler>>/>
+	<$list filter="[all[current]tag[KIKS]!has[caption]]" variable="null">
+		<$action-setfield caption={{{ [<currentTiddler>get[id]removeprefix[K]addprefix[KIKS ]] }}}/>
+	</$list>
+	<$list filter="[<currentTiddler>match[$:/cypro/data/training]]" variable="null">
+		<$list filter="[tag[training]sort[id]]" variable="tr">
+			<$action-deletetiddler $tiddler={{{ [<tr>addprefix[$:/state/cypro/snapshot/]] }}}/>
+		</$list>
+	</$list>
+	<$action-setfield $tiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/locked/]] }}} text="yes"/>
+</$vars>
+\end
+
+\procedure cypro-discard()
+<!-- Reject edits: restore every field from the backup snapshot (generic loop),
+     then re-lock and restore derived state.
+	Threats: the generic restore only rewrites fields that exist in the snapshot,
+	     so derived risk fields created while editing would linger. We therefore drop
+	     the derived fields first and recompute them from the restored severity.
+	     TASK-127: update-risk-actions now clears the derived fields itself when the
+	     threat is unassessed (a missing Schadenshöhe or Eintrittshäufigkeit), so a
+	     single unconditional call both recomputes a rated threat and restores the
+	     empty state for an un-rated one — no fabrication of a risk of "1".
+	     The tv-action-refresh-policy=always forces update-risk-actions' <$let>
+	     attributes to re-read the fields AFTER the restore loop has written them
+	     (default "once" would read stale pre-discard values). -->
+<$vars snapshotTiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/snapshot/]] }}}>
+	<$set name="tv-action-refresh-policy" value="always">
+	<!-- generic restore: overwrite every field recorded in the snapshot.
+	     An empty snapshot value REMOVES the field (restores pre-edit absence). -->
+	<$list filter="[<snapshotTiddler>fields[]] -[title[title]] -[title[tags]] -[title[type]] -[title[created]] -[title[modified]] -[title[training_ids]] -[title[text]]" variable="f">
+		<$action-setfield $field=<<f>> $value={{{ [<snapshotTiddler>get<f>] }}}/>
+	</$list>
+	<!-- threat: drop the derived risk fields (they are not removed by the generic
+	     restore when absent from the snapshot, e.g. created while editing), then let
+	     update-risk-actions recompute (rated) or clear (unassessed, TASK-127). -->
+	<$list filter="[all[current]tag[threat]]" variable="null">
+		<$action-setfield initial_risk="" final_risk="" final_impact="" final_probability=""/>
+		<<update-risk-actions>>
+	</$list>
+	</$set>
+	<!-- training: remove TRs created during editing, restore the originals -->
+	<$list filter="[<currentTiddler>match[$:/cypro/data/training]]" variable="null">
+		<$list filter="[tag[training]sort[id]]" variable="tr">
+			<$list filter="[<tr>addprefix[$:/state/cypro/snapshot/]!is[tiddler]]" variable="null">
+				<$action-deletetiddler $tiddler=<<tr>>/>
+			</$list>
+		</$list>
+		<$list filter="[<snapshotTiddler>get[training_ids]enlist-input[]]" variable="tr">
+			<$let trSnap={{{ [<tr>addprefix[$:/state/cypro/snapshot/]] }}}>
+				<$list filter="[<trSnap>fields[]] -[title[title]] -[title[tags]] -[title[type]] -[title[created]] -[title[modified]] -[title[text]]" variable="tf">
+					<$action-setfield $tiddler=<<tr>> $field=<<tf>> $value={{{ [<trSnap>get<tf>] }}}/>
+				</$list>
+			</$let>
+			<$action-deletetiddler $tiddler=<<trSnap>>/>
+		</$list>
+	</$list>
+	<$action-deletetiddler $tiddler=<<snapshotTiddler>>/>
+	<$action-setfield $tiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/locked/]] }}} text="yes"/>
+</$vars>
+\end

@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/tour/onboarding/bsi
+tags: $:/tags/Tour/CyproOnboarding
+caption: Schritt 3: BSI-Meldepflicht
+condition: [[$:/cypro/data/BSIPortal]get[reporting]!match[yes]]
+step-success-filter: [[$:/cypro/data/BSIPortal]get[reporting]match[yes]]
+enter-actions: <$action-navigate $to="$:/cypro/data/BSIPortal"/>
+
+<!-- Tour step (3) — explains the BSI reporting obligation and points to the BSI-Portal page. -->
+
+!! BSI-Portal Registrierung
+
+Organisationen nach § 16a LuftSiG sind verpflichtet, sich beim BSI-Portal zu registrieren und Cybersicherheitsvorfälle zu melden.
+
+Bestätigen Sie die Meldepflicht und tragen Sie Ihre Registrierungsdetails ein.
+
+Der Schritt gilt als abgeschlossen, sobald die Meldepflicht bestätigt ist.

@@ -1,0 +1,36 @@
+caption: Prüfungen (Übersicht)
+title: $:/plugins/aeckert/cypro/pages/checksOverview
+type: text/vnd.tiddlywiki
+
+<!--
+  checksOverview — admin/debug page listing every completeness check in one table
+  (status, section, name, gap message, and the raw filter). Status is evaluated LIVE
+  here (no stored result — the old `approved` field was removed), so it is handy for
+  maintaining the check filters. Linked from the bottom of pages/printCheck.
+-->
+! Prüfungen — Übersicht
+
+Alle inhaltlichen Prüfungen an einem Ort. Der Status wird ''live'' ausgewertet (kein Zwischenspeichern). Jede Prüfung ist ein eigener Tiddler (`tag[cypro-check]`) mit einem `filter`-Feld – hier zentral sicht- und pflegbar, wenn sich Vorgaben ändern.
+
+<$set name="cypro-pass" filter="[all[shadows+tiddlers]tag[cypro-check]] :filter[all[tiddlers]subfilter{!!filter}]">
+''<$count filter="[all[shadows+tiddlers]tag[cypro-check]] -[enlist<cypro-pass>]"/>'' von ''<$count filter="[all[shadows+tiddlers]tag[cypro-check]]"/>'' Prüfungen offen.
+</$set>
+
+<table class="cypro-checks-table">
+<thead>
+<tr><th>Status</th><th>Abschnitt</th><th>Prüfung</th><th>Meldung bei Lücke</th><th>Filter</th></tr>
+</thead>
+<tbody>
+<$list filter="[all[shadows+tiddlers]tag[cypro-check]nsort[section]]" variable="checkTiddler">
+<$set name="cf" tiddler=<<checkTiddler>> field="filter">
+<tr>
+<td><$set name="ok" filter="[all[tiddlers]subfilter<cf>]" value="cypro-status-ok" emptyValue="cypro-status-todo"><span class={{{ [<ok>addprefix[cypro-status-dot ]] }}}/></$set></td>
+<td><$transclude tiddler=<<checkTiddler>> field="section"/></td>
+<td><$text text={{{ [<checkTiddler>split[/]last[]] }}}/></td>
+<td><$transclude tiddler=<<checkTiddler>> field="caption"/></td>
+<td><code><$text text=<<cf>>/></code></td>
+</tr>
+</$set>
+</$list>
+</tbody>
+</table>

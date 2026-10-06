@@ -1,0 +1,15 @@
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/components/inputField
+type: text/vnd.tiddlywiki
+
+<$let fieldName=<<fieldParam>> labelText=<<labelParam>>>
+<div class="cypro-field">
+  <label><<labelText>></label>
+  <$list filter="[<isLocked>match[yes]]" variable="null">
+    <span class="cypro-field-value"><$view field=<<fieldName>>/></span>
+  </$list>
+  <$list filter="[<isLocked>!match[yes]]" variable="null">
+    <$edit-text field=<<fieldName>> tag="input" class="cypro-field-input"/>
+  </$list>
+</div>
+</$let>

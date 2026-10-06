@@ -1,0 +1,18 @@
+caption: Anwendbarkeit
+created: 20260327220831809
+modified: 20260513101551205
+tags: tutorial help
+title: $:/plugins/aeckert/cypro/help/applicability
+tutorial-order: 1
+type: text/vnd.tiddlywiki
+
+<!-- Help topic — explains threat applicability. Surfaced via the help overview and context help icons (cypro-help). -->
+
+Dieser Assistent richtet sich an Unternehmen, die gemäß § 9 LuftSiG beim Luftfahrt-Bundesamt zugelassen sind und den Anforderungen der DVO (EU) 2015/1998 unterliegen — konkret:
+
+* Transporteure
+* Bekannte Versender
+* Bekannte Lieferanten
+* Regulierte Beauftragte
+
+⚠️ ''Hinweis'': Unternehmen, die unter § 8 LuftSiG fallen, sind von diesem Assistenten nicht erfasst. Bitte wenden Sie sich an Ihre zuständige Landesluftsicherheitsbehörde.

@@ -1,0 +1,16 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/dirty-banner
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+<!--
+  dirty-banner (Phase 5, task 139) — single-file data-loss prevention. Shown by
+  the core's own body.tc-dirty flag (toggled by syncer/saver-handler when the
+  wiki has unsaved/unsynced changes); hidden with display:none otherwise. In
+  server mode the flag is transient (pending sync ticks), in a downloaded
+  single-file wiki it stays until the Speichern button downloads a fresh copy.
+-->
+<div class="cypro-dirty-banner no-print">
+<span class="cypro-dirty-banner-icon">💾</span>
+''Änderungen noch nicht heruntergeladen.'' Bitte über die Schaltfläche ''Speichern'' eine HTML-Datei herunterladen, um Ihre Daten zu sichern.
+</div>

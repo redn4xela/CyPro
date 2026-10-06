@@ -1,0 +1,27 @@
+created: 20260824153951678
+modified: 20260824154127472
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/identificationRisk
+type: text/vnd.tiddlywiki
+
+
+<!-- Form viewtemplate for the risk-identification method page (pattern as form/company).
+     One checkboxTextGen block: which sources/methods were used to identify threats. -->
+<$list filter="[<currentTiddler>match[$:/cypro/data/identificationRisk]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$let pageTiddler=<<currentTiddler>>
+      targetField="risk-method"
+      textField="risk-method-text"
+      additionalField="risk-method-additional"
+      labelParam="Welche Verfahren, Methodiken und Informationsquellen wurden genutzt, um die Gefährdungen zu ermitteln?"
+      optionsInfoFilter="yes"
+      optionsFilter="[[BSI-Lagebericht zur IT-Sicherheit]] [[ACS-Warnungen]] [[BSI IT-Grundschutz]]"
+      paragraphsTiddler="$:/plugins/aeckert/cypro/data/identificationRiskMethod">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/checkboxTextGen}}
+</$let>
+
+</$set>
+</$list>

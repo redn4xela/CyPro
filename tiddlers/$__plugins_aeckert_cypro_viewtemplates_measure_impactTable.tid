@@ -1,0 +1,45 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/measure/impactTable
+type: text/vnd.tiddlywiki
+
+<!--
+  measure/impactTable — read-only overview of what this measure reduces. Groups by
+  KIKS, then lists each threat this measure is linked to (found via the measure's
+  threat tags, matched to the group through each threat's `kiks` field — no title or
+  field-name prefix, so a measure reducing K10T01 and K100T01 keeps the two groups
+  apart) with its reduction values for probability (RP) and impact (RI).
+-->
+<table>
+  <thead>
+    <tr>
+      <th>KIKS / Gefährdung</th>
+      <th>Reduzierung Eintrittshäufigkeit</th>
+      <th>Reduzierung Schadenshöhe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <$list
+      filter="[<currentTiddler>tags[]tag[threat]get[kiks]unique[]sort[]]"
+      variable="kiksTitle">
+      <tr style="background:#e8e8e8;">
+        <td colspan="3">
+          <strong><$link to=<<kiksTitle>>><$transclude tiddler=<<kiksTitle>> field="caption"><<kiksTitle>></$transclude></$link></strong>
+        </td>
+      </tr>
+      <$list
+        filter="[<currentTiddler>tags[]tag[threat]kiks<kiksTitle>sort[]]"
+        variable="threatKey">
+        <$set name="riField" value={{{ [<threatKey>addsuffix[_RI]] }}}>
+        <$set name="rpField" value={{{ [<threatKey>addsuffix[_RP]] }}}>
+        <tr>
+          <td style="padding-left:1.5em;">
+            <$link to=<<threatKey>>><$transclude tiddler=<<threatKey>> field="caption"><<threatKey>></$transclude></$link>
+          </td>
+          <td><$transclude tiddler=<<currentTiddler>> field=<<rpField>>/></td>
+          <td><$transclude tiddler=<<currentTiddler>> field=<<riField>>/></td>
+        </tr>
+        </$set>
+        </$set>
+      </$list>
+    </$list>
+  </tbody>
+</table>

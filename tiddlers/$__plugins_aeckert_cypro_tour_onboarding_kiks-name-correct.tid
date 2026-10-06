@@ -1,0 +1,13 @@
+caption: Zugang zur Unionsdatenbank
+created: 20260502204211962
+modified: 20260502211957085
+step-success-filter: [title[K01]get[caption]match[Zugang zur Unionsdatenbank]]
+tags: $:/tags/Tour/CyproOnboarding
+title: $:/plugins/aeckert/cypro/tour/onboarding/kiks-name-correct
+type: text/vnd.tiddlywiki
+
+<!-- Tour step — about access to the Union database and correct KIKS naming. -->
+
+Der ''Zugang zur Unionsdatenbank'' ist nach Vorgabe der Europäischen Kommission für alle Unternehmen der Sicheren Lieferkette ein verpflichtend zu dokumentierendes KIKS.
+
+Ändern Sie bitte den Namen des KIKS entsprechend.

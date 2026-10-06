@@ -1,0 +1,32 @@
+caption: Assistenzstruktur
+created: 20260328103511122
+modified: 20260328135648747
+tags: tutorial help
+title: $:/plugins/aeckert/cypro/help/structure
+tutorial-order: 4
+type: text/vnd.tiddlywiki
+
+<!-- Help topic (tutorial) — the structure of the assistant. -->
+
+Die Struktur dieses Assistenten orientiert sich an den [[Anwendungsgrundsätzen|https://www.lba.de/DE/Luftsicherheit/Cybersecurity/Umsetzung_DV_EU_2019_1583.html?nn=616440]] und gliedert sich in drei Bereiche:
+
+!! 1. Grundsätzliches
+
+* Unternehmensdaten
+* Erreichbarkeiten / Ansprechpartner
+* Melde- und Informationswesen
+
+!! 2. Risikomanagement
+
+* Ermittlungsmethodik
+* KIKS-Liste
+* Risikobewertung
+* Monitoring
+* Weitere Maßnahmen
+
+!! 3. Personalangelegenheiten
+
+* Zuverlässigkeitsüberprüfung
+* Schulungsinhalte
+
+Weiterführende Informationen zu den einzelnen Bereichen finden Sie in der Sidebar auf der rechten Seite.

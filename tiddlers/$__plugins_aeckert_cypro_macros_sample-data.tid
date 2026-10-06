@@ -1,0 +1,92 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/sample-data
+type: text/vnd.tiddlywiki
+
+\define cypro-sample-load()
+<!--
+  sample-data (Phase 5, task 139; reviewed + fixed in task 153) — "Beispieldaten
+  laden": fills the 8 form pages with short German sample texts, creates one KIKS
+  via the standard kiks-create-action (which seeds the 13 BSI catalog threats with
+  their standard fields), assesses those threats, adds two sample measures with
+  reductions and one sample training, then recalculates the affected risks via the
+  standard update-risk-actions macro.
+
+  Reachability: the button lives in the empty state (count=0) and is shown only
+  when DevMode is on (task 153) — a demo/onboarding aid, not a customer feature.
+  On an empty state the freshly created KIKS is K01 (cypro-next-id).
+
+  TASK-153 fixes over the TASK-139 original:
+    - the assessment loop no longer queries [tag[threat]kiks[K01]]: the threats do
+      not exist yet at render time, which left the generated action list empty and
+      every threat unassessed. It derives the titles from the default-threats
+      catalog + cypro-next-id instead, and the whole action sequence is wrapped in
+      tv-action-refresh-policy=always so update-risk-actions re-reads the fields
+      written here (the same pattern as macros/editControl cypro-discard).
+    - the sample measures get ids M01/M02 (the old $basetitle="M" produced "M"/"M 1").
+    - a sample training is created so the Schulung check is green.
+  Runner coverage: test/harness/runner.js section 4.
+-->
+<!-- Form pages -->
+<$action-setfield $tiddler="$:/cypro/data/company" company-name="Musterfirma Luftfahrt XY" company-type="T" reg-no="DE-12345"/>
+<$action-setfield $tiddler="$:/cypro/data/contactPerson" alt-contact="no"/>
+<$action-setfield $tiddler="$:/cypro/data/BSIPortal" reporting="yes"/>
+<$action-setfield $tiddler="$:/cypro/data/backgroundcheck" backgroundcheck_as_sp="yes" backgroundcheck_description="Die Zuverlässigkeit von Personal, das Zugriff auf KIKS hat, wird vor der Zuweisung geprüft und in festen Intervallen erneut bewertet; Verfahren und Ergebnisse werden dokumentiert."/>
+<$action-setfield $tiddler="$:/cypro/data/identificationKIKS" kiks-method-persons="[[Frachtabfertigung]]" kiks-method-persons-text="Die Identifizierung der KIKS erfolgte in enger Abstimmung zwischen der Frachtabfertigung und dem Bereich Informationssicherheit. Die Frachtabfertigung brachte das Wissen über operative Abläufe und deren Systemabhängigkeiten ein." kiks-method-approach-text="Die KIKS wurden anhand der Begriffsbestimmungen der Grundsätze zur Anwendung der Cybersicherheitsmaßnahmen identifiziert und mit den betrieblichen IT-Systemlisten abgeglichen."/>
+<$action-setfield $tiddler="$:/cypro/data/identificationRisk" risk-method="[[BSI-Lagebericht zur IT-Sicherheit]]" risk-method-text="Zur Ermittlung der relevanten Gefährdungen wurde das jährlich vom BSI veröffentlichte IT-Lagebild zusammen mit den Warnungen der Allianz für Cyber-Sicherheit als Grundlage herangezogen."/>
+<$action-setfield $tiddler="$:/cypro/data/monitoring" monitoring-method="Wiedervorlageterminierung" monitoring-method-text="Für alle relevanten Elemente der Risikobeurteilung und Risikobehandlung sind feste Wiedervorlagetermine hinterlegt; Fälligkeiten werden von der Informationssicherheit koordiniert."/>
+<$action-setfield $tiddler="$:/cypro/data/drr" drr-detection-method="[[Sensibilisierung der Mitarbeitenden]]" drr-detection-method-text="Beobachtungen von Mitarbeitenden werden über den Luftsicherheitsbeauftragten an die verantwortliche Stelle gemeldet; Auffälligkeiten am Mail- und Webservice-Weg werden protokolliert." drr-response-method="[[Befolgung eines IT-Notfallplans]]" drr-response-method-text="Eingetretene Vorfälle werden nach dem Notfallplan des Unternehmens abgearbeitet; der Luftsicherheitsbeauftragte steuert Meldungen an Behörden und betroffene Stellen." drr-recovery-method="[[Wiederherstellung aus Datensicherungen]]" drr-recovery-method-text="Wichtige Systeme werden täglich gesichert; die Wiederherstellung aus Datensicherungen ist in einem Notfallkonzept beschrieben und wird regelmäßig geübt."/>
+
+<!-- KIKS + 13 catalog threats (standard creation path) -->
+<<kiks-create-action>>
+
+<$vars nextID={{{ [function[cypro-next-id],[KIKS],[K]] }}}>
+<$set name="tv-action-refresh-policy" value="always">
+
+<!-- Assess the freshly seeded catalog threats: the sample is only reachable on an
+     EMPTY state, where the created KIKS is K01. The titles are derived from the
+     catalog (present at render time) + nextID, not from the created tiddlers
+     (which do not exist until this action sequence executes). -->
+<$list filter="[[$:/plugins/aeckert/cypro/data/default-threats]indexes[]suffix[.caption]removesuffix[.caption]]" variable="suffix" counter="tc">
+  <$let threat={{{ [<nextID>addsuffix<suffix>] }}}>
+  <$let imm={{{ [<tc>remainder[3]add[2]] }}}>
+  <$let ipr={{{ [<tc>remainder[2]add[2]] }}}>
+    <$action-setfield $tiddler=<<threat>> applicable="yes"
+        initial_impact=<<imm>> initial_probability=<<ipr>>/>
+    <$macrocall $name="update-risk-actions" threat=<<threat>>/>
+  </$let>
+  </$let>
+  </$let>
+</$list>
+
+<!-- Two sample measures with reductions (ids M01/M02, matching the cypro-next-id scheme) -->
+<$action-createtiddler
+    $basetitle="M01"
+    $overwrite="no"
+    tags="measure K01T01 K01T07"
+    id="M01"
+    caption="Testmaßnahme: Awareness-Kampagne"
+    K01T01_RI="-1"
+    K01T07_RI="-2"
+/>
+<$action-createtiddler
+    $basetitle="M02"
+    $overwrite="no"
+    tags="measure K01T09 K01T10"
+    id="M02"
+    caption="Testmaßnahme: Backup &amp; Wiederherstellung"
+    K01T09_RP="-2"
+    K01T10_RI="-1"
+/>
+
+<!-- One sample training (the first training defaults its audience to "Alle Mitarbeitenden") -->
+<<training-create-action>>
+
+<!-- Recompute the risks of the linked threats now that the measures exist -->
+<$macrocall $name="update-risk-actions" threat={{{ [<nextID>addsuffix[T01]] }}}/>
+<$macrocall $name="update-risk-actions" threat={{{ [<nextID>addsuffix[T07]] }}}/>
+<$macrocall $name="update-risk-actions" threat={{{ [<nextID>addsuffix[T09]] }}}/>
+<$macrocall $name="update-risk-actions" threat={{{ [<nextID>addsuffix[T10]] }}}/>
+
+</$set>
+</$vars>
+\end

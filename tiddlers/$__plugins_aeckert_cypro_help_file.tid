@@ -1,0 +1,17 @@
+caption: Dateieigenschaften
+created: 20260327225252696
+modified: 20260328135641647
+tags: tutorial help
+title: $:/plugins/aeckert/cypro/help/file
+tutorial-order: 2
+type: text/vnd.tiddlywiki
+
+<!-- Help topic (tutorial) — file properties: a single HTML file, works offline, no data sent to external servers. -->
+
+Dieser Assistent basiert auf dem Open-Source-Werkzeug [[TiddlyWiki|https://tiddlywiki.com]] und übernimmt dessen Fähigkeit, alle Informationen in einer einzigen ''HTML-Datei'' zu bündeln.
+
+Zur Nutzung ist ausschließlich ein Webbrowser erforderlich — eine Installation oder Internetverbindung ist nicht nötig.
+
+Sämtliche Eingaben verbleiben an dem von Ihnen gewählten Ablageort dieser HTML-Datei. Es findet keine Datenübertragung dieser an externe Server statt.
+
+Nach Abschluss Ihrer Bearbeitung können Sie eine Druckvorlage für das Cybersicherheitsprogramm erzeugen und dieses als PDF exportieren oder direkt drucken.

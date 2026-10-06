@@ -1,0 +1,32 @@
+created: 20260502195447719
+modified: 20260502195733715
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/header
+type: text/vnd.tiddlywiki
+
+<!--
+  kiks/header — the KIKS title (editable `caption`, placeholder "KIKS NN").
+  Below it, a warning hint appears if the typed name matches a word in the
+  data/invalid-kiks-names list (i.e. the user named a mere software product instead
+  of the critical data/system). Sub-template of viewtemplates/kiks; uses `isLocked`.
+-->
+<div class="kiks-header">
+    <div class="kiks-title-wrapper">
+        <$edit-text
+            field="caption"
+            class={{{ [<isLocked>match[yes]then[kiks-title-input kiks-field-disabled]else[kiks-title-input]] }}}
+            placeholder={{{ [<currentTiddler>get[id]removeprefix[K]addprefix[KIKS ]] }}}
+            disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}
+        />
+    </div>
+</div>
+
+<$let captionOrig={{{ [<currentTiddler>get[caption]] }}}
+      captionLower={{{ [<currentTiddler>get[caption]lowercase[]] }}}>
+<$list filter="[[$:/plugins/aeckert/cypro/data/invalid-kiks-names]get[text]split[ ]lowercase[]match<captionLower>limit[1]]">
+<div class="kiks-name-hint">
+"<<captionOrig>>" ist vermutlich nur eine Software, mit welcher kritische Daten verarbeitet werden. Bitte definieren Sie die Daten so präzise wie möglich und beachten Sie dabei die ZÜP-Verpflichtung für alle Nutzenden von KIKS."
+</div>
+</$list>
+</$let>
+

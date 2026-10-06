@@ -1,0 +1,13 @@
+created: 20260428000000000
+modified: 20260428000000000
+tags: 
+title: $:/plugins/aeckert/cypro/viewtemplates/training/tabButton
+type: text/vnd.tiddlywiki
+
+<!-- training/tabButton — one tab in the training tab strip. Clicking it stores this
+     training's title in $:/state/cypro/training/selectedTab; highlighted when <<tabState>>
+     says it is the selected one. Shows the training's caption (or its title if unnamed). -->
+<$button class={{{ [<tabState>match[yes]then[tc-tab tc-tab-selected]] ~[[tc-tab]] }}}>
+  <$action-setfield $tiddler="$:/state/cypro/training/selectedTab" text=<<tr>>/>
+  <$view tiddler=<<tr>> field="caption" emptyValue=<<tr>>/>
+</$button>

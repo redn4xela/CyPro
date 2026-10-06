@@ -1,0 +1,25 @@
+title: $:/plugins/aeckert/cypro/tour/onboarding
+tags: $:/tags/Tour
+tour-tag: $:/tags/Tour/CyproOnboarding
+description: CyPro — Erste Schritte
+
+<!--
+  onboarding — defines the guided onboarding tour, using the core "tour" plugin
+  (declared in tiddlywiki.info). `tour-tag` points at the tag that collects this tour's
+  STEPS: every tiddler tagged $:/tags/Tour/CyproOnboarding (the tour/onboarding/*
+  tiddlers) is one step, ordered by creation/list order.
+
+  Useful fields a step tiddler can carry (see the steps/* tiddlers for examples):
+    - caption          : step title shown in the tour panel
+    - (body)           : the German explanation shown to the user
+    - display-mode     : e.g. "fullscreen" for intro/outro steps
+    - hint-selector    : CSS selector of the element to spotlight
+    - hint-text        : little label on the spotlight
+    - condition        : filter; step is only shown when it matches
+    - step-success-filter : filter; tour advances once it matches (user did the task)
+    - enter-actions    : actions run when the step is entered (e.g. navigate to a page)
+
+  The tour can be (re)started from buttons/tour and the help overview. Styling overrides
+  live in styles/tour.
+-->
+Interaktive Einführung in den CSP-Assistenten für Cybersicherheitsprogramme nach DVO (EU) 2019/1583.

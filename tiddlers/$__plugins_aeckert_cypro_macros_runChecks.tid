@@ -1,0 +1,11 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/runChecks
+type: text/vnd.tiddlywiki
+
+\procedure cypro-run-checks()
+<!-- Open the printable check-results page. Completeness is evaluated LIVE there
+     (and in the sidebar) via `[all[shadows+tiddlers]tag[cypro-check]] :filter[all[tiddlers]subfilter{!!filter}]`,
+     so no `approved` field is written anywhere anymore — the old cypro-evaluate-checks
+     procedure (which wrote `approved`) was removed. -->
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/printCheck"/>
+\end

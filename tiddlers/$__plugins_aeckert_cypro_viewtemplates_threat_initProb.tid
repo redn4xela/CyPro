@@ -1,0 +1,12 @@
+tags:
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/initProb
+type: text/vnd.tiddlywiki
+
+<!--
+  threat/initProb — thin parameterised caller: renders the Eintrittshäufigkeit
+  (initial_probability, levels 1-4) scale radio. All markup lives in the shared
+  components/scaleRadio (Phase 3 consolidation).
+-->
+<$let fieldParam="initial_probability" labelParam="Eintrittshäufigkeit:" o1Param="selten" o2Param="mittel" o3Param="häufig" o4Param="sehr häufig">
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/scaleRadio}}
+</$let>

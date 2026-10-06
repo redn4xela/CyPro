@@ -1,0 +1,48 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/form/company
+type: text/vnd.tiddlywiki
+
+
+<!--
+  FORM VIEWTEMPLATE for the "Unternehmensdaten" page. This is the canonical example of
+  a form template: tagged $:/tags/ViewTemplate, it guards on the page's title
+  (field:title[...$:/cypro/data/company]) so it only renders for that one data tiddler, derives
+  `isLocked`, then lays out the fields. Most fields reuse shared components (captionFix,
+  inputField) by setting fieldParam/labelParam in an enclosing <$let>. The company-type
+  radio is inline here because it has bespoke options (T / bV / regB / regL).
+  The actual values are stored as fields on $:/cypro/data/company.
+-->
+<$list filter="[<currentTiddler>match[$:/cypro/data/company]]" variable="null">
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+
+{{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
+
+<$let fieldParam="company-name" labelParam="Firmenname">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/inputField}}
+</$let>
+
+<$let fieldParam="reg-no" labelParam="Registrierungsnummer">
+  {{||$:/plugins/aeckert/cypro/viewtemplates/components/inputField}}
+</$let>
+
+<div class="cypro-field">
+  <label>Unternehmenstyp</label>
+  <div class="kiks-type-toggle">
+    <label class="kiks-radio-label">
+      <$radio field="company-type" value="T" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/> T
+    </label>
+    <label class="kiks-radio-label">
+      <$radio field="company-type" value="KC" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/> bV
+    </label>
+    <label class="kiks-radio-label">
+      <$radio field="company-type" value="RA" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/> regB
+    </label>
+    <label class="kiks-radio-label">
+      <$radio field="company-type" value="RS" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/> regL
+    </label>
+  </div>
+</div>
+
+</$set>
+
+</$list>

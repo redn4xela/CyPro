@@ -1,0 +1,11 @@
+title: $:/plugins/aeckert/cypro/tour/onboarding/threats-applicable
+tags: $:/tags/Tour/CyproOnboarding
+caption: Anwendbarkeit prüfen
+step-success-filter: [title[K01T07]get[applicable]match[yes]]
+enter-actions: <$action-navigate $to="K01T07"/>
+
+<!-- Tour step — marking threats as applicable or not. -->
+
+Bewerten Sie in einem ersten Schritt, ob diese Gefährdung auf das KIKS anwendbar ist.
+
+Klicken Sie auf ''„Ja"'' unter „Anwendbar".

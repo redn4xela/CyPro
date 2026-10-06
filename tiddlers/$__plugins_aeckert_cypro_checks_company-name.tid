@@ -1,0 +1,17 @@
+caption: Firmenname fehlt
+created: 20260418113204744
+filter: [[$:/cypro/data/company]get[company-name]minlength[1]]
+modified: 20260824152620166
+page: $:/cypro/data/company
+section: 1
+tags: cypro-check
+title: $:/plugins/aeckert/cypro/checks/company-name
+type: text/vnd.tiddlywiki
+
+Bitte tragen Sie den vollständigen Namen Ihres Unternehmens ein.
+
+<!-- This is a completeness check (tag cypro-check). The `filter` field above is the
+     PASS condition; consumers evaluate it LIVE via
+     `[all[shadows+tiddlers]tag[cypro-check]] :filter[all[tiddlers]subfilter{!!filter}]` (no stored result).
+     The body text is the message shown when the check fails.
+     Passes when the company page's `company-name` field has >= 1 character. -->

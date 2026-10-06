@@ -1,0 +1,46 @@
+title: $:/config/cypro/Sections
+type: application/x-tiddler-dictionary
+
+<!--
+  Sections config — the data-driven sidebar (Phase 3, task 137 step 3.4).
+
+  The sidebar (macros? $:/plugins/aeckert/cypro/sidebar) renders one block per
+  "<n>-caption" index; each section lists PAGES by slug ("1-pages"). For every
+  slug `pg`:
+    `pg`            = the navigated tiddler title
+    `pg-caption`    = German display label used while the data tiddler does not
+                      exist yet (first run) — the data tiddler's own `caption`
+                      field always wins.
+  The green/red light per item shows whether ALL checks whose `page` field
+  points at that tiddler evaluate as passed. Adding a page or a check therefore
+  means touching this tiddler (or nothing at all for checks' fields drive state).
+
+  NOTE: never hard-code page titles in the sidebar — everything comes from here.
+-->
+1-caption: Grundsätzliches
+1-pages: company contactPerson BSIPortal
+2-caption: Risikomanagement
+2-pages: identificationKIKS listKIKS identificationRisk monitoring drr
+3-caption: Personalangelegenheiten
+3-pages: backgroundcheck training
+
+company: $:/cypro/data/company
+company-caption: Unternehmensdaten
+contactPerson: $:/cypro/data/contactPerson
+contactPerson-caption: Ansprechperson Cybersecurity
+BSIPortal: $:/cypro/data/BSIPortal
+BSIPortal-caption: Registrierung BSI-Portal
+identificationKIKS: $:/cypro/data/identificationKIKS
+identificationKIKS-caption: KIKS-Ermittlung
+listKIKS: $:/plugins/aeckert/cypro/pages/listKIKS
+listKIKS-caption: Auflistung KIKS
+identificationRisk: $:/cypro/data/identificationRisk
+identificationRisk-caption: Gefährdungsanalyse
+monitoring: $:/cypro/data/monitoring
+monitoring-caption: Maßnahmen zum Monitoring
+drr: $:/cypro/data/drr
+drr-caption: Weitere Maßnahmen
+backgroundcheck: $:/cypro/data/backgroundcheck
+backgroundcheck-caption: Zuverlässigkeitsüberprüfung
+training: $:/cypro/data/training
+training-caption: Schulung

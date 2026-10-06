@@ -1,0 +1,14 @@
+caption: BSI-Portal
+created: 20260328143452393
+modified: 20260410153904254
+tags: help
+title: $:/plugins/aeckert/cypro/help/BSIPortal
+type: text/vnd.tiddlywiki
+
+<!-- Help topic — about the BSI portal. Also embedded as an alert on viewtemplates/form/BSIPortal. -->
+
+Das BSI-Portal ist ein Service des [[Bundesamtes für Sicherheit in der Informationstechnik|https://www.bsi.bund.de]] für Luftfahrtunternehmen und Unternehmen der sicheren Lieferkette.
+
+Über das Portal können Cyberangriffe gemeldet werden. Zudem steuert das BSI darüber gezielt Informationen an registrierte Unternehmen, sofern eine entsprechende Bedrohungslage vorliegt.
+
+Das Portal ist erreichbar unter: [[https://portal.bsi.bund.de/|https://portal.bsi.bund.de/]]

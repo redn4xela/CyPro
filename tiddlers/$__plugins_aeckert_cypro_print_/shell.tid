@@ -1,0 +1,49 @@
+caption: Druckansicht
+title: $:/plugins/aeckert/cypro/print/shell
+type: text/vnd.tiddlywiki
+
+<!--
+  print/shell — the printable "Cybersicherheitsprogramm" DOCUMENT (Phase 3 split,
+  task 137 step 3.5). The former 349-line styles/printTemplate became this shell
+  plus four section tiddlers tagged `cypro-print-section` (ordered by `order`),
+  so additional chapters/appendices can register themselves as tiddlers.
+
+  DESPITE history this is not a stylesheet: it renders the final report from the
+  DATA fields only (company, contact, methods, KIKS, threats, measures, training),
+  never UI state. "Drucken" triggers tm-print; the button lives in the shell.
+-->
+<div class="no-print">
+<$button class="cypro-btn cypro-btn-primary" message="tm-print"><span class="cypro-btn-label">Drucken</span></$button>
+</div>
+
+!! Cybersicherheitsprogramm
+
+''Version:'' <<now YYYY-0MM-0DD>>
+
+''Unternehmen:'' {{$:/cypro/data/company!!company-name}}
+
+''Registernummer:'' {{$:/cypro/data/company!!reg-no}}
+
+---
+
+!! Revisionshistorie
+
+|!Revision|!Datum|!Änderungen|
+| | | |
+
+---
+
+!! Abkürzungsverzeichnis
+
+|!Abkürzung|!Bedeutung|
+|Grundsätze|Grundsätze zur Anwendung der Cybersicherheitsmaßnahmen der Verordnung (EU) 2015/1998 im Zuständigkeitsbereich des BMDV (§§ 9 und 9a LuftSiG)|
+|KIKS|Kritische informations- und kommunikationstechnische Systeme und Daten|
+|BSI|Bundesamt für Sicherheit in der Informationstechnik|
+
+<!-- the document body: every chapter/appendix tagged cypro-print-section -->
+<$list filter="[all[shadows+tiddlers]tag[cypro-print-section]sort[order]]"><$transclude mode="block"/></$list>
+
+<!-- Stand/Version footer (Phase 5 side win) -->
+<div class="print-footer">
+Stand: <<now "DD.0MM.YYYY hh:mm">> · Version: ''{{$:/plugins/aeckert/cypro!!version}}''
+</div>

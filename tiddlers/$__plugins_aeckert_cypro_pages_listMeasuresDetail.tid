@@ -1,0 +1,28 @@
+caption: Maßnahmen-Details
+tags: form
+title: $:/plugins/aeckert/cypro/pages/listMeasuresDetail
+type: text/vnd.tiddlywiki
+
+<!--
+  listMeasuresDetail — measures overview table (ID, name, and the KIKS each measure
+  protects). Counterpart to listKIKSDetail; pages/listMeasures is the empty anchor
+  rendered by viewtemplates/form/listMeasures.
+-->
+<table class="cypro-table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Bezeichnung</th>
+<th>KIKS</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[measure]sort[id]]">
+<tr>
+<td><$link to=<<currentTiddler>>>{{!!id}}</$link></td>
+<td><$text text={{!!caption}}/></td>
+<td class="muted"><$set name="mTiddler" value=<<currentTiddler>>><$list filter="[<mTiddler>tags[]tag[threat]get[kiks]unique[]sort[]]" variable="kiksTitle"><$link to=<<kiksTitle>>><$text text=<<kiksTitle>>/></$link> </$list></$set></td>
+</tr>
+</$list>
+</tbody>
+</table>

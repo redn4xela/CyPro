@@ -1,0 +1,14 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/threat/applicabilityToggle
+type: text/vnd.tiddlywiki
+
+<!-- threat/applicabilityToggle — labelled wrapper for the `applicable` field
+     (Ja/Nein): whether this threat applies to the KIKS. Non-applicable threats
+     are excluded from the risk checks. All markup lives in the shared
+     components/applicabilityRadio (task 146 consolidation), reused by the KIKS
+     threats row. -->
+<div class="kiks-body-area">
+	<div class="kiks-field-label">
+		Anwendbar:
+	</div>
+	{{||$:/plugins/aeckert/cypro/viewtemplates/components/applicabilityRadio}}
+</div>

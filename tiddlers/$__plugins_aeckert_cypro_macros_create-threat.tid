@@ -1,0 +1,37 @@
+created: 20260213072050734
+modified: 20260417181152413
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/create-threat
+type: text/vnd.tiddlywiki
+
+\define threat-create-action()
+<!--
+  threat-create-action — add one extra (manual) threat to the current KIKS.
+
+  Used by the "new threat" button shown inside a KIKS. The new threat gets an id
+  of the form "<KIKS-id>T<nn>" (e.g. K03T04): cypro-next-id(tag, prefix) reads the
+  `id` field of every threat whose id starts with "<KIKS-id>T" and derives the next
+  number, so K10T01 is never confused with K100T01. The new threat is tagged
+  `threat`, linked to the KIKS via `kiks`, and the user is navigated straight to it.
+-->
+<$let
+    kiksId={{{ [<currentTiddler>get[id]] ~[<currentTiddler>get[title]] }}}
+    threatPrefix={{{ [<kiksId>addsuffix[T]] }}}
+    nextID={{{ [function[cypro-next-id],[threat],<threatPrefix>] }}}
+>
+    <$action-createtiddler 
+        $basetitle=<<nextID>>
+        title=<<nextID>>
+        tags="threat"
+        kiks=<<currentTiddler>>
+        caption="Neue Bedrohung"
+				initial_probability=""
+    		initial_impact=""
+				applicable=""
+        id=<<nextID>>
+        text=""
+    >
+        <$action-navigate $to=<<nextID>>/>
+    </$action-createtiddler>
+</$let>
+\end

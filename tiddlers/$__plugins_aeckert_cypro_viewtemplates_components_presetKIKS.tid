@@ -1,0 +1,28 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/components/presetKIKS
+type: text/vnd.tiddlywiki
+
+<!--
+  presetKIKS — the data-driven "Vorlagen" list shown below the KIKS overview tables.
+
+  Lists every plugin-shipped preset under $:/plugins/aeckert/cypro/data/preset-kiks/
+  as a plain (table-less) list of "+ Bezeichnung" entries. Presets are always shown,
+  even after a KIKS has been created from them, so the same template can be used for
+  several KIKS.
+
+  Each "+" runs kiks-preset-create-action (see macros/preset-kiks). One click, no
+  confirmation. This is a self-contained block (heading + list).
+-->
+<$set name="presets" filter="[all[shadows+tiddlers]prefix[$:/plugins/aeckert/cypro/data/preset-kiks/]]">
+<$list filter="[<presets>!is[blank]]" variable="null">
+<div class="kiks-preset-section">
+<h4 class="kiks-preset-heading">Vorlagen</h4>
+<ul class="kiks-preset-list">
+<$list filter="[enlist<presets>]" variable="preset">
+<li class="kiks-preset-item">
+<$button class="kiks-preset-add" tooltip="Diese Vorlage als neues KIKS übernehmen" aria-label="Vorlage übernehmen" actions="""<$macrocall $name="kiks-preset-create-action" preset=<<preset>>/>"""><$transclude tiddler="$:/core/images/plus-button" size="1em"/></$button> <$text text={{{ [<preset>get[name]else<preset>] }}}/>
+</li>
+</$list>
+</ul>
+</div>
+</$list>
+</$set>
