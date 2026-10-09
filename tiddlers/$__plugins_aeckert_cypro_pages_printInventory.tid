@@ -1,0 +1,165 @@
+created: 20261001054553394
+modified: 20261001054635900
+tags: 
+title: $:/plugins/aeckert/cypro/pages/printInventory
+caption: Inventar-Druckansicht
+
+<style>
+.cypro-inventory-print {
+    width: 100%;
+    line-height: 1.45;
+}
+
+.cypro-inventory-print * {
+    box-sizing: border-box;
+}
+
+.cypro-inventory-print table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+.cypro-inventory-print th,
+.cypro-inventory-print td {
+    border: 1px solid #c8c8c8;
+    padding: 0.65em;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.cypro-inventory-print th {
+    background: #f0f0f0;
+}
+
+.cypro-inventory-print-actions {
+    display: flex;
+    gap: 0.7em;
+    margin-bottom: 1em;
+}
+
+@media print {
+
+    .cypro-inventory-print-actions {
+        display: none !important;
+    }
+
+    .tc-sidebar-scrollable,
+    .tc-sidebar-header,
+    .tc-page-controls,
+    .tc-tiddler-controls,
+    .tc-tiddler-tags,
+    .tc-titlebar {
+        display: none !important;
+    }
+
+    .tc-story-river > .tc-tiddler-frame {
+        display: none !important;
+    }
+
+    .tc-story-river > .tc-tiddler-frame[data-tiddler-title="$:/plugins/aeckert/cypro/pages/printInventory"] {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .tc-story-river {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .cypro-inventory-print tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+</style>
+
+
+<div class="cypro-inventory-print">
+
+<div class="cypro-inventory-print-actions">
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    message="tm-print"
+>
+Drucken
+</$button>
+
+<$link to="$:/plugins/aeckert/cypro/pages/inventory">
+Zur Inventarliste
+</$link>
+
+</div>
+
+
+! Erfasste Systeme und Daten
+
+''Unternehmen:'' {{$:/plugins/aeckert/cypro/pages/company!!company-name}}
+
+''Stand:'' <<now YYYY-0MM-0DD>>
+
+''Gesamt:'' <$count filter="[tag[cypro-inventory]]"/>
+
+''Noch nicht bewertet:'' <$count filter="[tag[cypro-inventory]assessment-status[pending]]"/>
+
+''KIKS:'' <$count filter="[tag[cypro-inventory]assessment-result[kiks]]"/>
+
+''Kein KIKS:'' <$count filter="[tag[cypro-inventory]assessment-result[non-kiks]]"/>
+
+
+<table class="cypro-inventory-print-table">
+<colgroup>
+<col style="width:30%;">
+<col style="width:13%;">
+<col style="width:20%;">
+<col style="width:17%;">
+<col style="width:20%;">
+</colgroup>
+<thead>
+<tr>
+<th>Bezeichnung</th>
+<th>Typ</th>
+<th>Bewertungsstatus</th>
+<th>Ergebnis</th>
+<th>Zugehöriger KIKS</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[cypro-inventory]sort[caption]]" variable="inventoryEntry" emptyMessage="<tr><td colspan='5'>Keine Systeme oder Daten erfasst.</td></tr>">
+<tr>
+<td>
+<$text text={{{ [<inventoryEntry>get[caption]] }}}/>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[object-type]match[system]]" variable="null">System</$list>
+<$list filter="[<inventoryEntry>get[object-type]match[data]]" variable="null">Daten</$list>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">Noch nicht bewertet</$list>
+<$list filter="[<inventoryEntry>get[assessment-status]match[completed]]" variable="null">Bewertet</$list>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[assessment-result]match[kiks]]" variable="null">KIKS</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]match[non-kiks]]" variable="null">Kein KIKS</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]!match[kiks]!match[non-kiks]]" variable="null">–</$list>
+</td>
+<td>
+<$list filter="[<inventoryEntry>has[linked-kiks]]" variable="null">
+<$text text={{{ [<inventoryEntry>get[linked-kiks]] }}}/>
+</$list>
+<$list filter="[<inventoryEntry>!has[linked-kiks]]" variable="null">–</$list>
+</td>
+</tr>
+</$list>
+</tbody>
+</table>
+
+</div>

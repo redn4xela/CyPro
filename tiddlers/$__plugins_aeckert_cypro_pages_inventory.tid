@@ -1,0 +1,1071 @@
+created: 20260930134058228
+modified: 20261001064042039
+tags: 
+title: $:/plugins/aeckert/cypro/pages/inventory
+caption: System- und Dateninventar
+
+\define inventory-input() $:/temp/cypro/inventory-new
+
+\define render-aviation-tasks(sourceTiddler)
+
+<!-- Show the explicit "none" selection. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-none]match[yes]]"
+    variable="null"
+>
+<div class="cypro-task-display-item">
+Keine Luftsicherheitsaufgabe
+</div>
+</$list>
+
+
+<!-- Render all selected aviation security tasks. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]]"
+    variable="task"
+>
+
+<div class="cypro-task-display-item">
+
+<$list filter="[<task>match[access-control]]" variable="null">
+• Zugangssicherung
+</$list>
+
+<$list filter="[<task>match[passenger-baggage-screening]]" variable="null">
+• Personen- und Gepäckkontrollen
+</$list>
+
+<$list filter="[<task>match[air-cargo-security]]" variable="null">
+• Luftfrachtsicherheit
+</$list>
+
+<$list filter="[<task>match[personnel-screening]]" variable="null">
+• Personalüberprüfung
+</$list>
+
+<$list filter="[<task>match[surveillance-interference-protection]]" variable="null">
+• Überwachung und Schutz vor unbefugtem Eingreifen
+</$list>
+
+<$list filter="[<task>match[training-records]]" variable="null">
+• Schulungsnachweise
+</$list>
+
+<$list filter="[<task>match[security-programmes]]" variable="null">
+• Sicherheitsprogramme
+</$list>
+
+<$list filter="[<task>match[other]]" variable="null">
+• Sonstige
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-other]minlength[1]]"
+    variable="otherText"
+>
+: <$text text=<<otherText>>/>
+</$list>
+</$list>
+
+</div>
+
+
+<!-- Render cargo-specific subcategories. -->
+<$list
+    filter="[<task>match[air-cargo-security]]"
+    variable="null"
+>
+
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-cargo-tasks]enlist-input[]]"
+    variable="cargoTask"
+>
+
+<div class="cypro-task-display-subitem">
+
+<$list filter="[<cargoTask>match[cargo-unauthorised-interference]]" variable="null">
+– Schutz vor unbefugtem Eingreifen
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-secure-supply-chain]]" variable="null">
+– Sicherheit innerhalb der sicheren Lieferkette
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-shipment-status]]" variable="null">
+– Sendungsstatus
+</$list>
+
+</div>
+
+</$list>
+
+</$list>
+
+</$list>
+
+
+<!-- Show a dash for legacy entries without an assignment. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-none]!match[yes]]"
+    variable="null"
+>
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]count[]match[0]]"
+    variable="null"
+>
+<div class="cypro-task-display-item">
+–
+</div>
+</$list>
+</$list>
+
+\end
+
+
+<!-- Create one persistent inventory entry. -->
+\define cypro-add-inventory()
+
+<$vars
+    maxNum={{{ [tag[cypro-inventory]prefix[CyPro-Inventar-]removeprefix[CyPro-Inventar-]nsort[]last[]] ~[[000]] }}}
+>
+
+<$vars
+    nextNum={{{ [<maxNum>add[1]pad[3]] }}}
+>
+
+<$vars
+    newTitle={{{ [<nextNum>addprefix[CyPro-Inventar-]] }}}
+>
+
+<$set
+    name="hasAviationTask"
+    filter="[<inventory-input>get[aviation-security-tasks]minlength[1]]"
+    value="yes"
+    emptyValue="no"
+>
+
+<$action-createtiddler
+    $basetitle=<<newTitle>>
+    tags="cypro-inventory"
+    inventory-id=<<nextNum>>
+    caption={{$:/temp/cypro/inventory-new!!caption}}
+    object-type={{$:/temp/cypro/inventory-new!!object-type}}
+    aviation-security-tasks={{$:/temp/cypro/inventory-new!!aviation-security-tasks}}
+    aviation-security-cargo-tasks={{$:/temp/cypro/inventory-new!!aviation-security-cargo-tasks}}
+    aviation-security-task-other={{$:/temp/cypro/inventory-new!!aviation-security-task-other}}
+    aviation-security-task-none={{{ [<hasAviationTask>match[no]then[yes]] }}}
+    assessment-status={{{ [<hasAviationTask>match[yes]then[pending]else[completed]] }}}
+    assessment-result={{{ [<hasAviationTask>match[no]then[non-kiks]] }}}
+    assessment-reason={{{ [<hasAviationTask>match[no]then[no-aviation-task]] }}}
+    text=""
+/>
+
+</$set>
+
+<$action-setfield
+    $tiddler=<<inventory-input>>
+    caption=""
+    object-type=""
+    aviation-security-tasks=""
+    aviation-security-cargo-tasks=""
+    aviation-security-task-other=""
+    aviation-security-task-none=""
+/>
+
+</$vars>
+</$vars>
+</$vars>
+
+\end
+
+
+\define cypro-add-inventory-button()
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-add-inventory>>
+>
+Zur Liste hinzufügen
+</$button>
+
+\end
+
+
+<style>
+.cypro-inventory {
+    max-width: 1100px;
+    line-height: 1.5;
+}
+
+.cypro-inventory * {
+    box-sizing: border-box;
+}
+
+.cypro-inventory-card {
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    padding: 1.2em;
+    margin: 1em 0;
+    background: #fff;
+}
+
+.cypro-inventory-card h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+}
+
+.cypro-inventory-field {
+    margin: 1em 0;
+}
+
+.cypro-inventory-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.4em;
+}
+
+.cypro-inventory-input {
+    width: 100%;
+    padding: 0.65em;
+    border: 1px solid #c8cdd3;
+    border-radius: 5px;
+    font: inherit;
+}
+
+.cypro-inventory-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2em;
+    margin: 0.7em 0;
+}
+
+.cypro-inventory-options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+}
+
+.cypro-inventory-hint {
+    color: #68727d;
+    font-size: 0.9em;
+    margin: 0.6em 0;
+}
+
+.cypro-inventory-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+    margin: 1em 0;
+}
+
+.cypro-inventory-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+    gap: 0.7em;
+    margin: 1em 0;
+}
+
+.cypro-inventory-stat {
+    border: 1px solid #d7dce2;
+    border-radius: 7px;
+    padding: 0.8em;
+    text-align: center;
+}
+
+.cypro-inventory-stat strong {
+    display: block;
+    font-size: 1.5em;
+}
+
+.cypro-task-box {
+    margin: 1.2em 0;
+    padding: 1em;
+    border: 1px solid #cfd8e3;
+    border-radius: 7px;
+    background: #f7f9fb;
+}
+
+.cypro-task-box h3 {
+    margin: 0 0 0.4em 0;
+    font-size: 1.05em;
+}
+
+.cypro-task-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55em;
+    margin: 0.7em 0;
+}
+
+.cypro-task-option input {
+    margin-top: 0.25em;
+}
+
+.cypro-task-description {
+    display: block;
+}
+
+.cypro-task-example {
+    display: block;
+    color: #68727d;
+    font-size: 0.88em;
+    margin-top: 0.1em;
+}
+
+.cypro-task-suboptions {
+    margin: 0.4em 0 0.8em 2em;
+    padding: 0.6em 0.8em;
+    border-left: 3px solid #c5d4e5;
+}
+
+.cypro-task-other-input {
+    margin: 0.4em 0 0.8em 2em;
+}
+
+.cypro-task-display-item {
+    margin: 0.15em 0;
+}
+
+.cypro-task-display-subitem {
+    margin: 0.1em 0 0.1em 1.1em;
+    color: #56616d;
+    font-size: 0.92em;
+}
+
+.cypro-inventory-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.cypro-inventory-table {
+    width: 100%;
+    min-width: 1000px;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.cypro-inventory-table th,
+.cypro-inventory-table td {
+    padding: 0.7em;
+    border: 1px solid #d7dce2;
+    text-align: left;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.cypro-inventory-table th {
+    background: #f4f5f6;
+}
+
+.cypro-status-pending {
+    font-weight: bold;
+}
+
+.cypro-status-kiks {
+    display: inline-block;
+    padding: 0.2em 0.55em;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #8b1e1e;
+    background: #fdeaea;
+    border: 1px solid #e5a4a4;
+}
+
+.cypro-status-nonkiks {
+    display: inline-block;
+    padding: 0.2em 0.55em;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #246b38;
+    background: #e9f7ed;
+    border: 1px solid #9ecbad;
+}
+
+/* Show additional information about the protection target. */
+.cypro-inventory-type-main {
+    font-weight: 600;
+}
+
+.cypro-inventory-type-sub {
+    margin-top: 0.2em;
+    padding-left: 0.4em;
+    color: #68727d;
+    font-size: 0.88em;
+    line-height: 1.3;
+}
+
+.cypro-inventory-actions {
+    display: block;
+    width: 100%;
+}
+
+.cypro-inventory-action-btn {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0.55em 0.7em;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+</style>
+
+
+<div class="cypro-inventory">
+
+! System- und Dateninventar
+
+Erfassen Sie zunächst alle Systeme und Daten des Unternehmens.
+
+Die KIKS-Bewertung erfolgt anschließend für jeden Eintrag einzeln.
+!! Übersicht
+
+<div class="cypro-inventory-stats">
+
+<div class="cypro-inventory-stat">
+<strong><$count filter="[tag[cypro-inventory]]"/></strong>
+Gesamt
+</div>
+
+<div class="cypro-inventory-stat">
+<strong><$count filter="[tag[cypro-inventory]assessment-status[pending]]"/></strong>
+Noch zu bewerten
+</div>
+
+<div class="cypro-inventory-stat">
+<strong><$count filter="[tag[cypro-inventory]assessment-result[kiks]]"/></strong>
+KIKS
+</div>
+
+<div class="cypro-inventory-stat">
+<strong><$count filter="[tag[cypro-inventory]assessment-result[non-kiks]]"/></strong>
+Kein KIKS
+</div>
+
+</div>
+
+
+<div class="cypro-inventory-toolbar">
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    message="tm-open-window"
+    param="$:/plugins/aeckert/cypro/pages/printInventory"
+    windowTitle="System- und Dateninventar"
+    template="$:/plugins/aeckert/cypro/pages/printInventory"
+>
+Gesamtliste drucken
+</$button>
+
+<$button
+    class="cypro-btn cypro-btn-ghost"
+    message="tm-open-window"
+    param="$:/plugins/aeckert/cypro/pages/printNonKIKS"
+    windowTitle="Nicht-KIKS-Druckansicht"
+    template="$:/plugins/aeckert/cypro/pages/printNonKIKS"
+>
+Nicht-KIKS drucken
+</$button>
+
+</div>
+<div class="cypro-inventory-card">
+
+<h2>1. System oder Daten erfassen</h2>
+
+<div class="cypro-inventory-field">
+
+<span class="cypro-inventory-label">
+Bezeichnung
+</span>
+
+<$edit-text
+    tiddler=<<inventory-input>>
+    field="caption"
+    tag="input"
+    class="cypro-inventory-input"
+    placeholder="Bezeichnung des Systems oder Datenbestands..."
+/>
+
+</div>
+
+
+<div class="cypro-inventory-field">
+
+<span class="cypro-inventory-label">
+Typ
+</span>
+
+<div class="cypro-inventory-options">
+
+<label>
+<$radio
+    tiddler=<<inventory-input>>
+    field="object-type"
+    value="system"
+/>
+System
+</label>
+
+<label>
+<$radio
+    tiddler=<<inventory-input>>
+    field="object-type"
+    value="data"
+/>
+Daten
+</label>
+
+</div>
+
+</div>
+
+
+<$list
+    filter="[<inventory-input>get[caption]minlength[1]]"
+    variable="null"
+    emptyMessage="<div class='cypro-inventory-hint'>Bitte zuerst eine Bezeichnung eingeben.</div>"
+>
+
+<div class="cypro-task-box">
+
+<h3>Zuordnung zu Luftsicherheitsaufgaben</h3>
+
+<div class="cypro-inventory-hint">
+Ordnen Sie das System beziehungsweise die Daten einer oder mehreren Luftsicherheitsaufgaben zu. Falls keine Zuordnung besteht, wählen Sie „Keine Luftsicherheitsaufgabe“.
+</div>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="access-control"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Zugangssicherung</strong>
+<span class="cypro-task-example">
+Beispiele: Zugangsberechtigungen, Ausweisdaten
+</span>
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="passenger-baggage-screening"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Personen- und Gepäckkontrollen</strong>
+<span class="cypro-task-example">
+Beispiele: Zugänge beziehungsweise Software von Röntgen- und Detektionssystemen
+</span>
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="air-cargo-security"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+
+<$list
+    filter="[[$:/temp/cypro/inventory-new]get[aviation-security-tasks]enlist-input[]match[air-cargo-security]count[]match[0]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-cargo-tasks=""
+/>
+</$list>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Luftfrachtsicherheit</strong>
+<span class="cypro-task-example">
+Beispiele: Sicherheitsstatus einer Sendung, Status eines Teilnehmers in der sicheren Lieferkette
+</span>
+</span>
+
+</label>
+
+
+<$list
+    filter="[<inventory-input>get[aviation-security-tasks]enlist-input[]match[air-cargo-security]]"
+    variable="null"
+>
+
+<div class="cypro-task-suboptions">
+
+<strong>Nähere Zuordnung zur Luftfrachtsicherheit (optional)</strong>
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-cargo-tasks"
+    checked="cargo-unauthorised-interference"
+    unchecked=""
+/>
+
+<span>
+Schutz vor unbefugtem Eingreifen
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-cargo-tasks"
+    checked="cargo-secure-supply-chain"
+    unchecked=""
+/>
+
+<span>
+Sicherheit innerhalb der sicheren Lieferkette
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-cargo-tasks"
+    checked="cargo-shipment-status"
+    unchecked=""
+/>
+
+<span>
+Sendungsstatus
+</span>
+
+</label>
+
+</div>
+
+</$list>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="personnel-screening"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Personalüberprüfung</strong>
+<span class="cypro-task-example">
+Beispiele: ZÜP, Berechtigungen
+</span>
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="surveillance-interference-protection"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Überwachung und Schutz vor unbefugtem Eingreifen</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="training-records"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Schulungsnachweise</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="security-programmes"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Sicherheitsprogramme</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    listField="aviation-security-tasks"
+    checked="other"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-none=""
+/>
+
+<$list
+    filter="[[$:/temp/cypro/inventory-new]get[aviation-security-tasks]enlist-input[]match[other]count[]match[0]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-task-other=""
+/>
+</$list>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Sonstige</strong>
+</span>
+
+</label>
+
+
+<$list
+    filter="[<inventory-input>get[aviation-security-tasks]enlist-input[]match[other]]"
+    variable="null"
+>
+
+<div class="cypro-task-other-input">
+
+<$edit-text
+    tiddler=<<inventory-input>>
+    field="aviation-security-task-other"
+    tag="input"
+    class="cypro-inventory-input"
+    placeholder="Sonstige Luftsicherheitsaufgabe beschreiben..."
+/>
+
+</div>
+
+</$list>
+
+
+<label class="cypro-task-option">
+
+<$checkbox
+    tiddler=<<inventory-input>>
+    field="aviation-security-task-none"
+    checked="yes"
+    unchecked=""
+    actions="""
+<$list
+    filter="[[$:/temp/cypro/inventory-new]get[aviation-security-task-none]match[yes]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler="$:/temp/cypro/inventory-new"
+    aviation-security-tasks=""
+    aviation-security-cargo-tasks=""
+    aviation-security-task-other=""
+/>
+</$list>
+"""
+/>
+
+<span class="cypro-task-description">
+<strong>Keine Luftsicherheitsaufgabe</strong>
+</span>
+
+</label>
+
+</div>
+
+
+<$list
+    filter="[<inventory-input>get[object-type]match[system]] [<inventory-input>get[object-type]match[data]]"
+    variable="null"
+    emptyMessage="<div class='cypro-inventory-hint'>Bitte System oder Daten auswählen.</div>"
+>
+
+<$list
+    filter="[<inventory-input>]"
+    variable="null"
+>
+
+
+<$list
+    filter="[<inventory-input>get[aviation-security-tasks]enlist-input[]match[other]count[]match[0]]"
+    variable="null"
+>
+
+<<cypro-add-inventory-button>>
+
+</$list>
+
+
+<$list
+    filter="[<inventory-input>get[aviation-security-tasks]enlist-input[]match[other]]"
+    variable="null"
+>
+
+<$list
+    filter="[<inventory-input>get[aviation-security-task-other]minlength[1]]"
+    variable="null"
+    emptyMessage="<div class='cypro-inventory-hint'>Bitte die sonstige Luftsicherheitsaufgabe beschreiben.</div>"
+>
+
+<<cypro-add-inventory-button>>
+
+</$list>
+
+</$list>
+
+</$list>
+
+</$list>
+
+</$list>
+
+</div>
+
+
+<div class="cypro-inventory-card">
+
+<h2>2. Erfasste Systeme und Daten</h2>
+
+<div class="cypro-inventory-table-wrap">
+<table class="cypro-inventory-table">
+<colgroup>
+<col style="width:22%;">
+<col style="width:9%;">
+<col style="width:27%;">
+<col style="width:16%;">
+<col style="width:11%;">
+<col style="width:15%;">
+</colgroup>
+<thead>
+<tr>
+<th>Bezeichnung</th>
+<th>Typ</th>
+<th>Luftsicherheitsaufgabe(n)</th>
+<th>Status</th>
+<th>Ergebnis</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[cypro-inventory]sort[caption]]" variable="inventoryEntry" emptyMessage="<tr><td colspan='6'>Noch keine Systeme oder Daten erfasst.</td></tr>">
+<tr>
+<td>
+<$link to=<<inventoryEntry>>>
+<$text text={{{ [<inventoryEntry>get[caption]else<inventoryEntry>] }}}/>
+</$link>
+</td>
+<td>
+
+<$list
+    filter="[<inventoryEntry>get[object-type]match[system]]"
+    variable="null"
+>
+
+<div class="cypro-inventory-type-main">
+System
+</div>
+
+<$list
+    filter="[<inventoryEntry>get[system-protection]match[data]]"
+    variable="null"
+>
+<div class="cypro-inventory-type-sub">
+↳ darauf befindliche Daten
+</div>
+</$list>
+
+</$list>
+
+
+<$list
+    filter="[<inventoryEntry>get[object-type]match[data]]"
+    variable="null"
+>
+<div class="cypro-inventory-type-main">
+Daten
+</div>
+</$list>
+
+</td>
+<td>
+<$macrocall
+    $name="render-aviation-tasks"
+    sourceTiddler=<<inventoryEntry>>
+/>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
+<span class="cypro-status-pending">Noch nicht bewertet</span>
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-status]match[completed]]" variable="null">
+Bewertet
+</$list>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[assessment-result]match[kiks]]" variable="null">
+<span class="cypro-status-kiks">KIKS</span>
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]match[non-kiks]]" variable="null">
+<span class="cypro-status-nonkiks">Kein KIKS</span>
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]!match[kiks]!match[non-kiks]]" variable="null">
+–
+</$list>
+</td>
+<td>
+<div class="cypro-inventory-actions">
+<$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
+<$button class="cypro-btn cypro-btn-primary">
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment-selected"
+    text=<<inventoryEntry>>
+/>
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment"
+    caption={{{ [<inventoryEntry>get[caption]] }}}
+    original-type={{{ [<inventoryEntry>get[object-type]] }}}
+    confirmed-type=""
+    system-protection=""
+    impact=""
+    influence=""
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/kiksAssessment"/>
+Bewerten
+</$button>
+</$list>
+<$list
+    filter="[<inventoryEntry>get[assessment-result]match[kiks]]"
+    variable="null"
+>
+
+<$list
+    filter="[<inventoryEntry>get[linked-kiks]minlength[1]]"
+    variable="linkedKiks"
+>
+
+<$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
+
+<$action-navigate $to=<<linkedKiks>>/>
+
+Risikobewertung öffnen
+
+</$button>
+
+</$list>
+
+<$list
+    filter="[<inventoryEntry>get[linked-kiks]minlength[1]count[]match[0]]"
+    variable="null"
+>
+
+<span class="cypro-inventory-hint">
+Kein KIKS verknüpft
+</span>
+
+</$list>
+
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]match[non-kiks]]" variable="null">
+
+<$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
+
+<$action-navigate $to=<<inventoryEntry>>/>
+
+Bewertung ansehen
+
+</$button>
+
+</$list>
+</div>
+</td>
+</tr>
+</$list>
+</tbody>
+</table>
+</div>
+
+</div>
+
+</div>

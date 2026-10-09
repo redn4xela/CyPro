@@ -1,0 +1,174 @@
+created: 20261001054428227
+modified: 20261001064543145
+tags: 
+title: $:/plugins/aeckert/cypro/pages/printNonKIKS
+caption: Nicht-KIKS-Druckansicht
+
+<style>
+.cypro-nonkiks-print {
+    width: 100%;
+    line-height: 1.45;
+}
+
+.cypro-nonkiks-print * {
+    box-sizing: border-box;
+}
+
+.cypro-nonkiks-print table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+.cypro-nonkiks-print th,
+.cypro-nonkiks-print td {
+    border: 1px solid #c8c8c8;
+    padding: 0.65em;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.cypro-nonkiks-print th {
+    background: #f0f0f0;
+}
+
+.cypro-nonkiks-print-actions {
+    display: flex;
+    gap: 0.7em;
+    margin-bottom: 1em;
+}
+
+.cypro-nonkiks-reason {
+    margin-bottom: 0.5em;
+}
+
+@media print {
+
+    .cypro-nonkiks-print-actions {
+        display: none !important;
+    }
+
+    .tc-sidebar-scrollable,
+    .tc-sidebar-header,
+    .tc-page-controls,
+    .tc-tiddler-controls,
+    .tc-tiddler-tags,
+    .tc-titlebar {
+        display: none !important;
+    }
+
+    .tc-story-river > .tc-tiddler-frame {
+        display: none !important;
+    }
+
+    .tc-story-river > .tc-tiddler-frame[data-tiddler-title="$:/plugins/aeckert/cypro/pages/printNonKIKS"] {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .tc-story-river {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .cypro-nonkiks-print tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+</style>
+
+
+<div class="cypro-nonkiks-print">
+
+<div class="cypro-nonkiks-print-actions">
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    message="tm-print"
+>
+Drucken
+</$button>
+
+<$link to="$:/plugins/aeckert/cypro/pages/inventory">
+Zur Inventarliste
+</$link>
+
+</div>
+
+
+! Nicht als KIKS eingestufte Systeme und Daten
+
+''Unternehmen:'' {{$:/plugins/aeckert/cypro/pages/company!!company-name}}
+
+''Stand:'' <<now YYYY-0MM-0DD>>
+
+<table class="cypro-nonkiks-table">
+<colgroup>
+<col style="width:22%;">
+<col style="width:10%;">
+<col style="width:17%;">
+<col style="width:15%;">
+<col style="width:36%;">
+</colgroup>
+<thead>
+<tr>
+<th>Bezeichnung</th>
+<th>Typ</th>
+<th>Auswirkung auf Luftsicherheit</th>
+<th>Deutsches Recht</th>
+<th>Grund</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[cypro-inventory]assessment-result[non-kiks]sort[caption]]" variable="inventoryEntry" emptyMessage="<tr><td colspan='5'>Keine Nicht-KIKS-Einträge vorhanden.</td></tr>">
+<tr>
+<td>
+<$text text={{{ [<inventoryEntry>get[caption]] }}}/>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[object-type]match[system]]" variable="null">System</$list>
+<$list filter="[<inventoryEntry>get[object-type]match[data]]" variable="null">Daten</$list>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[impact]match[yes]]" variable="null">Ja</$list>
+<$list filter="[<inventoryEntry>get[impact]match[no]]" variable="null">Nein</$list>
+<$list filter="[<inventoryEntry>!has[impact]]" variable="null">–</$list>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[german-jurisdiction]match[yes]]" variable="null">Ja</$list>
+<$list filter="[<inventoryEntry>get[german-jurisdiction]match[no]]" variable="null">Nein</$list>
+<$list filter="[<inventoryEntry>!has[german-jurisdiction]]" variable="null">–</$list>
+</td>
+<td>
+<div class="cypro-nonkiks-reason">
+<$list filter="[<inventoryEntry>get[assessment-reason]match[system-data-only]]" variable="null">
+Das System selbst wurde nicht als relevanter Schutzgegenstand eingestuft. Die darauf befindlichen Daten sind separat zu bewerten.
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-reason]match[no-aviation-impact]]" variable="null">
+Keine mögliche Gefährdung der Sicherheit der zivilen Luftfahrt festgestellt.
+</$list>
+
+<$list filter="[<inventoryEntry>get[assessment-reason]match[no-aviation-task]]" variable="null">
+Dem System beziehungsweise den Daten wurde keine Luftsicherheitsaufgabe zugeordnet. Das Objekt wurde daher direkt als Nicht-KIKS eingestuft.
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-reason]match[no-german-jurisdiction]]" variable="null">
+Kein entsprechender Bezug zum deutschen Recht festgestellt.
+</$list>
+</div>
+<strong>Schutz im Rahmen des ISMS.</strong>
+</td>
+</tr>
+</$list>
+</tbody>
+</table>
+
+
+</div>

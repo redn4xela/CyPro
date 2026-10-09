@@ -64,12 +64,30 @@ title: $:/plugins/aeckert/cypro/viewtemplates/components/toolbar
 
 <!-- Context actions on the LEFT (blue/primary) so the focus stays here; Weiter is the lighter button on the right -->
 <$list filter="[all[current]field:title[$:/plugins/aeckert/cypro/pages/listKIKS]]" variable="null">
+
 <div class="cypro-toolbar-group">
-<$button class="cypro-btn cypro-btn-create" actions=<<kiks-create-action>>
-         tooltip="Neues KIKS anlegen" aria-label="Neues KIKS anlegen">
+
+<$button
+    class="cypro-btn cypro-btn-create"
+    tooltip="Neues KIKS anlegen"
+    aria-label="Neues KIKS anlegen"
+>
+
+<$action-sendmessage
+    $message="tm-close-tiddler"
+    $param=<<currentTiddler>>
+/>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/inventory"
+/>
+
 <span class="cypro-btn-label">Neues KIKS anlegen</span>
+
 </$button>
+
 </div>
+
 </$list>
 
 <$list filter="[all[current]] -[[$:/plugins/aeckert/cypro/pages/listKIKS]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]] -[all[current]tag[matrix-detail]]" variable="null">

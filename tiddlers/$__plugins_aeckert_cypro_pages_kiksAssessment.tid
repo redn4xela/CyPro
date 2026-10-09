@@ -1,0 +1,1092 @@
+created: 20261001054502107
+modified: 20261001064514284
+tags: 
+title: $:/plugins/aeckert/cypro/pages/kiksAssessment
+caption: KIKS-Einstufung
+
+\define assessment-draft() $:/temp/cypro/kiks-assessment
+\define assessment-selection() $:/temp/cypro/kiks-assessment-selected
+\define after-create-state() $:/temp/cypro/kiks-after-create
+\define assessed-object-type()
+
+<$list
+    filter="[<assessment-draft>get[confirmed-type]match[system]]"
+    variable="null"
+>
+<$list
+    filter="[<assessment-draft>get[system-protection]match[data]]"
+    variable="null"
+>
+data
+</$list>
+
+<$list
+    filter="[<assessment-draft>get[system-protection]match[system]]"
+    variable="null"
+>
+system
+</$list>
+</$list>
+
+<$list
+    filter="[<assessment-draft>get[confirmed-type]match[data]]"
+    variable="null"
+>
+data
+</$list>
+
+\end
+\define render-aviation-tasks(sourceTiddler)
+
+<!-- Show the explicit "none" selection. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-none]match[yes]]"
+    variable="null"
+>
+<div class="cypro-assessment-task-item">
+Keine Luftsicherheitsaufgabe
+</div>
+</$list>
+
+
+<!-- Render all selected aviation security tasks. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]]"
+    variable="task"
+>
+
+<div class="cypro-assessment-task-item">
+
+<$list filter="[<task>match[access-control]]" variable="null">
+• Zugangssicherung
+</$list>
+
+<$list filter="[<task>match[passenger-baggage-screening]]" variable="null">
+• Personen- und Gepäckkontrollen
+</$list>
+
+<$list filter="[<task>match[air-cargo-security]]" variable="null">
+• Luftfrachtsicherheit
+</$list>
+
+<$list filter="[<task>match[personnel-screening]]" variable="null">
+• Personalüberprüfung
+</$list>
+
+<$list filter="[<task>match[surveillance-interference-protection]]" variable="null">
+• Überwachung und Schutz vor unbefugtem Eingreifen
+</$list>
+
+<$list filter="[<task>match[training-records]]" variable="null">
+• Schulungsnachweise
+</$list>
+
+<$list filter="[<task>match[security-programmes]]" variable="null">
+• Sicherheitsprogramme
+</$list>
+
+<$list filter="[<task>match[other]]" variable="null">
+• Sonstige
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-other]minlength[1]]"
+    variable="otherText"
+>
+: <$text text=<<otherText>>/>
+</$list>
+</$list>
+
+</div>
+
+
+<!-- Render cargo-specific subcategories. -->
+<$list
+    filter="[<task>match[air-cargo-security]]"
+    variable="null"
+>
+
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-cargo-tasks]enlist-input[]]"
+    variable="cargoTask"
+>
+
+<div class="cypro-assessment-task-subitem">
+
+<$list filter="[<cargoTask>match[cargo-unauthorised-interference]]" variable="null">
+– Schutz vor unbefugtem Eingreifen
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-secure-supply-chain]]" variable="null">
+– Sicherheit innerhalb der sicheren Lieferkette
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-shipment-status]]" variable="null">
+– Sendungsstatus
+</$list>
+
+</div>
+
+</$list>
+
+</$list>
+
+</$list>
+
+
+<!-- Show a hint for legacy entries without an assignment. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-none]!match[yes]]"
+    variable="null"
+>
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]count[]match[0]]"
+    variable="null"
+>
+<div class="cypro-assessment-task-item">
+Noch keine Luftsicherheitsaufgabe zugeordnet
+</div>
+</$list>
+</$list>
+
+\end
+
+<!-- Clear the temporary assessment values. -->
+\define cypro-clear-assessment()
+
+<$action-setfield
+    $tiddler=<<assessment-draft>>
+    caption=""
+    original-type=""
+    confirmed-type=""
+    system-protection=""
+    impact=""
+    influence=""
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+
+\end
+
+
+<!-- Clear values that depend on the confirmed type. -->
+\define cypro-reset-after-type()
+
+<$action-setfield
+    $tiddler=<<assessment-draft>>
+    system-protection=""
+    impact=""
+    influence=""
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+
+\end
+
+
+<!-- Clear values that depend on the system protection decision. -->
+\define cypro-reset-after-protection()
+
+<$action-setfield
+    $tiddler=<<assessment-draft>>
+    impact=""
+    influence=""
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+
+\end
+
+
+<!-- Complete an assessment where only the data on a system is relevant. -->
+\define cypro-complete-data-only()
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    object-type={{$:/temp/cypro/kiks-assessment!!confirmed-type}}
+    system-protection="data"
+    impact=""
+    influence=""
+    german-jurisdiction=""
+    jurisdiction-reason=""
+    assessment-status="completed"
+    assessment-result="non-kiks"
+    assessment-reason="system-data-only"
+/>
+
+<$action-setfield
+    $tiddler=<<assessment-selection>>
+    text=""
+/>
+
+<<cypro-clear-assessment>>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/inventory"
+/>
+
+\end
+
+
+<!-- Complete an assessment with no aviation-security impact. -->
+\define cypro-complete-no-impact()
+
+<$list
+    filter="[<assessment-draft>get[confirmed-type]match[system]get[system-protection]match[data]]"
+    variable="null"
+>
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    object-type="system"
+    system-protection="data"
+    impact="no"
+    influence={{$:/temp/cypro/kiks-assessment!!influence}}
+    german-jurisdiction=""
+    jurisdiction-reason=""
+    assessment-status="completed"
+    assessment-result="non-kiks"
+    assessment-reason="no-aviation-impact"
+/>
+
+</$list>
+
+
+<$list
+    filter="[<assessment-draft>get[confirmed-type]match[data]] [<assessment-draft>get[confirmed-type]match[system]get[system-protection]match[system]]"
+    variable="null"
+>
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    object-type={{$:/temp/cypro/kiks-assessment!!confirmed-type}}
+    system-protection={{$:/temp/cypro/kiks-assessment!!system-protection}}
+    impact="no"
+    influence={{$:/temp/cypro/kiks-assessment!!influence}}
+    german-jurisdiction=""
+    jurisdiction-reason=""
+    assessment-status="completed"
+    assessment-result="non-kiks"
+    assessment-reason="no-aviation-impact"
+/>
+
+</$list>
+
+<$action-setfield
+    $tiddler=<<assessment-selection>>
+    text=""
+/>
+
+<<cypro-clear-assessment>>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/inventory"
+/>
+
+\end
+
+
+<!-- Complete an assessment without German jurisdiction. -->
+\define cypro-complete-no-jurisdiction()
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    object-type={{$:/temp/cypro/kiks-assessment!!confirmed-type}}
+    system-protection={{$:/temp/cypro/kiks-assessment!!system-protection}}
+    impact="yes"
+    influence={{$:/temp/cypro/kiks-assessment!!influence}}
+    german-jurisdiction="no"
+    jurisdiction-reason={{$:/temp/cypro/kiks-assessment!!jurisdiction-reason}}
+    assessment-status="completed"
+    assessment-result="non-kiks"
+    assessment-reason="no-german-jurisdiction"
+/>
+
+<$action-setfield
+    $tiddler=<<assessment-selection>>
+    text=""
+/>
+
+<<cypro-clear-assessment>>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/inventory"
+/>
+
+\end
+
+
+<!-- Create a KIKS and all standard threats. -->
+\define cypro-complete-kiks()
+
+<$list
+    filter="[<assessment-draft>field:confirmed-type[system]field:system-protection[data]]"
+    variable="null"
+>
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    object-type="system"
+    system-protection="data"
+    impact="yes"
+    influence={{$:/temp/cypro/kiks-assessment!!influence}}
+    german-jurisdiction="yes"
+    jurisdiction-reason={{$:/temp/cypro/kiks-assessment!!jurisdiction-reason}}
+    assessment-status="completed"
+    assessment-result="kiks"
+    assessment-reason=""
+/>
+
+</$list>
+
+
+<$list
+    filter="[<assessment-draft>field:confirmed-type[data]] [<assessment-draft>field:confirmed-type[system]field:system-protection[system]]"
+    variable="null"
+>
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    object-type={{$:/temp/cypro/kiks-assessment!!confirmed-type}}
+    system-protection={{$:/temp/cypro/kiks-assessment!!system-protection}}
+    impact="yes"
+    influence={{$:/temp/cypro/kiks-assessment!!influence}}
+    german-jurisdiction="yes"
+    jurisdiction-reason={{$:/temp/cypro/kiks-assessment!!jurisdiction-reason}}
+    assessment-status="completed"
+    assessment-result="kiks"
+    assessment-reason=""
+/>
+
+</$list>
+
+
+<$vars
+    maxNum={{{ [tag[KIKS]!has[draft.of]each[title]get[title]removeprefix[K]nsort[]last[]] ~[[00]] }}}
+>
+
+<$vars
+    nextID={{{ [<maxNum>add[1]pad[2]addprefix[K]] }}}
+>
+
+
+<!-- Create all default threats. -->
+<$list
+    filter="[[$:/plugins/aeckert/cypro/data/default-threats]indexes[]suffix[.caption]removesuffix[.caption]]"
+    variable="suffix"
+>
+
+<$let
+    threatTitle={{{ [<nextID>addsuffix<suffix>] }}}
+    threat_no={{{ [<suffix>addsuffix[.threat_no]] }}}
+    threat_caption={{{ [<suffix>addsuffix[.caption]] }}}
+>
+
+<$action-createtiddler
+    $basetitle=<<threatTitle>>
+    tags="threat"
+    id=<<threatTitle>>
+    kiks=<<nextID>>
+    threat_no={{{ [[$:/plugins/aeckert/cypro/data/default-threats]getindex<threat_no>] }}}
+    caption={{{ [[$:/plugins/aeckert/cypro/data/default-threats]getindex<threat_caption>] }}}
+    mandatory="yes"
+    initial_impact=""
+    initial_probability=""
+    final_probability=""
+    final_impact=""
+    final_risk=""
+    applicable=""
+    text=""
+/>
+
+</$let>
+
+</$list>
+
+<$let
+    effectiveType={{{ 
+        [<assessment-draft>field:confirmed-type[data]then[data]]
+        [<assessment-draft>field:confirmed-type[system]field:system-protection[data]then[data]]
+        [<assessment-draft>field:confirmed-type[system]field:system-protection[system]then[system]]
+    }}}
+>
+<!-- Create the KIKS itself. -->
+<$action-createtiddler
+    $basetitle=<<nextID>>
+    tags="KIKS"
+    id=<<nextID>>
+    caption={{{ [<selectedInventory>get[caption]] }}}
+    kiks=<<effectiveType>>
+    influence={{$:/temp/cypro/kiks-assessment!!influence}}
+    aviation-security-tasks={{{ [<selectedInventory>get[aviation-security-tasks]] }}}
+    aviation-security-cargo-tasks={{{ [<selectedInventory>get[aviation-security-cargo-tasks]] }}}
+    aviation-security-task-other={{{ [<selectedInventory>get[aviation-security-task-other]] }}}
+    aviation-security-task-none={{{ [<selectedInventory>get[aviation-security-task-none]] }}}
+    identification-impact="yes"
+    identification-german-jurisdiction="yes"
+    identification-jurisdiction-reason={{$:/temp/cypro/kiks-assessment!!jurisdiction-reason}}
+    identification-system-protection={{$:/temp/cypro/kiks-assessment!!system-protection}}
+    identification-source=<<selectedInventory>>
+    text=""
+>
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    linked-kiks=<<createTiddler-title>>
+/>
+
+
+<!-- Continue with the next inventory entry. -->
+<$list
+    filter="[<after-create-state>get[text]match[inventory]]"
+    variable="null"
+>
+
+<$action-setfield
+    $tiddler=<<assessment-selection>>
+    text=""
+/>
+
+<<cypro-clear-assessment>>
+
+<$action-setfield
+    $tiddler=<<after-create-state>>
+    text=""
+/>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/inventory"
+/>
+
+</$list>
+
+
+<!-- Continue directly with the newly created KIKS. -->
+<$list
+    filter="[<after-create-state>get[text]match[kiks]]"
+    variable="null"
+>
+
+<$action-setfield
+    $tiddler={{{ [<createTiddler-title>addprefix[$:/state/cypro/edit-title/]] }}}
+    text="yes"
+/>
+
+<$action-setfield
+    $tiddler=<<assessment-selection>>
+    text=""
+/>
+
+<<cypro-clear-assessment>>
+
+<$action-setfield
+    $tiddler=<<after-create-state>>
+    text=""
+/>
+
+<$action-navigate
+    $to=<<createTiddler-title>>
+/>
+
+</$list>
+
+</$action-createtiddler>
+</$let>
+</$vars>
+</$vars>
+
+\end
+
+
+<!-- Create the KIKS and return to the inventory. -->
+\define cypro-complete-kiks-to-inventory()
+
+<$action-setfield
+    $tiddler=<<after-create-state>>
+    text="inventory"
+/>
+
+<<cypro-complete-kiks>>
+
+\end
+
+
+<!-- Create the KIKS and continue with its threat assessment. -->
+\define cypro-complete-kiks-to-kiks()
+
+<$action-setfield
+    $tiddler=<<after-create-state>>
+    text="kiks"
+/>
+
+<<cypro-complete-kiks>>
+
+\end
+
+
+<style>
+.cypro-assessment {
+    max-width: 900px;
+    line-height: 1.5;
+}
+
+.cypro-assessment * {
+    box-sizing: border-box;
+}
+
+.cypro-assessment-card {
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    padding: 1.2em;
+    margin: 1em 0;
+    background: #fff;
+}
+
+.cypro-assessment-card h2 {
+    margin-top: 0;
+    font-size: 1.15em;
+}
+
+.cypro-assessment-summary {
+    background: #f4f7fa;
+    border-left: 4px solid #99a9ba;
+    padding: 0.8em 1em;
+    margin: 1em 0;
+}
+
+.cypro-assessment-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2em;
+    margin: 0.8em 0;
+}
+
+.cypro-assessment-options label {
+    display: inline-flex;
+    gap: 0.4em;
+    align-items: center;
+}
+
+.cypro-assessment-textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 0.65em;
+    border: 1px solid #c8cdd3;
+    border-radius: 5px;
+    font: inherit;
+}
+
+.cypro-assessment-info {
+    margin: 0.8em 0;
+    padding: 0.8em;
+    border: 1px solid #bed4ed;
+    border-radius: 6px;
+    background: #eef5fd;
+}
+
+.cypro-assessment-info summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cypro-assessment-result {
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 7px;
+}
+
+.cypro-assessment-result-kiks {
+    background: #fdeaea;
+    border: 1px solid #d99494;
+    color: #7c1f1f;
+}
+
+.cypro-assessment-result-nonkiks {
+    background: #e9f7ed;
+    border: 1px solid #8fc49e;
+    color: #205f32;
+}
+
+.cypro-assessment-hint {
+    color: #68727d;
+    font-size: 0.9em;
+    margin: 0.7em 0;
+}
+
+.cypro-assessment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7em;
+    margin-top: 1em;
+}
+.cypro-assessment-task-box {
+    margin-top: 0.8em;
+    padding: 0.7em 0.9em;
+    background: #fff;
+    border: 1px solid #d7e0e8;
+    border-radius: 6px;
+}
+
+.cypro-assessment-task-item {
+    margin: 0.2em 0;
+}
+
+.cypro-assessment-task-subitem {
+    margin: 0.15em 0 0.15em 1.2em;
+    color: #56616d;
+    font-size: 0.92em;
+}
+</style>
+
+
+<$let
+    selectedInventory={{{ [[$:/temp/cypro/kiks-assessment-selected]get[text]] }}}
+>
+
+<div class="cypro-assessment">
+
+! KIKS-Einstufung
+
+<$list
+    filter="[<selectedInventory>is[tiddler]]"
+    variable="null"
+    emptyMessage="""
+<div class="cypro-assessment-card">
+
+Es wurde kein Inventareintrag zur Bewertung ausgewählt.
+
+<$button class="cypro-btn cypro-btn-primary">
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/inventory"/>
+Zur Inventarliste
+</$button>
+
+</div>
+"""
+>
+
+
+<div class="cypro-assessment-summary">
+
+<strong>Aktuell zu bewerten:</strong>
+
+<$text text={{{ [<selectedInventory>get[caption]] }}}/>
+
+<br>
+
+<strong>Ursprünglich erfasst als:</strong>
+
+<$list
+    filter="[<selectedInventory>get[object-type]match[system]]"
+    variable="null"
+>
+System
+</$list>
+
+<$list
+    filter="[<selectedInventory>get[object-type]match[data]]"
+    variable="null"
+>
+Daten
+</$list>
+
+
+<$list
+    filter="[<assessment-draft>get[confirmed-type]match[system]]"
+    variable="null"
+>
+
+<$list
+    filter="[<assessment-draft>get[system-protection]match[system]]"
+    variable="null"
+>
+<br>
+<strong>Schutzgegenstand:</strong>
+IT-System selbst
+</$list>
+
+<$list
+    filter="[<assessment-draft>get[system-protection]match[data]]"
+    variable="null"
+>
+<br>
+<strong>Schutzgegenstand:</strong>
+Nur die darauf befindlichen Daten
+</$list>
+
+</$list>
+
+
+<div class="cypro-assessment-task-box">
+
+<strong>
+Zugeordnete Luftsicherheitsaufgabe(n):
+</strong>
+
+<$macrocall
+    $name="render-aviation-tasks"
+    sourceTiddler=<<selectedInventory>>
+/>
+
+</div>
+
+</div>
+
+
+<div class="cypro-assessment-card">
+
+<h2>1. Typ bestätigen</h2>
+
+Bitte bestätigen Sie noch einmal, ob der Eintrag als System oder als Datenbestand betrachtet wird.
+
+<div class="cypro-assessment-options">
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="confirmed-type"
+    value="system"
+    actions=<<cypro-reset-after-type>>
+/>
+
+System
+
+</label>
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="confirmed-type"
+    value="data"
+    actions=<<cypro-reset-after-type>>
+/>
+
+Daten
+
+</label>
+
+</div>
+
+</div>
+
+
+<$list
+    filter="[<assessment-draft>get[confirmed-type]match[system]]"
+    variable="null"
+>
+
+<div class="cypro-assessment-card">
+
+<h2>2. Schutzgegenstand des Systems</h2>
+
+Muss das IT-System selbst geschützt werden, um die Sicherheit der zivilen Luftfahrt zu gewährleisten, oder sind ausschließlich die darauf befindlichen Daten relevant?
+
+<div class="cypro-assessment-options">
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="system-protection"
+    value="system"
+    actions=<<cypro-reset-after-protection>>
+/>
+
+Das IT-System selbst
+
+</label>
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="system-protection"
+    value="data"
+    actions=<<cypro-reset-after-protection>>
+/>
+
+Nur die darauf befindlichen Daten
+
+</label>
+
+</div>
+
+</div>
+
+
+
+
+</$list>
+
+
+<$list
+    filter="[<assessment-draft>get[confirmed-type]match[data]] [<assessment-draft>get[system-protection]match[system]] [<assessment-draft>get[system-protection]match[data]]"
+    variable="null"
+>
+
+<div class="cypro-assessment-card">
+
+<h2>3. Auswirkungen auf die Luftsicherheit</h2>
+
+Kann eine Beeinträchtigung des betrachteten Systems beziehungsweise der Daten die Erfüllung der zugeordneten Luftsicherheitsaufgabe(n) beeinträchtigen und dadurch Auswirkungen auf die Sicherheit der zivilen Luftfahrt haben?
+
+</div>
+
+
+<div class="cypro-assessment-info">
+
+<details>
+
+<summary>
+ⓘ Was sollte bei der Bewertung berücksichtigt werden?
+</summary>
+
+<p>
+Berücksichtigen Sie insbesondere, ob ein Ausfall des Systems, eine unbefugte Einsicht in Daten oder eine unbefugte Veränderung von Systemen beziehungsweise Daten die Erfüllung der zugeordneten Luftsicherheitsaufgabe beeinträchtigen könnte.
+</p>
+
+<p>
+Beziehen Sie dabei die tatsächliche Nutzung im Unternehmen sowie die Bedeutung des Systems beziehungsweise der Daten für die oben aufgeführten Luftsicherheitsaufgaben ein.
+</p>
+
+<p>
+Eine eigenständige Zuordnung zu Vertraulichkeit, Integrität oder Verfügbarkeit ist für diese Abfrage nicht erforderlich.
+</p>
+
+</details>
+
+</div>
+
+
+<div class="cypro-assessment-options">
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="impact"
+    value="yes"
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment"
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+"""
+/>
+
+Ja
+
+</label>
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="impact"
+    value="no"
+    actions="""
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment"
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+"""
+/>
+
+Nein
+
+</label>
+
+</div>
+
+
+<strong>
+Beschreibung der möglichen Auswirkungen (optional)
+</strong>
+
+<$edit-text
+    tiddler=<<assessment-draft>>
+    field="influence"
+    tag="textarea"
+    class="cypro-assessment-textarea"
+    placeholder="Mögliche Auswirkungen auf die Luftsicherheit beschreiben..."
+/>
+
+
+<$list
+    filter="[<assessment-draft>get[impact]match[no]]"
+    variable="null"
+>
+
+<div class="cypro-assessment-result cypro-assessment-result-nonkiks">
+
+<strong>Ergebnis: Kein KIKS</strong>
+
+<p>
+Nach der Bewertung wurde keine mögliche Gefährdung der Sicherheit der zivilen Luftfahrt festgestellt.
+</p>
+
+<p>
+Schutz im Rahmen des ISMS.
+</p>
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-complete-no-impact>>
+>
+Bewertung abschließen
+</$button>
+
+</div>
+
+</$list>
+
+
+<$list
+    filter="[<assessment-draft>get[impact]match[yes]]"
+    variable="null"
+>
+
+<div class="cypro-assessment-card">
+
+<h2>4. Bezug zum deutschen Recht</h2>
+
+Unterliegen das betrachtete System beziehungsweise die Daten deutschem Recht?
+
+<div class="cypro-assessment-options">
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="german-jurisdiction"
+    value="yes"
+/>
+
+Ja
+
+</label>
+
+<label>
+
+<$radio
+    tiddler=<<assessment-draft>>
+    field="german-jurisdiction"
+    value="no"
+/>
+
+Nein
+
+</label>
+
+</div>
+
+
+<strong>
+Begründung der Einordnung (optional)
+</strong>
+
+<$edit-text
+    tiddler=<<assessment-draft>>
+    field="jurisdiction-reason"
+    tag="textarea"
+    class="cypro-assessment-textarea"
+    placeholder="Ergänzende Angaben..."
+/>
+
+</div>
+
+
+<$list
+    filter="[<assessment-draft>get[german-jurisdiction]match[no]]"
+    variable="null"
+>
+
+<div class="cypro-assessment-result cypro-assessment-result-nonkiks">
+
+<strong>Ergebnis: Kein KIKS</strong>
+
+<p>
+Die Frage zum Bezug zum deutschen Recht wurde mit Nein beantwortet.
+</p>
+
+<p>
+Schutz im Rahmen des ISMS.
+</p>
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-complete-no-jurisdiction>>
+>
+Bewertung abschließen
+</$button>
+
+</div>
+
+</$list>
+
+
+<$list
+    filter="[<assessment-draft>get[german-jurisdiction]match[yes]]"
+    variable="null"
+>
+
+<div class="cypro-assessment-result cypro-assessment-result-kiks">
+
+<strong>Ergebnis: KIKS</strong>
+
+<p>
+Das System beziehungsweise die Daten erfüllen die Voraussetzungen für eine Übernahme als KIKS.
+</p>
+
+<p>
+Sie können jetzt entweder direkt mit der weiteren KIKS-Bearbeitung fortfahren oder zur Übersicht zurückkehren und den nächsten Eintrag bewerten.
+</p>
+
+<div class="cypro-assessment-actions">
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-complete-kiks-to-kiks>>
+>
+KIKS anlegen und weiter bewerten
+</$button>
+
+<$button
+    class="cypro-btn cypro-btn-ghost"
+    actions=<<cypro-complete-kiks-to-inventory>>
+>
+KIKS anlegen und nächstes Objekt bewerten
+</$button>
+
+</div>
+
+</div>
+
+</$list>
+
+</$list>
+
+</$list>
+
+
+<div class="cypro-assessment-actions">
+
+<$button class="cypro-btn cypro-btn-ghost">
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/inventory"
+/>
+
+Zurück zur Inventarliste
+
+</$button>
+
+</div>
+
+
+</$list>
+
+</div>
+
+</$let>

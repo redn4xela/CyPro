@@ -20,7 +20,7 @@ type: application/x-tiddler-dictionary
 1-caption: Grundsätzliches
 1-pages: company contactPerson BSIPortal
 2-caption: Risikomanagement
-2-pages: identificationKIKS listKIKS identificationRisk monitoring drr
+2-pages: identificationKIKS inventory listKIKS identificationRisk monitoring drr
 3-caption: Personalangelegenheiten
 3-pages: backgroundcheck training
 
@@ -32,6 +32,8 @@ BSIPortal: $:/cypro/data/BSIPortal
 BSIPortal-caption: Registrierung BSI-Portal
 identificationKIKS: $:/cypro/data/identificationKIKS
 identificationKIKS-caption: KIKS-Ermittlung
+inventory: $:/plugins/aeckert/cypro/pages/inventory
+inventory-caption: System- und Dateninventar
 listKIKS: $:/plugins/aeckert/cypro/pages/listKIKS
 listKIKS-caption: Auflistung KIKS
 identificationRisk: $:/cypro/data/identificationRisk

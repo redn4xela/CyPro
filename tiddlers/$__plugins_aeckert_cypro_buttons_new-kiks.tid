@@ -8,13 +8,13 @@ type: text/vnd.tiddlywiki
 
 \whitespace trim
 
-<!-- Button — creates a new KIKS (plus its catalog threats) via kiks-create-action.
+<!-- Button — starts the KIKS identification process via the system and data inventory.
      See macros/create-kiks. Shown per the PageControlButtons visibility config. -->
 <$button
-    actions=<<kiks-create-action>>
     tooltip="Neues KIKS anlegen"
     aria-label="Neues KIKS anlegen"
     class={{{ [<tv-config-toolbar-class>] [[cypro-toolbar-btn]] +[join[ ]] }}}
 >
+    <$action-navigate $to="$:/plugins/aeckert/cypro/pages/inventory"/>
     {{$:/core/images/new-button}}
 </$button>

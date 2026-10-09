@@ -1,0 +1,291 @@
+created: 20261001064800906
+list-after: $:/core/ui/ViewTemplate/body
+modified: 20261001064850664
+tags: $:/tags/ViewTemplate
+title: $:/plugins/aeckert/cypro/viewtemplates/inventory/detail
+
+<style>
+.cypro-inventory-detail {
+    max-width: 900px;
+    line-height: 1.5;
+}
+
+.cypro-inventory-detail * {
+    box-sizing: border-box;
+}
+
+.cypro-inventory-detail-card {
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    padding: 1.2em;
+    margin: 1em 0;
+    background: #fff;
+}
+
+.cypro-inventory-detail-card h2 {
+    margin-top: 0;
+    font-size: 1.15em;
+}
+
+.cypro-inventory-detail-row {
+    margin: 0.55em 0;
+}
+
+.cypro-inventory-detail-reason {
+    padding: 1em;
+    margin-top: 1em;
+    border-radius: 7px;
+    background: #e9f7ed;
+    border: 1px solid #8fc49e;
+    color: #205f32;
+}
+
+.cypro-inventory-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7em;
+    margin-top: 1em;
+}
+</style>
+
+
+<!-- Only render this template for inventory entries. -->
+<$list filter="[<currentTiddler>tag[cypro-inventory]]" variable="null">
+
+<div class="cypro-inventory-detail">
+
+<div class="cypro-inventory-detail-card">
+
+<h2>Erfassung</h2>
+
+<div class="cypro-inventory-detail-row">
+<strong>Bezeichnung:</strong>
+<$text text={{!!caption}}/>
+</div>
+
+<div class="cypro-inventory-detail-row">
+<strong>Typ:</strong>
+
+<$list filter="[<currentTiddler>get[object-type]match[system]]" variable="null">
+System
+</$list>
+
+<$list filter="[<currentTiddler>get[object-type]match[data]]" variable="null">
+Daten
+</$list>
+
+</div>
+
+<div class="cypro-inventory-detail-row">
+<strong>Luftsicherheitsaufgabe(n):</strong>
+
+<$list filter="[<currentTiddler>get[aviation-security-task-none]match[yes]]" variable="null">
+Keine Luftsicherheitsaufgabe
+</$list>
+
+<$list filter="[<currentTiddler>get[aviation-security-tasks]enlist-input[]]" variable="task">
+
+<$list filter="[<task>match[access-control]]" variable="null">
+<div>• Zugangssicherung</div>
+</$list>
+
+<$list filter="[<task>match[passenger-baggage-screening]]" variable="null">
+<div>• Personen- und Gepäckkontrollen</div>
+</$list>
+
+<$list filter="[<task>match[air-cargo-security]]" variable="null">
+<div>• Luftfrachtsicherheit</div>
+</$list>
+
+<$list filter="[<task>match[personnel-screening]]" variable="null">
+<div>• Personalüberprüfung</div>
+</$list>
+
+<$list filter="[<task>match[surveillance-interference-protection]]" variable="null">
+<div>• Überwachung und Schutz vor unbefugtem Eingreifen</div>
+</$list>
+
+<$list filter="[<task>match[training-records]]" variable="null">
+<div>• Schulungsnachweise</div>
+</$list>
+
+<$list filter="[<task>match[security-programmes]]" variable="null">
+<div>• Sicherheitsprogramme</div>
+</$list>
+
+<$list filter="[<task>match[other]]" variable="null">
+<div>
+• Sonstige
+<$list filter="[<currentTiddler>get[aviation-security-task-other]minlength[1]]" variable="otherText">
+: <$text text=<<otherText>>/>
+</$list>
+</div>
+</$list>
+
+<!-- Show cargo-specific subcategories. -->
+<$list filter="[<task>match[air-cargo-security]]" variable="null">
+
+<$list filter="[<currentTiddler>get[aviation-security-cargo-tasks]enlist-input[]]" variable="cargoTask">
+
+<$list filter="[<cargoTask>match[cargo-unauthorised-interference]]" variable="null">
+<div style="margin-left:1.2em;">– Schutz vor unbefugtem Eingreifen</div>
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-secure-supply-chain]]" variable="null">
+<div style="margin-left:1.2em;">– Sicherheit innerhalb der sicheren Lieferkette</div>
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-shipment-status]]" variable="null">
+<div style="margin-left:1.2em;">– Sendungsstatus</div>
+</$list>
+
+</$list>
+
+</$list>
+
+</$list>
+
+</div>
+
+</div>
+
+
+<$list filter="[<currentTiddler>get[assessment-status]match[completed]]" variable="null">
+
+<div class="cypro-inventory-detail-card">
+
+<h2>Bewertung</h2>
+
+<div class="cypro-inventory-detail-row">
+<strong>Auswirkung auf die Luftsicherheit:</strong>
+
+<$list filter="[<currentTiddler>get[impact]match[yes]]" variable="null">
+Ja
+</$list>
+
+<$list filter="[<currentTiddler>get[impact]match[no]]" variable="null">
+Nein
+</$list>
+
+<$list filter="[<currentTiddler>get[impact]is[blank]]" variable="null">
+–
+</$list>
+
+</div>
+
+
+<$list filter="[<currentTiddler>get[influence]minlength[1]]" variable="influenceText">
+
+<div class="cypro-inventory-detail-row">
+<strong>Beschreibung der möglichen Auswirkungen:</strong><br>
+<$text text=<<influenceText>>/>
+</div>
+
+</$list>
+
+
+<div class="cypro-inventory-detail-row">
+<strong>Bezug zum deutschen Recht:</strong>
+
+<$list filter="[<currentTiddler>get[german-jurisdiction]match[yes]]" variable="null">
+Ja
+</$list>
+
+<$list filter="[<currentTiddler>get[german-jurisdiction]match[no]]" variable="null">
+Nein
+</$list>
+
+<$list filter="[<currentTiddler>get[german-jurisdiction]is[blank]]" variable="null">
+–
+</$list>
+
+</div>
+
+
+<$list filter="[<currentTiddler>get[jurisdiction-reason]minlength[1]]" variable="reasonText">
+
+<div class="cypro-inventory-detail-row">
+<strong>Begründung:</strong><br>
+<$text text=<<reasonText>>/>
+</div>
+
+</$list>
+
+</div>
+
+
+<$list filter="[<currentTiddler>get[assessment-result]match[non-kiks]]" variable="null">
+
+<div class="cypro-inventory-detail-reason">
+
+<strong>Ergebnis: Kein KIKS</strong>
+
+<$list filter="[<currentTiddler>get[assessment-reason]match[system-data-only]]" variable="null">
+<p>
+Das System selbst wurde nicht als relevanter Schutzgegenstand eingestuft. Die darauf befindlichen Daten sind separat zu bewerten.
+</p>
+</$list>
+
+<$list filter="[<currentTiddler>get[assessment-reason]match[no-aviation-impact]]" variable="null">
+<p>
+Es wurde keine mögliche Gefährdung der Sicherheit der zivilen Luftfahrt festgestellt.
+</p>
+</$list>
+
+<$list filter="[<currentTiddler>get[assessment-reason]match[no-aviation-task]]" variable="null">
+Dem System beziehungsweise den Daten wurde keine Luftsicherheitsaufgabe zugeordnet. Das Objekt wurde daher direkt als Nicht-KIKS eingestuft.
+</$list>
+
+<$list filter="[<currentTiddler>get[assessment-reason]match[no-german-jurisdiction]]" variable="null">
+<p>
+Es wurde kein entsprechender Bezug zum deutschen Recht festgestellt.
+</p>
+</$list>
+
+<p>
+<strong>Schutz im Rahmen des ISMS.</strong>
+</p>
+
+</div>
+
+</$list>
+
+
+<$list filter="[<currentTiddler>get[assessment-result]match[kiks]]" variable="null">
+
+<div class="cypro-inventory-detail-row">
+
+<strong>Ergebnis:</strong> KIKS
+
+<$list filter="[<currentTiddler>get[linked-kiks]minlength[1]]" variable="linkedKiks">
+
+<br>
+
+<$link to=<<linkedKiks>>>
+KIKS <$text text=<<linkedKiks>>/> öffnen
+</$link>
+
+</$list>
+
+</div>
+
+</$list>
+
+</$list>
+
+
+<div class="cypro-inventory-detail-actions">
+
+<$button class="cypro-btn cypro-btn-ghost">
+
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/inventory"/>
+
+Zurück zur Inventarliste
+
+</$button>
+
+</div>
+
+</div>
+
+</$list>
