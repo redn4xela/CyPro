@@ -49,22 +49,140 @@ type: text/vnd.tiddlywiki
 </$vars>
 \end
 
-\procedure cypro-save()
-<!-- Accept edits: drop the backup, apply defaults (auto-caption new KIKS),
-     drop per-training snapshots, re-lock. Live checks; no returned payloads. -->
-<$vars snapshotTiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/snapshot/]] }}}>
-	<$action-deletetiddler $tiddler=<<snapshotTiddler>>/>
-	<$list filter="[all[current]tag[KIKS]!has[caption]]" variable="null">
-		<$action-setfield caption={{{ [<currentTiddler>get[id]removeprefix[K]addprefix[KIKS ]] }}}/>
-	</$list>
-	<$list filter="[<currentTiddler>match[$:/cypro/data/training]]" variable="null">
-		<$list filter="[tag[training]sort[id]]" variable="tr">
-			<$action-deletetiddler $tiddler={{{ [<tr>addprefix[$:/state/cypro/snapshot/]] }}}/>
-		</$list>
-	</$list>
-	<$action-setfield $tiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/locked/]] }}} text="yes"/>
-</$vars>
+\procedure cypro-sync-manual-kiks-inventory()
+<!--
+  Keep manually identified KIKS entries and the central inventory in sync.
+
+  A manual KIKS remains the authoritative editable object. On save, exactly one
+  inventory entry linked through `linked-kiks` is created or updated.
+-->
+<$list
+    filter="[all[current]tag[KIKS]field:identification-method[manual]]"
+    variable="null"
+>
+
+<$let
+    manualInventory={{{ [tag[cypro-inventory]linked-kiks<currentTiddler>first[]] }}}
+>
+
+<!-- Create the inventory entry on the first successful save. -->
+<$list
+    filter="[<manualInventory>is[blank]]"
+    variable="null"
+>
+
+<$let
+    maxInventoryNum={{{ [tag[cypro-inventory]prefix[CyPro-Inventar-]removeprefix[CyPro-Inventar-]nsort[]last[]] ~[[000]] }}}
+    nextInventoryNum={{{ [<maxInventoryNum>add[1]pad[3]] }}}
+>
+
+<$let
+    newInventoryTitle={{{ [<nextInventoryNum>addprefix[CyPro-Inventar-]] }}}
+>
+
+<$action-createtiddler
+    $basetitle=<<newInventoryTitle>>
+    tags="cypro-inventory"
+    inventory-id=<<nextInventoryNum>>
+    caption={{{ [<currentTiddler>get[caption]] }}}
+    object-type={{{ [<currentTiddler>get[kiks]] }}}
+    identification-method="manual"
+    linked-kiks=<<currentTiddler>>
+    aviation-security-tasks=""
+    aviation-security-cargo-tasks=""
+    aviation-security-task-other=""
+    aviation-security-task-none=""
+    assessment-status="completed"
+    assessment-result="kiks"
+    assessment-reason=""
+    text=""
+>
+
+<$action-setfield
+    $tiddler=<<currentTiddler>>
+    identification-source=<<createTiddler-title>>
+/>
+
+</$action-createtiddler>
+
+</$let>
+</$let>
+
+</$list>
+
+
+<!-- Update the existing linked inventory entry after later edits. -->
+<$list
+    filter="[<manualInventory>!is[blank]]"
+    variable="null"
+>
+
+<$action-setfield
+    $tiddler=<<manualInventory>>
+    caption={{{ [<currentTiddler>get[caption]] }}}
+    object-type={{{ [<currentTiddler>get[kiks]] }}}
+    identification-method="manual"
+    linked-kiks=<<currentTiddler>>
+    assessment-status="completed"
+    assessment-result="kiks"
+    assessment-reason=""
+/>
+
+<$action-setfield
+    $tiddler=<<currentTiddler>>
+    identification-source=<<manualInventory>>
+/>
+
+</$list>
+
+</$let>
+
+</$list>
+
 \end
+
+
+\procedure cypro-save()
+<!--
+  Accept edits: drop the backup, apply defaults, synchronise manual KIKS with
+  the central inventory, drop per-training snapshots and re-lock.
+-->
+<$set name="tv-action-refresh-policy" value="always">
+
+<$vars snapshotTiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/snapshot/]] }}}>
+
+    <$action-deletetiddler $tiddler=<<snapshotTiddler>>/>
+
+    <$list filter="[all[current]tag[KIKS]!has[caption]]" variable="null">
+        <$action-setfield
+            caption={{{ [<currentTiddler>get[id]removeprefix[K]addprefix[KIKS ]] }}}
+        />
+    </$list>
+
+    <<cypro-sync-manual-kiks-inventory>>
+
+    <$list
+        filter="[<currentTiddler>match[$:/cypro/data/training]]"
+        variable="null"
+    >
+        <$list filter="[tag[training]sort[id]]" variable="tr">
+            <$action-deletetiddler
+                $tiddler={{{ [<tr>addprefix[$:/state/cypro/snapshot/]] }}}
+            />
+        </$list>
+    </$list>
+
+    <$action-setfield
+        $tiddler={{{ [<currentTiddler>addprefix[$:/state/cypro/locked/]] }}}
+        text="yes"
+    />
+
+</$vars>
+
+</$set>
+
+\end
+
 
 \procedure cypro-discard()
 <!-- Reject edits: restore every field from the backup snapshot (generic loop),

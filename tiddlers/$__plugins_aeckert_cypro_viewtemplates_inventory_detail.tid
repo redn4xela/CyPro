@@ -278,7 +278,7 @@ KIKS <$text text=<<linkedKiks>>/> öffnen
 
 <$button class="cypro-btn cypro-btn-ghost">
 
-<$action-navigate $to="$:/plugins/aeckert/cypro/pages/inventory"/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"/>
 
 Zurück zur Inventarliste
 

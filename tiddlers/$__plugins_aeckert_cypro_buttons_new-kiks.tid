@@ -1,6 +1,6 @@
 caption: {{$:/core/images/new-button}} new KIKS
 created: 20260211101823396
-description: Erstellt ein neues kritisches System bzw. Daten
+description: Startet die KIKS-Ermittlung
 modified: 20260404114555319
 tags:
 title: $:/plugins/aeckert/cypro/buttons/new-kiks
@@ -8,13 +8,12 @@ type: text/vnd.tiddlywiki
 
 \whitespace trim
 
-<!-- Button — starts the KIKS identification process via the system and data inventory.
-     See macros/create-kiks. Shown per the PageControlButtons visibility config. -->
+<!-- Open the central KIKS identification flow. -->
 <$button
-    tooltip="Neues KIKS anlegen"
-    aria-label="Neues KIKS anlegen"
+    tooltip="KIKS-Ermittlung öffnen"
+    aria-label="KIKS-Ermittlung öffnen"
     class={{{ [<tv-config-toolbar-class>] [[cypro-toolbar-btn]] +[join[ ]] }}}
 >
-    <$action-navigate $to="$:/plugins/aeckert/cypro/pages/inventory"/>
+    <$action-navigate $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"/>
     {{$:/core/images/new-button}}
 </$button>

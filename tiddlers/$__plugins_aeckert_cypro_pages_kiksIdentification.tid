@@ -1,0 +1,271 @@
+title: $:/plugins/aeckert/cypro/pages/kiksIdentification
+caption: Ermittlungsweg wählen
+type: text/vnd.tiddlywiki
+
+<style>
+.cypro-identification-flow {
+    max-width: 1100px;
+    line-height: 1.5;
+}
+
+.cypro-identification-flow * {
+    box-sizing: border-box;
+}
+
+.cypro-identification-paths {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+    gap: 1em;
+    margin: 1.2em 0;
+}
+
+.cypro-identification-path {
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    padding: 1.2em;
+    background: #fff;
+}
+
+.cypro-identification-path h2 {
+    margin-top: 0;
+    font-size: 1.15em;
+}
+
+.cypro-identification-path p {
+    min-height: 4.5em;
+}
+
+.cypro-identification-current {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8em;
+    margin: 0 0 1.2em 0;
+    padding: 0.8em 1em;
+    border: 1px solid #cfd8e3;
+    border-radius: 7px;
+    background: #f7f9fb;
+}
+
+.cypro-identification-placeholder {
+    margin: 1em 0;
+    padding: 1.2em;
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.cypro-identification-note {
+    color: #68727d;
+    font-size: 0.92em;
+}
+
+.cypro-identification-manual-actions {
+    margin: 1em 0;
+}
+</style>
+
+
+<div class="cypro-identification-flow">
+
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[choose]]"
+    variable="null"
+>
+
+! Ermittlungsweg wählen
+
+Wählen Sie aus, auf welchem Weg die für das Cybersicherheitsprogramm relevanten Systeme und Daten beziehungsweise KIKS ermittelt werden sollen.
+
+<div class="cypro-identification-paths">
+
+<div class="cypro-identification-path">
+
+<h2>Systemanalyse</h2>
+
+<p>
+Systeme und Daten werden direkt erfasst, Luftsicherheitsaufgaben zugeordnet und anschließend einzeln auf ihre KIKS-Relevanz bewertet.
+</p>
+
+<$button class="cypro-btn cypro-btn-primary">
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="system"
+/>
+Systemanalyse starten
+</$button>
+
+</div>
+
+
+<div class="cypro-identification-path">
+
+<h2>Prozessorientierter Ansatz</h2>
+
+<p>
+Ausgehend von einer Dienstleistung werden Funktionen, Prozesse und die darin eingesetzten Systeme beziehungsweise Daten ermittelt.
+</p>
+
+<$button class="cypro-btn cypro-btn-primary">
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="process"
+/>
+Prozessorientierten Ansatz starten
+</$button>
+
+</div>
+
+
+<div class="cypro-identification-path">
+
+<h2>Manuelle KIKS-Eingabe</h2>
+
+<p>
+Bereits bekannte KIKS werden direkt angelegt und anschließend mit dem bestehenden Gefährdungs- und Risikoprozess weiterbearbeitet.
+</p>
+
+<$button class="cypro-btn cypro-btn-primary">
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="manual"
+/>
+Manuelle KIKS-Eingabe öffnen
+</$button>
+
+</div>
+
+</div>
+
+<div class="cypro-identification-note">
+Ein Wechsel des Ermittlungswegs löscht keine bereits erfassten Daten.
+</div>
+
+</$list>
+
+
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]!match[choose]]"
+    variable="null"
+>
+
+<div class="cypro-identification-current">
+
+<div>
+
+<strong>Aktueller Ermittlungsweg:</strong>
+
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[system]]"
+    variable="null"
+>
+Systemanalyse
+</$list>
+
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[process]]"
+    variable="null"
+>
+Prozessorientierter Ansatz
+</$list>
+
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[manual]]"
+    variable="null"
+>
+Manuelle KIKS-Eingabe
+</$list>
+
+</div>
+
+<$button class="cypro-btn cypro-btn-ghost">
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="choose"
+/>
+Ermittlungsweg ändern
+</$button>
+
+</div>
+
+</$list>
+
+
+<!-- Existing system-analysis workflow. -->
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[system]]"
+    variable="null"
+>
+
+<$set name="hideInventoryTable" value="yes">
+
+<$tiddler tiddler="$:/plugins/aeckert/cypro/pages/inventory">
+<$transclude/>
+</$tiddler>
+
+</$set>
+
+</$list>
+
+
+<!-- Process-oriented workflow placeholder. -->
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[process]]"
+    variable="null"
+>
+
+<div class="cypro-identification-placeholder">
+
+<h2>Prozessorientierter Ansatz</h2>
+
+<p>
+Der Ermittlungsweg ist ausgewählt und bleibt gespeichert.
+</p>
+
+<p>
+Im nächsten Implementierungsschritt wird hier die Struktur
+<strong>Dienstleistung → Funktionen → Prozesse → Systeme/Daten</strong>
+aufgebaut.
+</p>
+
+</div>
+
+</$list>
+
+
+<!-- Reuse the existing KIKS list for manual identification. -->
+<$list
+    filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[manual]]"
+    variable="null"
+>
+
+! Manuelle KIKS-Eingabe
+
+Bereits identifizierte KIKS können hier direkt angelegt werden.
+
+<div class="cypro-identification-manual-actions">
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<kiks-create-manual-action>>
+>
+Manuelles KIKS anlegen
+</$button>
+
+</div>
+
+<$tiddler tiddler="$:/plugins/aeckert/cypro/pages/listKIKS">
+<$transclude tiddler="$:/plugins/aeckert/cypro/viewtemplates/form/listKIKS"/>
+</$tiddler>
+
+</$list>
+
+
+<!-- Shared inventory across all identification methods. -->
+<$transclude
+    tiddler="$:/plugins/aeckert/cypro/viewtemplates/components/inventoryTable"
+/>
+
+
+</div>

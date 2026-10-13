@@ -1,0 +1,418 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/components/inventoryTable
+type: text/vnd.tiddlywiki
+
+\define render-aviation-tasks(sourceTiddler)
+
+<!-- Show the explicit "none" selection. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-none]match[yes]]"
+    variable="null"
+>
+<div class="cypro-task-display-item">
+Keine Luftsicherheitsaufgabe
+</div>
+</$list>
+
+
+<!-- Render all selected aviation security tasks. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]]"
+    variable="task"
+>
+
+<div class="cypro-task-display-item">
+
+<$list filter="[<task>match[access-control]]" variable="null">
+• Zugangssicherung
+</$list>
+
+<$list filter="[<task>match[passenger-baggage-screening]]" variable="null">
+• Personen- und Gepäckkontrollen
+</$list>
+
+<$list filter="[<task>match[air-cargo-security]]" variable="null">
+• Luftfrachtsicherheit
+</$list>
+
+<$list filter="[<task>match[personnel-screening]]" variable="null">
+• Personalüberprüfung
+</$list>
+
+<$list filter="[<task>match[surveillance-interference-protection]]" variable="null">
+• Überwachung und Schutz vor unbefugtem Eingreifen
+</$list>
+
+<$list filter="[<task>match[training-records]]" variable="null">
+• Schulungsnachweise
+</$list>
+
+<$list filter="[<task>match[security-programmes]]" variable="null">
+• Sicherheitsprogramme
+</$list>
+
+<$list filter="[<task>match[other]]" variable="null">
+• Sonstige
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-other]minlength[1]]"
+    variable="otherText"
+>
+: <$text text=<<otherText>>/>
+</$list>
+</$list>
+
+</div>
+
+
+<!-- Render cargo-specific subcategories. -->
+<$list
+    filter="[<task>match[air-cargo-security]]"
+    variable="null"
+>
+
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-cargo-tasks]enlist-input[]]"
+    variable="cargoTask"
+>
+
+<div class="cypro-task-display-subitem">
+
+<$list filter="[<cargoTask>match[cargo-unauthorised-interference]]" variable="null">
+– Schutz vor unbefugtem Eingreifen
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-secure-supply-chain]]" variable="null">
+– Sicherheit innerhalb der sicheren Lieferkette
+</$list>
+
+<$list filter="[<cargoTask>match[cargo-shipment-status]]" variable="null">
+– Sendungsstatus
+</$list>
+
+</div>
+
+</$list>
+
+</$list>
+
+</$list>
+
+
+<!-- Show a dash for legacy entries without an assignment. -->
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-task-none]!match[yes]]"
+    variable="null"
+>
+<$list
+    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]count[]match[0]]"
+    variable="null"
+>
+<div class="cypro-task-display-item">
+–
+</div>
+</$list>
+</$list>
+
+\end
+
+<style>
+.cypro-inventory-card {
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    padding: 1.2em;
+    margin: 1em 0;
+    background: #fff;
+}
+
+.cypro-inventory-card h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+}
+
+.cypro-inventory-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.cypro-inventory-table {
+    width: 100%;
+    min-width: 1100px;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.cypro-inventory-table th,
+.cypro-inventory-table td {
+    padding: 0.7em;
+    border: 1px solid #d7dce2;
+    text-align: left;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.cypro-inventory-table th {
+    background: #f4f5f6;
+}
+
+.cypro-inventory-type-main {
+    font-weight: 600;
+}
+
+.cypro-inventory-type-sub {
+    margin-top: 0.2em;
+    padding-left: 0.4em;
+    color: #68727d;
+    font-size: 0.88em;
+    line-height: 1.3;
+}
+
+.cypro-inventory-origin {
+    font-size: 0.92em;
+}
+
+.cypro-inventory-actions {
+    display: block;
+    width: 100%;
+}
+
+.cypro-inventory-action-btn {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0.55em 0.7em;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.cypro-inventory-hint {
+    color: #68727d;
+    font-size: 0.9em;
+}
+
+.cypro-status-pending {
+    font-weight: bold;
+}
+
+.cypro-status-kiks {
+    display: inline-block;
+    padding: 0.2em 0.55em;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #8b1e1e;
+    background: #fdeaea;
+    border: 1px solid #e5a4a4;
+}
+
+.cypro-status-nonkiks {
+    display: inline-block;
+    padding: 0.2em 0.55em;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #246b38;
+    background: #e9f7ed;
+    border: 1px solid #9ecbad;
+}
+</style>
+
+<div class="cypro-inventory-card">
+
+<h2>Erfasste Systeme und Daten</h2>
+
+<div class="cypro-inventory-table-wrap">
+<table class="cypro-inventory-table">
+<colgroup>
+<col style="width:17%;">
+<col style="width:9%;">
+<col style="width:16%;">
+<col style="width:21%;">
+<col style="width:14%;">
+<col style="width:10%;">
+<col style="width:13%;">
+</colgroup>
+<thead>
+<tr>
+<th>Bezeichnung</th>
+<th>Typ</th>
+<th>Herkunft</th>
+<th>Luftsicherheitsaufgabe(n)</th>
+<th>Status</th>
+<th>Ergebnis</th>
+<th>Aktion</th>
+</tr>
+</thead>
+<tbody>
+<$list filter="[tag[cypro-inventory]sort[caption]]" variable="inventoryEntry" emptyMessage="<tr><td colspan='7'>Noch keine Systeme oder Daten erfasst.</td></tr>">
+<tr>
+<td>
+<$link to=<<inventoryEntry>>>
+<$text text={{{ [<inventoryEntry>get[caption]else<inventoryEntry>] }}}/>
+</$link>
+</td>
+<td>
+
+<$list
+    filter="[<inventoryEntry>get[object-type]match[system]]"
+    variable="null"
+>
+
+<div class="cypro-inventory-type-main">
+System
+</div>
+
+<$list
+    filter="[<inventoryEntry>get[system-protection]match[data]]"
+    variable="null"
+>
+<div class="cypro-inventory-type-sub">
+↳ darauf befindliche Daten
+</div>
+</$list>
+
+</$list>
+
+
+<$list
+    filter="[<inventoryEntry>get[object-type]match[data]]"
+    variable="null"
+>
+<div class="cypro-inventory-type-main">
+Daten
+</div>
+</$list>
+
+</td>
+
+<td class="cypro-inventory-origin">
+
+<$list
+    filter="[<inventoryEntry>get[identification-method]match[manual]]"
+    variable="null"
+>
+Manuelle KIKS-Eingabe
+</$list>
+
+<$list
+    filter="[<inventoryEntry>get[identification-method]match[system]]"
+    variable="null"
+>
+Systemanalyse
+</$list>
+
+<$list
+    filter="[<inventoryEntry>get[identification-method]match[process]]"
+    variable="null"
+>
+Prozessorientierter Ansatz
+</$list>
+
+<!-- Legacy inventory entries originate from the existing system analysis. -->
+<$list
+    filter="[<inventoryEntry>has[identification-method]count[]match[0]]"
+    variable="null"
+>
+Systemanalyse
+</$list>
+
+</td>
+
+<td>
+<$macrocall
+    $name="render-aviation-tasks"
+    sourceTiddler=<<inventoryEntry>>
+/>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
+<span class="cypro-status-pending">Noch nicht bewertet</span>
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-status]match[completed]]" variable="null">
+Bewertet
+</$list>
+</td>
+<td>
+<$list filter="[<inventoryEntry>get[assessment-result]match[kiks]]" variable="null">
+<span class="cypro-status-kiks">KIKS</span>
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]match[non-kiks]]" variable="null">
+<span class="cypro-status-nonkiks">Kein KIKS</span>
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]!match[kiks]!match[non-kiks]]" variable="null">
+–
+</$list>
+</td>
+<td>
+<div class="cypro-inventory-actions">
+<$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
+<$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment-selected"
+    text=<<inventoryEntry>>
+/>
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment"
+    caption={{{ [<inventoryEntry>get[caption]] }}}
+    original-type={{{ [<inventoryEntry>get[object-type]] }}}
+    confirmed-type=""
+    system-protection=""
+    impact=""
+    influence=""
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/kiksAssessment"/>
+Bewerten
+</$button>
+</$list>
+<$list
+    filter="[<inventoryEntry>get[assessment-result]match[kiks]]"
+    variable="null"
+>
+
+<$list
+    filter="[<inventoryEntry>get[linked-kiks]minlength[1]]"
+    variable="linkedKiks"
+>
+
+<$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
+
+<$action-navigate $to=<<linkedKiks>>/>
+
+Risikobewertung öffnen
+
+</$button>
+
+</$list>
+
+<$list
+    filter="[<inventoryEntry>get[linked-kiks]minlength[1]count[]match[0]]"
+    variable="null"
+>
+
+<span class="cypro-inventory-hint">
+Kein KIKS verknüpft
+</span>
+
+</$list>
+
+</$list>
+<$list filter="[<inventoryEntry>get[assessment-result]match[non-kiks]]" variable="null">
+
+<$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
+
+<$action-navigate $to=<<inventoryEntry>>/>
+
+Bewertung ansehen
+
+</$button>
+
+</$list>
+</div>
+</td>
+</tr>
+</$list>
+</tbody>
+</table>
+</div>
+
+</div>

@@ -6,120 +6,6 @@ caption: System- und Dateninventar
 
 \define inventory-input() $:/temp/cypro/inventory-new
 
-\define render-aviation-tasks(sourceTiddler)
-
-<!-- Show the explicit "none" selection. -->
-<$list
-    filter="[[$sourceTiddler$]get[aviation-security-task-none]match[yes]]"
-    variable="null"
->
-<div class="cypro-task-display-item">
-Keine Luftsicherheitsaufgabe
-</div>
-</$list>
-
-
-<!-- Render all selected aviation security tasks. -->
-<$list
-    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]]"
-    variable="task"
->
-
-<div class="cypro-task-display-item">
-
-<$list filter="[<task>match[access-control]]" variable="null">
-• Zugangssicherung
-</$list>
-
-<$list filter="[<task>match[passenger-baggage-screening]]" variable="null">
-• Personen- und Gepäckkontrollen
-</$list>
-
-<$list filter="[<task>match[air-cargo-security]]" variable="null">
-• Luftfrachtsicherheit
-</$list>
-
-<$list filter="[<task>match[personnel-screening]]" variable="null">
-• Personalüberprüfung
-</$list>
-
-<$list filter="[<task>match[surveillance-interference-protection]]" variable="null">
-• Überwachung und Schutz vor unbefugtem Eingreifen
-</$list>
-
-<$list filter="[<task>match[training-records]]" variable="null">
-• Schulungsnachweise
-</$list>
-
-<$list filter="[<task>match[security-programmes]]" variable="null">
-• Sicherheitsprogramme
-</$list>
-
-<$list filter="[<task>match[other]]" variable="null">
-• Sonstige
-<$list
-    filter="[[$sourceTiddler$]get[aviation-security-task-other]minlength[1]]"
-    variable="otherText"
->
-: <$text text=<<otherText>>/>
-</$list>
-</$list>
-
-</div>
-
-
-<!-- Render cargo-specific subcategories. -->
-<$list
-    filter="[<task>match[air-cargo-security]]"
-    variable="null"
->
-
-<$list
-    filter="[[$sourceTiddler$]get[aviation-security-cargo-tasks]enlist-input[]]"
-    variable="cargoTask"
->
-
-<div class="cypro-task-display-subitem">
-
-<$list filter="[<cargoTask>match[cargo-unauthorised-interference]]" variable="null">
-– Schutz vor unbefugtem Eingreifen
-</$list>
-
-<$list filter="[<cargoTask>match[cargo-secure-supply-chain]]" variable="null">
-– Sicherheit innerhalb der sicheren Lieferkette
-</$list>
-
-<$list filter="[<cargoTask>match[cargo-shipment-status]]" variable="null">
-– Sendungsstatus
-</$list>
-
-</div>
-
-</$list>
-
-</$list>
-
-</$list>
-
-
-<!-- Show a dash for legacy entries without an assignment. -->
-<$list
-    filter="[[$sourceTiddler$]get[aviation-security-task-none]!match[yes]]"
-    variable="null"
->
-<$list
-    filter="[[$sourceTiddler$]get[aviation-security-tasks]enlist-input[]count[]match[0]]"
-    variable="null"
->
-<div class="cypro-task-display-item">
-–
-</div>
-</$list>
-</$list>
-
-\end
-
-
 <!-- Create one persistent inventory entry. -->
 \define cypro-add-inventory()
 
@@ -142,12 +28,19 @@ Keine Luftsicherheitsaufgabe
     emptyValue="no"
 >
 
+<!-- Keep the active identification path persistent. -->
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="system"
+/>
+
 <$action-createtiddler
     $basetitle=<<newTitle>>
     tags="cypro-inventory"
     inventory-id=<<nextNum>>
     caption={{$:/temp/cypro/inventory-new!!caption}}
     object-type={{$:/temp/cypro/inventory-new!!object-type}}
+    identification-method="system"
     aviation-security-tasks={{$:/temp/cypro/inventory-new!!aviation-security-tasks}}
     aviation-security-cargo-tasks={{$:/temp/cypro/inventory-new!!aviation-security-cargo-tasks}}
     aviation-security-task-other={{$:/temp/cypro/inventory-new!!aviation-security-task-other}}
@@ -902,170 +795,11 @@ Beispiele: ZÜP, Berechtigungen
 </div>
 
 
-<div class="cypro-inventory-card">
-
-<h2>2. Erfasste Systeme und Daten</h2>
-
-<div class="cypro-inventory-table-wrap">
-<table class="cypro-inventory-table">
-<colgroup>
-<col style="width:22%;">
-<col style="width:9%;">
-<col style="width:27%;">
-<col style="width:16%;">
-<col style="width:11%;">
-<col style="width:15%;">
-</colgroup>
-<thead>
-<tr>
-<th>Bezeichnung</th>
-<th>Typ</th>
-<th>Luftsicherheitsaufgabe(n)</th>
-<th>Status</th>
-<th>Ergebnis</th>
-<th>Aktion</th>
-</tr>
-</thead>
-<tbody>
-<$list filter="[tag[cypro-inventory]sort[caption]]" variable="inventoryEntry" emptyMessage="<tr><td colspan='6'>Noch keine Systeme oder Daten erfasst.</td></tr>">
-<tr>
-<td>
-<$link to=<<inventoryEntry>>>
-<$text text={{{ [<inventoryEntry>get[caption]else<inventoryEntry>] }}}/>
-</$link>
-</td>
-<td>
-
 <$list
-    filter="[<inventoryEntry>get[object-type]match[system]]"
+    filter="[<hideInventoryTable>match[yes]]"
     variable="null"
+    emptyMessage="""<$transclude tiddler="$:/plugins/aeckert/cypro/viewtemplates/components/inventoryTable"/>"""
 >
-
-<div class="cypro-inventory-type-main">
-System
-</div>
-
-<$list
-    filter="[<inventoryEntry>get[system-protection]match[data]]"
-    variable="null"
->
-<div class="cypro-inventory-type-sub">
-↳ darauf befindliche Daten
-</div>
 </$list>
-
-</$list>
-
-
-<$list
-    filter="[<inventoryEntry>get[object-type]match[data]]"
-    variable="null"
->
-<div class="cypro-inventory-type-main">
-Daten
-</div>
-</$list>
-
-</td>
-<td>
-<$macrocall
-    $name="render-aviation-tasks"
-    sourceTiddler=<<inventoryEntry>>
-/>
-</td>
-<td>
-<$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
-<span class="cypro-status-pending">Noch nicht bewertet</span>
-</$list>
-<$list filter="[<inventoryEntry>get[assessment-status]match[completed]]" variable="null">
-Bewertet
-</$list>
-</td>
-<td>
-<$list filter="[<inventoryEntry>get[assessment-result]match[kiks]]" variable="null">
-<span class="cypro-status-kiks">KIKS</span>
-</$list>
-<$list filter="[<inventoryEntry>get[assessment-result]match[non-kiks]]" variable="null">
-<span class="cypro-status-nonkiks">Kein KIKS</span>
-</$list>
-<$list filter="[<inventoryEntry>get[assessment-result]!match[kiks]!match[non-kiks]]" variable="null">
-–
-</$list>
-</td>
-<td>
-<div class="cypro-inventory-actions">
-<$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
-<$button class="cypro-btn cypro-btn-primary">
-<$action-setfield
-    $tiddler="$:/temp/cypro/kiks-assessment-selected"
-    text=<<inventoryEntry>>
-/>
-<$action-setfield
-    $tiddler="$:/temp/cypro/kiks-assessment"
-    caption={{{ [<inventoryEntry>get[caption]] }}}
-    original-type={{{ [<inventoryEntry>get[object-type]] }}}
-    confirmed-type=""
-    system-protection=""
-    impact=""
-    influence=""
-    german-jurisdiction=""
-    jurisdiction-reason=""
-/>
-<$action-navigate $to="$:/plugins/aeckert/cypro/pages/kiksAssessment"/>
-Bewerten
-</$button>
-</$list>
-<$list
-    filter="[<inventoryEntry>get[assessment-result]match[kiks]]"
-    variable="null"
->
-
-<$list
-    filter="[<inventoryEntry>get[linked-kiks]minlength[1]]"
-    variable="linkedKiks"
->
-
-<$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
-
-<$action-navigate $to=<<linkedKiks>>/>
-
-Risikobewertung öffnen
-
-</$button>
-
-</$list>
-
-<$list
-    filter="[<inventoryEntry>get[linked-kiks]minlength[1]count[]match[0]]"
-    variable="null"
->
-
-<span class="cypro-inventory-hint">
-Kein KIKS verknüpft
-</span>
-
-</$list>
-
-</$list>
-<$list filter="[<inventoryEntry>get[assessment-result]match[non-kiks]]" variable="null">
-
-<$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
-
-<$action-navigate $to=<<inventoryEntry>>/>
-
-Bewertung ansehen
-
-</$button>
-
-</$list>
-</div>
-</td>
-</tr>
-</$list>
-</tbody>
-</table>
-</div>
-
-</div>
 
 </div>

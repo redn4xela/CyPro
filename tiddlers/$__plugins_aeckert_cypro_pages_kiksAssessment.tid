@@ -220,7 +220,7 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
 <<cypro-clear-assessment>>
 
 <$action-navigate
-    $to="$:/plugins/aeckert/cypro/pages/inventory"
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
 />
 
 \end
@@ -278,7 +278,7 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
 <<cypro-clear-assessment>>
 
 <$action-navigate
-    $to="$:/plugins/aeckert/cypro/pages/inventory"
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
 />
 
 \end
@@ -308,7 +308,7 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
 <<cypro-clear-assessment>>
 
 <$action-navigate
-    $to="$:/plugins/aeckert/cypro/pages/inventory"
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
 />
 
 \end
@@ -453,7 +453,7 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
 />
 
 <$action-navigate
-    $to="$:/plugins/aeckert/cypro/pages/inventory"
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
 />
 
 </$list>
@@ -654,7 +654,7 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
 Es wurde kein Inventareintrag zur Bewertung ausgewählt.
 
 <$button class="cypro-btn cypro-btn-primary">
-<$action-navigate $to="$:/plugins/aeckert/cypro/pages/inventory"/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"/>
 Zur Inventarliste
 </$button>
 
@@ -1075,7 +1075,7 @@ KIKS anlegen und nächstes Objekt bewerten
 <$button class="cypro-btn cypro-btn-ghost">
 
 <$action-navigate
-    $to="$:/plugins/aeckert/cypro/pages/inventory"
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
 />
 
 Zurück zur Inventarliste

@@ -97,7 +97,7 @@ caption: Nicht-KIKS-Druckansicht
 Drucken
 </$button>
 
-<$link to="$:/plugins/aeckert/cypro/pages/inventory">
+<$link to="$:/plugins/aeckert/cypro/pages/kiksIdentification">
 Zur Inventarliste
 </$link>
 

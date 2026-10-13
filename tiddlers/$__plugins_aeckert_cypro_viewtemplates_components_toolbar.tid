@@ -38,12 +38,59 @@ title: $:/plugins/aeckert/cypro/viewtemplates/components/toolbar
 </$let>
 </$list>
 <$list filter="[<currentTiddler>tag[KIKS]]" variable="null">
-<$button class="cypro-btn cypro-btn-ghost" tooltip="Zurück zur KIKS-Liste">
-<$action-sendmessage $message="tm-close-tiddler" $param=<<currentTiddler>>/>
-<$action-navigate $to="$:/plugins/aeckert/cypro/pages/listKIKS"/>
-<span class="cypro-btn-icon">{{$:/core/images/chevron-left}}</span>
-<span class="cypro-btn-label">Auflistung KIKS</span>
+
+<$button class="cypro-btn cypro-btn-ghost" tooltip="Zurück zur KIKS-Ermittlung">
+
+<$action-sendmessage
+    $message="tm-close-tiddler"
+    $param=<<currentTiddler>>
+/>
+
+<!-- Restore the identification path that created this KIKS. -->
+<$list
+    filter="[<currentTiddler>get[identification-method]match[manual]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="manual"
+/>
+</$list>
+
+<$list
+    filter="[<currentTiddler>get[identification-method]match[system]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="system"
+/>
+</$list>
+
+<$list
+    filter="[<currentTiddler>get[identification-method]match[process]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="process"
+/>
+</$list>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
+/>
+
+<span class="cypro-btn-icon">
+{{$:/core/images/chevron-left}}
+</span>
+
+<span class="cypro-btn-label">
+KIKS-Ermittlung
+</span>
+
 </$button>
+
 </$list>
 <$list filter="[<currentTiddler>tag[measure]]" variable="null">
 <$button class="cypro-btn cypro-btn-ghost" tooltip="Zurück zur Maßnahmen-Liste">
@@ -69,20 +116,12 @@ title: $:/plugins/aeckert/cypro/viewtemplates/components/toolbar
 
 <$button
     class="cypro-btn cypro-btn-create"
-    tooltip="Neues KIKS anlegen"
-    aria-label="Neues KIKS anlegen"
+    actions=<<kiks-create-manual-action>>
+    tooltip="Manuelles KIKS anlegen"
+    aria-label="Manuelles KIKS anlegen"
 >
 
-<$action-sendmessage
-    $message="tm-close-tiddler"
-    $param=<<currentTiddler>>
-/>
-
-<$action-navigate
-    $to="$:/plugins/aeckert/cypro/pages/inventory"
-/>
-
-<span class="cypro-btn-label">Neues KIKS anlegen</span>
+<span class="cypro-btn-label">Manuelles KIKS anlegen</span>
 
 </$button>
 
