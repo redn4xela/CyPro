@@ -209,27 +209,15 @@ Ermittlungsweg ändern
 </$list>
 
 
-<!-- Process-oriented workflow placeholder. -->
+<!-- Process-oriented identification workflow. -->
 <$list
     filter="[[$:/cypro/data/kiksIdentificationFlow]get[method]match[process]]"
     variable="null"
 >
 
-<div class="cypro-identification-placeholder">
-
-<h2>Prozessorientierter Ansatz</h2>
-
-<p>
-Der Ermittlungsweg ist ausgewählt und bleibt gespeichert.
-</p>
-
-<p>
-Im nächsten Implementierungsschritt wird hier die Struktur
-<strong>Dienstleistung → Funktionen → Prozesse → Systeme/Daten</strong>
-aufgebaut.
-</p>
-
-</div>
+<$transclude
+    tiddler="$:/plugins/aeckert/cypro/viewtemplates/components/processIdentification"
+/>
 
 </$list>
 

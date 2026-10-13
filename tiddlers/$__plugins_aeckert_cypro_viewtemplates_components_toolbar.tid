@@ -129,7 +129,7 @@ KIKS-Ermittlung
 
 </$list>
 
-<$list filter="[all[current]] -[[$:/plugins/aeckert/cypro/pages/listKIKS]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]] -[all[current]tag[matrix-detail]]" variable="null">
+<$list filter="[all[current]] -[[$:/plugins/aeckert/cypro/pages/listKIKS]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]] -[[$:/plugins/aeckert/cypro/pages/kiksIdentification]] -[all[current]tag[matrix-detail]]" variable="null">
 <$list filter="[<isLocked>match[yes]]" variable="null">
 <div class="cypro-toolbar-group">
 <$button class="cypro-btn cypro-btn-secondary" actions=<<cypro-snapshot>>>
@@ -168,7 +168,7 @@ KIKS-Ermittlung
 <div class="cypro-toolbar-right">
 
 <!-- Primary confirm action (Übernehmen / save) on the RIGHT while editing; only on editable entities/pages when unlocked. Mirrors Weiter's position; the two never show together (Weiter is locked-only, Übernehmen is unlocked-only). -->
-<$list filter="[all[current]] -[[$:/plugins/aeckert/cypro/pages/listKIKS]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]] -[all[current]tag[matrix-detail]]" variable="null">
+<$list filter="[all[current]] -[[$:/plugins/aeckert/cypro/pages/listKIKS]] -[[$:/plugins/aeckert/cypro/pages/listMeasures]] -[[$:/plugins/aeckert/cypro/pages/kiksIdentification]] -[all[current]tag[matrix-detail]]" variable="null">
 <$list filter="[<isLocked>!match[yes]]" variable="null">
 <$button class="cypro-btn cypro-btn-primary" actions=<<cypro-save>>>
 <span class="cypro-btn-label">Übernehmen</span>

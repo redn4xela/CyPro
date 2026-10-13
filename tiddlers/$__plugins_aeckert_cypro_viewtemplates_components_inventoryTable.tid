@@ -169,6 +169,12 @@ Keine Luftsicherheitsaufgabe
     font-size: 0.92em;
 }
 
+.cypro-inventory-origin-path {
+    margin-top: 0.35em;
+    color: #56616d;
+    line-height: 1.35;
+}
+
 .cypro-inventory-actions {
     display: block;
     width: 100%;
@@ -303,7 +309,37 @@ Systemanalyse
     filter="[<inventoryEntry>get[identification-method]match[process]]"
     variable="null"
 >
-Prozessorientierter Ansatz
+
+<div>
+<strong>Prozessorientierter Ansatz</strong>
+</div>
+
+<$list
+    filter="[<inventoryEntry>get[process-links]enlist-input[]]"
+    variable="processRef"
+>
+
+<$let
+    functionRef={{{ [<processRef>get[function]] }}}
+>
+
+<$let
+    serviceRef={{{ [<functionRef>get[service]] }}}
+>
+
+<div class="cypro-inventory-origin-path">
+
+↳ <$view tiddler=<<serviceRef>> field="caption"/><br>
+&nbsp;&nbsp;↳ <$view tiddler=<<functionRef>> field="caption"/><br>
+&nbsp;&nbsp;&nbsp;&nbsp;↳ <$view tiddler=<<processRef>> field="caption"/>
+
+</div>
+
+</$let>
+</$let>
+
+</$list>
+
 </$list>
 
 <!-- Legacy inventory entries originate from the existing system analysis. -->
@@ -323,8 +359,18 @@ Systemanalyse
 />
 </td>
 <td>
+
+<$list
+    filter="[<inventoryEntry>get[assessment-status]match[identified]]"
+    variable="null"
+>
+<span class="cypro-status-pending">
+Aufgabenzuordnung offen
+</span>
+</$list>
+
 <$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
-<span class="cypro-status-pending">Noch nicht bewertet</span>
+<span class="cypro-status-pending">KIKS-Relevanz offen</span>
 </$list>
 <$list filter="[<inventoryEntry>get[assessment-status]match[completed]]" variable="null">
 Bewertet
@@ -343,6 +389,68 @@ Bewertet
 </td>
 <td>
 <div class="cypro-inventory-actions">
+
+<$list
+    filter="[<inventoryEntry>get[assessment-status]match[identified]]"
+    variable="null"
+>
+
+<$let
+    processRef={{{ [<inventoryEntry>get[process-links]enlist-input[]first[]] }}}
+>
+
+<$let
+    functionRef={{{ [<processRef>get[function]] }}}
+>
+
+<$let
+    serviceRef={{{ [<functionRef>get[service]] }}}
+>
+
+<$button
+    class="cypro-btn cypro-btn-primary cypro-inventory-action-btn"
+>
+
+<!-- Return to the process-oriented identification path. -->
+<$action-setfield
+    $tiddler="$:/cypro/data/kiksIdentificationFlow"
+    method="process"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-service"
+    text=<<serviceRef>>
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-function"
+    text=<<functionRef>>
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=<<processRef>>
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=<<inventoryEntry>>
+/>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
+/>
+
+Luftsicherheitsaufgaben zuordnen
+
+</$button>
+
+</$let>
+</$let>
+</$let>
+
+</$list>
+
 <$list filter="[<inventoryEntry>get[assessment-status]match[pending]]" variable="null">
 <$button class="cypro-btn cypro-btn-primary cypro-inventory-action-btn">
 <$action-setfield
@@ -353,15 +461,15 @@ Bewertet
     $tiddler="$:/temp/cypro/kiks-assessment"
     caption={{{ [<inventoryEntry>get[caption]] }}}
     original-type={{{ [<inventoryEntry>get[object-type]] }}}
-    confirmed-type=""
-    system-protection=""
+    confirmed-type={{{ [<inventoryEntry>get[object-type]] }}}
+    system-protection={{{ [<inventoryEntry>get[system-protection]] }}}
     impact=""
     influence=""
     german-jurisdiction=""
     jurisdiction-reason=""
 />
 <$action-navigate $to="$:/plugins/aeckert/cypro/pages/kiksAssessment"/>
-Bewerten
+KIKS-Relevanz prüfen
 </$button>
 </$list>
 <$list
