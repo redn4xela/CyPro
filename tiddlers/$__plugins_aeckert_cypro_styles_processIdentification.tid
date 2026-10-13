@@ -1,0 +1,695 @@
+title: $:/plugins/aeckert/cypro/styles/processIdentification
+tags: $:/tags/Stylesheet
+type: text/css
+
+/* Process-oriented KIKS identification UI. */
+
+.cypro-process-identification {
+    --cypro-ui-border: #d8dee6;
+    --cypro-ui-border-strong: #bcc8d6;
+    --cypro-ui-bg: #ffffff;
+    --cypro-ui-bg-soft: #f6f8fb;
+    --cypro-ui-bg-accent: #eef4fb;
+    --cypro-ui-text-muted: #65717e;
+    --cypro-ui-primary: #173f82;
+    --cypro-ui-success: #39754a;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.cypro-process-identification,
+.cypro-process-identification * {
+    box-sizing: border-box;
+}
+
+.cypro-process-card {
+    width: 100%;
+    margin: 1em 0;
+    padding: 1.25em;
+    border: 1px solid var(--cypro-ui-border);
+    border-radius: 10px;
+    background: var(--cypro-ui-bg);
+    box-shadow: 0 1px 3px rgba(20, 39, 63, 0.06);
+}
+
+.cypro-process-card h2,
+.cypro-process-card h3,
+.cypro-process-card h4 {
+    margin-top: 0;
+}
+
+.cypro-process-section-number {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.45em;
+    border-radius: 50%;
+    background: #eaf0f7;
+    font-weight: 700;
+}
+
+.cypro-process-form,
+.cypro-form-stack {
+    width: 100%;
+    max-width: 880px;
+}
+
+.cypro-process-field {
+    width: 100%;
+    margin: 0 0 1.15em;
+}
+
+.cypro-process-label {
+    display: block;
+    margin: 0 0 0.25em;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.cypro-process-help,
+.cypro-process-hint {
+    display: block;
+    margin: 0 0 0.45em;
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.9em;
+    line-height: 1.45;
+}
+
+.cypro-process-required {
+    color: #9b2525;
+}
+
+.cypro-optional {
+    margin-left: 0.35em;
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.86em;
+    font-weight: 400;
+}
+
+input.cypro-process-input,
+textarea.cypro-process-input,
+.cypro-process-input.tc-edit-text {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 44px;
+    margin: 0 !important;
+    padding: 0.7em 0.8em !important;
+    border: 1px solid var(--cypro-ui-border-strong) !important;
+    border-radius: 6px !important;
+    background: #fff !important;
+    font: inherit;
+}
+
+textarea.cypro-process-input,
+textarea.cypro-process-textarea {
+    min-height: 96px !important;
+    resize: vertical;
+}
+
+.cypro-process-input:focus {
+    outline: 2px solid rgba(23, 63, 130, 0.18);
+    outline-offset: 1px;
+    border-color: var(--cypro-ui-primary) !important;
+}
+
+.cypro-eyebrow {
+    display: block;
+    margin-bottom: 0.15em;
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Service selector and function track. */
+
+.cypro-service-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55em;
+    margin: 0.7em 0 1.15em;
+}
+
+.cypro-function-track {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.8em;
+    width: 100%;
+    margin: 0.75em 0 1.25em;
+    padding: 0.45em 0.5em 1em;
+    overflow-x: auto;
+}
+
+.cypro-function-track::before {
+    content: "";
+    position: absolute;
+    top: 27px;
+    left: 26px;
+    right: 26px;
+    height: 2px;
+    background: #d2dbe5;
+}
+
+.cypro-function-step {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 118px;
+    min-width: 118px;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cypro-function-circle {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.45em;
+    border: 2px solid #adb9c6;
+    border-radius: 50%;
+    background: #fff;
+    font-weight: 700;
+}
+
+.cypro-function-step-active .cypro-function-circle {
+    border-color: var(--cypro-ui-primary);
+    background: var(--cypro-ui-bg-accent);
+    color: var(--cypro-ui-primary);
+}
+
+.cypro-function-step-add .cypro-function-circle {
+    border-style: dashed;
+    font-size: 1.2em;
+}
+
+.cypro-function-label {
+    display: block;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+/* Native accordions. */
+
+.cypro-modern-accordion,
+.cypro-process-accordion {
+    width: 100%;
+    margin: 0.75em 0;
+    border: 1px solid var(--cypro-ui-border);
+    border-radius: 9px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.cypro-modern-summary,
+.cypro-process-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    width: 100%;
+    padding: 0.9em 1em;
+    background: var(--cypro-ui-bg-soft);
+    cursor: pointer;
+    list-style: none;
+}
+
+.cypro-modern-summary::-webkit-details-marker,
+.cypro-process-summary::-webkit-details-marker {
+    display: none;
+}
+
+.cypro-modern-summary::after,
+.cypro-process-summary::after {
+    content: "▾";
+    flex: 0 0 auto;
+    color: var(--cypro-ui-text-muted);
+    font-size: 1.05em;
+}
+
+.cypro-modern-accordion:not([open]) > .cypro-modern-summary::after,
+.cypro-process-accordion:not([open]) > .cypro-process-summary::after {
+    content: "▸";
+}
+
+.cypro-modern-summary-main,
+.cypro-process-summary-main {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.12em;
+}
+
+.cypro-modern-summary-meta,
+.cypro-process-list-meta {
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.88em;
+    font-weight: 400;
+}
+
+.cypro-summary-toggle {
+    margin-left: auto;
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.84em;
+    white-space: nowrap;
+}
+
+.cypro-modern-accordion-body,
+.cypro-process-accordion-body {
+    padding: 1em;
+    border-top: 1px solid var(--cypro-ui-border);
+}
+
+.cypro-process-subheading {
+    margin-top: 1.2em;
+}
+
+.cypro-process-subheading h4 {
+    margin: 0.15em 0 0;
+}
+
+.cypro-process-list {
+    display: grid;
+    gap: 0.65em;
+    margin: 0.65em 0 1em;
+}
+
+.cypro-process-summary-status {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    margin-left: auto;
+}
+
+.cypro-status-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 0.2em 0.65em;
+    border: 1px solid #d0d8e1;
+    border-radius: 999px;
+    font-size: 0.8em;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cypro-status-chip-open {
+    background: #fff6df;
+    border-color: #e5c979;
+    color: #76560c;
+}
+
+.cypro-status-chip-review {
+    background: #edf3fb;
+    border-color: #b8cbe3;
+    color: #274f7f;
+}
+
+.cypro-status-chip-complete {
+    background: #edf7ef;
+    border-color: #b9d8c0;
+    color: var(--cypro-ui-success);
+}
+
+.cypro-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9em 1.25em;
+}
+
+.cypro-detail-grid-full {
+    grid-column: 1 / -1;
+}
+
+.cypro-detail-label {
+    display: block;
+    margin-bottom: 0.2em;
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* System/data choices. */
+
+.cypro-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75em;
+    margin: 0.45em 0 1em;
+}
+
+label.cypro-choice-card {
+    display: flex !important;
+    min-height: 88px;
+    align-items: flex-start;
+    gap: 0.75em;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0.9em 1em;
+    border: 2px solid var(--cypro-ui-border);
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+}
+
+label.cypro-choice-card:hover {
+    border-color: #aebdce;
+    background: #fafcff;
+}
+
+label.cypro-choice-card-selected {
+    border-color: var(--cypro-ui-primary);
+    background: var(--cypro-ui-bg-accent);
+}
+
+label.cypro-choice-card input[type="radio"] {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0 !important;
+}
+
+.cypro-choice-title {
+    display: block;
+    font-weight: 700;
+}
+
+.cypro-choice-description {
+    display: block;
+    margin-top: 0.15em;
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.88em;
+    line-height: 1.4;
+}
+
+/* Aviation security task choices. */
+
+.cypro-process-task-card {
+    border-width: 2px;
+    border-color: #c7d5e5;
+    background: #fbfcfe;
+}
+
+.cypro-task-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1em;
+    margin-bottom: 0.7em;
+}
+
+.cypro-task-heading h3 {
+    margin: 0.1em 0 0;
+}
+
+.cypro-task-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65em;
+    margin: 0.8em 0;
+}
+
+label.cypro-task-choice {
+    display: flex !important;
+    min-height: 70px;
+    align-items: flex-start;
+    gap: 0.7em;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0.8em 0.9em;
+    border: 1px solid #ccd6e1;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    line-height: 1.35;
+}
+
+label.cypro-task-choice:hover {
+    border-color: #aebdce;
+    background: #fafcff;
+}
+
+label.cypro-task-choice input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0 !important;
+}
+
+.cypro-task-suboptions {
+    display: grid;
+    gap: 0.55em;
+    margin: 0.75em 0;
+    padding: 0.85em;
+    border-left: 3px solid #c5d4e5;
+    background: #f7f9fc;
+}
+
+.cypro-task-none {
+    margin-top: 0.8em !important;
+    border-style: dashed !important;
+}
+
+/* Actions and confirmation. */
+
+.cypro-process-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+    margin-top: 1em;
+}
+
+.cypro-confirm-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    margin-top: 1.2em;
+    padding: 1em;
+    border-top: 1px solid var(--cypro-ui-border);
+    background: #f7f9fc;
+    border-radius: 7px;
+}
+
+.cypro-confirm-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.15em;
+}
+
+.cypro-confirm-copy span {
+    color: var(--cypro-ui-text-muted);
+    font-size: 0.88em;
+}
+
+.cypro-confirm-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+}
+
+.cypro-confirm-button,
+.cypro-disabled-button {
+    min-width: 180px;
+}
+
+.cypro-disabled-button {
+    min-height: 38px;
+    padding: 0.55em 0.9em;
+    border: 1px solid #d3d8de;
+    border-radius: 5px;
+    background: #e9edf1;
+    color: #8a939d;
+    cursor: not-allowed;
+    font: inherit;
+}
+
+@media (max-width: 760px) {
+    .cypro-choice-grid,
+    .cypro-task-grid,
+    .cypro-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cypro-modern-summary,
+    .cypro-process-summary,
+    .cypro-task-heading,
+    .cypro-confirm-panel {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .cypro-summary-toggle,
+    .cypro-process-summary-status {
+        margin-left: 0;
+    }
+
+    .cypro-detail-grid-full {
+        grid-column: auto;
+    }
+
+    .cypro-confirm-actions,
+    .cypro-confirm-button,
+    .cypro-disabled-button {
+        width: 100%;
+    }
+}
+
+
+/* Explicit system/data creation flow. */
+
+.cypro-create-process-launch {
+    margin: 1em 0 0;
+}
+
+.cypro-create-process-launch .cypro-btn {
+    min-height: 42px;
+}
+
+.cypro-create-process-open > .cypro-modern-summary::after {
+    content: "";
+}
+
+.cypro-create-process-open > .cypro-modern-summary {
+    cursor: default;
+}
+
+.cypro-function-step-active .cypro-function-label {
+    color: var(--cypro-ui-primary);
+    font-weight: 700;
+}
+
+.cypro-function-step:hover .cypro-function-circle {
+    border-color: var(--cypro-ui-primary);
+}
+
+
+
+/* Function content is controlled exclusively through the numbered function bar. */
+
+.cypro-function-panel {
+    margin-top: 1.1em;
+    padding: 1.15em;
+    border: 1px solid var(--cypro-ui-border);
+    border-radius: var(--cypro-ui-radius);
+    background: var(--cypro-ui-surface);
+}
+
+.cypro-function-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1em;
+    margin-bottom: 0.75em;
+}
+
+.cypro-function-panel-header h3 {
+    margin: 0.2em 0 0;
+}
+
+.cypro-function-complete-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.25em;
+    font-weight: 800;
+}
+
+.cypro-function-complete-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2em;
+    margin-top: 1.5em;
+    padding: 1em;
+    border-top: 1px solid var(--cypro-ui-border);
+    background: var(--cypro-ui-soft);
+    border-radius: var(--cypro-ui-radius);
+}
+
+.cypro-function-complete-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    max-width: 680px;
+}
+
+.cypro-function-complete-copy span {
+    color: var(--cypro-ui-muted);
+    font-size: 0.92em;
+    line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+
+    .cypro-function-panel-header,
+    .cypro-function-complete-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
+
+
+/* Split function selection and expansion controls. */
+
+.cypro-function-node {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 120px;
+    min-width: 120px;
+    text-align: center;
+}
+
+.cypro-function-node .cypro-function-step {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    flex: none;
+}
+
+.cypro-function-name-button {
+    display: block;
+    width: 100%;
+    margin-top: 0.3em;
+    padding: 0.25em 0.35em;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-align: center;
+}
+
+.cypro-function-name-button:hover {
+    background: var(--cypro-ui-soft);
+}
+
+.cypro-function-node-selected .cypro-function-name-button {
+    color: var(--cypro-ui-primary);
+    font-weight: 700;
+}
+
+.cypro-function-incomplete {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45em;
+}
+
+.cypro-function-incomplete > span {
+    color: var(--cypro-ui-muted);
+    font-size: 0.92em;
+}
+

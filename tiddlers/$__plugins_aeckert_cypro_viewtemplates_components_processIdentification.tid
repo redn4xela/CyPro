@@ -1,0 +1,1996 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/components/processIdentification
+type: text/vnd.tiddlywiki
+
+
+\procedure cypro-process-create-function()
+<!-- Create one function for the service supplied through targetService. -->
+<$let
+    nextFunctionID={{{ [function[cypro-next-id],[cypro-process-function],[F]] }}}
+    nextFunctionOrder={{{ [tag[cypro-process-function]service<targetService>count[]add[1]] }}}
+>
+<$let
+    newFunctionTitle={{{ [<nextFunctionID>addprefix[CyPro-Prozessfunktion-]] }}}
+>
+
+<$action-createtiddler
+    $basetitle=<<newFunctionTitle>>
+    tags="cypro-process-function"
+    id=<<nextFunctionID>>
+    service=<<targetService>>
+    order=<<nextFunctionOrder>>
+    caption={{$:/temp/cypro/process-function-new!!caption}}
+    function-description={{$:/temp/cypro/process-function-new!!function-description}}
+    subfunction-description={{$:/temp/cypro/process-function-new!!subfunction-description}}
+    responsible-unit={{$:/temp/cypro/process-function-new!!responsible-unit}}
+    completed="no"
+    text=""
+>
+    <$action-setfield
+        $tiddler="$:/state/cypro/process-selected-service"
+        text=<<targetService>>
+    />
+
+    <$action-setfield
+        $tiddler="$:/state/cypro/process-selected-function"
+        text=<<createTiddler-title>>
+    />
+
+    <!-- The function now exists, so close the creation form. -->
+    <$action-setfield
+        $tiddler="$:/state/cypro/process-new-function-open"
+        text="no"
+    />
+
+    <$action-setfield
+        $tiddler="$:/state/cypro/process-selected-process"
+        text=""
+    />
+
+    <$action-setfield
+        $tiddler="$:/state/cypro/process-task-inventory"
+        text=""
+    />
+</$action-createtiddler>
+
+
+<$action-setfield
+    $tiddler="$:/temp/cypro/process-function-new"
+    caption=""
+    function-description=""
+    subfunction-description=""
+    responsible-unit=""
+/>
+
+</$let>
+</$let>
+\end
+
+
+\procedure cypro-process-add-function()
+<!--
+  Add a function to the selected service.
+  If no service exists yet, create the service first and then the function.
+-->
+<$let
+    selectedService={{{ [[$:/state/cypro/process-selected-service]get[text]] }}}
+>
+
+<!-- Existing service. -->
+<$list
+    filter="[<selectedService>minlength[1]]"
+    variable="null"
+>
+
+<$let targetService=<<selectedService>>>
+<<cypro-process-create-function>>
+</$let>
+
+</$list>
+
+
+<!-- First function of a new service. -->
+<$list
+    filter="[<selectedService>minlength[1]count[]match[0]]"
+    variable="null"
+>
+
+<$let
+    nextServiceID={{{ [function[cypro-next-id],[cypro-process-service],[S]] }}}
+>
+<$let
+    newServiceTitle={{{ [<nextServiceID>addprefix[CyPro-Prozessdienstleistung-]] }}}
+>
+
+<$action-createtiddler
+    $basetitle=<<newServiceTitle>>
+    tags="cypro-process-service"
+    id=<<nextServiceID>>
+    caption={{$:/temp/cypro/process-service-new!!caption}}
+    text=""
+>
+
+    <$let targetService=<<createTiddler-title>>>
+    <<cypro-process-create-function>>
+    </$let>
+
+</$action-createtiddler>
+
+<$action-setfield
+    $tiddler="$:/temp/cypro/process-service-new"
+    caption=""
+/>
+
+</$let>
+</$let>
+
+</$list>
+
+</$let>
+\end
+
+
+\procedure cypro-process-add-process()
+<!--
+  A process represents one system/data object used by the selected function.
+  Create the process and its inventory entry together.
+-->
+<$let
+    selectedFunction={{{ [[$:/state/cypro/process-selected-function]get[text]] }}}
+    nextProcessID={{{ [function[cypro-next-id],[cypro-process],[P]] }}}
+>
+
+<$let
+    nextProcessOrder={{{ [tag[cypro-process]function<selectedFunction>count[]add[1]] }}}
+    newProcessTitle={{{ [<nextProcessID>addprefix[CyPro-Prozess-]] }}}
+    draftType={{{ [[$:/temp/cypro/process-new]get[object-type]] }}}
+    draftProtection={{{ [[$:/temp/cypro/process-new]get[system-protection]] }}}
+>
+
+<$let
+    effectiveProtection={{{ [<draftType>match[system]then<draftProtection>] }}}
+>
+
+<$action-createtiddler
+    $basetitle=<<newProcessTitle>>
+    tags="cypro-process"
+    id=<<nextProcessID>>
+    function=<<selectedFunction>>
+    order=<<nextProcessOrder>>
+    caption={{$:/temp/cypro/process-new!!caption}}
+    object-type=<<draftType>>
+    system-protection=<<effectiveProtection>>
+    provider={{$:/temp/cypro/process-new!!provider}}
+    associated-programs={{$:/temp/cypro/process-new!!associated-programs}}
+    inventory-item=""
+    text=""
+>
+
+    <$let processTitle=<<createTiddler-title>>>
+
+    <$let
+        maxInventoryNum={{{ [tag[cypro-inventory]prefix[CyPro-Inventar-]removeprefix[CyPro-Inventar-]nsort[]last[]] ~[[000]] }}}
+    >
+    <$let
+        nextInventoryNum={{{ [<maxInventoryNum>add[1]pad[3]] }}}
+    >
+    <$let
+        newInventoryTitle={{{ [<nextInventoryNum>addprefix[CyPro-Inventar-]] }}}
+    >
+
+    <$action-createtiddler
+        $basetitle=<<newInventoryTitle>>
+        tags="cypro-inventory"
+        inventory-id=<<nextInventoryNum>>
+        caption={{$:/temp/cypro/process-new!!caption}}
+        object-type=<<draftType>>
+        system-protection=<<effectiveProtection>>
+        provider={{$:/temp/cypro/process-new!!provider}}
+        associated-programs={{$:/temp/cypro/process-new!!associated-programs}}
+        identification-method="process"
+        process-links=<<processTitle>>
+        aviation-task-status="pending"
+        aviation-security-tasks=""
+        aviation-security-cargo-tasks=""
+        aviation-security-task-other=""
+        aviation-security-task-none=""
+        assessment-status="identified"
+        assessment-result=""
+        assessment-reason=""
+        text=""
+    >
+
+        <$action-setfield
+            $tiddler=<<processTitle>>
+            inventory-item=<<createTiddler-title>>
+        />
+
+        <$action-setfield
+            $tiddler="$:/state/cypro/process-selected-process"
+            text=<<processTitle>>
+        />
+
+        <$action-setfield
+            $tiddler="$:/state/cypro/process-task-inventory"
+            text=<<createTiddler-title>>
+        />
+
+        <!-- Close the creation form after the object has been added. -->
+        <$action-setfield
+            $tiddler="$:/state/cypro/process-new-open"
+            text="no"
+        />
+
+    </$action-createtiddler>
+
+    </$let>
+    </$let>
+    </$let>
+
+    </$let>
+
+</$action-createtiddler>
+
+
+<$action-setfield
+    $tiddler="$:/temp/cypro/process-new"
+    caption=""
+    object-type=""
+    system-protection=""
+    provider=""
+    associated-programs=""
+/>
+
+</$let>
+</$let>
+</$let>
+\end
+
+
+\procedure cypro-process-complete-task-assignment()
+<!-- Complete task assignment and continue directly with the KIKS relevance check. -->
+<$let
+    selectedInventory={{{ [[$:/state/cypro/process-task-inventory]get[text]] }}}
+>
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    aviation-task-status="completed"
+    assessment-status="pending"
+    assessment-result=""
+    assessment-reason=""
+/>
+
+<!-- Reuse the object data already identified in the process-oriented workflow. -->
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment-selected"
+    text=<<selectedInventory>>
+/>
+
+<$action-setfield
+    $tiddler="$:/temp/cypro/kiks-assessment"
+    caption={{{ [<selectedInventory>get[caption]] }}}
+    original-type={{{ [<selectedInventory>get[object-type]] }}}
+    confirmed-type={{{ [<selectedInventory>get[object-type]] }}}
+    system-protection={{{ [<selectedInventory>get[system-protection]] }}}
+    impact=""
+    influence=""
+    german-jurisdiction=""
+    jurisdiction-reason=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/kiksAssessment"
+/>
+
+</$let>
+\end
+
+
+\procedure cypro-process-complete-no-task()
+<!-- No aviation-security task means direct non-KIKS classification. -->
+<$let
+    selectedInventory={{{ [[$:/state/cypro/process-task-inventory]get[text]] }}}
+>
+
+<$action-setfield
+    $tiddler=<<selectedInventory>>
+    aviation-security-tasks=""
+    aviation-security-cargo-tasks=""
+    aviation-security-task-other=""
+    aviation-security-task-none="yes"
+    aviation-task-status="completed"
+    assessment-status="completed"
+    assessment-result="non-kiks"
+    assessment-reason="no-aviation-task"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+</$let>
+\end
+
+
+
+
+
+
+<div class="cypro-process-identification">
+
+<h2>Prozessorientierter Ansatz</h2>
+
+<div class="cypro-process-hint">
+Ausgehend von einer Dienstleistung werden zunächst die Funktionen und anschließend die dafür eingesetzten Systeme beziehungsweise Daten erfasst.
+</div>
+
+
+
+<!-- ============================================================
+     SERVICE AND FUNCTION
+     ============================================================ -->
+
+<div class="cypro-process-card">
+
+<h3>
+<span class="cypro-process-section-number">1</span>
+Prozess / Dienstleistung und Funktion
+</h3>
+
+
+<$let
+    selectedService={{{ [[$:/state/cypro/process-selected-service]get[text]] }}}
+    selectedFunction={{{ [[$:/state/cypro/process-selected-function]get[text]] }}}
+>
+
+
+<!-- Existing services -->
+
+<$list
+    filter="[tag[cypro-process-service]count[]!match[0]]"
+    variable="null"
+>
+
+<div class="cypro-process-label">
+Bereits erfasste Prozess-/Dienstleistungsbereiche
+</div>
+
+<div class="cypro-service-selector">
+
+<$list
+    filter="[tag[cypro-process-service]sort[caption]]"
+    variable="service"
+>
+
+<$button
+    class={{{ [<service>match<selectedService>then[cypro-btn cypro-btn-secondary]else[cypro-btn cypro-btn-ghost]] }}}
+>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-service"
+    text=<<service>>
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-function"
+    text={{{ [tag[cypro-process-function]service<service>sort[order]first[]] }}}
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+<$view tiddler=<<service>> field="caption"/>
+
+</$button>
+
+</$list>
+
+
+<$button class="cypro-btn cypro-btn-ghost">
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-service"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-function"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+Neue Dienstleistung
+
+</$button>
+
+</div>
+
+</$list>
+
+
+
+<!-- Service name -->
+
+<div class="cypro-process-form">
+
+<$list
+    filter="[<selectedService>minlength[1]]"
+    variable="null"
+>
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Prozess / Dienstleistung
+</span>
+
+<$edit-text
+    tiddler=<<selectedService>>
+    field="caption"
+    tag="input"
+    class="cypro-process-input"
+/>
+
+</div>
+
+</$list>
+
+
+<$list
+    filter="[<selectedService>minlength[1]count[]match[0]]"
+    variable="null"
+>
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Prozess / Dienstleistung
+<span class="cypro-process-required">*</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-service-new"
+    field="caption"
+    tag="input"
+    class="cypro-process-input"
+    placeholder="z. B. Passwordmanager"
+/>
+
+</div>
+
+</$list>
+
+
+
+<!-- Function bar -->
+
+<!--
+  Show the function bar for an existing service or as soon as a new
+  service/process area has been named. The service itself is created
+  together with the first function.
+-->
+<$list
+    filter="[<selectedService>minlength[1]] [[$:/temp/cypro/process-service-new]get[caption]minlength[1]]"
+    variable="null"
+>
+
+<span class="cypro-process-label">Funktionen</span>
+
+<div class="cypro-function-track">
+
+<$list
+    filter="[tag[cypro-process-function]service<selectedService>sort[order]]"
+    variable="function"
+>
+
+<div
+    class={{{ [<function>match<selectedFunction>then[cypro-function-node cypro-function-node-selected]else[cypro-function-node]] }}}
+>
+
+<!--
+  Number:
+  Select the function and independently toggle its detail form.
+-->
+<$button
+    class={{{ [<function>match<selectedFunction>then[cypro-function-step cypro-function-step-active]else[cypro-function-step]] }}}
+    tooltip="Funktionsdetails ein- oder ausklappen"
+>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-function"
+    text=<<function>>
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-expanded-function"
+    text={{{ [[$:/state/cypro/process-expanded-function]get[text]match<function>then[]else<function>] }}}
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-function-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+<span class="cypro-function-circle">
+<$view tiddler=<<function>> field="order"/>
+</span>
+
+</$button>
+
+
+<!--
+  Caption:
+  Select the function without opening its detail form.
+-->
+<$button
+    class="cypro-function-name-button"
+    tooltip="Funktion für Systeme und Daten auswählen"
+>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-function"
+    text=<<function>>
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-expanded-function"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-function-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+<span class="cypro-function-label">
+
+<$view tiddler=<<function>> field="caption"/>
+
+<$list
+    filter="[<function>get[completed]match[yes]]"
+    variable="null"
+>
+<span class="cypro-function-complete-mark" title="Funktion abgeschlossen">
+✓
+</span>
+</$list>
+
+</span>
+
+</$button>
+
+</div>
+
+</$list>
+
+
+<$button class="cypro-function-step cypro-function-step-add">
+
+<!-- No existing function is open while a new one is being entered. -->
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-function"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-expanded-function"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-function-open"
+    text="yes"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+<span class="cypro-function-circle">+</span>
+<span class="cypro-function-label">Funktion hinzufügen</span>
+
+</$button>
+
+</div>
+
+</$list>
+
+
+
+<!-- Existing selected function -->
+
+<$list
+    filter="[[$:/state/cypro/process-expanded-function]get[text]match<selectedFunction>]"
+    variable="null"
+>
+
+<div class="cypro-function-panel">
+
+<div class="cypro-function-panel-header">
+
+<div>
+
+<span class="cypro-eyebrow">
+Ausgewählte Funktion
+</span>
+
+<h3>
+Funktion <$view tiddler=<<selectedFunction>> field="order"/>:
+<$view tiddler=<<selectedFunction>> field="caption"/>
+</h3>
+
+</div>
+
+
+<$list
+    filter="[<selectedFunction>get[completed]match[yes]]"
+    variable="null"
+>
+<span class="cypro-status-chip cypro-status-chip-complete">
+Abgeschlossen
+</span>
+</$list>
+
+</div>
+
+
+<div class="cypro-process-hint">
+Die Nummer öffnet beziehungsweise schließt die Funktionsdetails. Über den Funktionsnamen kann die Funktion ausgewählt werden, ohne die Details zu öffnen.
+</div>
+
+
+<div class="cypro-form-stack">
+
+
+<div class="cypro-process-field">
+
+<label class="cypro-process-label">
+Name der Funktion
+<span class="cypro-process-required">*</span>
+</label>
+
+<div class="cypro-process-help">
+Kurze, eindeutige Bezeichnung für den Funktionsbalken.
+</div>
+
+<$edit-text
+    tiddler=<<selectedFunction>>
+    field="caption"
+    tag="input"
+    class="cypro-process-input"
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<label class="cypro-process-label">
+Beschreibung der Funktion
+<span class="cypro-process-required">*</span>
+</label>
+
+<div class="cypro-process-help">
+Beschreiben Sie die fachliche Aufgabe dieser Funktion.
+</div>
+
+<$edit-text
+    tiddler=<<selectedFunction>>
+    field="function-description"
+    tag="textarea"
+    class="cypro-process-input cypro-process-textarea"
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<label class="cypro-process-label">
+Beschreibung der Unterfunktion
+<span class="cypro-optional">optional</span>
+</label>
+
+<div class="cypro-process-help">
+Nur ausfüllen, wenn die Funktion weiter untergliedert werden soll.
+</div>
+
+<$edit-text
+    tiddler=<<selectedFunction>>
+    field="subfunction-description"
+    tag="textarea"
+    class="cypro-process-input cypro-process-textarea"
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<label class="cypro-process-label">
+Zuständige Stelle
+<span class="cypro-process-required">*</span>
+</label>
+
+<div class="cypro-process-help">
+Organisationseinheit oder Rolle, die für die Funktion zuständig ist.
+</div>
+
+<$edit-text
+    tiddler=<<selectedFunction>>
+    field="responsible-unit"
+    tag="input"
+    class="cypro-process-input"
+/>
+
+</div>
+
+
+</div>
+
+</div>
+
+</$list>
+
+
+<!-- New function: visible only after explicitly clicking "+" in the function bar. -->
+
+<$list
+    filter="[[$:/state/cypro/process-new-function-open]get[text]match[yes]]"
+    variable="null"
+>
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Name der Funktion
+<span class="cypro-process-required">*</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-function-new"
+    field="caption"
+    tag="input"
+    class="cypro-process-input"
+    placeholder="z. B. Passwörter schützen"
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Beschreibung der Funktion
+<span class="cypro-process-required">*</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-function-new"
+    field="function-description"
+    tag="textarea"
+    class="cypro-process-input"
+    placeholder="Funktion beschreiben..."
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Beschreibung der Unterfunktion
+<span class="cypro-process-hint">(optional)</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-function-new"
+    field="subfunction-description"
+    tag="textarea"
+    class="cypro-process-input"
+    placeholder="Unterfunktion beschreiben..."
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Zuständige Stelle
+<span class="cypro-process-required">*</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-function-new"
+    field="responsible-unit"
+    tag="input"
+    class="cypro-process-input"
+    placeholder="Zuständige Stelle..."
+/>
+
+</div>
+
+
+<div class="cypro-process-actions">
+
+<$button class="cypro-btn cypro-btn-ghost">
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-function-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/temp/cypro/process-function-new"
+    caption=""
+    function-description=""
+    subfunction-description=""
+    responsible-unit=""
+/>
+
+Abbrechen
+
+</$button>
+
+</div>
+
+
+<$list
+    filter="[[$:/temp/cypro/process-function-new]get[caption]minlength[1]]"
+    variable="null"
+>
+
+<$list
+    filter="[[$:/temp/cypro/process-function-new]get[function-description]minlength[1]]"
+    variable="null"
+>
+
+<$list
+    filter="[[$:/temp/cypro/process-function-new]get[responsible-unit]minlength[1]]"
+    variable="null"
+>
+
+<$list
+    filter="[<selectedService>minlength[1]] [[$:/temp/cypro/process-service-new]get[caption]minlength[1]]"
+    variable="null"
+>
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-process-add-function>>
+>
+Funktion hinzufügen
+</$button>
+
+</$list>
+</$list>
+</$list>
+</$list>
+
+</$list>
+
+</div>
+
+</$let>
+
+</div>
+
+
+
+<!-- ============================================================
+     PROCESS / SYSTEM-DATA OBJECT
+     ============================================================ -->
+
+<$let
+    selectedService={{{ [[$:/state/cypro/process-selected-service]get[text]] }}}
+    selectedFunction={{{ [[$:/state/cypro/process-selected-function]get[text]] }}}
+>
+
+<$list
+    filter="[<selectedFunction>minlength[1]]"
+    variable="null"
+>
+
+<div class="cypro-process-card">
+
+<h3>
+<span class="cypro-process-section-number">2</span>
+Systeme und Daten der Funktion
+</h3>
+
+<div class="cypro-process-hint">
+Fügen Sie nur die Systeme und Daten hinzu, die für die ausgewählte Funktion tatsächlich benötigt werden. Jeder Eintrag wird direkt in das zentrale Inventar übernommen.
+</div>
+
+
+<!-- Existing processes -->
+
+<$list
+    filter="[tag[cypro-process]function<selectedFunction>count[]!match[0]]"
+    variable="null"
+>
+
+<div class="cypro-process-subheading">
+<span class="cypro-eyebrow">Bereits erfasst</span>
+<h4>Prozesse dieser Funktion</h4>
+</div>
+
+<div class="cypro-process-list">
+
+<$list
+    filter="[tag[cypro-process]function<selectedFunction>sort[order]]"
+    variable="process"
+>
+
+<$let inventoryRef={{{ [<process>get[inventory-item]] }}}>
+
+<details class="cypro-process-accordion">
+
+<summary class="cypro-process-summary">
+
+<span class="cypro-process-summary-main">
+<strong><$view tiddler=<<process>> field="caption"/></strong>
+<span class="cypro-process-list-meta">
+<$list filter="[<process>get[object-type]match[system]]" variable="null">
+System
+<$list filter="[<process>get[system-protection]match[data]]" variable="null">
+ · nur darauf befindliche Daten
+</$list>
+</$list>
+<$list filter="[<process>get[object-type]match[data]]" variable="null">Daten</$list>
+</span>
+</span>
+
+<span class="cypro-process-summary-status">
+<$list filter="[<inventoryRef>get[assessment-status]match[identified]]" variable="null">
+<span class="cypro-status-chip cypro-status-chip-open">Aufgaben offen</span>
+</$list>
+<$list filter="[<inventoryRef>get[assessment-status]match[pending]]" variable="null">
+<span class="cypro-status-chip cypro-status-chip-review">KIKS-Bewertung offen</span>
+</$list>
+<$list filter="[<inventoryRef>get[assessment-status]match[completed]]" variable="null">
+<span class="cypro-status-chip cypro-status-chip-complete">Bewertet</span>
+</$list>
+</span>
+
+</summary>
+
+<div class="cypro-process-accordion-body">
+
+<div class="cypro-detail-grid">
+<div>
+<span class="cypro-detail-label">Art</span>
+<$list filter="[<process>get[object-type]match[system]]" variable="null">System</$list>
+<$list filter="[<process>get[object-type]match[data]]" variable="null">Daten</$list>
+</div>
+
+<div>
+<span class="cypro-detail-label">Dienstleister</span>
+<$list filter="[<process>get[provider]minlength[1]]" variable="provider"><$text text=<<provider>>/></$list>
+<$list filter="[<process>get[provider]minlength[1]count[]match[0]]" variable="null">–</$list>
+</div>
+
+<div class="cypro-detail-grid-full">
+<span class="cypro-detail-label">Assoziierte Programme</span>
+<$list filter="[<process>get[associated-programs]minlength[1]]" variable="programs"><$text text=<<programs>>/></$list>
+<$list filter="[<process>get[associated-programs]minlength[1]count[]match[0]]" variable="null">–</$list>
+</div>
+</div>
+
+<div class="cypro-process-actions">
+
+<$list filter="[<inventoryRef>get[assessment-status]match[identified]]" variable="null">
+<$button class="cypro-btn cypro-btn-secondary">
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=<<process>>
+/>
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=<<inventoryRef>>
+/>
+Luftsicherheitsaufgaben zuordnen
+</$button>
+</$list>
+
+<$list filter="[<inventoryRef>get[assessment-status]match[pending]]" variable="null">
+<span class="cypro-process-help">Die Luftsicherheitsaufgaben sind bestätigt. Die KIKS-Bewertung ist noch offen.</span>
+</$list>
+
+<$list filter="[<inventoryRef>get[assessment-status]match[completed]]" variable="null">
+<span class="cypro-process-help">Dieser Prozess wurde bereits bewertet.</span>
+</$list>
+
+</div>
+
+</div>
+
+</details>
+
+</$let>
+
+</$list>
+
+</div>
+
+</$list>
+
+
+<!-- New system/data form: closed until explicitly opened. -->
+
+<$list
+    filter="[[$:/state/cypro/process-new-open]get[text]!match[yes]]"
+    variable="null"
+>
+
+<div class="cypro-process-actions cypro-create-process-launch">
+
+<$button class="cypro-btn cypro-btn-primary">
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-open"
+    text="yes"
+/>
+
++ System oder Daten hinzufügen
+
+</$button>
+
+</div>
+
+</$list>
+
+
+<$list
+    filter="[[$:/state/cypro/process-new-open]get[text]match[yes]]"
+    variable="null"
+>
+
+<div class="cypro-modern-accordion cypro-create-process-accordion cypro-create-process-open">
+
+<div class="cypro-modern-summary cypro-create-summary">
+
+<span class="cypro-modern-summary-main">
+
+<span class="cypro-eyebrow">
+Neues Inventarobjekt
+</span>
+
+<strong>
+System oder Daten hinzufügen
+</strong>
+
+<span class="cypro-modern-summary-meta">
+Das Objekt wird der ausgewählten Funktion zugeordnet und direkt in das Inventar übernommen.
+</span>
+
+</span>
+
+
+<$button class="cypro-btn cypro-btn-ghost">
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/temp/cypro/process-new"
+    caption=""
+    object-type=""
+    system-protection=""
+    provider=""
+    associated-programs=""
+/>
+
+Abbrechen
+
+</$button>
+
+</div>
+
+
+<div class="cypro-modern-accordion-body">
+<div class="cypro-process-form">
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Name
+<span class="cypro-process-required">*</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-new"
+    field="caption"
+    tag="input"
+    class="cypro-process-input"
+    placeholder="Name des Systems oder Datenbestands..."
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Art
+<span class="cypro-process-required">*</span>
+</span>
+
+<div class="cypro-choice-grid">
+
+
+<label
+    class={{{ [[$:/temp/cypro/process-new]get[object-type]match[system]then[cypro-choice-card cypro-choice-card-selected]else[cypro-choice-card]] }}}
+>
+
+<$radio
+    tiddler="$:/temp/cypro/process-new"
+    field="object-type"
+    value="system"
+/>
+
+<span>
+<span class="cypro-choice-title">System</span>
+<span class="cypro-choice-description">
+Ein technisches System wird für die Funktion eingesetzt.
+</span>
+</span>
+
+</label>
+
+
+<label
+    class={{{ [[$:/temp/cypro/process-new]get[object-type]match[data]then[cypro-choice-card cypro-choice-card-selected]else[cypro-choice-card]] }}}
+>
+
+<$radio
+    tiddler="$:/temp/cypro/process-new"
+    field="object-type"
+    value="data"
+/>
+
+<span>
+<span class="cypro-choice-title">Daten</span>
+<span class="cypro-choice-description">
+Ein Datenbestand ist für die Funktion relevant.
+</span>
+</span>
+
+</label>
+
+</div>
+
+</div>
+
+
+
+<!-- Protection target for systems -->
+
+<$list
+    filter="[[$:/temp/cypro/process-new]get[object-type]match[system]]"
+    variable="null"
+>
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Was ist bei diesem System zu schützen?
+<span class="cypro-process-required">*</span>
+</span>
+
+<div class="cypro-choice-grid">
+
+
+<label
+    class={{{ [[$:/temp/cypro/process-new]get[system-protection]match[system]then[cypro-choice-card cypro-choice-card-selected]else[cypro-choice-card]] }}}
+>
+
+<$radio
+    tiddler="$:/temp/cypro/process-new"
+    field="system-protection"
+    value="system"
+/>
+
+<span>
+<span class="cypro-choice-title">System selbst</span>
+<span class="cypro-choice-description">
+Das IT-System selbst ist der Schutzgegenstand.
+</span>
+</span>
+
+</label>
+
+
+<label
+    class={{{ [[$:/temp/cypro/process-new]get[system-protection]match[data]then[cypro-choice-card cypro-choice-card-selected]else[cypro-choice-card]] }}}
+>
+
+<$radio
+    tiddler="$:/temp/cypro/process-new"
+    field="system-protection"
+    value="data"
+/>
+
+<span>
+<span class="cypro-choice-title">Nur darauf befindliche Daten</span>
+<span class="cypro-choice-description">
+Das Objekt bleibt als System im Inventar; Schutzgegenstand sind die darauf befindlichen Daten.
+</span>
+</span>
+
+</label>
+
+</div>
+
+</div>
+
+</$list>
+
+
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Dienstleister
+<span class="cypro-process-hint">(optional)</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-new"
+    field="provider"
+    tag="input"
+    class="cypro-process-input"
+    placeholder="Dienstleister..."
+/>
+
+</div>
+
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Assoziierte Programme
+<span class="cypro-process-hint">(optional)</span>
+</span>
+
+<$edit-text
+    tiddler="$:/temp/cypro/process-new"
+    field="associated-programs"
+    tag="textarea"
+    class="cypro-process-input"
+    placeholder="Assoziierte Programme..."
+/>
+
+</div>
+
+
+
+<!-- Valid data object -->
+
+<$list
+    filter="[[$:/temp/cypro/process-new]get[caption]minlength[1]]"
+    variable="null"
+>
+
+<$list
+    filter="[[$:/temp/cypro/process-new]get[object-type]match[data]]"
+    variable="null"
+>
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-process-add-process>>
+>
+System / Daten hinzufügen
+</$button>
+
+</$list>
+
+
+<!-- Valid system object -->
+
+<$list
+    filter="[[$:/temp/cypro/process-new]get[object-type]match[system]]"
+    variable="null"
+>
+
+<$list
+    filter="[[$:/temp/cypro/process-new]get[system-protection]match[system]] [[$:/temp/cypro/process-new]get[system-protection]match[data]]"
+    variable="null"
+>
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-process-add-process>>
+>
+System / Daten hinzufügen
+</$button>
+
+</$list>
+
+</$list>
+
+</$list>
+
+</div>
+</div>
+
+</div>
+
+</$list>
+
+
+
+<div class="cypro-function-complete-row">
+
+<div class="cypro-function-complete-copy">
+
+<strong>Funktion fertig erfasst?</strong>
+
+<span>
+Schließen Sie die Funktion ab, wenn die zugehörigen Systeme und Daten für den aktuellen Stand vollständig erfasst wurden. Die Funktion kann später über ihre Nummer jederzeit erneut geöffnet werden.
+</span>
+
+</div>
+
+
+<!-- A function is incomplete until at least one system/data object exists. -->
+<$list
+    filter="[tag[cypro-process]function<selectedFunction>count[]match[0]]"
+    variable="null"
+>
+
+<div class="cypro-function-incomplete">
+
+<strong>Funktion noch nicht vollständig</strong>
+
+<span>
+Erfassen Sie zuerst mindestens ein System oder einen Datenbestand für diese Funktion.
+</span>
+
+<button
+    type="button"
+    class="cypro-disabled-button"
+    disabled
+>
+Funktion abschließen
+</button>
+
+</div>
+
+</$list>
+
+
+<!-- At least one system/data object exists: completion is allowed. -->
+<$list
+    filter="[tag[cypro-process]function<selectedFunction>count[]!match[0]]"
+    variable="null"
+>
+
+<$button class="cypro-btn cypro-btn-primary">
+
+<$action-setfield
+    $tiddler=<<selectedFunction>>
+    completed="yes"
+/>
+
+<!--
+  Close only the function details.
+  Keep selectedFunction so systems/data remain assigned to this function.
+-->
+<$action-setfield
+    $tiddler="$:/state/cypro/process-expanded-function"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-function-open"
+    text="no"
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-selected-process"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-task-inventory"
+    text=""
+/>
+
+<$action-setfield
+    $tiddler="$:/state/cypro/process-new-open"
+    text="no"
+/>
+
+<!-- Drop an unfinished new-object draft when closing the function. -->
+<$action-setfield
+    $tiddler="$:/temp/cypro/process-new"
+    caption=""
+    object-type=""
+    system-protection=""
+    provider=""
+    associated-programs=""
+/>
+
+Funktion abschließen
+
+</$button>
+
+</$list>
+
+</div>
+
+</div>
+
+</$list>
+
+</$let>
+
+
+
+<!-- ============================================================
+     AVIATION SECURITY TASK ASSIGNMENT
+     ============================================================ -->
+
+<$let
+    selectedTaskInventory={{{ [[$:/state/cypro/process-task-inventory]get[text]] }}}
+>
+
+<$list
+    filter="[<selectedTaskInventory>tag[cypro-inventory]field:identification-method[process]]"
+    variable="null"
+>
+
+<div class="cypro-process-card cypro-process-task-card">
+
+<div class="cypro-task-heading">
+<div>
+<span class="cypro-eyebrow">Schritt 3</span>
+<h3>Luftsicherheitsaufgaben zuordnen</h3>
+</div>
+<span class="cypro-status-chip cypro-status-chip-open">Auswahl offen</span>
+</div>
+
+<div class="cypro-process-hint">
+Ordnen Sie dem Eintrag
+<strong><$view tiddler=<<selectedTaskInventory>> field="caption"/></strong>
+die Luftsicherheitsaufgaben zu, für deren Durchführung das Objekt benötigt wird.
+</div>
+
+
+<div class="cypro-task-grid">
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="access-control"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span>
+<strong>Zugangssicherung</strong><br>
+<span class="cypro-process-hint">
+z. B. Zugangsberechtigungen, Ausweisdaten
+</span>
+</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="passenger-baggage-screening"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span>
+<strong>Personen- und Gepäckkontrollen</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="air-cargo-security"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+
+<$list
+    filter="[<selectedTaskInventory>get[aviation-security-tasks]enlist-input[]match[air-cargo-security]count[]match[0]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-cargo-tasks=""
+/>
+</$list>
+"""
+/>
+
+<span>
+<strong>Luftfrachtsicherheit</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="personnel-screening"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span>
+<strong>Personalüberprüfung</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="surveillance-interference-protection"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span>
+<strong>Überwachung und Schutz vor unbefugtem Eingreifen</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="training-records"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span>
+<strong>Schulungsnachweise</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="security-programmes"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+"""
+/>
+
+<span>
+<strong>Sicherheitsprogramme</strong>
+</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-tasks"
+    checked="other"
+    unchecked=""
+    actions="""
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-none=""
+/>
+
+<$list
+    filter="[<selectedTaskInventory>get[aviation-security-tasks]enlist-input[]match[other]count[]match[0]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-task-other=""
+/>
+</$list>
+"""
+/>
+
+<span>
+<strong>Sonstige</strong>
+</span>
+
+</label>
+
+</div>
+
+
+
+<!-- Cargo subcategories -->
+
+<$list
+    filter="[<selectedTaskInventory>get[aviation-security-tasks]enlist-input[]match[air-cargo-security]]"
+    variable="null"
+>
+
+<div class="cypro-task-suboptions">
+
+<strong>Nähere Zuordnung zur Luftfrachtsicherheit</strong>
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-cargo-tasks"
+    checked="cargo-unauthorised-interference"
+    unchecked=""
+/>
+
+<span>Schutz vor unbefugtem Eingreifen</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-cargo-tasks"
+    checked="cargo-secure-supply-chain"
+    unchecked=""
+/>
+
+<span>Sicherheit innerhalb der sicheren Lieferkette</span>
+
+</label>
+
+
+<label class="cypro-task-choice">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    listField="aviation-security-cargo-tasks"
+    checked="cargo-shipment-status"
+    unchecked=""
+/>
+
+<span>Sendungsstatus</span>
+
+</label>
+
+</div>
+
+</$list>
+
+
+
+<!-- Other task -->
+
+<$list
+    filter="[<selectedTaskInventory>get[aviation-security-tasks]enlist-input[]match[other]]"
+    variable="null"
+>
+
+<div class="cypro-process-field">
+
+<span class="cypro-process-label">
+Sonstige Luftsicherheitsaufgabe
+</span>
+
+<$edit-text
+    tiddler=<<selectedTaskInventory>>
+    field="aviation-security-task-other"
+    tag="input"
+    class="cypro-process-input"
+/>
+
+</div>
+
+</$list>
+
+
+
+<!-- Explicit none -->
+
+<label class="cypro-task-choice cypro-task-none">
+
+<$checkbox
+    tiddler=<<selectedTaskInventory>>
+    field="aviation-security-task-none"
+    checked="yes"
+    unchecked=""
+    actions="""
+<$list
+    filter="[<selectedTaskInventory>get[aviation-security-task-none]match[yes]]"
+    variable="null"
+>
+<$action-setfield
+    $tiddler=<<selectedTaskInventory>>
+    aviation-security-tasks=""
+    aviation-security-cargo-tasks=""
+    aviation-security-task-other=""
+/>
+</$list>
+"""
+/>
+
+<span>
+<strong>Keine Luftsicherheitsaufgabe</strong><br>
+<span class="cypro-process-hint">
+Das Objekt wird unmittelbar als Nicht-KIKS abgeschlossen.
+</span>
+</span>
+
+</label>
+
+
+
+<div class="cypro-confirm-panel">
+
+<div class="cypro-confirm-copy">
+
+<strong>
+Zuordnung bestätigen
+</strong>
+
+<span>
+Erst nach der Bestätigung geht es mit der eigentlichen KIKS-Relevanzprüfung weiter.
+</span>
+
+</div>
+
+
+<div class="cypro-confirm-actions">
+
+
+<!-- Explicit "no aviation-security task" selection. -->
+<$list
+    filter="[<selectedTaskInventory>field:aviation-security-task-none[yes]]"
+    variable="null"
+>
+
+<$button
+    class="cypro-btn cypro-btn-primary cypro-confirm-button"
+    actions=<<cypro-process-complete-no-task>>
+>
+Zuordnung bestätigen
+</$button>
+
+</$list>
+
+
+<!-- Normal aviation-security task selection. -->
+<$list
+    filter="[<selectedTaskInventory>!field:aviation-security-task-none[yes]]"
+    variable="null"
+>
+
+
+<!-- Nothing selected yet. -->
+<$reveal
+    stateTitle=<<selectedTaskInventory>>
+    stateField="aviation-security-tasks"
+    type="match"
+    text=""
+>
+
+<button
+    type="button"
+    class="cypro-disabled-button"
+    disabled
+>
+Zuerst mindestens eine Aufgabe auswählen
+</button>
+
+</$reveal>
+
+
+<!-- At least one task selected. -->
+<$reveal
+    stateTitle=<<selectedTaskInventory>>
+    stateField="aviation-security-tasks"
+    type="nomatch"
+    text=""
+>
+
+
+<!-- Normal selection without "Sonstige". -->
+<$list
+    filter="[<selectedTaskInventory>!contains:aviation-security-tasks[other]]"
+    variable="null"
+>
+
+<$button
+    class="cypro-btn cypro-btn-primary cypro-confirm-button"
+    actions=<<cypro-process-complete-task-assignment>>
+>
+Zuordnung bestätigen und KIKS-Relevanz prüfen
+</$button>
+
+</$list>
+
+
+<!-- "Sonstige" requires a description. -->
+<$list
+    filter="[<selectedTaskInventory>contains:aviation-security-tasks[other]]"
+    variable="null"
+>
+
+<$reveal
+    stateTitle=<<selectedTaskInventory>>
+    stateField="aviation-security-task-other"
+    type="match"
+    text=""
+>
+
+<button
+    type="button"
+    class="cypro-disabled-button"
+    disabled
+>
+Bitte „Sonstige“ beschreiben
+</button>
+
+</$reveal>
+
+
+<$reveal
+    stateTitle=<<selectedTaskInventory>>
+    stateField="aviation-security-task-other"
+    type="nomatch"
+    text=""
+>
+
+<$button
+    class="cypro-btn cypro-btn-primary cypro-confirm-button"
+    actions=<<cypro-process-complete-task-assignment>>
+>
+Zuordnung bestätigen und KIKS-Relevanz prüfen
+</$button>
+
+</$reveal>
+
+</$list>
+
+
+</$reveal>
+
+</$list>
+
+
+</div>
+
+</div>
+
+</div>
+
+</$list>
+
+</$let>
+
+
+</div>

@@ -2,7 +2,7 @@ created: 20261001054502107
 modified: 20261001064514284
 tags: 
 title: $:/plugins/aeckert/cypro/pages/kiksAssessment
-caption: KIKS-Einstufung
+caption: KIKS-Relevanz prüfen
 
 \define assessment-draft() $:/temp/cypro/kiks-assessment
 \define assessment-selection() $:/temp/cypro/kiks-assessment-selected
@@ -229,32 +229,10 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
 <!-- Complete an assessment with no aviation-security impact. -->
 \define cypro-complete-no-impact()
 
-<$list
-    filter="[<assessment-draft>get[confirmed-type]match[system]get[system-protection]match[data]]"
-    variable="null"
->
-
-<$action-setfield
-    $tiddler=<<selectedInventory>>
-    object-type="system"
-    system-protection="data"
-    impact="no"
-    influence={{$:/temp/cypro/kiks-assessment!!influence}}
-    german-jurisdiction=""
-    jurisdiction-reason=""
-    assessment-status="completed"
-    assessment-result="non-kiks"
-    assessment-reason="no-aviation-impact"
-/>
-
-</$list>
-
-
-<$list
-    filter="[<assessment-draft>get[confirmed-type]match[data]] [<assessment-draft>get[confirmed-type]match[system]get[system-protection]match[system]]"
-    variable="null"
->
-
+<!--
+  Preserve the originally identified inventory type.
+  A system whose protection target is only its data remains a system.
+-->
 <$action-setfield
     $tiddler=<<selectedInventory>>
     object-type={{$:/temp/cypro/kiks-assessment!!confirmed-type}}
@@ -267,8 +245,6 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
     assessment-result="non-kiks"
     assessment-reason="no-aviation-impact"
 />
-
-</$list>
 
 <$action-setfield
     $tiddler=<<assessment-selection>>
@@ -643,7 +619,9 @@ Noch keine Luftsicherheitsaufgabe zugeordnet
 
 <div class="cypro-assessment">
 
-! KIKS-Einstufung
+! KIKS-Relevanz prüfen
+
+Prüfen Sie jetzt, ob das ermittelte System beziehungsweise die Daten für die Erfüllung der zugeordneten Luftsicherheitsaufgaben so relevant sind, dass eine Einstufung als KIKS erforderlich ist.
 
 <$list
     filter="[<selectedInventory>is[tiddler]]"
@@ -732,9 +710,9 @@ Zugeordnete Luftsicherheitsaufgabe(n):
 
 <div class="cypro-assessment-card">
 
-<h2>1. Typ bestätigen</h2>
+<h2>1. Ermittelte Angaben prüfen</h2>
 
-Bitte bestätigen Sie noch einmal, ob der Eintrag als System oder als Datenbestand betrachtet wird.
+Die bei der Ermittlung erfasste Einordnung ist vorausgewählt. Prüfen Sie die Angabe und korrigieren Sie sie nur bei Bedarf.
 
 <div class="cypro-assessment-options">
 
@@ -825,7 +803,7 @@ Nur die darauf befindlichen Daten
 
 <div class="cypro-assessment-card">
 
-<h2>3. Auswirkungen auf die Luftsicherheit</h2>
+<h2>3. KIKS-Relevanz</h2>
 
 Kann eine Beeinträchtigung des betrachteten Systems beziehungsweise der Daten die Erfüllung der zugeordneten Luftsicherheitsaufgabe(n) beeinträchtigen und dadurch Auswirkungen auf die Sicherheit der zivilen Luftfahrt haben?
 
