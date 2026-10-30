@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-03
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Netzzonen voneinander entkoppeln
+source-refs: NET.1.1.A11, IND.2.1.A6
+source-original: NET.1.1.A11 – Absicherung eingehender Kommunikation vom Internet in das interne Netz · IND.2.1.A6 – Netzsegmentierung
+scope: Übergreifend; Teilanforderung für OT/ICS
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Schützt kritische Teilnetze vor Übergreifen.

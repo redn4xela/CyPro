@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.20/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.20-05
+threat-no: G0.20
+threat-label: Informationen oder Produkte aus unzuverlässiger Quelle
+rank: 05
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Sicherstellung der Integrität und Authentizität von Softwarepaketen
+source-refs: OPS.1.1.3.A10
+source-original: OPS.1.1.3.A10 – Sicherstellung der Integrität und Authentizität von Softwarepaketen
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.20
+inferred-function: yes

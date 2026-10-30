@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-07
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 07
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Regelung des Passwortgebrauchs
+source-refs: ORP.4.A8
+source-original: ORP.4.A8 – Regelung des Passwortgebrauchs
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes
+
+Passwörter sollten nicht für mehrere Seiten verwendet werden

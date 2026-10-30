@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-01
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Restriktive Herausgabe sicherheitsrelevanter Informationen
+source-refs: CON.10.A10
+source-original: CON.10.A10 – Restriktive Herausgabe sicherheitsrelevanter Informationen
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes
+
+Informationen die sicherheitsrelevant sind sollten nur mit Personen geteilt werden, die sie benötigen auch, wenn andere Personen die Berechtigung dafür hätten

@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-09
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Wiederherstellend
+caption: Erstellung von Datensicherungsplänen
+source-refs: CON.3.A4
+source-original: CON.3.A4 – Erstellung von Datensicherungsplänen
+scope: Daten
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes

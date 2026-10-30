@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.20/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.20-07
+threat-no: G0.20
+threat-label: Informationen oder Produkte aus unzuverlässiger Quelle
+rank: 07
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Sichere Nutzung fremder Zeitquellen
+source-refs: OPS.1.2.6.A2
+source-original: OPS.1.2.6.A2 – Sichere Nutzung fremder Zeitquellen
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.20
+inferred-function: yes

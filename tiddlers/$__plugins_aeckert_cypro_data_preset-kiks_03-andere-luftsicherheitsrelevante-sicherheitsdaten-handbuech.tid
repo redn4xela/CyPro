@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/03-andere-luftsicherheitsrelevante-sicherheitsdaten-handbuech
+type: text/vnd.tiddlywiki
+preset-id: preset-03
+order: 03
+name: andere luftsicherheitsrelevante Sicherheitsdaten, Handbücher und Dokumente (z.B. Durchführungsbeschluss)
+legal-reference: 2015/1998 Nr. 1.7 · AVSEC 10904b
+protection-goal-label: Vertraulichkeit
+confidentiality: yes
+integrity: no
+availability: no
+relevance-reason: Eine Offenlegung kann die Umgehung bzw. missbräuchliche Ausnutzung luftsicherheitsrelevanter Verfahren und Schutzmaßnahmen erleichtern.
+assessment-text: Auslöser/Gefährdung: Durch unberechtigten Zugriff oder unkontrollierte Weitergabe können luftsicherheitsrelevante Sicherheitsdaten, Handbücher oder Dokumente offengelegt werden. · Wirkung: Kenntnisse über Sicherheitsverfahren, Schutzmaßnahmen oder interne Vorgaben können deren gezielte Umgehung oder missbräuchliche Nutzung erleichtern. · Schutzziel: Vertraulichkeit aufgrund sicherheitsrelevanter Informationen.
+example: Nationales Programm für die Sicherheit der Zivilluftfahrt (NCASP) oder Auszüge aus dem Durchführungsbeschluss C(2015) 8005
+catalog-status: potentiell
+kiks: data
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.19 G0.20 G0.22 G0.23 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

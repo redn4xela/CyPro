@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.21/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.21-05
+threat-no: G0.21
+threat-label: Manipulation von Hard- oder Software
+rank: 05
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Umgang mit externen Medien und Wechseldatenträgern
+source-refs: SYS.2.1.A24
+source-original: SYS.2.1.A24 – Umgang mit externen Medien und Wechseldatenträgern
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.21
+inferred-function: yes
+
+Unbekannte Datenträger sollten nicht an Firmen IT angeschlossen werden

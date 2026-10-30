@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-03
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 03
+control-function: response
+control-label: Reaktion
+source-phase: Reaktiv
+caption: Zeitnahe Verlustmeldung
+source-refs: CON.7.A6
+source-original: CON.7.A6 – Zeitnahe Verlustmeldung
+scope: Systeme
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes

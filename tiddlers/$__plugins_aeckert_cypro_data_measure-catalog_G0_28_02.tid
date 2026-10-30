@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.28/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.28-02
+threat-no: G0.28
+threat-label: Software-Schwachstellen oder -Fehler
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Entwicklungsbegleitende und Regressionstests
+source-refs: CON.8.A7, OPS.1.1.6.A12
+source-original: CON.8.A7 – Durchführung von entwicklungsbegleitenden Software-Tests · OPS.1.1.6.A12 – Durchführung von Regressionstests
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.28
+inferred-function: no
+
+Erkennt Defekte vor der Inbetriebnahme.

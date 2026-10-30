@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.22/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.22-03
+threat-no: G0.22
+threat-label: Manipulation von Informationen
+rank: 03
+control-function: response
+control-label: Reaktion
+source-phase: 
+caption: Isolierung der betroffenen Netzabschnitte
+source-refs: DER.2.3.A3
+source-original: DER.2.3.A3 – Isolierung der betroffenen Netzabschnitte
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.22
+inferred-function: yes

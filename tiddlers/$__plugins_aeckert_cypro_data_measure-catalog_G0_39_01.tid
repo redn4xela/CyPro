@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-01
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Malware-Schutz auf Servern und OT
+source-refs: SYS.1.1.A9, IND.1.A3
+source-original: SYS.1.1.A9 – Einsatz von Virenschutz-Programmen auf Servern · IND.1.A3 – Schutz vor Schadprogrammen
+scope: Übergreifend; Teilanforderung für OT/ICS
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Blockiert bekannte Schadprogramme an Eintrittspunkten.

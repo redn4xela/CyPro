@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.43/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.43-05
+threat-no: G0.43
+threat-label: Einspielen von Nachrichten
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Systemmanagement-Kommunikation kontrollieren
+source-refs: OPS.1.1.7.A17
+source-original: OPS.1.1.7.A17 – Kontrolle der Systemmanagement-Kommunikation
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.43
+inferred-function: no
+
+Zeigt Abweichungen in administrativen Nachrichtenflüssen.

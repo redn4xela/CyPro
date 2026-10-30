@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.25/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.25-05
+threat-no: G0.25
+threat-label: Ausfall von Geräten oder Systemen
+rank: 05
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Server und Netze redundant auslegen
+source-refs: SYS.1.1.A28, NET.1.1.A28
+source-original: SYS.1.1.A28 – Steigerung der Verfügbarkeit durch Redundanz · NET.1.1.A28 – Hochverfügbare Netz- und Sicherheitskomponenten
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.25
+inferred-function: no
+
+Verhindert Einzelpunkte des Versagens.

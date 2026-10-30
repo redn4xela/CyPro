@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-01
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Verschlüsselung des Datenbestandes
+source-refs: APP.3.3.A12
+source-original: APP.3.3.A12 – Verschlüsselung des Datenbestandes
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes
+
+Daten auf Datenträgern (Festplatten, USB-Sticks, etc.) sollten verschlüsselt sein

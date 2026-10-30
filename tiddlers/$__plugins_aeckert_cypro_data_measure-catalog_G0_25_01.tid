@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.25/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.25-01
+threat-no: G0.25
+threat-label: Ausfall von Geräten oder Systemen
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Wartung und Reparaturen geregelt durchführen
+source-refs: OPS.1.1.1.A19
+source-original: OPS.1.1.1.A19 – Regelungen für Wartungs- und Reparaturarbeiten
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.25
+inferred-function: no
+
+Reduziert ungeplante Hardware- und Systemausfälle.

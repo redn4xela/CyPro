@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.21/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.21-02
+threat-no: G0.21
+threat-label: Manipulation von Hard- oder Software
+rank: 02
+control-function: detection
+control-label: Erkennung
+source-phase: Detektiv
+caption: Manipulationserkennung für Hard- oder Software mit kryptografischen Funktionen
+source-refs: CON.1.A20
+source-original: CON.1.A20 – Manipulationserkennung für Hard- oder Software mit kryptografischen Funktionen
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.21
+inferred-function: yes

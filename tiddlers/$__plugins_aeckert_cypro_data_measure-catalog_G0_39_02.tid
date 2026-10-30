@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-02
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Systeme aktuell halten
+source-refs: OPS.1.1.3.A3, SYS.2.5.A9
+source-original: OPS.1.1.3.A3 – Konfiguration von Autoupdate-Mechanismen · SYS.2.5.A9 – Einbindung der virtuellen Clients in das Patch- und Änderungsmanagement
+scope: Übergreifend; Teilanforderung für Virtuelle Clients
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Verringert ausnutzbare bekannte Schwachstellen.

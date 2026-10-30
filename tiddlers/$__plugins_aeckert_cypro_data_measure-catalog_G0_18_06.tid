@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-06
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 06
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Regelung zur Passwortqualität
+source-refs: ORP.4.A22
+source-original: ORP.4.A22 – Regelung zur Passwortqualität
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes
+
+Passwörter sollten eine geeignete Länge mit verschiedenen Zeichen und Sonderzeichen haben

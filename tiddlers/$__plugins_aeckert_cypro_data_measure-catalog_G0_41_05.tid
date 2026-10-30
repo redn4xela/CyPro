@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.41/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.41-05
+threat-no: G0.41
+threat-label: Sabotage
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Manipulierte Steuerungszustände alarmieren
+source-refs: IND.2.7.A10
+source-original: IND.2.7.A10 – Anzeige und Alarmierung von simulierten oder gebrückten Variablen
+scope: OT/ICS – nur bei Einsatz
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.41
+inferred-function: no
+
+Zeigt gefährliche Umgehungen in Safety-Systemen an.

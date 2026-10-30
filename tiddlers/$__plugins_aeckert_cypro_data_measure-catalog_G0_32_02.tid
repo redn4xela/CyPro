@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-02
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Starke Authentisierung für sensible Rechte
+source-refs: ORP.4.A21, ORP.4.A12
+source-original: ORP.4.A21 – Mehr-Faktor-Authentisierung · ORP.4.A12 – Entwicklung eines Authentisierungskonzeptes für IT-Systeme und Anwendungen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Mindert die Nutzung fremder privilegierter Identitäten.

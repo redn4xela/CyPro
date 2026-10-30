@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.30/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.30-10
+threat-no: G0.30
+threat-label: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Organisation
+caption: Fremdpersonal und externe Administration regeln
+source-refs: ORP.2.A4, IND.3.2.A4
+source-original: ORP.2.A4 – Festlegung von Regelungen für den Einsatz von Fremdpersonal · IND.3.2.A4 – Verbindliche Regelung der OT-Fernwartung durch Dritte
+scope: Übergreifend; Teilanforderung für OT/ICS
+evidence: Regelung, verantwortliche Stelle und Nachweis regelmäßiger Überprüfung prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.30
+inferred-function: no
+
+Reduziert ungeklärte Verantwortlichkeiten externer Zugriffe.

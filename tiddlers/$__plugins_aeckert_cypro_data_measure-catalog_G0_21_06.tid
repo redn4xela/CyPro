@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.21/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.21-06
+threat-no: G0.21
+threat-label: Manipulation von Hard- oder Software
+rank: 06
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Zutritts- und Zugriffsschutz
+source-refs: INF.9.A3
+source-original: INF.9.A3 – Zutritts- und Zugriffsschutz
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.21
+inferred-function: yes
+
+Firmenbereiche sollten durch einen geeigneten Zutrittschutz gesichert sein. Dementsprechend sollten IT-Systeme durch einen Zugriffschutz gesichert sein.

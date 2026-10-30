@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-04
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 04
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Privilegierte Berechtigungen überwachen
+source-refs: IND.1.A15, OPS.1.1.7.A25
+source-original: IND.1.A15 – Überwachung von weitreichenden Berechtigungen · OPS.1.1.7.A25 – Protokollierung und Reglementierung von Systemmanagement-Sitzungen
+scope: Übergreifend; Teilanforderung für OT/ICS
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Macht unübliche Admin-Aktivitäten nachvollziehbar.

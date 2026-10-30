@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.20/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.20-01
+threat-no: G0.20
+threat-label: Informationen oder Produkte aus unzuverlässiger Quelle
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Verwendung von externen Bibliotheken aus vertrauenswürdigen Quellen
+source-refs: CON.8.A6
+source-original: CON.8.A6 – Verwendung von externen Bibliotheken aus vertrauenswürdigen Quellen
+scope: Systeme
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.20
+inferred-function: yes

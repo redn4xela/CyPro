@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.16/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.16-10
+threat-no: G0.16
+threat-label: Diebstahl von Geräten, Datenträgern oder Dokumenten
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Geschlossene Fenster und abgeschlossene Türen
+source-refs: INF.7.A2
+source-original: INF.7.A2 – Geschlossene Fenster und abgeschlossene Türen
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.16
+inferred-function: yes
+
+Fenster und Türen sollten abgeschlossen sein, wenn sich niemand mehr im Büro befindet

@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/10-elektronische-daten-ueber-interne-luftsicherheitsaudits
+type: text/vnd.tiddlywiki
+preset-id: preset-10
+order: 10
+name: elektronische Daten über interne Luftsicherheitsaudits
+legal-reference: Quelle fehlt!
+protection-goal-label: Integrität, Vertraulichkeit
+confidentiality: yes
+integrity: yes
+availability: no
+relevance-reason: Manipulierte Auditdaten können Schwachstellen verschleiern und notwendige Maßnahmen verhindern. Offengelegte Auditdaten können dokumentierte Schwachstellen unberechtigten Personen zugänglich machen.
+assessment-text: Auslöser/Gefährdung: Durch unberechtigten Zugriff können Auditinformationen offengelegt oder Ergebnisse, Feststellungen bzw. dokumentierte Maßnahmen manipuliert werden. · Wirkung: Dokumentierte Schwachstellen können gezielt ausgenutzt oder erforderliche Sicherheitsmaßnahmen aufgrund verfälschter Auditinformationen nicht bzw. nicht ordnungsgemäß umgesetzt werden. · Schutzziel: Vertraulichkeit aufgrund sicherheitsrelevanter Auditinformationen sowie Integrität aufgrund der erforderlichen Richtigkeit und Unverfälschtheit von Feststellungen und Maßnahmen.
+example: Elektronische Auditberichte, Feststellungen sowie Maßnahmen- und Nachverfolgungslisten bzw. Auditmanagementsystem
+catalog-status: potentiell
+kiks: data
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.19 G0.20 G0.22 G0.23 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

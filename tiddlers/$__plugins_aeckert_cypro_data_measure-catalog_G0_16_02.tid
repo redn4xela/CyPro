@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.16/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.16-02
+threat-no: G0.16
+threat-label: Diebstahl von Geräten, Datenträgern oder Dokumenten
+rank: 02
+control-function: detection
+control-label: Erkennung
+source-phase: 
+caption: Verlust- und Manipulationsmeldung
+source-refs: SYS.4.5.A2
+source-original: SYS.4.5.A2 – Verlust- und Manipulationsmeldung
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.16
+inferred-function: yes

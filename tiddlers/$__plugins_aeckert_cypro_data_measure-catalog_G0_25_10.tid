@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.25/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.25-10
+threat-no: G0.25
+threat-label: Ausfall von Geräten oder Systemen
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Organisation
+caption: Notfallkonzept regelmäßig erproben
+source-refs: OPS.3.2.A11, OPS.3.2.A21
+source-original: OPS.3.2.A11 – Etablierung eines Notfallkonzepts · OPS.3.2.A21 – Durchführung von gemeinsamen Notfall- und Krisenübungenen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Regelung, verantwortliche Stelle und Nachweis regelmäßiger Überprüfung prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.25
+inferred-function: no
+
+Sichert einen praktisch ausführbaren Wiederanlauf.

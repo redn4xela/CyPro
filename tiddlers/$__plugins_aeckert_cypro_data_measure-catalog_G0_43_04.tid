@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.43/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.43-04
+threat-no: G0.43
+threat-label: Einspielen von Nachrichten
+rank: 04
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Eingehende Kommunikation restriktiv filtern
+source-refs: NET.1.1.A11, NET.3.2.A3
+source-original: NET.1.1.A11 – Absicherung eingehender Kommunikation vom Internet in das interne Netz · NET.3.2.A3 – Einrichten geeigneter Filterregeln am Paketfilter
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.43
+inferred-function: no
+
+Reduziert unzulässige oder nicht benötigte Nachrichtenpfade.

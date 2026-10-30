@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.41/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.41-02
+threat-no: G0.41
+threat-label: Sabotage
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: OT-Schnittstellen und Netzzonen schützen
+source-refs: IND.2.1.A1, IND.2.1.A6
+source-original: IND.2.1.A1 – Einschränkung des Zugriffs für Konfigurations- und Wartungsschnittstellen · IND.2.1.A6 – Netzsegmentierung
+scope: Systemtypen: OT/ICS
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.41
+inferred-function: no
+
+Schränkt elektronische Sabotagepfade ein.

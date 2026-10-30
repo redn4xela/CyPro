@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.28/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.28-04
+threat-no: G0.28
+threat-label: Software-Schwachstellen oder -Fehler
+rank: 04
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Ausnutzung von Programmfehlern einschränken
+source-refs: SYS.1.3.A4, SYS.2.1.A26
+source-original: SYS.1.3.A4 – Schutz vor Ausnutzung von Schwachstellen in Anwendungen · SYS.2.1.A26 – Schutz vor Ausnutzung von Schwachstellen in Anwendungen
+scope: Übergreifend; Teilanforderung für Unix/Linux
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.28
+inferred-function: no
+
+Begrenzt Angriffsmöglichkeiten auf Systemen.

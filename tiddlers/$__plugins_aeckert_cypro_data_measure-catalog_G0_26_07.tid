@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.26/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.26-07
+threat-no: G0.26
+threat-label: Fehlfunktion von Geräten oder Systemen
+rank: 07
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Autarken GA-Notbetrieb bei Kopplungsfehler nutzen
+source-refs: INF.14.A22
+source-original: INF.14.A22 – Sicherstellung von autark funktionierenden GA-Systemen und TGA-Anlagen
+scope: GA/TGM – nur bei Einsatz
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.26
+inferred-function: no
+
+Erlaubt die unmittelbare Abkopplung gestörter GA-Verbindungen.

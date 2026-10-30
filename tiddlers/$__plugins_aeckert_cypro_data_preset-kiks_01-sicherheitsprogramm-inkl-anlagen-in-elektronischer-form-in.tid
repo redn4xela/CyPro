@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/01-sicherheitsprogramm-inkl-anlagen-in-elektronischer-form-in
+type: text/vnd.tiddlywiki
+preset-id: preset-01
+order: 01
+name: Sicherheitsprogramm inkl. Anlagen in elektronischer Form (inkl. KIKS-Dokumentation)
+legal-reference: 2015/1998 Nr. 1.7 · AVSEC 10904b
+protection-goal-label: Vertraulichkeit
+confidentiality: yes
+integrity: no
+availability: no
+relevance-reason: Inhalte offenbaren das Sicherheitskonzept einschließlich luftsicherheitsrelevanter Prozesse, die ggf. umgangen bzw. missbräuchlich verwendet werden können.
+assessment-text: Auslöser/Gefährdung: Durch unberechtigten Zugriff oder unkontrollierte Weitergabe kann das Sicherheitsprogramm unberechtigten Personen zugänglich gemacht werden. · Wirkung: Die Offenlegung sensibler Informationen zu Sicherheitsmaßnahmen oder luftsicherheitsrelevanten Prozessen kann deren gezielte Umgehung oder missbräuchliche Ausnutzung erleichtern. · Schutzziel: Vertraulichkeit aufgrund sicherheitsrelevanter Informationen.
+example: Sicherheitsprogramm einschließlich Anlagen und KIKS-Liste, z. B. als elektronisches Dokument im Dokumentenmanagementsystem (DMS)
+catalog-status: gesichert
+kiks: data
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.19 G0.20 G0.22 G0.23 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

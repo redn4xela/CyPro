@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-06
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 06
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Notbetriebsform für Netzmanagement aktivieren
+source-refs: NET.1.2.A38
+source-original: NET.1.2.A38 – Festlegung von Notbetriebsformen für die Netzmanagement-Infrastruktur
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Erhält Mindeststeuerung unter starkem Angriffsdruck.

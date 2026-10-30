@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.25/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.25-04
+threat-no: G0.25
+threat-label: Ausfall von Geräten oder Systemen
+rank: 04
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Infrastruktur und Netzwerkverfügbarkeit prüfen
+source-refs: INF.2.A11, NET.1.2.A25
+source-original: INF.2.A11 – Automatische Überwachung der Infrastruktur · NET.1.2.A25 – Statusüberwachung der Netzkomponenten
+scope: Übergreifend; Teilanforderung für Infrastruktur
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.25
+inferred-function: no
+
+Erkennt Fehler in vorgelagerten Abhängigkeiten.

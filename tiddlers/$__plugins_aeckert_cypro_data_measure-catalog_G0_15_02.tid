@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.15/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.15-02
+threat-no: G0.15
+threat-label: Abhören
+rank: 02
+control-function: detection
+control-label: Erkennung
+source-phase: 
+caption: Kontrolle der Systemmanagement-Kommunikation
+source-refs: OPS.1.1.7.A17
+source-original: OPS.1.1.7.A17 – Kontrolle der Systemmanagement-Kommunikation
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.15
+inferred-function: yes

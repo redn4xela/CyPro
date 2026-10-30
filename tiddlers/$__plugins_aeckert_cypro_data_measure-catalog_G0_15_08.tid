@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.15/08
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.15-08
+threat-no: G0.15
+threat-label: Abhören
+rank: 08
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Verwendung eines VPN zur Absicherung von WLANs
+source-refs: NET.2.1.A15
+source-original: NET.2.1.A15 – Verwendung eines VPN zur Absicherung von WLANs
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.15
+inferred-function: yes

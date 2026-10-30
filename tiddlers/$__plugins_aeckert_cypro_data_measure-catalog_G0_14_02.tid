@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.14/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.14-02
+threat-no: G0.14
+threat-label: Ausspähen von Informationen / Spionage
+rank: 02
+control-function: detection
+control-label: Erkennung
+source-phase: Detektiv
+caption: Echtzeiterfassung und Alarmierung von irregulären Vorgängen
+source-refs: APP.4.2.A32
+source-original: APP.4.2.A32 – Echtzeiterfassung und Alarmierung von irregulären Vorgängen
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.14
+inferred-function: yes

@@ -1,0 +1,39 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/presetGuidance
+type: text/vnd.tiddlywiki
+
+<$list filter="[<currentTiddler>has[source-preset-id]]" variable="null">
+<div class="cypro-preset-guidance">
+
+<div class="cypro-preset-guidance-title">
+<span class="cypro-prefill-badge">Vordefiniertes KIKS</span>
+<strong>Vorbelegte fachliche Orientierung</strong>
+</div>
+
+<$list filter="[<currentTiddler>get[preset-relevance-reason]minlength[1]]" variable="reason">
+<div>
+<span class="cypro-preset-guidance-label">Warum typischerweise relevant</span>
+<$text text=<<reason>>/>
+</div>
+</$list>
+
+<$list filter="[<currentTiddler>get[preset-example]minlength[1]]" variable="example">
+<div>
+<span class="cypro-preset-guidance-label">Beispiel</span>
+<$text text=<<example>>/>
+</div>
+</$list>
+
+<$list filter="[<currentTiddler>get[preset-legal-reference]minlength[1]]" variable="legal">
+<div>
+<span class="cypro-preset-guidance-label">Hinterlegte Referenz</span>
+<$text text=<<legal>>/>
+</div>
+</$list>
+
+<div class="cypro-preset-guidance-note">
+Die Vorbelegung ist eine Arbeitshilfe. Typ, Schutzziele, Gefährdungen und die
+unternehmensspezifische Risikobewertung sind vom Unternehmen zu prüfen.
+</div>
+
+</div>
+</$list>

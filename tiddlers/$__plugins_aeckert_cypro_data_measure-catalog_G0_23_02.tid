@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.23/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.23-02
+threat-no: G0.23
+threat-label: Unbefugtes Eindringen in IT-Systeme
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Zugangs- und Zugriffsrechte begrenzen
+source-refs: ORP.4.A6, ORP.4.A7
+source-original: ORP.4.A6 – Vergabe von Zugangsberechtigungen · ORP.4.A7 – Vergabe von Zugriffsrechten
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.23
+inferred-function: no
+
+Reduziert erreichbare Funktionen und unberechtigte Zugriffe.

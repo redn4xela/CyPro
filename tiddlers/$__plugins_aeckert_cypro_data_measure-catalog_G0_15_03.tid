@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.15/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.15-03
+threat-no: G0.15
+threat-label: Abhören
+rank: 03
+control-function: response
+control-label: Reaktion
+source-phase: 
+caption: Sperrung und Änderung von Zugangsdaten und kryptografischen Schlüsseln
+source-refs: DER.2.3.A4
+source-original: DER.2.3.A4 – Sperrung und Änderung von Zugangsdaten und kryptografischen Schlüsseln
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.15
+inferred-function: yes
+
+Nach einem Sicherheitsvorfall sollten Passwörter und kryptografische Schlüssel geändert werden

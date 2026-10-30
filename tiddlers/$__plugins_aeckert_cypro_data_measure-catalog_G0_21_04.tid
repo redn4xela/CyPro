@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.21/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.21-04
+threat-no: G0.21
+threat-label: Manipulation von Hard- oder Software
+rank: 04
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: 
+caption: Hardwaretausch betroffener IT-Systeme
+source-refs: DER.2.3.A9
+source-original: DER.2.3.A9 – Hardwaretausch betroffener IT-Systeme
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.21
+inferred-function: yes

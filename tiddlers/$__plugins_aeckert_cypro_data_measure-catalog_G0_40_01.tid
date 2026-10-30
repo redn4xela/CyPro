@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-01
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: DDoS-Schutz am Netzübergang
+source-refs: NET.1.1.A30, NET.3.1.A17
+source-original: NET.1.1.A30 – Schutz vor Distributed-Denial-of-Service · NET.3.1.A17 – Schutz vor DoS- und DDoS-Angriffen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Reduziert Volumen- und Protokollangriffe auf Verbindungen.

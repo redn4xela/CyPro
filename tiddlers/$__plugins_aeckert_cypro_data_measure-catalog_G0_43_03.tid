@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.43/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.43-03
+threat-no: G0.43
+threat-label: Einspielen von Nachrichten
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Management-Kommunikation und Zeitbasis absichern
+source-refs: OPS.1.1.7.A4, NET.3.2.A22
+source-original: OPS.1.1.7.A4 – Absicherung der Systemmanagement-Kommunikation · NET.3.2.A22 – Sichere Zeitsynchronisation
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.43
+inferred-function: no
+
+Stärkt die Plausibilitätsprüfung kommunizierter Ereignisse.

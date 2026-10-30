@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.26/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.26-09
+threat-no: G0.26
+threat-label: Fehlfunktion von Geräten oder Systemen
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Zentrale Zugangssteuerung hochverfügbar auslegen
+source-refs: NET.3.4.A26
+source-original: NET.3.4.A26 – Hochverfügbarkeit der zentralen NAC-Komponenten
+scope: NAC – nur bei Einsatz
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.26
+inferred-function: no
+
+Reduziert Störwirkungen einzelner Managementkomponenten.

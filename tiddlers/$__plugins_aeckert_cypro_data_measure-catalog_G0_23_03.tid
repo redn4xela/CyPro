@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.23/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.23-03
+threat-no: G0.23
+threat-label: Unbefugtes Eindringen in IT-Systeme
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Internet- und Remote-Zugriffe absichern
+source-refs: NET.1.1.A11, CON.7.A7
+source-original: NET.1.1.A11 – Absicherung eingehender Kommunikation vom Internet in das interne Netz · CON.7.A7 – Sicherer Remote-Zugriff auf das Netz der Institution
+scope: Übergreifend; Teilanforderung für Mobile Nutzung
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.23
+inferred-function: no
+
+Begrenzt erreichbare Schnittstellen und externe Einbruchswege.

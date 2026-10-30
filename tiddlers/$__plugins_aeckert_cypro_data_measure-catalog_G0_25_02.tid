@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.25/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.25-02
+threat-no: G0.25
+threat-label: Ausfall von Geräten oder Systemen
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Neue Komponenten vor Einsatz testen
+source-refs: OPS.1.1.3.A9, OPS.1.1.6.A2
+source-original: OPS.1.1.3.A9 – Test- und Abnahmeverfahren für neue Hardware · OPS.1.1.6.A2 – Durchführung von funktionalen Software-Tests
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.25
+inferred-function: no
+
+Erkennt Funktionsprobleme vor Produktivsetzung.

@@ -1,0 +1,1111 @@
+tags: $:/tags/Stylesheet
+title: $:/plugins/aeckert/cypro/styles/guidedKIKS
+type: text/css
+
+.cypro-identification-flow {
+    max-width: 1180px;
+    line-height: 1.5;
+}
+
+.cypro-identification-flow * {
+    box-sizing: border-box;
+}
+
+.cypro-mode-intro {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.cypro-mode-selector,
+.cypro-route-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+}
+
+.cypro-mode-card,
+.cypro-route-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .65rem;
+    width: 100%;
+    padding: 1.25rem;
+    border: 1px solid #d7dce2;
+    border-radius: 12px;
+    background: #fff;
+    text-align: left;
+}
+
+button.cypro-mode-card {
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+
+button.cypro-mode-card:hover,
+.cypro-route-card:hover {
+    border-color: var(--lba-blue,#1f5c99);
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+.cypro-mode-card strong,
+.cypro-route-card h2 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.cypro-mode-kicker {
+    color: #68727d;
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+.cypro-route-card-recommended {
+    border: 2px solid var(--lba-blue,#1f5c99);
+    background: #f7fbff;
+}
+
+.cypro-recommended-badge,
+.cypro-prefill-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    background: #e8f2ff;
+    color: #174f86;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.cypro-identification-topline,
+.cypro-identification-current {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.cypro-identification-current {
+    align-items: center;
+    padding: .8rem 1rem;
+    border: 1px solid #d7dce2;
+    border-radius: 9px;
+    background: #f7f9fb;
+}
+
+.cypro-identification-existing {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e2e6ea;
+}
+
+.cypro-identification-note,
+.cypro-prefill-hint {
+    color: #68727d;
+    font-size: .9rem;
+}
+
+.cypro-preset-assessment {
+    margin-top: 1rem;
+}
+
+.cypro-preset-progress {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: .9rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #d7dce2;
+    border-radius: 10px;
+    background: #f7f9fb;
+}
+
+.cypro-preset-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.cypro-preset-table {
+    width: 100%;
+    min-width: 960px;
+    border-collapse: collapse;
+}
+
+.cypro-preset-table th,
+.cypro-preset-table td {
+    padding: .78rem;
+    border-bottom: 1px solid #e0e4e8;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.cypro-preset-table th {
+    background: #f4f6f8;
+    font-size: .85rem;
+}
+
+.cypro-preset-row-muted {
+    opacity: .48;
+    background: #f5f5f5;
+}
+
+.cypro-preset-goals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem;
+}
+
+.cypro-preset-goals span,
+.cypro-function-chip {
+    display: inline-flex;
+    padding: .18rem .48rem;
+    border: 1px solid #d1d7dd;
+    border-radius: 999px;
+    background: #fff;
+    font-size: .8rem;
+}
+
+.cypro-preset-decision {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.cypro-preset-decision label {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.cypro-preset-note {
+    margin-top: .35rem;
+    color: #68727d;
+    font-size: .82rem;
+}
+
+.cypro-preset-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .8rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 9px;
+    background: #f7f9fb;
+}
+
+.cypro-kiks-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.cypro-kiks-summary-card {
+    padding: .8rem 1rem;
+    border: 1px solid #e0e4e8;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.cypro-kiks-modern-field {
+    margin: 0;
+}
+
+.cypro-kiks-field-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .6rem;
+    margin-bottom: .55rem;
+}
+
+.cypro-preset-guidance {
+    display: grid;
+    gap: .75rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid #bfd6ef;
+    border-radius: 10px;
+    background: #f7fbff;
+}
+
+.cypro-preset-guidance-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .65rem;
+}
+
+.cypro-preset-guidance-label {
+    display: block;
+    margin-bottom: .15rem;
+    color: #5f6974;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.cypro-preset-guidance-note {
+    padding-top: .65rem;
+    border-top: 1px solid #d8e7f6;
+    color: #56616d;
+    font-size: .88rem;
+}
+
+.cypro-threat-row-inactive {
+    opacity: .42;
+    background: #f4f5f6;
+}
+
+.cypro-applicability-badge {
+    display: inline-flex;
+    min-width: 90px;
+    justify-content: center;
+    padding: .2rem .5rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.cypro-applicability-yes {
+    background: #e8f5ec;
+    color: #246b38;
+}
+
+.cypro-applicability-no {
+    background: #eeeeee;
+    color: #666;
+}
+
+.cypro-applicability-open {
+    background: #fff3d8;
+    color: #7a5b13;
+}
+
+.cypro-measure-status-options {
+    display: grid;
+    gap: .25rem;
+    min-width: 150px;
+}
+
+.cypro-measure-status-options label {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .82rem;
+}
+
+.cypro-measure-status-badge {
+    display: inline-flex;
+    padding: .2rem .5rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.cypro-status-implemented {
+    background: #e7f5ea;
+    color: #246b38;
+}
+
+.cypro-status-planned {
+    background: #e8f2ff;
+    color: #174f86;
+}
+
+.cypro-status-not-implemented {
+    background: #eeeeee;
+    color: #5c5c5c;
+}
+
+.cypro-status-financial {
+    background: #fff0e6;
+    color: #8b4b15;
+}
+
+.cypro-status-legacy {
+    background: #f2ecff;
+    color: #5d3c8c;
+}
+
+.cypro-measure-catalog {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #cfd8e3;
+    border-radius: 10px;
+    background: #fafcff;
+}
+
+.cypro-measure-catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: .75rem;
+    margin: .75rem 0 1rem;
+}
+
+.cypro-measure-catalog-card {
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    padding: .85rem;
+    border: 1px solid #dce2e8;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.cypro-measure-catalog-card h4 {
+    margin: 0;
+}
+
+.cypro-measure-catalog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    align-items: center;
+    color: #68727d;
+    font-size: .8rem;
+}
+
+.cypro-catalog-source-note {
+    padding: .65rem .75rem;
+    border-left: 3px solid #d5a227;
+    background: #fff8e1;
+    font-size: .82rem;
+    color: #6a5420;
+}
+
+.cypro-measure-catalog-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cypro-measure-catalog-table th,
+.cypro-measure-catalog-table td {
+    padding: .55rem;
+    border-bottom: 1px solid #e2e6ea;
+    text-align: left;
+    vertical-align: top;
+}
+
+.cypro-risk-planning {
+    margin-top: 1rem;
+    padding: .9rem 1rem;
+    border: 1px solid #b9d0e8;
+    border-radius: 9px;
+    background: #f5faff;
+}
+
+.cypro-risk-planning-values {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .6rem;
+    margin: .5rem 0;
+}
+
+.cypro-risk-planning-value {
+    padding: .4rem .7rem;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #d9e2ea;
+    font-weight: 700;
+}
+
+.cypro-coverage-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-top: .6rem;
+}
+
+.cypro-coverage-chip {
+    padding: .25rem .55rem;
+    border-radius: 999px;
+    border: 1px solid #d5d9dd;
+    background: #f2f3f4;
+    color: #6a6f74;
+    font-size: .8rem;
+}
+
+.cypro-coverage-chip-implemented {
+    background: #e7f5ea;
+    border-color: #a7d3b0;
+    color: #246b38;
+}
+
+.cypro-coverage-chip-planned {
+    background: #e8f2ff;
+    border-color: #b8d4f0;
+    color: #174f86;
+}
+
+.cypro-risk-disclaimer {
+    margin-top: .55rem;
+    color: #68727d;
+    font-size: .8rem;
+}
+
+@media (max-width: 820px) {
+    .cypro-mode-selector,
+    .cypro-route-grid,
+    .cypro-kiks-summary-grid,
+    .cypro-measure-catalog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cypro-identification-topline,
+    .cypro-identification-current,
+    .cypro-preset-progress {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+/* ============================================================
+   Guided KIKS follow-up: stable table geometry and package risk
+   ============================================================ */
+.cypro-table-wrap { width:100%; overflow-x:auto; }
+.cypro-fixed-table,
+.cypro-preset-table,
+.threat-table,
+.measure-table,
+.cypro-measure-catalog-table {
+    width:100% !important;
+    max-width:100% !important;
+    table-layout:fixed !important;
+    border-collapse:collapse !important;
+}
+.cypro-fixed-table thead,
+.cypro-preset-table thead,
+.threat-table thead,
+.measure-table thead,
+.cypro-measure-catalog-table thead { display:table-header-group !important; }
+.cypro-fixed-table tbody,
+.cypro-preset-table tbody,
+.threat-table tbody,
+.measure-table tbody,
+.cypro-measure-catalog-table tbody { display:table-row-group !important; }
+.cypro-fixed-table tr,
+.cypro-preset-table tr,
+.threat-table tr,
+.measure-table tr,
+.cypro-measure-catalog-table tr { display:table-row !important; width:auto !important; }
+.cypro-fixed-table th,
+.cypro-fixed-table td,
+.cypro-preset-table th,
+.cypro-preset-table td,
+.threat-table th,
+.threat-table td,
+.measure-table th,
+.measure-table td,
+.cypro-measure-catalog-table th,
+.cypro-measure-catalog-table td {
+    display:table-cell !important;
+    box-sizing:border-box;
+    overflow-wrap:anywhere;
+    word-break:normal;
+    vertical-align:middle;
+}
+.cypro-preset-table col:nth-child(1) { width:44% !important; }
+.cypro-preset-table col:nth-child(2) { width:8% !important; }
+.cypro-preset-table col:nth-child(3) { width:16% !important; }
+.cypro-preset-table col:nth-child(4) { width:18% !important; }
+.cypro-preset-table col:nth-child(5) { width:14% !important; }
+.cypro-threat-measures-button { width:100%; min-width:0; white-space:normal; text-align:center; }
+.threat-action-col { min-width:0; }
+.threat-number-col, .threat-risk-cell { text-align:center; }
+.cypro-measure-remove-col { text-align:center; }
+.cypro-package-panel { margin-top:1rem; padding:1rem; border:1px solid #bfd6ef; border-radius:10px; background:#f7fbff; }
+.cypro-package-panel h3, .cypro-package-panel h4 { margin-top:0; }
+.cypro-package-panel-head { display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; }
+.cypro-package-status-counts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.35rem .7rem; min-width:270px; }
+.cypro-package-status-counts span { padding:.35rem .55rem; border-radius:7px; background:#fff; border:1px solid #dce5ee; font-size:.82rem; }
+.cypro-package-reassessment { margin-top:1rem; padding-top:1rem; border-top:1px solid #d8e7f6; }
+.cypro-package-scales { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:.8rem; }
+.cypro-package-scale { min-width:0; }
+.cypro-package-scale-label { margin-bottom:.4rem; color:#555; font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+.cypro-package-scale .kiks-type-toggle { display:flex; flex-wrap:wrap; }
+.cypro-package-risk-result { display:flex; align-items:center; gap:.8rem; margin-top:1rem; }
+.cypro-package-risk-result > div:not(.cypro-package-arrow) { min-width:150px; padding:.7rem .85rem; border:1px solid #d6e1eb; border-radius:9px; background:#fff; }
+.cypro-package-risk-result span { display:block; color:#68727d; font-size:.8rem; }
+.cypro-package-risk-result strong { display:block; margin-top:.1rem; font-size:1.35rem; }
+.cypro-package-arrow { font-size:1.35rem; font-weight:700; }
+.cypro-package-reassessment-complete { margin-top:.7rem; color:#246b38; font-weight:600; }
+.cypro-package-awaiting { margin-top:1rem; padding:.75rem .9rem; border-radius:8px; background:#fff; border:1px solid #dce5ee; color:#56616d; }
+.cypro-priority-panel { display:grid; grid-template-columns:190px minmax(0,1fr); gap:1rem; margin-top:1rem; padding:.9rem; border:1px solid #d9dee3; border-radius:9px; background:#fff; }
+.cypro-priority-score { display:flex; flex-direction:column; justify-content:center; padding:.8rem; border-radius:8px; background:#f4f6f8; }
+.cypro-priority-score span { color:#68727d; font-size:.8rem; }
+.cypro-priority-score strong { margin-top:.15rem; font-size:1.4rem; }
+.cypro-priority-copy { display:grid; gap:.35rem; }
+.cypro-priority-next { display:flex; flex-wrap:wrap; align-items:center; gap:.35rem; margin-top:.25rem; }
+.cypro-priority-next span { display:inline-flex; padding:.2rem .5rem; border-radius:999px; background:#fff3d8; color:#705615; font-size:.8rem; font-weight:600; }
+.cypro-priority-note { color:#68727d; font-size:.78rem; }
+.cypro-measure-catalog-toggle { margin-top:1rem; }
+.cypro-more-measures { margin-top:.9rem; }
+.cypro-more-measures summary { cursor:pointer; padding:.45rem 0; }
+.cypro-measure-first-assessment { margin-top:1rem; padding:.75rem .9rem; border:1px solid #d7dce2; border-radius:8px; background:#f7f9fb; }
+@media (max-width:900px) {
+    .cypro-package-panel-head, .cypro-package-scales, .cypro-priority-panel { display:grid; grid-template-columns:1fr; }
+    .cypro-package-status-counts { min-width:0; }
+}
+/* ============================================================
+   Guided KIKS follow-up 2: preset table and persistent measure views
+   ============================================================ */
+
+.cypro-preset-table {
+    width: 100% !important;
+    min-width: 1040px !important;
+    table-layout: auto !important;
+}
+
+.cypro-preset-table th,
+.cypro-preset-table td {
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+}
+
+.cypro-preset-table th:nth-child(1),
+.cypro-preset-table td:nth-child(1) {
+    min-width: 360px;
+}
+
+.cypro-preset-table th:nth-child(2),
+.cypro-preset-table td:nth-child(2) {
+    min-width: 80px;
+    white-space: nowrap;
+}
+
+.cypro-preset-table th:nth-child(3),
+.cypro-preset-table td:nth-child(3) {
+    min-width: 165px;
+}
+
+.cypro-preset-table th:nth-child(4),
+.cypro-preset-table td:nth-child(4) {
+    min-width: 205px;
+}
+
+.cypro-preset-table th:nth-child(5),
+.cypro-preset-table td:nth-child(5) {
+    min-width: 165px;
+}
+
+.cypro-preset-goals span,
+.cypro-preset-decision label {
+    white-space: nowrap;
+}
+
+.cypro-preset-decision {
+    min-width: 170px;
+}
+
+.cypro-more-measures-toggle {
+    margin: .75rem 0;
+}
+
+.cypro-risk-transition {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    white-space: nowrap;
+}
+
+.cypro-risk-transition-arrow {
+    color: #68727d;
+    font-weight: 700;
+}
+
+.cypro-risk-transition-final {
+    font-weight: 700;
+}
+
+/* ============================================================
+   Preset KIKS grid table
+   ============================================================ */
+
+/*
+  The dynamic rows and the static header use the exact same CSS grid.
+  This avoids separate HTML table layout calculations.
+*/
+.cypro-preset-grid-table {
+    width: 100%;
+    margin-top: 1rem;
+    overflow-x: auto;
+    border: 1px solid #d7dce2;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.cypro-preset-grid-header,
+.cypro-preset-grid-row {
+    display: grid;
+    grid-template-columns:
+        minmax(360px, 3.4fr)
+        minmax(90px, .8fr)
+        minmax(170px, 1.45fr)
+        minmax(215px, 1.8fr)
+        minmax(170px, 1.35fr);
+    min-width: 1100px;
+}
+
+.cypro-preset-grid-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #f4f6f8;
+    border-bottom: 1px solid #d7dce2;
+    font-size: .85rem;
+    font-weight: 700;
+}
+
+.cypro-preset-grid-header > div,
+.cypro-preset-grid-cell {
+    min-width: 0;
+    padding: .8rem .85rem;
+    border-right: 1px solid #e0e4e8;
+}
+
+.cypro-preset-grid-header > div:last-child,
+.cypro-preset-grid-cell:last-child {
+    border-right: 0;
+}
+
+.cypro-preset-grid-row {
+    align-items: stretch;
+    border-bottom: 1px solid #e0e4e8;
+}
+
+.cypro-preset-grid-row:last-child {
+    border-bottom: 0;
+}
+
+.cypro-preset-grid-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.cypro-preset-grid-name {
+    align-items: flex-start;
+}
+
+.cypro-preset-grid-type,
+.cypro-preset-grid-action {
+    white-space: nowrap;
+}
+
+.cypro-preset-grid-goals {
+    align-items: flex-start;
+}
+
+.cypro-preset-goals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem;
+}
+
+.cypro-preset-goals span {
+    display: inline-flex;
+    white-space: nowrap;
+    padding: .18rem .48rem;
+    border: 1px solid #d1d7dd;
+    border-radius: 999px;
+    background: #fff;
+    font-size: .8rem;
+}
+
+.cypro-preset-grid-decision {
+    align-items: flex-start;
+}
+
+.cypro-preset-decision {
+    display: grid;
+    gap: .35rem;
+}
+
+.cypro-preset-decision label {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    white-space: nowrap;
+}
+
+.cypro-preset-row-muted {
+    opacity: .5;
+    background: #f5f5f5;
+}
+
+@media (max-width: 900px) {
+    .cypro-preset-grid-header,
+    .cypro-preset-grid-row {
+        min-width: 1000px;
+    }
+}
+
+/* ============================================================
+   Schutzgrad gauge and contextual measure recommendations
+   ============================================================ */
+
+.cypro-protection-panel {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #d9dee3;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.cypro-protection-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.cypro-protection-heading h4 {
+    margin: 0 0 .2rem 0;
+    font-size: 1.05rem;
+}
+
+.cypro-protection-subtitle {
+    color: #68727d;
+    font-size: .82rem;
+}
+
+.cypro-protection-value {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .25rem;
+    text-align: right;
+}
+
+.cypro-protection-value strong {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.cypro-protection-band {
+    display: inline-flex;
+    padding: .22rem .55rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.cypro-protection-band-red {
+    color: #8d2925;
+    background: #fde9e7;
+    border: 1px solid #e9b4af;
+}
+
+.cypro-protection-band-yellow {
+    color: #755d12;
+    background: #fff4cf;
+    border: 1px solid #ead48a;
+}
+
+.cypro-protection-band-green {
+    color: #24663a;
+    background: #e8f6ec;
+    border: 1px solid #acd4b8;
+}
+
+.cypro-protection-gauge-wrap {
+    display: grid;
+    justify-items: center;
+    gap: .45rem;
+    margin-top: 1rem;
+}
+
+.cypro-protection-gauge {
+    position: relative;
+    width: 300px;
+    height: 165px;
+}
+
+.cypro-protection-gauge-arc {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    width: 280px;
+    height: 140px;
+    overflow: hidden;
+}
+
+.cypro-protection-gauge-arc::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background:
+        conic-gradient(
+            from 270deg,
+            #cf4d46 0deg 72deg,
+            #e4b63f 72deg 126deg,
+            #5aa56c 126deg 180deg,
+            #edf0f2 180deg 360deg
+        );
+}
+
+.cypro-protection-gauge-arc::after {
+    content: "";
+    position: absolute;
+    left: 48px;
+    top: 48px;
+    width: 184px;
+    height: 184px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.04);
+}
+
+.cypro-protection-needle {
+    position: absolute;
+    z-index: 4;
+    left: 148px;
+    bottom: 25px;
+    width: 4px;
+    height: 105px;
+    border-radius: 4px;
+    background: #263238;
+    transform-origin: 50% 100%;
+    transform: rotate(var(--cypro-protection-angle));
+    transition: transform .28s ease;
+}
+
+.cypro-protection-needle::before {
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: -2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: inherit;
+}
+
+.cypro-protection-needle-potential {
+    z-index: 3;
+    width: 2px;
+    left: 149px;
+    background:
+        repeating-linear-gradient(
+            to top,
+            #496da8 0,
+            #496da8 7px,
+            transparent 7px,
+            transparent 12px
+        );
+    transform: rotate(var(--cypro-potential-angle));
+}
+
+.cypro-protection-hub {
+    position: absolute;
+    z-index: 5;
+    left: 139px;
+    bottom: 16px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #263238;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 1px #b9c0c6;
+}
+
+.cypro-protection-gauge-label {
+    position: absolute;
+    bottom: 0;
+    color: #68727d;
+    font-size: .72rem;
+    font-weight: 600;
+}
+
+.cypro-protection-label-left {
+    left: 8px;
+}
+
+.cypro-protection-label-red {
+    left: 91px;
+}
+
+.cypro-protection-label-yellow {
+    right: 83px;
+}
+
+.cypro-protection-label-right {
+    right: 0;
+}
+
+.cypro-protection-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .45rem 1rem;
+    color: #59636e;
+    font-size: .78rem;
+}
+
+.cypro-protection-legend > div {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.cypro-protection-legend-line {
+    display: inline-block;
+    width: 25px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.cypro-protection-legend-current {
+    background: #263238;
+}
+
+.cypro-protection-legend-potential {
+    height: 2px;
+    background:
+        repeating-linear-gradient(
+            to right,
+            #496da8 0,
+            #496da8 6px,
+            transparent 6px,
+            transparent 10px
+        );
+}
+
+.cypro-protection-explanation {
+    margin-top: .9rem;
+    padding-top: .8rem;
+    border-top: 1px solid #e2e6ea;
+}
+
+.cypro-protection-formula {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.cypro-protection-formula span {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .25rem;
+    padding: .38rem .55rem;
+    border: 1px solid #dce2e7;
+    border-radius: 7px;
+    background: #f7f9fa;
+    font-size: .8rem;
+}
+
+.cypro-protection-note {
+    margin-top: .6rem;
+    color: #68727d;
+    font-size: .78rem;
+    line-height: 1.45;
+}
+
+.cypro-protection-gaps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .35rem;
+    margin-top: .8rem;
+}
+
+.cypro-gap-chip {
+    display: inline-flex;
+    padding: .22rem .5rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.cypro-gap-chip-open {
+    color: #7c3e1d;
+    background: #fff0e3;
+    border: 1px solid #edc3a8;
+}
+
+.cypro-gap-chip-planned {
+    color: #405d8b;
+    background: #ebf1fb;
+    border: 1px solid #b9c9e5;
+}
+
+.cypro-catalog-gap-badge {
+    display: inline-flex;
+    margin-left: auto;
+    padding: .18rem .45rem;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 700;
+}
+
+.cypro-catalog-gap-red {
+    color: #8d2925;
+    background: #fde9e7;
+    border: 1px solid #e9b4af;
+}
+
+.cypro-catalog-gap-yellow {
+    color: #755d12;
+    background: #fff4cf;
+    border: 1px solid #ead48a;
+}
+
+.cypro-catalog-gap-green {
+    color: #24663a;
+    background: #e8f6ec;
+    border: 1px solid #acd4b8;
+}
+
+.cypro-measure-catalog-card:has(.cypro-catalog-gap-red) {
+    border-color: #dc8d87;
+    box-shadow: inset 4px 0 0 #cf4d46;
+}
+
+.cypro-measure-catalog-card:has(.cypro-catalog-gap-yellow) {
+    border-color: #dfc46c;
+    box-shadow: inset 4px 0 0 #e4b63f;
+}
+
+.cypro-measure-catalog-card:has(.cypro-catalog-gap-green) {
+    border-color: #9cc9a8;
+    box-shadow: inset 4px 0 0 #5aa56c;
+}
+
+.cypro-catalog-table-gap {
+    margin-top: .3rem;
+}
+
+@media (max-width: 700px) {
+    .cypro-protection-heading {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .cypro-protection-value {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .cypro-protection-gauge {
+        transform: scale(.9);
+        transform-origin: top center;
+        margin-bottom: -12px;
+    }
+}

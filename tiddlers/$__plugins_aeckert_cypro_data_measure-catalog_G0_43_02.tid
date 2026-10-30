@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.43/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.43-02
+threat-no: G0.43
+threat-label: Einspielen von Nachrichten
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Übertragung gegen Manipulation absichern
+source-refs: INF.14.A12, NET.2.1.A15
+source-original: INF.14.A12 – Nutzung sicherer Übertragungsprotokolle für die GA · NET.2.1.A15 – Verwendung eines VPN zur Absicherung von WLANs
+scope: Übergreifend; Teilanforderung für GA/TGM
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.43
+inferred-function: no
+
+Schützt Steuernachrichten auf gefährdeten Verbindungswegen.

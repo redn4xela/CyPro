@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.41/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.41-10
+threat-no: G0.41
+threat-label: Sabotage
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Organisation
+caption: Safety-Notfallregeln und Kabelredundanz planen
+source-refs: IND.2.7.A5, INF.12.A17
+source-original: IND.2.7.A5 – Notfallmanagement von SIS · INF.12.A17 – Redundanzen für die IT-Verkabelung
+scope: Systemtypen: Infrastruktur, OT/ICS
+evidence: Regelung, verantwortliche Stelle und Nachweis regelmäßiger Überprüfung prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.41
+inferred-function: no
+
+Sichert Ausweichwege und personelle Reaktionsfähigkeit.

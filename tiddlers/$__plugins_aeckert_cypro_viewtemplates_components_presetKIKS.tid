@@ -2,27 +2,274 @@ title: $:/plugins/aeckert/cypro/viewtemplates/components/presetKIKS
 type: text/vnd.tiddlywiki
 
 <!--
-  presetKIKS — the data-driven "Vorlagen" list shown below the KIKS overview tables.
+  Guided preset KIKS assessment.
 
-  Lists every plugin-shipped preset under $:/plugins/aeckert/cypro/data/preset-kiks/
-  as a plain (table-less) list of "+ Bezeichnung" entries. Presets are always shown,
-  even after a KIKS has been created from them, so the same template can be used for
-  several KIKS.
-
-  Each "+" runs kiks-preset-create-action (see macros/preset-kiks). One click, no
-  confirmation. This is a self-contained block (heading + list).
+  This view intentionally uses one shared CSS grid definition for the header
+  and every data row. This avoids browser/TiddlyWiki table-layout differences
+  between dynamically rendered rows and the static table header.
 -->
-<$set name="presets" filter="[all[shadows+tiddlers]prefix[$:/plugins/aeckert/cypro/data/preset-kiks/]]">
-<$list filter="[<presets>!is[blank]]" variable="null">
-<div class="kiks-preset-section">
-<h4 class="kiks-preset-heading">Vorlagen</h4>
-<ul class="kiks-preset-list">
-<$list filter="[enlist<presets>]" variable="preset">
-<li class="kiks-preset-item">
-<$button class="kiks-preset-add" tooltip="Diese Vorlage als neues KIKS übernehmen" aria-label="Vorlage übernehmen" actions="""<$macrocall $name="kiks-preset-create-action" preset=<<preset>>/>"""><$transclude tiddler="$:/core/images/plus-button" size="1em"/></$button> <$text text={{{ [<preset>get[name]else<preset>] }}}/>
-</li>
-</$list>
-</ul>
+
+\define render-preset-row()
+
+<$let
+    presetId={{{ [<preset>get[preset-id]] }}}
+    decision={{{ [[$:/cypro/data/kiksPresetAssessment]get<presetId>] }}}
+    existingKiks={{{ [tag[KIKS]field:source-preset-id<presetId>sort[id]first[]] }}}
+    rowClass={{{ [<decision>match[no]then[cypro-preset-grid-row cypro-preset-row-muted]else[cypro-preset-grid-row]] }}}
+>
+
+<div class=<<rowClass>>>
+
+<div class="cypro-preset-grid-cell cypro-preset-grid-name">
+
+<strong>
+<$text text={{{ [<preset>get[name]else<preset>] }}}/>
+</strong>
+
+<$list
+    filter="[<preset>get[example]minlength[1]]"
+    variable="example"
+>
+<div class="cypro-preset-note">
+Beispiel: <$text text=<<example>>/>
 </div>
 </$list>
+
+</div>
+
+
+<div class="cypro-preset-grid-cell cypro-preset-grid-type">
+
+<$list filter="[<preset>get[kiks]match[system]]" variable="null">
+System
+</$list>
+
+<$list filter="[<preset>get[kiks]match[data]]" variable="null">
+Daten
+</$list>
+
+</div>
+
+
+<div class="cypro-preset-grid-cell cypro-preset-grid-goals">
+
+<div class="cypro-preset-goals">
+
+<$list filter="[<preset>get[confidentiality]match[yes]]" variable="null">
+<span>Vertraulichkeit</span>
+</$list>
+
+<$list filter="[<preset>get[integrity]match[yes]]" variable="null">
+<span>Integrität</span>
+</$list>
+
+<$list filter="[<preset>get[availability]match[yes]]" variable="null">
+<span>Verfügbarkeit</span>
+</$list>
+
+</div>
+
+</div>
+
+
+<div class="cypro-preset-grid-cell cypro-preset-grid-decision">
+
+<div class="cypro-preset-decision">
+
+<label>
+<$radio
+    tiddler="$:/cypro/data/kiksPresetAssessment"
+    field=<<presetId>>
+    value="yes"
+    disabled={{{ [<existingKiks>is[blank]then[no]else[yes]] }}}
+/>
+Relevant
+</label>
+
+<label>
+<$radio
+    tiddler="$:/cypro/data/kiksPresetAssessment"
+    field=<<presetId>>
+    value="no"
+    disabled={{{ [<existingKiks>is[blank]then[no]else[yes]] }}}
+/>
+Nicht relevant
+</label>
+
+</div>
+
+</div>
+
+
+<div class="cypro-preset-grid-cell cypro-preset-grid-action">
+
+<$list filter="[<allDecided>match[yes]]" variable="null">
+
+<$list filter="[<decision>match[yes]]" variable="null">
+
+<$list filter="[<existingKiks>is[blank]]" variable="null">
+<$button class="cypro-btn cypro-btn-primary">
+<$macrocall
+    $name="kiks-preset-create-action"
+    preset=<<preset>>
+/>
+KIKS anlegen
+</$button>
+</$list>
+
+<$list filter="[<existingKiks>!is[blank]]" variable="null">
+<$link
+    to=<<existingKiks>>
+    class="cypro-btn cypro-btn-secondary"
+>
+KIKS öffnen
+</$link>
+</$list>
+
+</$list>
+
+
+<$list filter="[<decision>match[no]]" variable="null">
+<span class="cypro-identification-note">
+Nicht relevant
+</span>
+</$list>
+
+</$list>
+
+
+<$list filter="[<allDecided>!match[yes]]" variable="null">
+<span class="cypro-identification-note">
+Erst nach vollständiger Prüfung
+</span>
+</$list>
+
+</div>
+
+</div>
+
+</$let>
+
+\end
+
+
+<$list filter="[<presetAssessmentMode>match[yes]]" variable="null">
+
+<$set
+    name="presets"
+    filter="[all[shadows+tiddlers]prefix[$:/plugins/aeckert/cypro/data/preset-kiks/]sort[order]]"
+>
+
+<$let
+    totalCount={{{ [enlist<presets>count[]] }}}
+    decidedCount={{{ [[$:/cypro/data/kiksPresetAssessment]fields[]prefix[preset-]count[]] }}}
+>
+
+<$let allDecided={{{ [<decidedCount>match<totalCount>then[yes]else[no]] }}}>
+
+<div class="cypro-preset-assessment">
+
+<div class="cypro-preset-progress">
+
+<div>
+<strong>KIKS-Anwendbarkeit</strong><br>
+Bewerten Sie jeden Vorschlag für Ihr Unternehmen.
+</div>
+
+<div>
+<strong>
+<$text text=<<decidedCount>>/> / <$text text=<<totalCount>>/>
+</strong>
+bewertet
+</div>
+
+</div>
+
+
+<!-- Header and rows share the exact same grid template. -->
+<div class="cypro-preset-grid-table">
+
+<div class="cypro-preset-grid-header">
+<div>Vordefiniertes KIKS</div>
+<div>Typ</div>
+<div>Schutzziele</div>
+<div>Relevant für mein Unternehmen?</div>
+<div>Aktion</div>
+</div>
+
+
+<div class="cypro-preset-grid-body">
+
+<!-- Undecided and relevant entries stay at the top. -->
+<$list filter="[enlist<presets>]" variable="preset">
+
+<$let
+    presetId={{{ [<preset>get[preset-id]] }}}
+    decision={{{ [[$:/cypro/data/kiksPresetAssessment]get<presetId>] }}}
+>
+
+<$list filter="[<decision>!match[no]]" variable="null">
+<<render-preset-row>>
+</$list>
+
+</$let>
+
+</$list>
+
+
+<!-- Non-relevant entries remain visible but move to the bottom. -->
+<$list filter="[enlist<presets>]" variable="preset">
+
+<$let
+    presetId={{{ [<preset>get[preset-id]] }}}
+    decision={{{ [[$:/cypro/data/kiksPresetAssessment]get<presetId>] }}}
+>
+
+<$list filter="[<decision>match[no]]" variable="null">
+<<render-preset-row>>
+</$list>
+
+</$let>
+
+</$list>
+
+</div>
+
+</div>
+
+
+<div class="cypro-preset-footer">
+
+<$list filter="[<allDecided>!match[yes]]" variable="null">
+<span>
+Bitte bewerten Sie zunächst alle zehn Vorschläge. Anschließend können die
+relevanten KIKS einzeln geöffnet beziehungsweise angelegt werden.
+</span>
+</$list>
+
+
+<$list filter="[<allDecided>match[yes]]" variable="null">
+
+<div>
+<strong>Prüfung abgeschlossen.</strong><br>
+Relevante KIKS können jetzt einzeln angelegt und anschließend bearbeitet werden.
+</div>
+
+<$button
+    class="cypro-btn cypro-btn-secondary"
+    actions=<<kiks-create-manual-action>>
+>
+Weiteres KIKS manuell hinzufügen
+</$button>
+
+</$list>
+
+</div>
+
+</div>
+
+</$let>
+</$let>
 </$set>
+
+</$list>

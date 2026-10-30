@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-10
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Organisation
+caption: Unvereinbare Aufgaben organisatorisch trennen
+source-refs: ORP.1.A4
+source-original: ORP.1.A4 – Funktionstrennung zwischen unvereinbaren Aufgaben
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Regelung, verantwortliche Stelle und Nachweis regelmäßiger Überprüfung prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Reduziert Interessenkonflikte und privilegierte Alleingänge.

@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.20/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.20-03
+threat-no: G0.20
+threat-label: Informationen oder Produkte aus unzuverlässiger Quelle
+rank: 03
+control-function: response
+control-label: Reaktion
+source-phase: 
+caption: Eskalationsstrategie für Sicherheitsvorfälle
+source-refs: DER.2.1.A14
+source-original: DER.2.1.A14 – Eskalationsstrategie für Sicherheitsvorfälle
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.20
+inferred-function: yes

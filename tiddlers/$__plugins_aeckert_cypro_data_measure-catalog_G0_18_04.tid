@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-04
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 04
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Wiederherstellend
+caption: Regelmäßige Datensicherung
+source-refs: CON.3.A5
+source-original: CON.3.A5 – Regelmäßige Datensicherung
+scope: Daten
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes
+
+Es sollten regelmäßige Datensicherungen erfolgen, die in einem separat getrennten Bereich gespeichert werden

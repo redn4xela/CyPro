@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-10
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Umgang mit Spam durch Benutzende
+source-refs: APP.5.3.A8
+source-original: APP.5.3.A8 – Umgang mit Spam durch Benutzende
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes
+
+Mitarbeiter sollten auf Gefahren im Bereich Spam und Phishing geschult werden

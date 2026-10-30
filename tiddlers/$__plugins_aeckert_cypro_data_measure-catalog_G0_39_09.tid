@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-09
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Gesicherte Daten für den Wiederanlauf vorhalten
+source-refs: CON.3.A2, IND.2.1.A7
+source-original: CON.3.A2 – Festlegung der Verfahrensweisen für die Datensicherung · IND.2.1.A7 – Erstellung von Datensicherungen
+scope: Übergreifend; Teilanforderung für OT/ICS
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Begrenzt Schäden durch Verschlüsselung oder Datenverlust.

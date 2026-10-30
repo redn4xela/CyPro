@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-05
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Endpunkt- und Netzwerkdetektion einsetzen
+source-refs: DER.1.A5, DER.1.A9
+source-original: DER.1.A5 – Einsatz von mitgelieferten Systemfunktionen zur Detektion · DER.1.A9 – Einsatz zusätzlicher Detektionssysteme
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Findet Schadcode und verdächtiges Verhalten.

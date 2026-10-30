@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-06
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 06
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Kryptografisch abgesicherte E-Mail-Kommunikation
+source-refs: CON.7.A14
+source-original: CON.7.A14 – Kryptografisch abgesicherte E-Mail-Kommunikation
+scope: Daten
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes
+
+Kryptografisch abgesicherte E-Mail-Kommunikation

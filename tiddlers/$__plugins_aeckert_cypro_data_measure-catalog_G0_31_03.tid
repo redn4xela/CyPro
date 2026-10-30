@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-03
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Vier-Augen-Prinzip für kritische Änderungen
+source-refs: ORP.4.A24
+source-original: ORP.4.A24 – Vier-Augen-Prinzip für administrative Tätigkeiten
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Fängt risikoreiche Fehlentscheidungen vor Umsetzung ab.

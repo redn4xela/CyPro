@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.30/08
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.30-08
+threat-no: G0.30
+threat-label: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+rank: 08
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Verdächtige externe Zugriffe technisch entkoppeln
+source-refs: IND.3.2.A7
+source-original: IND.3.2.A7 – Technische Entkopplung von Zugriffen
+scope: OT/ICS – nur bei Einsatz
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.30
+inferred-function: no
+
+Unterbindet laufende missbräuchliche Fernzugriffe.

@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/07-elektronische-dokumentation-zu-schulungen-und-fortbildunge
+type: text/vnd.tiddlywiki
+preset-id: preset-07
+order: 07
+name: elektronische Dokumentation zu Schulungen und Fortbildungen nach Kapitel 11, wie Schulungs- und Fortbildungsnachweise
+legal-reference: 2015/1998 Nr. 11.2 · 2015/1998 Nr. 11.4 · AVSEC 10904b
+protection-goal-label: Integrität
+confidentiality: no
+integrity: yes
+availability: no
+relevance-reason: Manipulierte Schulungs-, Fortbildungs- oder Qualifikationsnachweise können dazu führen, dass nicht ausreichend qualifiziertes Personal luftsicherheitsrelevante Aufgaben übernimmt.
+assessment-text: Auslöser/Gefährdung: Durch unberechtigte Änderungen können Schulungs-, Fortbildungs- oder Qualifikationsnachweise manipuliert werden. · Wirkung: Personen können als ausreichend geschult oder qualifiziert erscheinen, obwohl erforderliche Schulungen oder Fortbildungen nicht ordnungsgemäß absolviert wurden, und dadurch luftsicherheitsrelevante Aufgaben ohne erforderliche Qualifikation wahrnehmen. · Schutzziel: Integrität aufgrund der erforderlichen Richtigkeit und Unverfälschtheit der Schulungs- und Qualifikationsnachweise.
+example: Elektronische Schulungsnachweise, Qualifikationsübersichten oder Schulungsmanagementsystem
+catalog-status: potentiell
+kiks: data
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.19 G0.20 G0.22 G0.23 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

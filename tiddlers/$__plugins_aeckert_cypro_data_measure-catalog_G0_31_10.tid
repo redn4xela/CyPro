@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-10
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Organisation
+caption: Einarbeitung und Vertretung regeln
+source-refs: ORP.2.A1, ORP.2.A3
+source-original: ORP.2.A1 – Geregelte Einarbeitung neuer Mitarbeitender · ORP.2.A3 – Festlegung von Vertretungsregelungen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Regelung, verantwortliche Stelle und Nachweis regelmäßiger Überprüfung prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Verhindert Wissenslücken und Bedienfehler.

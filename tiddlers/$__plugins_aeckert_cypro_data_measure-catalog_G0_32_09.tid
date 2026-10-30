@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-09
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Missbrauchspfad schließen und härten
+source-refs: DER.2.3.A5, DER.2.3.A7
+source-original: DER.2.3.A5 – Schließen des initialen Einbruchswegs · DER.2.3.A7 – Gezielte Systemhärtung
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Verhindert erneute Ausnutzung derselben Rechte.

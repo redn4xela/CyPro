@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/04-daten-zur-frachtabfertigung
+type: text/vnd.tiddlywiki
+preset-id: preset-04
+order: 04
+name: Daten zur Frachtabfertigung
+legal-reference: 2015/1998 Nr. 6.3.2.5 · 2015/1998 Nr. 6.3.2.6
+protection-goal-label: regB: Integrität · bV: Vertraulichkeit
+confidentiality: yes
+integrity: yes
+availability: no
+relevance-reason: Manipulierte Sendungs-, Abfertigungs- oder Sicherheitsstatusdaten können zu einer fehlerhaften Behandlung von Fracht führen. Offengelegte Sendungsdaten können sensible Informationen über Fracht, Versender und Sicherheitsstatus preisgeben.
+assessment-text: Auslöser/Gefährdung: Durch einen Cyberangriff können Sendungs-, Abfertigungs- oder Sicherheitsstatusdaten manipuliert bzw. unberechtigt offengelegt werden. · Wirkung: Manipulierte Angaben können dazu führen, dass eine Sendung mit unzutreffendem Sicherheitsstatus behandelt wird; offengelegte Daten können sensible Informationen über Fracht, Versender oder Sicherheitsstatus preisgeben. · Schutzziel: Beim reglementierten Beauftragten Integrität aufgrund der erforderlichen Richtigkeit der Abfertigungs- und Sicherheitsstatusdaten; beim bekannten Versender Vertraulichkeit aufgrund sensibler Sendungsinformationen.
+example: Luftfrachtbrief (AWB), elektronische Begleitdokumentation, Sendungskennung und Sicherheitsstatus, z. B. SPX
+catalog-status: potentiell
+kiks: data
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.18 G0.19 G0.20 G0.21 G0.22 G0.23 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

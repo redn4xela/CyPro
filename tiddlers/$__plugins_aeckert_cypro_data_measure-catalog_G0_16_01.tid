@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.16/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.16-01
+threat-no: G0.16
+threat-label: Diebstahl von Geräten, Datenträgern oder Dokumenten
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Einsatz von Diebstahl-Sicherungen
+source-refs: CON.7.A11
+source-original: CON.7.A11 – Einsatz von Diebstahl-Sicherungen
+scope: Systeme
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.16
+inferred-function: yes
+
+Geräte sollten bei Orten mit vielen Personen, oder dann wenn das Gerät alleine ist durch physische Maßnahmen gegen Diebstahl geschützt werden

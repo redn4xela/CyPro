@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.28/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.28-01
+threat-no: G0.28
+threat-label: Software-Schwachstellen oder -Fehler
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Software sicher entwerfen
+source-refs: CON.8.A5, CON.8.A22
+source-original: CON.8.A5 – Sicheres Systemdesign · CON.8.A22 – Sicherer Software-Entwurf
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.28
+inferred-function: no
+
+Verringert systematische Sicherheitsfehler im Code.

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.16/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.16-07
+threat-no: G0.16
+threat-label: Diebstahl von Geräten, Datenträgern oder Dokumenten
+rank: 07
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Unterstützung zusätzlicher Authentisierungsmerkmale bei Apps
+source-refs: APP.1.4.A14
+source-original: APP.1.4.A14 – Unterstützung zusätzlicher Authentisierungsmerkmale bei Apps
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.16
+inferred-function: yes
+
+Zugänge und Apps sollten Zwei-Faktor-Authentifizierung verwenden

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.41/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.41-03
+threat-no: G0.41
+threat-label: Sabotage
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Safety-Steuerung und Verkabelung schützen
+source-refs: IND.2.7.A7, INF.12.A15
+source-original: IND.2.7.A7 – Trennung und Unabhängigkeit des SIS von der Umgebung · INF.12.A15 – Materielle Sicherung der Verkabelung
+scope: Systemtypen: Infrastruktur, OT/ICS
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.41
+inferred-function: no
+
+Schützt kritische Steuerungen und Leitungswege.

@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.15/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.15-09
+threat-no: G0.15
+threat-label: Abhören
+rank: 09
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Grundsätzliche Nutzung von sicheren Protokollen
+source-refs: NET.1.2.A31
+source-original: NET.1.2.A31 – Grundsätzliche Nutzung von sicheren Protokollen
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.15
+inferred-function: yes

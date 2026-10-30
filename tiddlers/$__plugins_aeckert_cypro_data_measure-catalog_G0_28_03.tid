@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.28/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.28-03
+threat-no: G0.28
+threat-label: Software-Schwachstellen oder -Fehler
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Patches bereitstellen und Updates steuern
+source-refs: CON.8.A8, OPS.1.1.3.A3
+source-original: CON.8.A8 – Bereitstellung von Patches · OPS.1.1.3.A3 – Konfiguration von Autoupdate-Mechanismen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.28
+inferred-function: no
+
+Schließt bekannte Schwachstellen zeitnah.

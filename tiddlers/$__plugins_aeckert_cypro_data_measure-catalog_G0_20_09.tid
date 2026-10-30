@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.20/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.20-09
+threat-no: G0.20
+threat-label: Informationen oder Produkte aus unzuverlässiger Quelle
+rank: 09
+control-function: detection
+control-label: Erkennung
+source-phase: 
+caption: Auswahl von Werkzeugen zur Forensik
+source-refs: DER.2.2.A7
+source-original: DER.2.2.A7 – Auswahl von Werkzeugen zur Forensik
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.20
+inferred-function: yes

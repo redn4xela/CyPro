@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.30/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.30-03
+threat-no: G0.30
+threat-label: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Managementzugänge und Netzbereiche absichern
+source-refs: NET.3.1.A4, NET.1.1.A23
+source-original: NET.3.1.A4 – Schutz der Administrationsschnittstellen · NET.1.1.A23 – Trennung von Netzsegmenten
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.30
+inferred-function: no
+
+Schützt kritische Administrationspfade.

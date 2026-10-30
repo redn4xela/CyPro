@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-09
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Management und Anwendungen hochverfügbar betreiben
+source-refs: NET.1.2.A30, SYS.1.6.A25
+source-original: NET.1.2.A30 – Hochverfügbare Realisierung der Management-Lösung · SYS.1.6.A25 – Hochverfügbarkeit von containerisierten Anwendungen
+scope: Übergreifend; Teilanforderung für Container
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Reduziert den Einfluss einzelner Dienstunterbrechungen.

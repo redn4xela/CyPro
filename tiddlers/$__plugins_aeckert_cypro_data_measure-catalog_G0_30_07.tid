@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.30/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.30-07
+threat-no: G0.30
+threat-label: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+rank: 07
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Verlust oder verdächtige Zugangsnutzung melden
+source-refs: CON.7.A6
+source-original: CON.7.A6 – Zeitnahe Verlustmeldung
+scope: Mobile Nutzung – nur bei Einsatz
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.30
+inferred-function: no
+
+Aktiviert das Vorgehen bei kompromittierten Geräten.

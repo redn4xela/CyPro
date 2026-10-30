@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-05
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Netzprotokolle und Gerätezustand auswerten
+source-refs: NET.1.2.A36, SYS.4.4.A22
+source-original: NET.1.2.A36 – Einbindung der Protokollierung des Netzmanagements in eine SIEM-Lösung · SYS.4.4.A22 – Systemüberwachung
+scope: Übergreifend; Teilanforderung für IoT
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Unterstützt Lokalisierung und Bewertung des Ausfalls.

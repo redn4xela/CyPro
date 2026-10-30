@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-06
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 06
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Betroffene Netzbereiche kontrolliert isolieren
+source-refs: DER.2.3.A3
+source-original: DER.2.3.A3 – Isolierung der betroffenen Netzabschnitte
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Stoppt die Ausweitung eines bestätigten Missbrauchs.

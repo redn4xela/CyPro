@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.26/08
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.26-08
+threat-no: G0.26
+threat-label: Fehlfunktion von Geräten oder Systemen
+rank: 08
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Unabhängige GA-Bereiche vorsehen
+source-refs: INF.14.A10
+source-original: INF.14.A10 – Bildung von unabhängigen GA-Bereichen
+scope: GA/TGM – nur bei Einsatz
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.26
+inferred-function: no
+
+Verringert wechselseitige Störeinflüsse im Gebäude.

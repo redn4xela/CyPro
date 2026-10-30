@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/08
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-08
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 08
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Sichere Nutzung von öffentlichen WLANs
+source-refs: CON.7.A8
+source-original: CON.7.A8 – Sichere Nutzung von öffentlichen WLANs
+scope: Systeme
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes
+
+In öffentlichen WLANs sollten keine sensiblen Daten ausgetauscht werden, dazu zählt das Anmelden bei Diensten. Für diesen Fall sollte zuvor eine VPN-Verbindung ins Firmenentz aufgebaut werden

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-07
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 07
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Missbrauchte Zugangsdaten sofort wechseln
+source-refs: DER.2.3.A4
+source-original: DER.2.3.A4 – Sperrung und Änderung von Zugangsdaten und kryptografischen Schlüsseln
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Entzieht Angreifenden fortbestehende Rechte.

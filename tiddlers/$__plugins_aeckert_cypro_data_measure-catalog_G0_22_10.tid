@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.22/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.22-10
+threat-no: G0.22
+threat-label: Manipulation von Informationen
+rank: 10
+control-function: response
+control-label: Reaktion
+source-phase: 
+caption: Gezielte Systemhärtung
+source-refs: DER.2.3.A7
+source-original: DER.2.3.A7 – Gezielte Systemhärtung
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.22
+inferred-function: yes

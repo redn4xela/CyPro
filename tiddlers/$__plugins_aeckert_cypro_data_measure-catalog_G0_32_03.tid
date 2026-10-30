@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-03
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Fernwartungszugriffe zeitlich freigeben
+source-refs: IND.3.2.A8, IND.2.1.A1
+source-original: IND.3.2.A8 – Explizite Freigabe jeder OT-Fernwartungssitzung · IND.2.1.A1 – Einschränkung des Zugriffs für Konfigurations- und Wartungsschnittstellen
+scope: Systemtypen: OT/ICS
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Verhindert unkontrollierten Einsatz vorhandener Rechte.

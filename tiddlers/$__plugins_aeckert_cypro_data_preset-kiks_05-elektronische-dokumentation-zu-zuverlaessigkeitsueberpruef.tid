@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/05-elektronische-dokumentation-zu-zuverlaessigkeitsueberpruef
+type: text/vnd.tiddlywiki
+preset-id: preset-05
+order: 05
+name: elektronische Dokumentation zu Zuverlässigkeitsüberprüfung
+legal-reference: 2015/1998 Nr. 11.1.2 · AVSEC 10904b
+protection-goal-label: Integrität
+confidentiality: no
+integrity: yes
+availability: no
+relevance-reason: Durch manipulierte Zuverlässigkeitsüberprüfungen erhalten ungeeignete/unzuverlässige Personen Zugang zu luftsicherheitsrelevanten Bereichen.
+assessment-text: Auslöser/Gefährdung: · · Wirkung: · · Schutzziel: ·
+example: ZÜP-Liste
+catalog-status: potentiell
+kiks: data
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.19 G0.20 G0.22 G0.23 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

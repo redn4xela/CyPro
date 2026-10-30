@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.20/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.20-04
+threat-no: G0.20
+threat-label: Informationen oder Produkte aus unzuverlässiger Quelle
+rank: 04
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: 
+caption: Nachbereitung von Sicherheitsvorfällen
+source-refs: DER.2.1.A17
+source-original: DER.2.1.A17 – Nachbereitung von Sicherheitsvorfällen
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.20
+inferred-function: yes

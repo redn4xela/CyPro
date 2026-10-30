@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.30/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.30-01
+threat-no: G0.30
+threat-label: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Sichere Anmeldung mit MFA erzwingen
+source-refs: ORP.4.A9, ORP.4.A21
+source-original: ORP.4.A9 – Identifikation und Authentisierung · ORP.4.A21 – Mehr-Faktor-Authentisierung
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.30
+inferred-function: no
+
+Verhindert unberechtigte Systemnutzung.

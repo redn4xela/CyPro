@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.20/08
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.20-08
+threat-no: G0.20
+threat-label: Informationen oder Produkte aus unzuverlässiger Quelle
+rank: 08
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Sicherstellen der Integrität und Authentizität von Anwendungsprogrammen und Konfigurationsdaten
+source-refs: IND.2.7.A12
+source-original: IND.2.7.A12 – Sicherstellen der Integrität und Authentizität von Anwendungsprogrammen und Konfigurationsdaten
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.20
+inferred-function: yes

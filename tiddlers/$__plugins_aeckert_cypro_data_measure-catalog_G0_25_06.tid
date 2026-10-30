@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.25/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.25-06
+threat-no: G0.25
+threat-label: Ausfall von Geräten oder Systemen
+rank: 06
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Ersatzenergie und Ausweichanbindungen vorsehen
+source-refs: INF.5.A23, NET.1.1.A29
+source-original: INF.5.A23 – Netzersatzanlage · NET.1.1.A29 – Hochverfügbare Realisierung von Netzanbindungen
+scope: Übergreifend; Teilanforderung für Infrastruktur
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.25
+inferred-function: no
+
+Hält Kernfunktionen bei Versorgungsproblemen verfügbar.

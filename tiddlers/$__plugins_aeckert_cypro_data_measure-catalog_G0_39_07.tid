@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-07
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 07
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Bereinigungsstrategie bei Befall festlegen
+source-refs: DER.2.3.A2
+source-original: DER.2.3.A2 – Entscheidung für eine Bereinigungsstrategie
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Verhindert unkoordinierte Beseitigungsversuche.

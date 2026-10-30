@@ -1,166 +1,627 @@
-created: 20260223141627487
-modified: 20260403114128403
-tags: 
 title: $:/plugins/aeckert/cypro/viewtemplates/threat/measures
 type: text/vnd.tiddlywiki
 
+\define render-measure-status()
+<$list filter="[<measureTiddler>get<statusField>match[implemented]]" variable="null"><span class="cypro-measure-status-badge cypro-status-implemented">Umgesetzt</span></$list>
+<$list filter="[<measureTiddler>get<statusField>match[planned]]" variable="null"><span class="cypro-measure-status-badge cypro-status-planned">In Planung</span></$list>
+<$list filter="[<measureTiddler>get<statusField>match[not-implemented]]" variable="null"><span class="cypro-measure-status-badge cypro-status-not-implemented">Nicht umgesetzt</span></$list>
+<$list filter="[<measureTiddler>get<statusField>match[financially-not-possible]]" variable="null"><span class="cypro-measure-status-badge cypro-status-financial">Finanziell nicht möglich</span></$list>
+<$list filter="[<measureTiddler>get<statusField>minlength[1]count[]match[0]]" variable="null"><span class="cypro-measure-status-badge cypro-status-legacy">Bestand</span></$list>
+\end
 
-<!--
-  threat/measures — the measure table on a threat. Adding/removing a threat tag
-  on a measure changes which reductions update-risk-actions must sum, so both the
-  ✖ (remove) and the search-dropdown (re-link) buttons run $action-listops and then
-  the macro. A sibling action's attributes are computed at the initial render of the
-  action string, BEFORE the listops executes, so the macro's <$let> would read the
-  stale tag set and write the pre-change risk. Wrapping the sequence in
-  tv-action-refresh-policy=always forces the macro to re-read AFTER the listops
-  (same idiom as cypro-discard; see docs/learnings.md). Radios need no wrapper
-  because $radio sets the field before invoking its actions.
--->
-<!-- Lock-Status ermitteln -->
-<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+\define render-measure-status-options()
+<div class="cypro-measure-status-options">
+<label><$radio tiddler=<<measureTiddler>> field=<<statusField>> value="implemented" actions="""
+<$action-setfield $tiddler=<<currentTag>> package_impact="" package_probability=""/>
+<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>
+"""/>Umgesetzt</label>
+<label><$radio tiddler=<<measureTiddler>> field=<<statusField>> value="planned" actions="""
+<$action-setfield $tiddler=<<currentTag>> package_impact="" package_probability=""/>
+<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>
+"""/>In Planung</label>
+<label><$radio tiddler=<<measureTiddler>> field=<<statusField>> value="not-implemented" actions="""
+<$action-setfield $tiddler=<<currentTag>> package_impact="" package_probability=""/>
+<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>
+"""/>Nicht umgesetzt</label>
+<label><$radio tiddler=<<measureTiddler>> field=<<statusField>> value="financially-not-possible" actions="""
+<$action-setfield $tiddler=<<currentTag>> package_impact="" package_probability=""/>
+<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>
+"""/>Finanziell nicht möglich</label>
+</div>
+\end
 
-<!-- MEASURES -->
-<div class="kiks-body-area cypro-measures-section">
-    <div class="kiks-field-label cypro-measures-header">
-        Maßnahmen:
-    </div>
-    
-    <$let 
-        currentTag={{{ [<currentTiddler>get[title]] }}}
-        riField={{{ [<currentTiddler>get[title]addsuffix[_RI]] }}}
-        rpField={{{ [<currentTiddler>get[title]addsuffix[_RP]] }}}
-        searchState={{{ [[$:/temp/cypro/measure-search/]addsuffix<currentTiddler>] }}}
-    >
-    
-    <!-- TABELLE -->
-    <$list filter="[tag[measure]tag<currentTag>limit[1]]" emptyMessage="<div class='kiks-empty-message'>Noch keine Maßnahmen zugeordnet.</div>" variable="null">
-        <table class="measure-table tc-table sortable">
-            <thead>
-                <tr>
-                    <th>Maßnahme</th>
-                    <th>Auswirkungen Schadenshöhe</th>
-                    <th>Auswirkungen Eintrittshäufigkeit</th>
-										<$list filter="[<isLocked>!match[yes]]" variable="ignore">
-                    	<th></th>
-										</$list>
-                </tr>
-            </thead>
-            <tbody>
-                <$list filter="[tag[measure]tag<currentTag>sort[title]]" variable="measureTiddler">
-                    <$let
-                        measureCaption={{{ [<measureTiddler>get[caption]else<measureTiddler>] }}}
-                    >
-                        <tr>
-                            <!-- Spalte 1: Name/Link -->
-                            <td>
-                                <$link to=<<measureTiddler>>>
-                                    <$text text=<<measureCaption>>/>
-                                </$link>
-                            </td>
-                            <!-- Spalte 2: RI Buttons -->\
-                            <td class="measure-col-ri">
-								<$list filter="[<isLocked>match[yes]]" variable="ignore">
-                                	<$text text={{{ [<measureTiddler>get<riField>else[-]] }}}/>
-                                </$list>
-								<$list filter="[<isLocked>!match[yes]]" variable="ignore">
-									<$let tParam=<<measureTiddler>> fParam=<<riField>>>
-										{{||$:/plugins/aeckert/cypro/viewtemplates/components/reductionRadio}}
-									</$let>
-								</$list>
-                            </td>
-                            <!-- Spalte 3: RP Buttons -->
-                            <td class="measure-col-rp">
-                                <!-- Locked: nur Text -->
-                                <$list filter="[<isLocked>match[yes]]" variable="ignore">
-                                    <$text text={{{ [<measureTiddler>get<rpField>else[-]] }}}/>
-                                </$list>
-								<$list filter="[<isLocked>!match[yes]]" variable="ignore">
-									<$let tParam=<<measureTiddler>> fParam=<<rpField>>>
-										{{||$:/plugins/aeckert/cypro/viewtemplates/components/reductionRadio}}
-									</$let>
-								</$list>
-                            </td>
-                            <!-- Spalte 4: Entfernen-Button -->
-													<$list filter="[<isLocked>!match[yes]]" variable="ignore">
-                            <td>
-                                <$button class="kiks-remove-button" tooltip="Maßnahme entfernen">
-																	<$set name="tv-action-refresh-policy" value="always">
-                                    <$action-listops $tiddler=<<measureTiddler>> $tags="-[<currentTag>]"/>
-																		<<update-risk-actions>>
-																	</$set>
-                                    ✖
-                                </$button>
-                            </td>
-														</$list>
-                        </tr>
-                    </$let>
-                </$list>
-            </tbody>
-        </table>
-    </$list>
-    
-	<$list filter="[<isLocked>!match[yes]]" variable="ignore">
-		<!-- SUCHFELD + HINZUFÜGEN -->
-    <div class="kiks-measure-add-area">
-        <div class="kiks-measure-search-wrapper">
-            <!-- Suchfeld -->
-            <$edit-text 
-                tiddler=<<searchState>> 
-                field="text"
-                placeholder="Maßnahme suchen oder neue anlegen..." 
-                class="kiks-measure-search-input cypro-field-input" 
-                tag="input"
-            />
-            
-            <!-- Dropdown mit Ergebnissen: nur Measures OHNE currentTag -->
-            <$let searchText={{{ [<searchState>get[text]else[]] }}}>
-                <$list filter="[<searchText>length[]compare:number:gteq[1]]" variable="ignore">
-                    <div class="kiks-measure-dropdown">
-                        <$list filter="[tag[measure]!tag<currentTag>search:title,caption<searchText>sort[caption]limit[10]]" variable="result" emptyMessage="<div class='kiks-dropdown-empty'>Keine passende Maßnahme gefunden – neu anlegen mit + Button</div>">
-                            <$let resultCaption={{{ [<result>get[caption]else<result>] }}}>
-                                <div class="kiks-dropdown-item">
-                                    <$button class="kiks-dropdown-button">
-																			<$set name="tv-action-refresh-policy" value="always">
-                                        <$action-listops $tiddler=<<result>> $tags="[<currentTag>]"/>
-                                        <$action-setfield $tiddler=<<searchState>> text=""/>
-																				<<update-risk-actions>>
-																			</$set>
-                                        <$text text=<<resultCaption>>/>
-                                    </$button>
-                                </div>
-                            </$let>
-                        </$list>
-                    </div>
-                </$list>
-            </$let>
-        </div>
-		
-        <!-- Button: Neue Maßnahme anlegen -->
-        <$let searchText={{{ [<searchState>get[text]else[]] }}}>
-            <$button class="cypro-btn cypro-btn-primary">
-                
-                <span class="cypro-btn-label">+ Neue Maßnahme</span>
-                
-                <!-- Nächste freie Nummer ermitteln -->
-                <$let
-    newTitle={{{ [function[cypro-next-id],[measure],[M]] }}}
-    inputText={{{ [<searchState>get[text]else[Neue Maßnahme]] }}}
-    newTags={{{ [[measure]] [<currentTag>] +[join[ ]] }}}
+\define coverage-chip(key,label)
+<$let
+    implementedFunctionCount={{{ [tag[measure]tag<currentTag>field:control-function[$key$]] :filter[get<statusField>match[implemented]] +[count[]] }}}
+    plannedFunctionCount={{{ [tag[measure]tag<currentTag>field:control-function[$key$]] :filter[get<statusField>match[planned]] +[count[]] }}}
 >
-    <$action-createtiddler 
-        $basetitle=<<newTitle>>
-        id=<<newTitle>>
-        caption=<<inputText>>
-        tags=<<newTags>>
-    />
-                </$let>
-                    <$action-setfield $tiddler=<<searchState>> text=""/>
-            </$button>
-                </$let>
-    </div>
-	</$list>
-    
-    </$let>
+<$list filter="[<implementedFunctionCount>compare:number:gt[0]]" variable="null"><span class="cypro-coverage-chip cypro-coverage-chip-implemented">✓ $label$</span></$list>
+<$list filter="[<implementedFunctionCount>compare:number:eq[0]]" variable="null">
+<$list filter="[<plannedFunctionCount>compare:number:gt[0]]" variable="null"><span class="cypro-coverage-chip cypro-coverage-chip-planned">◷ $label$</span></$list>
+<$list filter="[<plannedFunctionCount>compare:number:eq[0]]" variable="null"><span class="cypro-coverage-chip">○ $label$</span></$list>
+</$list>
+</$let>
+\end
+
+\define package-impact-scale()
+<div class="cypro-package-scale">
+<div class="cypro-package-scale-label">Schadenshöhe nach Maßnahmenpaket</div>
+<div class="kiks-type-toggle">
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_impact" value="1" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>vernachlässigbar</label>
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_impact" value="2" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>begrenzt</label>
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_impact" value="3" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>beträchtlich</label>
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_impact" value="4" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>existenzbedrohend</label>
+</div>
+</div>
+\end
+
+\define package-probability-scale()
+<div class="cypro-package-scale">
+<div class="cypro-package-scale-label">Eintrittshäufigkeit nach Maßnahmenpaket</div>
+<div class="kiks-type-toggle">
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_probability" value="1" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>selten</label>
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_probability" value="2" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>mittel</label>
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_probability" value="3" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>häufig</label>
+<label class="kiks-radio-label"><$radio tiddler=<<currentTag>> field="package_probability" value="4" actions="""<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>""" disabled={{{ [<isLocked>match[yes]then[yes]else[no]] }}}/>sehr häufig</label>
+</div>
+</div>
+\end
+
+\define cypro-protection-gauge()
+
+<$let
+    implementedMeasures={{{ [tag[measure]tag<currentTag>] :filter[get<statusField>match[implemented]] +[count[]] }}}
+    plannedMeasures={{{ [tag[measure]tag<currentTag>] :filter[get<statusField>match[planned]] +[count[]] }}}
+
+    implementedPrevention={{{ [tag[measure]tag<currentTag>field:control-function[prevention]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedDetection={{{ [tag[measure]tag<currentTag>field:control-function[detection]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedResponse={{{ [tag[measure]tag<currentTag>field:control-function[response]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedRecovery={{{ [tag[measure]tag<currentTag>field:control-function[recovery]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+
+    plannedPrevention={{{ [tag[measure]tag<currentTag>field:control-function[prevention]] :filter[get<statusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    plannedDetection={{{ [tag[measure]tag<currentTag>field:control-function[detection]] :filter[get<statusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    plannedResponse={{{ [tag[measure]tag<currentTag>field:control-function[response]] :filter[get<statusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    plannedRecovery={{{ [tag[measure]tag<currentTag>field:control-function[recovery]] :filter[get<statusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+
+    packageBonus={{{ [<currentTag>has[package_impact]has[package_probability]then[10]else[0]] }}}
+>
+
+<$let
+    implementedCategoryCount={{{ [<implementedPrevention>add<implementedDetection>add<implementedResponse>add<implementedRecovery>] }}}
+    implementedMeasureCap={{{ [<implementedMeasures>min[6]] }}}
+
+    potentialPrevention={{{ [<implementedPrevention>add<plannedPrevention>compare:number:gt[0]then[1]else[0]] }}}
+    potentialDetection={{{ [<implementedDetection>add<plannedDetection>compare:number:gt[0]then[1]else[0]] }}}
+    potentialResponse={{{ [<implementedResponse>add<plannedResponse>compare:number:gt[0]then[1]else[0]] }}}
+    potentialRecovery={{{ [<implementedRecovery>add<plannedRecovery>compare:number:gt[0]then[1]else[0]] }}}
+
+    potentialMeasureCount={{{ [<implementedMeasures>add<plannedMeasures>min[6]] }}}
+>
+
+<$let
+    potentialCategoryCount={{{ [<potentialPrevention>add<potentialDetection>add<potentialResponse>add<potentialRecovery>] }}}
+    implementedCategoryScore={{{ [<implementedCategoryCount>multiply[15]] }}}
+    implementedMeasureScore={{{ [<implementedMeasureCap>multiply[5]] }}}
+    potentialCategoryScore={{{ [<potentialCategoryCount>multiply[15]] }}}
+    potentialMeasureScore={{{ [<potentialMeasureCount>multiply[5]] }}}
+>
+
+<$let
+    protectionScore={{{ [<implementedCategoryScore>add<implementedMeasureScore>add<packageBonus>min[100]] }}}
+    potentialScore={{{ [<potentialCategoryScore>add<potentialMeasureScore>add<packageBonus>min[100]] }}}
+>
+
+<$let
+    needleAngle={{{ [<protectionScore>multiply[18]divide[10]add[-90]] }}}
+    potentialNeedleAngle={{{ [<potentialScore>multiply[18]divide[10]add[-90]] }}}
+>
+
+<div
+    class="cypro-protection-panel"
+    style={{{ [<needleAngle>addprefix[--cypro-protection-angle:]addsuffix[deg;]] [<potentialNeedleAngle>addprefix[--cypro-potential-angle:]addsuffix[deg;]] +[join[]] }}}
+>
+
+<div class="cypro-protection-heading">
+<div>
+<h4>Aktueller Schutzgrad</h4>
+<div class="cypro-protection-subtitle">
+Orientierungswert für Breite und Umsetzungsstand des Maßnahmenpakets.
+</div>
 </div>
 
+<div class="cypro-protection-value">
+<strong><$text text=<<protectionScore>>/> / 100</strong>
+
+<$list filter="[<protectionScore>compare:number:lt[40]]" variable="null">
+<span class="cypro-protection-band cypro-protection-band-red">Handlungsbedarf</span>
+</$list>
+
+<$list
+    filter="[<protectionScore>compare:number:gteq[40]compare:number:lt[70]]"
+    variable="null"
+>
+<span class="cypro-protection-band cypro-protection-band-yellow">
+Weitere Maßnahmen können hilfreich sein
+</span>
+</$list>
+
+<$list filter="[<protectionScore>compare:number:gteq[70]]" variable="null">
+<span class="cypro-protection-band cypro-protection-band-green">
+Breite Maßnahmenabdeckung
+</span>
+</$list>
+
+</div>
+</div>
+
+<div class="cypro-protection-gauge-wrap">
+
+<div class="cypro-protection-gauge">
+
+<div class="cypro-protection-gauge-arc"></div>
+<div class="cypro-protection-needle"></div>
+
+<$list
+    filter="[<plannedMeasures>compare:number:gt[0]] [<potentialScore>compare:number:gt<protectionScore>] +[count[]match[2]]"
+    variable="null"
+>
+<div class="cypro-protection-needle cypro-protection-needle-potential"></div>
+</$list>
+
+<div class="cypro-protection-hub"></div>
+
+<div class="cypro-protection-gauge-label cypro-protection-label-left">0</div>
+<div class="cypro-protection-gauge-label cypro-protection-label-red">40</div>
+<div class="cypro-protection-gauge-label cypro-protection-label-yellow">70</div>
+<div class="cypro-protection-gauge-label cypro-protection-label-right">100</div>
+
+</div>
+
+<div class="cypro-protection-legend">
+
+<div>
+<span class="cypro-protection-legend-line cypro-protection-legend-current"></span>
+Aktuell – nur umgesetzt
+</div>
+
+<$list filter="[<plannedMeasures>compare:number:gt[0]]" variable="null">
+<div>
+<span class="cypro-protection-legend-line cypro-protection-legend-potential"></span>
+Mit geplanten Maßnahmen:
+<strong><$text text=<<potentialScore>>/> / 100</strong>
+</div>
+</$list>
+
+</div>
+
+</div>
+
+<div class="cypro-protection-explanation">
+
+<div class="cypro-protection-formula">
+
+<span>
+<strong><$text text=<<implementedCategoryCount>>/> / 4</strong>
+Funktionsbereiche umgesetzt
+</span>
+
+<span>
+<strong><$text text=<<implementedMeasures>>/></strong>
+Maßnahmen umgesetzt
+</span>
+
+<$list filter="[<packageBonus>match[10]]" variable="null">
+<span>
+<strong>+10</strong>
+Paket neu bewertet
+</span>
+</$list>
+
+</div>
+
+<div class="cypro-protection-note">
+Der Schutzgrad ist kein Risikowert. Er bewertet transparent die Breite des
+umgesetzten Maßnahmenpakets. Das Restrisiko wird weiterhin separat über
+Schadenshöhe und Eintrittshäufigkeit nach dem umgesetzten Maßnahmenpaket bewertet.
+</div>
+
+</div>
+
+<$list filter="[<protectionScore>compare:number:lt[70]]" variable="null">
+
+<div class="cypro-protection-gaps">
+
+<strong>Noch hilfreiche Ergänzungsbereiche:</strong>
+
+<$list filter="[<potentialPrevention>match[0]]" variable="null">
+<span class="cypro-gap-chip cypro-gap-chip-open">Prävention</span>
+</$list>
+
+<$list filter="[<potentialDetection>match[0]]" variable="null">
+<span class="cypro-gap-chip cypro-gap-chip-open">Erkennung</span>
+</$list>
+
+<$list filter="[<potentialResponse>match[0]]" variable="null">
+<span class="cypro-gap-chip cypro-gap-chip-open">Reaktion</span>
+</$list>
+
+<$list filter="[<potentialRecovery>match[0]]" variable="null">
+<span class="cypro-gap-chip cypro-gap-chip-open">
+Wiederherstellung / Resilienz
+</span>
+</$list>
+
+<$list
+    filter="[<implementedPrevention>match[0]] [<plannedPrevention>match[1]] +[count[]match[2]]"
+    variable="null"
+>
+<span class="cypro-gap-chip cypro-gap-chip-planned">Prävention in Planung</span>
+</$list>
+
+<$list
+    filter="[<implementedDetection>match[0]] [<plannedDetection>match[1]] +[count[]match[2]]"
+    variable="null"
+>
+<span class="cypro-gap-chip cypro-gap-chip-planned">Erkennung in Planung</span>
+</$list>
+
+<$list
+    filter="[<implementedResponse>match[0]] [<plannedResponse>match[1]] +[count[]match[2]]"
+    variable="null"
+>
+<span class="cypro-gap-chip cypro-gap-chip-planned">Reaktion in Planung</span>
+</$list>
+
+<$list
+    filter="[<implementedRecovery>match[0]] [<plannedRecovery>match[1]] +[count[]match[2]]"
+    variable="null"
+>
+<span class="cypro-gap-chip cypro-gap-chip-planned">
+Wiederherstellung / Resilienz in Planung
+</span>
+</$list>
+
+</div>
+
+</$list>
+
+</div>
+
+</$let>
+</$let>
+</$let>
+</$let>
+</$let>
+
+\end
+
+
+\define cypro-catalog-gap-badge()
+
+<$let
+    catalogFunction={{{ [<catalogItem>get[control-function]] }}}
+    implementedFunctionCount={{{ [tag[measure]tag<currentTag>field:control-function<catalogFunction>] :filter[get<statusField>match[implemented]] +[count[]] }}}
+    plannedFunctionCount={{{ [tag[measure]tag<currentTag>field:control-function<catalogFunction>] :filter[get<statusField>match[planned]] +[count[]] }}}
+
+    implementedMeasuresForScore={{{ [tag[measure]tag<currentTag>] :filter[get<statusField>match[implemented]] +[count[]min[6]] }}}
+    implementedPreventionForScore={{{ [tag[measure]tag<currentTag>field:control-function[prevention]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedDetectionForScore={{{ [tag[measure]tag<currentTag>field:control-function[detection]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedResponseForScore={{{ [tag[measure]tag<currentTag>field:control-function[response]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedRecoveryForScore={{{ [tag[measure]tag<currentTag>field:control-function[recovery]] :filter[get<statusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    packageBonusForScore={{{ [<currentTag>has[package_impact]has[package_probability]then[10]else[0]] }}}
+>
+
+<$let
+    implementedCategoriesForScore={{{ [<implementedPreventionForScore>add<implementedDetectionForScore>add<implementedResponseForScore>add<implementedRecoveryForScore>] }}}
+>
+
+<$let
+    categoryProtectionScore={{{ [<implementedCategoriesForScore>multiply[15]] }}}
+    measureProtectionScore={{{ [<implementedMeasuresForScore>multiply[5]] }}}
+>
+
+<$let
+    recommendationScore={{{ [<categoryProtectionScore>add<measureProtectionScore>add<packageBonusForScore>min[100]] }}}
+>
+
+<$list
+    filter="[<implementedFunctionCount>compare:number:eq[0]] [<plannedFunctionCount>compare:number:eq[0]] +[count[]match[2]]"
+    variable="null"
+>
+
+<$list filter="[<recommendationScore>compare:number:lt[40]]" variable="null">
+<span class="cypro-catalog-gap-badge cypro-catalog-gap-red">
+Hoher Ergänzungsnutzen
+</span>
+</$list>
+
+<$list
+    filter="[<recommendationScore>compare:number:gteq[40]compare:number:lt[70]]"
+    variable="null"
+>
+<span class="cypro-catalog-gap-badge cypro-catalog-gap-yellow">
+Sinnvolle Ergänzung
+</span>
+</$list>
+
+<$list filter="[<recommendationScore>compare:number:gteq[70]]" variable="null">
+<span class="cypro-catalog-gap-badge cypro-catalog-gap-green">
+Optional ergänzend
+</span>
+</$list>
+
+</$list>
+
+</$let>
+</$let>
+</$let>
+</$let>
+
+\end
+
+\define render-catalog-card()
+
+<$let
+    catalogId={{{ [<catalogItem>get[catalog-id]] }}}
+    existingMeasure={{{ [tag[measure]field:catalog-id<catalogId>sort[id]first[]] }}}
+>
+
+<div class="cypro-measure-catalog-card">
+
+<div class="cypro-measure-catalog-meta">
+
+<span class="cypro-function-chip">
+<$view tiddler=<<catalogItem>> field="control-label"/>
+</span>
+
+<span>
+Rang <$view tiddler=<<catalogItem>> field="rank"/>
+</span>
+
+<<cypro-catalog-gap-badge>>
+
+</div>
+
+<h4>
+<$view tiddler=<<catalogItem>> field="caption"/>
+</h4>
+
+<$list filter="[<catalogItem>get[text]minlength[1]]" variable="desc">
+<div>
+<$text text=<<desc>>/>
+</div>
+</$list>
+
+<div class="cypro-measure-catalog-meta">
+<$list filter="[<catalogItem>get[source-refs]minlength[1]]" variable="refs">
+<span>KRT: <$text text=<<refs>>/></span>
+</$list>
+</div>
+
+<$list filter="[<existingMeasure>is[blank]]" variable="null">
+<$button class="cypro-btn cypro-btn-primary">
+
+<$action-setfield
+    $tiddler=<<catalogState>>
+    text="yes"
+/>
+
+<$macrocall
+    $name="cypro-add-catalog-measure"
+    catalog=<<catalogItem>>
+    threat=<<currentTag>>
+/>
+
+Maßnahme hinzufügen
+
+</$button>
+</$list>
+
+<$list filter="[<existingMeasure>!is[blank]]" variable="null">
+
+<$list filter="[<existingMeasure>tag<currentTag>]" variable="null">
+<span class="cypro-measure-status-badge cypro-status-implemented">
+Bereits zugeordnet
+</span>
+</$list>
+
+<$list filter="[<existingMeasure>!tag<currentTag>]" variable="null">
+<$button class="cypro-btn cypro-btn-primary">
+
+<$action-setfield
+    $tiddler=<<catalogState>>
+    text="yes"
+/>
+
+<$macrocall
+    $name="cypro-add-catalog-measure"
+    catalog=<<catalogItem>>
+    threat=<<currentTag>>
+/>
+
+Vorhandene Maßnahme zuordnen
+
+</$button>
+</$list>
+
+</$list>
+
+</div>
+
+</$let>
+
+\end
+
+<$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
+<div class="kiks-body-area cypro-measures-section">
+<div class="kiks-field-label cypro-measures-header">Maßnahmen:</div>
+<$let
+    currentTag={{{ [<currentTiddler>get[title]] }}}
+    threatNo={{{ [<currentTiddler>get[threat_no]search-replace:g[ ],[]] }}}
+    statusField={{{ [<currentTiddler>get[title]addsuffix[_STATUS]] }}}
+    searchState={{{ [[$:/temp/cypro/measure-search/]addsuffix<currentTiddler>] }}}
+    catalogState={{{ [[$:/state/cypro/measure-catalog/]addsuffix<currentTiddler>] }}}
+    moreState={{{ [[$:/state/cypro/measure-more/]addsuffix<currentTiddler>] }}}
+    implementedCount={{{ [tag[measure]tag<currentTag>] :filter[get<statusField>match[implemented]] +[count[]] }}}
+    plannedCount={{{ [tag[measure]tag<currentTag>] :filter[get<statusField>match[planned]] +[count[]] }}}
+    notImplementedCount={{{ [tag[measure]tag<currentTag>] :filter[get<statusField>match[not-implemented]] +[count[]] }}}
+    financialCount={{{ [tag[measure]tag<currentTag>] :filter[get<statusField>match[financially-not-possible]] +[count[]] }}}
+    preventionCount={{{ [tag[measure]tag<currentTag>field:control-function[prevention]] :filter[get<statusField>match[implemented]] +[count[]] }}}
+    detectionCount={{{ [tag[measure]tag<currentTag>field:control-function[detection]] :filter[get<statusField>match[implemented]] +[count[]] }}}
+    responseCount={{{ [tag[measure]tag<currentTag>field:control-function[response]] :filter[get<statusField>match[implemented]] +[count[]] }}}
+    recoveryCount={{{ [tag[measure]tag<currentTag>field:control-function[recovery]] :filter[get<statusField>match[implemented]] +[count[]] }}}
+>
+
+<$list filter="[tag[measure]tag<currentTag>limit[1]]" emptyMessage="<div class='kiks-empty-message'>Noch keine Maßnahmen zugeordnet.</div>" variable="null">
+<div class="cypro-table-wrap">
+<table class="measure-table tc-table cypro-fixed-table">
+<colgroup><col style="width:45%;"><col style="width:17%;"><col style="width:30%;"><col style="width:8%;"></colgroup>
+<thead><tr><th>Maßnahme</th><th>Kategorie</th><th>Status</th><th></th></tr></thead>
+<tbody>
+<$list filter="[tag[measure]tag<currentTag>sort[id]]" variable="measureTiddler">
+<$let measureCaption={{{ [<measureTiddler>get[caption]else<measureTiddler>] }}}>
+<tr>
+<td><$link to=<<measureTiddler>>><$text text=<<measureCaption>>/></$link></td>
+<td><$view tiddler=<<measureTiddler>> field="control-label" emptyValue="Eigene Maßnahme"/></td>
+<td><$list filter="[<isLocked>match[yes]]" variable="ignore"><<render-measure-status>></$list><$list filter="[<isLocked>!match[yes]]" variable="ignore"><<render-measure-status-options>></$list></td>
+<td class="cypro-measure-remove-col">
+<$list filter="[<isLocked>!match[yes]]" variable="ignore">
+<$button class="kiks-remove-button" tooltip="Maßnahme aus diesem Paket entfernen">
+<$set name="tv-action-refresh-policy" value="always">
+<$action-listops $tiddler=<<measureTiddler>> $tags="-[<currentTag>]"/>
+<$action-deletefield $tiddler=<<measureTiddler>> $field=<<statusField>>/>
+<$action-setfield $tiddler=<<currentTag>> package_impact="" package_probability=""/>
+<$macrocall $name="update-risk-actions" threat=<<currentTag>>/>
+</$set>
+✖
+</$button>
+</$list>
+</td>
+</tr>
+</$let>
+</$list>
+</tbody>
+</table>
+</div>
+</$list>
+
+<$list filter="[<currentTiddler>field:applicable[yes]has[initial_impact]has[initial_probability]]" variable="null">
+<div class="cypro-package-panel">
+<div class="cypro-package-panel-head">
+<div><h3>Maßnahmenpaket</h3><div class="cypro-identification-note">Für die tatsächliche Restrisikobewertung zählen ausschließlich Maßnahmen mit Status „Umgesetzt“.</div></div>
+<div class="cypro-package-status-counts">
+<span><strong><$text text=<<implementedCount>>/></strong> umgesetzt</span>
+<span><strong><$text text=<<plannedCount>>/></strong> in Planung</span>
+<span><strong><$text text=<<notImplementedCount>>/></strong> nicht umgesetzt</span>
+<span><strong><$text text=<<financialCount>>/></strong> finanziell nicht möglich</span>
+</div>
+</div>
+<div class="cypro-coverage-grid"><<coverage-chip "prevention" "Prävention">><<coverage-chip "detection" "Erkennung">><<coverage-chip "response" "Reaktion">><<coverage-chip "recovery" "Wiederherstellung / Resilienz">></div>
+
+<$list filter="[<implementedCount>compare:number:gt[0]]" variable="null">
+<div class="cypro-package-reassessment">
+<h4>Restrisiko nach dem umgesetzten Maßnahmenpaket neu bewerten</h4>
+<p>Bewerten Sie Schadenshöhe und Eintrittshäufigkeit erneut unter Berücksichtigung der tatsächlich umgesetzten Maßnahmen. Maßnahmen mit Status „In Planung“ werden hier noch nicht berücksichtigt.</p>
+<div class="cypro-package-scales"><<package-impact-scale>><<package-probability-scale>></div>
+<div class="cypro-package-risk-result">
+<div><span>Initiales Risiko</span><strong><$view field="initial_risk" emptyValue="–"/></strong></div>
+<div class="cypro-package-arrow">→</div>
+<div><span>Restrisiko</span><strong><$view field="final_risk" emptyValue="–"/></strong></div>
+</div>
+<$list filter="[<currentTiddler>has[package_impact]has[package_probability]]" variable="null" emptyMessage="<div class='cypro-identification-note'>Die erneute Bewertung des umgesetzten Maßnahmenpakets ist noch offen.</div>"><div class="cypro-package-reassessment-complete">Neubewertung des umgesetzten Maßnahmenpakets erfasst.</div></$list>
+</div>
+</$list>
+
+<$list filter="[<implementedCount>compare:number:eq[0]]" variable="null"><div class="cypro-package-awaiting">Eine erneute Restrisikobewertung wird freigeschaltet, sobald mindestens eine Maßnahme den Status „Umgesetzt“ hat. Maßnahmen in Planung verändern das aktuelle Restrisiko nicht.</div></$list>
+
+<<cypro-protection-gauge>>
+
+</div>
+</$list>
+
+<$list filter="[<isLocked>!match[yes]]" variable="ignore">
+<$list filter="[<currentTiddler>field:applicable[yes]has[initial_impact]has[initial_probability]]" variable="null">
+<div class="cypro-measure-catalog-toggle"><$button class="cypro-btn cypro-btn-primary"><$action-setfield $tiddler=<<catalogState>> text={{{ [<catalogState>get[text]match[yes]then[]else[yes]] }}}/>Maßnahmenvorschläge öffnen / schließen</$button></div>
+<$list filter="[<catalogState>get[text]match[yes]]" variable="null">
+<div class="cypro-measure-catalog">
+<h3>Maßnahmenvorschläge</h3>
+<p>Zunächst wird je ein Vorschlag aus Prävention, Erkennung, Reaktion und Wiederherstellung / Resilienz angezeigt.</p>
+<div class="cypro-measure-catalog-grid">
+<$list filter="[tag[cypro-measure-catalog]field:threat-no<threatNo>field:control-function[prevention]sort[rank]first[]]" variable="catalogItem"><<render-catalog-card>></$list>
+<$list filter="[tag[cypro-measure-catalog]field:threat-no<threatNo>field:control-function[detection]sort[rank]first[]]" variable="catalogItem"><<render-catalog-card>></$list>
+<$list filter="[tag[cypro-measure-catalog]field:threat-no<threatNo>field:control-function[response]sort[rank]first[]]" variable="catalogItem"><<render-catalog-card>></$list>
+<$list filter="[tag[cypro-measure-catalog]field:threat-no<threatNo>field:control-function[recovery]sort[rank]first[]]" variable="catalogItem"><<render-catalog-card>></$list>
+</div>
+<div class="cypro-more-measures">
+<$button class="cypro-btn cypro-btn-secondary cypro-more-measures-toggle">
+<$action-setfield
+    $tiddler=<<moreState>>
+    text={{{ [<moreState>get[text]match[yes]then[]else[yes]] }}}
+/>
+Weitere Maßnahmenvorschläge
+</$button>
+<$list filter="[<moreState>get[text]match[yes]]" variable="null">
+<div class="cypro-table-wrap">
+<table class="cypro-measure-catalog-table cypro-fixed-table">
+<colgroup><col style="width:8%;"><col style="width:17%;"><col style="width:48%;"><col style="width:17%;"><col style="width:10%;"></colgroup>
+<thead><tr><th>Rang</th><th>Kategorie</th><th>Maßnahme</th><th>KRT-Referenz</th><th>Aktion</th></tr></thead>
+<tbody>
+<$list filter="[tag[cypro-measure-catalog]field:threat-no<threatNo>nsort[rank]]" variable="catalogItem">
+<$let catalogId={{{ [<catalogItem>get[catalog-id]] }}} existingMeasure={{{ [tag[measure]field:catalog-id<catalogId>sort[id]first[]] }}}>
+<tr>
+<td><$view tiddler=<<catalogItem>> field="rank"/></td>
+<td>
+<$view tiddler=<<catalogItem>> field="control-label"/>
+<div class="cypro-catalog-table-gap">
+<<cypro-catalog-gap-badge>>
+</div>
+</td>
+<td><strong><$view tiddler=<<catalogItem>> field="caption"/></strong><$list filter="[<catalogItem>get[text]minlength[1]]" variable="desc"><div class="cypro-measure-catalog-meta"><$text text=<<desc>>/></div></$list></td>
+<td><$view tiddler=<<catalogItem>> field="source-refs"/></td>
+<td>
+<$list filter="[<existingMeasure>is[blank]]" variable="null"><$button class="cypro-btn cypro-btn-secondary"><$action-setfield $tiddler=<<catalogState>> text="yes"/><$action-setfield $tiddler=<<moreState>> text="yes"/><$macrocall $name="cypro-add-catalog-measure" catalog=<<catalogItem>> threat=<<currentTag>>/>Hinzufügen</$button></$list>
+<$list filter="[<existingMeasure>!is[blank]]" variable="null"><$list filter="[<existingMeasure>tag<currentTag>]" variable="null">Zugeordnet</$list><$list filter="[<existingMeasure>!tag<currentTag>]" variable="null"><$button class="cypro-btn cypro-btn-secondary"><$action-setfield $tiddler=<<catalogState>> text="yes"/><$action-setfield $tiddler=<<moreState>> text="yes"/><$macrocall $name="cypro-add-catalog-measure" catalog=<<catalogItem>> threat=<<currentTag>>/>Zuordnen</$button></$list></$list>
+</td>
+</tr>
+</$let>
+</$list>
+</tbody>
+</table>
+</div>
+</$list>
+</div>
+<div class="cypro-risk-disclaimer">Maßnahmenvorschläge ersetzen keine unternehmensspezifische Prüfung von Anwendbarkeit, Wirksamkeit und Verhältnismäßigkeit.</div>
+</div>
+</$list>
+</$list>
+<$list filter="[<currentTiddler>field:applicable[yes]] -[<currentTiddler>has[initial_impact]has[initial_probability]]" variable="null"><div class="cypro-identification-note cypro-measure-first-assessment">Bewerten Sie zuerst Schadenshöhe und Eintrittshäufigkeit der Gefährdung. Danach werden die Maßnahmenvorschläge freigeschaltet.</div></$list>
+
+<div class="kiks-measure-add-area">
+<div class="kiks-measure-search-wrapper">
+<$edit-text tiddler=<<searchState>> field="text" placeholder="Vorhandene Maßnahme suchen oder eigene Maßnahme benennen..." class="kiks-measure-search-input cypro-field-input" tag="input"/>
+<$let searchText={{{ [<searchState>get[text]else[]] }}}>
+<$list filter="[<searchText>length[]compare:number:gteq[1]]" variable="ignore">
+<div class="kiks-measure-dropdown">
+<$list filter="[tag[measure]!tag<currentTag>search:title,caption<searchText>sort[caption]limit[10]]" variable="result" emptyMessage="<div class='kiks-dropdown-empty'>Keine vorhandene Maßnahme gefunden.</div>">
+<$let resultCaption={{{ [<result>get[caption]else<result>] }}}>
+<div class="kiks-dropdown-item"><$button class="kiks-dropdown-button"><$action-listops $tiddler=<<result>> $tags="[<currentTag>]"/><$action-setfield $tiddler=<<result>> $field=<<statusField>> $value="not-implemented"/><$action-setfield $tiddler=<<searchState>> text=""/><$macrocall $name="update-risk-actions" threat=<<currentTag>>/><$text text=<<resultCaption>>/></$button></div>
+</$let>
+</$list>
+</div>
+</$list>
+</$let>
+</div>
+<$let searchText={{{ [<searchState>get[text]else[]] }}}>
+<$button class="cypro-btn cypro-btn-secondary"><span class="cypro-btn-label">+ Eigene Maßnahme hinzufügen</span>
+<$let newTitle={{{ [function[cypro-next-id],[measure],[M]] }}} inputText={{{ [<searchState>get[text]else[Eigene Maßnahme]] }}} newTags={{{ [[measure]] [<currentTag>] +[join[ ]] }}}>
+<$action-createtiddler $basetitle=<<newTitle>> id=<<newTitle>> caption=<<inputText>> tags=<<newTags>> control-function=""/>
+<$action-setfield $tiddler=<<newTitle>> $field=<<statusField>> $value="not-implemented"/>
+</$let>
+<$action-setfield $tiddler=<<searchState>> text=""/>
+</$button>
+</$let>
+</div>
+</$list>
+</$let>
+</div>
 </$set>

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-09
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Wiederherstellung
+caption: Korrigierte Systeme kontrolliert wieder starten
+source-refs: DER.2.3.A6
+source-original: DER.2.3.A6 – Rückführung in den Produktivbetrieb
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Wiederanlauf, Integritätsprüfung und Restore-Test nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Vermeidet erneute Störungen bei der Rückkehr.

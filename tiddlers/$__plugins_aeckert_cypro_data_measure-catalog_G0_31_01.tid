@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-01
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Betriebspersonal gezielt qualifizieren
+source-refs: ORP.3.A3, OPS.1.1.1.A16
+source-original: ORP.3.A3 – Einweisung des Personals in den sicheren Umgang mit IT · OPS.1.1.1.A16 – Schulung des Betriebspersonals
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Senkt Bedien- und Administrationsfehler.

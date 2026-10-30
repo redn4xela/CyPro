@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.26/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.26-10
+threat-no: G0.26
+threat-label: Fehlfunktion von Geräten oder Systemen
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Organisation
+caption: Abhängigkeiten in die Notfallplanung einbeziehen
+source-refs: INF.14.A27, OPS.1.1.7.A16
+source-original: INF.14.A27 – Berücksichtigung von Wechselwirkungen zwischen Komponenten der GA in der Notfallplanung · OPS.1.1.7.A16 – Einbindung des Systemmanagements in die Notfallplanung
+scope: Übergreifend; Teilanforderung für GA/TGM
+evidence: Regelung, verantwortliche Stelle und Nachweis regelmäßiger Überprüfung prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.26
+inferred-function: no
+
+Bereitet Betrieb und Rückkehr nach Fehlfunktionen vor.

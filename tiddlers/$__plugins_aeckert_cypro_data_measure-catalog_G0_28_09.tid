@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.28/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.28-09
+threat-no: G0.28
+threat-label: Software-Schwachstellen oder -Fehler
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Wiederherstellung
+caption: Bereinigte Versionen sicher freigeben
+source-refs: DER.2.3.A6
+source-original: DER.2.3.A6 – Rückführung in den Produktivbetrieb
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Wiederanlauf, Integritätsprüfung und Restore-Test nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.28
+inferred-function: no
+
+Führt korrigierte Systeme kontrolliert in den Betrieb zurück.

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.43/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.43-06
+threat-no: G0.43
+threat-label: Einspielen von Nachrichten
+rank: 06
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Integrität und Anomalien laufend überwachen
+source-refs: NET.3.2.A25, APP.4.2.A32
+source-original: NET.3.2.A25 – Erweiterter Integritätsschutz für die Konfigurationsdateien · APP.4.2.A32 – Echtzeiterfassung und Alarmierung von irregulären Vorgängen
+scope: Übergreifend; Teilanforderung für SAP
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.43
+inferred-function: no
+
+Erkennt verdächtige Konfigurations- und Nachrichtenereignisse.

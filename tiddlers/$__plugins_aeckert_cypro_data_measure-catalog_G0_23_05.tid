@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.23/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.23-05
+threat-no: G0.23
+threat-label: Unbefugtes Eindringen in IT-Systeme
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Angriffserkennung auf Netz und Hosts
+source-refs: DER.1.A16, SYS.1.1.A27
+source-original: DER.1.A16 – Einsatz von Detektionssystemen nach Schutzbedarfsanforderungen · SYS.1.1.A27 – Hostbasierte Angriffserkennung
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.23
+inferred-function: no
+
+Meldet verdächtige Zugriffe und Angriffsmuster.

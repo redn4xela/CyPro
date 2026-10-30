@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/06-datenbanken-und-archive-inkl-zugriffsmoeglichkeiten-mit-in
+type: text/vnd.tiddlywiki
+preset-id: preset-06
+order: 06
+name: Datenbanken und Archive (inkl. Zugriffsmöglichkeiten) mit Informationen zu reglementierten Beauftragten, bekannten Versendern, reglementierten und bekannten Lieferanten, anderen amtlich anerkannten oder benannten Stellen, die zur sicheren Lieferkette gehören
+legal-reference: AVSEC 10904b
+protection-goal-label: Integrität
+confidentiality: no
+integrity: yes
+availability: no
+relevance-reason: Status- und Unternehmensdaten müssen richtig und unverfälscht sein, damit nur tatsächlich anerkannte oder benannte Stellen als Bestandteil der sicheren Lieferkette behandelt werden.
+assessment-text: Auslöser/Gefährdung: Durch einen Cyberangriff können Status-, Unternehmens- oder sonstige sicherheitsrelevante Angaben in Datenbanken oder Archiven manipuliert werden. · Wirkung: Nicht oder nicht mehr anerkannte Stellen können fälschlicherweise als Bestandteil der sicheren Lieferkette behandelt oder gültige Stellen fehlerhaft ausgeschlossen werden. · Schutzziel: Integrität aufgrund der erforderlichen Richtigkeit und Unverfälschtheit der gespeicherten Status- und Unternehmensdaten.
+example: Unionsdatenbank zur Sicherheit der Lieferkette sowie organisationsinterne Datenbanken oder Archive mit Anerkennungs- und Statusinformationen
+catalog-status: potentiell
+kiks: system
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.18 G0.19 G0.20 G0.21 G0.22 G0.23 G0.25 G0.26 G0.28 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.41/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.41-09
+threat-no: G0.41
+threat-label: Sabotage
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: OT-Notfallbetrieb mit Datensicherung absichern
+source-refs: IND.1.A13, IND.2.1.A7
+source-original: IND.1.A13 – Notfallplanung für OT · IND.2.1.A7 – Erstellung von Datensicherungen
+scope: Systemtypen: OT/ICS
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.41
+inferred-function: no
+
+Ermöglicht kontrollierte Fortführung und Rückkehr.

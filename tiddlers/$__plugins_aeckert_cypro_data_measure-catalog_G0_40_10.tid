@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-10
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 10
+control-function: prevention
+control-label: Prävention
+source-phase: Organisation
+caption: Notfallplan testen und Zuständigkeiten klären
+source-refs: APP.3.6.A9, APP.3.6.A20
+source-original: APP.3.6.A9 – Erstellen eines Notfallplans für DNS-Server · APP.3.6.A20 – Prüfung des Notfallplans auf Durchführbarkeit
+scope: Systemtypen: DNS
+evidence: Regelung, verantwortliche Stelle und Nachweis regelmäßiger Überprüfung prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Sorgt für geübtes Vorgehen bei Verfügbarkeitsangriffen.

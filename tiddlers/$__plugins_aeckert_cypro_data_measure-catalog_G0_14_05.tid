@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.14/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.14-05
+threat-no: G0.14
+threat-label: Ausspähen von Informationen / Spionage
+rank: 05
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Unterstützung sicherer Verschlüsselung der Kommunikation
+source-refs: APP.1.2.A2
+source-original: APP.1.2.A2 – Unterstützung sicherer Verschlüsselung der Kommunikation
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.14
+inferred-function: yes
+
+Kommunikation sollte verschlüsselt sein. Messanger-Dienste sollten Ende-zu-Ende Verschlüsselung verwenden. (Hier ist eigenlich HTTPS gemeint)

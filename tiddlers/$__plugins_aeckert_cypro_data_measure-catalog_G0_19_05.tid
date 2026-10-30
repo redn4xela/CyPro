@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-05
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 05
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Vernichten von Datenträgern auf erhöhter Sicherheitsstufe
+source-refs: CON.6.A14
+source-original: CON.6.A14 – Vernichten von Datenträgern auf erhöhter Sicherheitsstufe
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes
+
+Datenträger mit sensiblen Informationen die nicht mehr in Verwendet werden können sollten ordnungsgemäß Entsorgt werden. Dies sollte in einer Weise geschehen die sicherstellt, dass die Daten nicht wiederhergestellt werden können, sicheres Löschen bzw. zerstören des Datenträgers

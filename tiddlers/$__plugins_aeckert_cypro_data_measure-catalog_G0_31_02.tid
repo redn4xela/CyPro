@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-02
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Administrative Rechte und Rollen definieren
+source-refs: OPS.1.1.2.A23
+source-original: OPS.1.1.2.A23 – Rollen- und Berechtigungskonzept für administrative Zugriffe
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Verhindert Fehlbedienung mit zu großen Rechten.

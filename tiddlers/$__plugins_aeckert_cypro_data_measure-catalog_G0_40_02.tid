@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-02
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Anwendungs- und Paketfilter gegen Überlast
+source-refs: NET.3.2.A19, APP.3.2.A18
+source-original: NET.3.2.A19 – Schutz vor TCP SYN Flooding · APP.3.2.A18 – Schutz vor Denial-of-Service-Angriffen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Begrenzt SYN-Flooding und Anwendungsüberlastung.

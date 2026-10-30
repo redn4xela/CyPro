@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-02
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 02
+control-function: detection
+control-label: Erkennung
+source-phase: Detektiv
+caption: Überprüfung von externen Komponenten
+source-refs: CON.8.A20
+source-original: CON.8.A20 – Überprüfung von externen Komponenten
+scope: Systeme
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes

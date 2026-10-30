@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/03
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-03
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 03
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Ausbreitung im Netz verhindern
+source-refs: IND.2.1.A6, SYS.1.3.A10
+source-original: IND.2.1.A6 – Netzsegmentierung · SYS.1.3.A10 – Verhinderung der Ausbreitung bei der Ausnutzung von Schwachstellen
+scope: Systemtypen: OT/ICS, Unix/Linux
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Begrenzt seitliche Verbreitung im Vorfall.

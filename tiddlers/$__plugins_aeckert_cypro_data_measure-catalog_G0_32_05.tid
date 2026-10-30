@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-05
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Integritätskontrollen für Manipulationsspuren
+source-refs: DER.1.A18
+source-original: DER.1.A18 – Durchführung regelmäßiger Integritätskontrollen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Erkennt Änderungen außerhalb freigegebener Prozesse.

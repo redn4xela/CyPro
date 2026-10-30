@@ -1,0 +1,16 @@
+title: $:/plugins/aeckert/cypro/data/preset-kiks/09-sonstige-ueberwachungssysteme-wie-kameraueberwachung-und-a
+type: text/vnd.tiddlywiki
+preset-id: preset-09
+order: 09
+name: Sonstige Überwachungssysteme, wie Kameraüberwachung und Alarm- und Alarmüberwachungssysteme
+legal-reference: AVSEC 10904b
+protection-goal-label: Integrität, Verfügbarkeit
+confidentiality: no
+integrity: yes
+availability: yes
+relevance-reason: Durch manipulierte Überwachungssysteme bleiben luftsicherheitsrelevante Handlungen unentdeckt. · · Ein Ausfall des Kameraüberwachungssystems im Luftsicherheitsbereich kann Sicherheitslücken erzeugen; unüberwachte Bereiche können ausgenutzt werden. Somit bleiben luftsicherheitsrelevante Handlungen ebenfalls unentdeckt.
+assessment-text: Auslöser/Gefährdung: Durch einen Cyberangriff kann das Alarm- oder Alarmüberwachungssystem manipuliert oder außer Betrieb gesetzt werden. · Wirkung: Unbefugte Zutritte zu Bereichen, die nach dem Sicherheitsprogramm gegen unbefugten Zutritt zu schützen sind, werden nicht erkannt, angezeigt oder weitergeleitet. · Schutzziel: Integrität aufgrund von Manipulation und Verfügbarkeit aufgrund von Außerbetriebsetzung.
+example: Hilfsmittels zur Sicherung des luftsicherheitsrelevanten Bereiches
+catalog-status: potentiell
+kiks: system
+applicable-threat-nos: G0.14 G0.15 G0.16 G0.18 G0.19 G0.20 G0.21 G0.22 G0.23 G0.25 G0.26 G0.28 G0.30 G0.31 G0.32 G0.39 G0.40 G0.41 G0.43

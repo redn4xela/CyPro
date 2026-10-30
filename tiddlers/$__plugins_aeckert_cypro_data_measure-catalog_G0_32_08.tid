@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.32/08
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.32-08
+threat-no: G0.32
+threat-label: Missbrauch von Berechtigungen
+rank: 08
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Wiederherstellung
+caption: Nach Missbrauch sicher wiederanlaufen
+source-refs: DER.2.1.A6
+source-original: DER.2.1.A6 – Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Wiederanlauf, Integritätsprüfung und Restore-Test nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.32
+inferred-function: no
+
+Stellt vertrauenswürdige Dienste wieder her.

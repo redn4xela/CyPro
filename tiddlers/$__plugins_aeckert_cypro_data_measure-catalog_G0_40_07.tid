@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-07
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 07
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Schädlichen Verkehr kurzfristig filtern
+source-refs: NET.3.2.A3
+source-original: NET.3.2.A3 – Einrichten geeigneter Filterregeln am Paketfilter
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Erlaubt gezielte Abwehr nach Analyse des Angriffs.

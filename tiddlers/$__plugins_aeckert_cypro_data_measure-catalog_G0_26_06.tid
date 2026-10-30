@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.26/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.26-06
+threat-no: G0.26
+threat-label: Fehlfunktion von Geräten oder Systemen
+rank: 06
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Definierte Notfallprozesse für Zugangskomponenten
+source-refs: NET.3.4.A6
+source-original: NET.3.4.A6 – Festlegung von Notfallprozessen für NAC
+scope: NAC – nur bei Einsatz
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.26
+inferred-function: no
+
+Erlaubt unmittelbare Abweichungsbehandlung bei NAC-Störungen.

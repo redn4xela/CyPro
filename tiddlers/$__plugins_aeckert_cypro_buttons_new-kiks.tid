@@ -1,14 +1,10 @@
 caption: {{$:/core/images/new-button}} new KIKS
-created: 20260211101823396
-description: Startet die KIKS-Ermittlung
-modified: 20260404114555319
-tags:
+description: Öffnet die KIKS-Ermittlung
 title: $:/plugins/aeckert/cypro/buttons/new-kiks
 type: text/vnd.tiddlywiki
 
 \whitespace trim
 
-<!-- Open the central KIKS identification flow. -->
 <$button
     tooltip="KIKS-Ermittlung öffnen"
     aria-label="KIKS-Ermittlung öffnen"

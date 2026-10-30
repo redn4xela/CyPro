@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.26/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.26-02
+threat-no: G0.26
+threat-label: Fehlfunktion von Geräten oder Systemen
+rank: 02
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Änderungen absichern und Regressionen prüfen
+source-refs: OPS.1.1.3.A12, OPS.1.1.6.A12
+source-original: OPS.1.1.3.A12 – Einsatz von Werkzeugen beim Änderungsmanagement · OPS.1.1.6.A12 – Durchführung von Regressionstests
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.26
+inferred-function: no
+
+Reduziert Fehlfunktionen nach Änderungen.

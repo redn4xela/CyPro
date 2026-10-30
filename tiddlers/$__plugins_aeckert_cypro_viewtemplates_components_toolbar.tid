@@ -116,12 +116,14 @@ KIKS-Ermittlung
 
 <$button
     class="cypro-btn cypro-btn-create"
-    actions=<<kiks-create-manual-action>>
-    tooltip="Manuelles KIKS anlegen"
-    aria-label="Manuelles KIKS anlegen"
+    tooltip="KIKS-Ermittlung öffnen"
+    aria-label="KIKS-Ermittlung öffnen"
 >
+<$action-navigate
+    $to="$:/plugins/aeckert/cypro/pages/kiksIdentification"
+/>
 
-<span class="cypro-btn-label">Manuelles KIKS anlegen</span>
+<span class="cypro-btn-label">KIKS ermitteln</span>
 
 </$button>
 

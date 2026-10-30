@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.16/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.16-05
+threat-no: G0.16
+threat-label: Diebstahl von Geräten, Datenträgern oder Dokumenten
+rank: 05
+control-function: prevention
+control-label: Prävention
+source-phase: 
+caption: Geeignete Aufbewahrung dienstlicher Unterlagen und Datenträger
+source-refs: INF.7.A7
+source-original: INF.7.A7 – Geeignete Aufbewahrung dienstlicher Unterlagen und Datenträger
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.16
+inferred-function: yes
+
+Dokumente sollten geeignet aufbewahrt werden, zum Beispiel verschlossen

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.28/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.28-10
+threat-no: G0.28
+threat-label: Software-Schwachstellen oder -Fehler
+rank: 10
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Resilienz
+caption: Architektur gegen erneute Exploits umbauen
+source-refs: DER.2.3.A10
+source-original: DER.2.3.A10 – Umbauten zur Erschwerung eines erneuten Angriffs durch dieselben Angreifenden
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Ausfall-/Angriffstest sowie Nachweis von Reserve- oder Trennfunktionen prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.28
+inferred-function: no
+
+Schützt gegen Wiederholungsangriffe.

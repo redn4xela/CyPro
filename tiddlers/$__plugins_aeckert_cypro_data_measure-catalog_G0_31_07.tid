@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-07
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 07
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Erstmaßnahmen bei Fehlbedienung festlegen
+source-refs: DER.2.2.A2
+source-original: DER.2.2.A2 – Erstellung eines Leitfadens für Erstmaßnahmen bei einem IT-Sicherheitsvorfall
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Verhindert unkoordinierte Folgehandlungen im Vorfall.

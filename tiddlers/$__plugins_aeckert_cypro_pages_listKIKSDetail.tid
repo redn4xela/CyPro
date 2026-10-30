@@ -23,7 +23,28 @@ type: text/vnd.tiddlywiki
 <tr>
 <td><$link to=<<currentTiddler>>>{{!!id}}</$link></td>
 <td><$macrocall $name="cypro-kiks-caption" t=<<currentTiddler>>/></td>
-<td class="center bold"><$text text={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[final_risk]nsort[]last[]] }}}/></td>
+<td class="center bold">
+<$let
+    initialMax={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[initial_risk]nsort[]last[]] }}}
+    finalMax={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[final_risk]nsort[]last[]] }}}
+    packageCount={{{ [tag[threat]kiks<currentTiddler>applicable[yes]has[package_impact]has[package_probability]count[]] }}}
+>
+<span class="cypro-risk-transition" title="Maximales Ausgangsrisiko; nach abgeschlossener Maßnahmenpaket-Neubewertung: Ausgangsrisiko → Restrisiko">
+<$list filter="[<initialMax>!is[blank]]" variable="null" emptyMessage="–">
+<span class="cypro-risk-transition-initial"><$text text=<<initialMax>>/></span>
+</$list>
+<$list filter="[<packageCount>compare:number:gt[0]]" variable="null">
+<span class="cypro-risk-transition-arrow">→</span>
+<$list filter="[<finalMax>compare:number:gteq[10]]" variable="null">
+<span class="kiks-risk-alert cypro-risk-transition-final"><$text text=<<finalMax>>/></span>
+</$list>
+<$list filter="[<finalMax>compare:number:lt[10]]" variable="null">
+<span class="cypro-risk-transition-final"><$text text=<<finalMax>>/></span>
+</$list>
+</$list>
+</span>
+</$let>
+</td>
 <td class="muted"><$set name="kiksTitle" value=<<currentTiddler>>><$list filter="[tag[threat]kiks<kiksTitle>tagging[]tag[measure]sort[id]]" variable="mTiddler"><$link to=<<mTiddler>>><$view tiddler=<<mTiddler>> field="id"/></$link> </$list></$set></td>
 </tr>
 </$list>

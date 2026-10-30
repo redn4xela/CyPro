@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.30/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.30-04
+threat-no: G0.30
+threat-label: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+rank: 04
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Betriebsrollen verbindlich festlegen
+source-refs: OPS.1.1.1.A2
+source-original: OPS.1.1.1.A2 – Festlegung von Rollen und Berechtigungen für den IT-Betrieb
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.30
+inferred-function: no
+
+Macht erlaubte Administrationshandlungen eindeutig.

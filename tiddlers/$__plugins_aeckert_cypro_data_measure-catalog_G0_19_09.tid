@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-09
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 09
+control-function: detection
+control-label: Erkennung
+source-phase: Detektiv
+caption: Hostbasierte Angriffserkennung
+source-refs: SYS.1.6.A24
+source-original: SYS.1.6.A24 – Hostbasierte Angriffserkennung
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes

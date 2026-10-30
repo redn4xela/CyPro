@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-05
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Systemmanagement überwachen und alarmieren
+source-refs: OPS.1.1.7.A15
+source-original: OPS.1.1.7.A15 – Statusüberwachung, Protokollierung und Alarmierung bei relevanten Ereignissen im Systemmanagement-Lösung und den zu verwaltenden Systemen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Macht fehlerhafte Eingriffe erkennbar.

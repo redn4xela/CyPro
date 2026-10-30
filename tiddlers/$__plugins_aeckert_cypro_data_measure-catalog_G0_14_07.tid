@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.14/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.14-07
+threat-no: G0.14
+threat-label: Ausspähen von Informationen / Spionage
+rank: 07
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Kryptografisch abgesicherte E-Mail-Kommunikation
+source-refs: CON.7.A14
+source-original: CON.7.A14 – Kryptografisch abgesicherte E-Mail-Kommunikation
+scope: Daten
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.14
+inferred-function: yes
+
+Kryptografisch abgesicherte E-Mail-Kommunikation

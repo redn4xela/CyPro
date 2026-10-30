@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.26/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.26-05
+threat-no: G0.26
+threat-label: Fehlfunktion von Geräten oder Systemen
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Alarmierung und Energiezustand überwachen
+source-refs: OPS.1.1.7.A15, INF.5.A26
+source-original: OPS.1.1.7.A15 – Statusüberwachung, Protokollierung und Alarmierung bei relevanten Ereignissen im Systemmanagement-Lösung und den zu verwaltenden Systemen · INF.5.A26 – Überwachung der Energieversorgung
+scope: Übergreifend; Teilanforderung für Infrastruktur
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.26
+inferred-function: no
+
+Ermöglicht schnelles Eingreifen bei Fehlzuständen.

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.19/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.19-07
+threat-no: G0.19
+threat-label: Offenlegung schützenswerter Informationen
+rank: 07
+control-function: prevention
+control-label: Prävention
+source-phase: Präventiv
+caption: Verwendung von Sichtschutz-Folien
+source-refs: CON.7.A4
+source-original: CON.7.A4 – Verwendung von Sichtschutz-Folien
+scope: Daten
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.19
+inferred-function: yes
+
+Verwendung von Sichtschutz-Folien

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.40/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.40-04
+threat-no: G0.40
+threat-label: Verhinderung von Diensten (Denial of Service)
+rank: 04
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Angriffsmuster laufend detektieren
+source-refs: DER.1.A16
+source-original: DER.1.A16 – Einsatz von Detektionssystemen nach Schutzbedarfsanforderungen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.40
+inferred-function: no
+
+Frühes Warnsignal für auffällige Überlastungsereignisse.

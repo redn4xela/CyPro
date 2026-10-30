@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.30/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.30-06
+threat-no: G0.30
+threat-label: Unberechtigte Nutzung oder Administration von Geräten und Systemen
+rank: 06
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Angriffe und verdächtige Vorgänge alarmieren
+source-refs: SYS.1.1.A27, OPS.1.1.7.A15
+source-original: SYS.1.1.A27 – Hostbasierte Angriffserkennung · OPS.1.1.7.A15 – Statusüberwachung, Protokollierung und Alarmierung bei relevanten Ereignissen im Systemmanagement-Lösung und den zu verwaltenden Systemen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.30
+inferred-function: no
+
+Erkennt unautorisierte Nutzung möglichst früh.

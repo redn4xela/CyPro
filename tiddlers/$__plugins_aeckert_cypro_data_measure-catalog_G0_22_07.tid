@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.22/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.22-07
+threat-no: G0.22
+threat-label: Manipulation von Informationen
+rank: 07
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Präventiv
+caption: Schutz von Datensicherungen
+source-refs: CON.3.A14
+source-original: CON.3.A14 – Schutz von Datensicherungen
+scope: Daten
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.22
+inferred-function: yes

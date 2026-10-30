@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/02
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-02
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 02
+control-function: detection
+control-label: Erkennung
+source-phase: Detektiv
+caption: Überwachung von Verzeichnisdiensten
+source-refs: APP.2.1.A12
+source-original: APP.2.1.A12 – Überwachung von Verzeichnisdiensten
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes

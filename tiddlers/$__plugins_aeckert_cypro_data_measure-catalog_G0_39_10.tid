@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-10
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 10
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Wiederherstellung
+caption: Systeme austauschen und Einfallswege ändern
+source-refs: DER.2.3.A9, DER.2.3.A10
+source-original: DER.2.3.A9 – Hardwaretausch betroffener IT-Systeme · DER.2.3.A10 – Umbauten zur Erschwerung eines erneuten Angriffs durch dieselben Angreifenden
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Wiederanlauf, Integritätsprüfung und Restore-Test nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Stellt saubere Betriebsumgebung dauerhaft wieder her.

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.25/09
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.25-09
+threat-no: G0.25
+threat-label: Ausfall von Geräten oder Systemen
+rank: 09
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: Wiederherstellung
+caption: Betriebsumgebung kontrolliert wiederherstellen
+source-refs: DER.2.1.A6
+source-original: DER.2.1.A6 – Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Wiederanlauf, Integritätsprüfung und Restore-Test nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.25
+inferred-function: no
+
+Bringt kritische Systeme nach Ausfall zurück.

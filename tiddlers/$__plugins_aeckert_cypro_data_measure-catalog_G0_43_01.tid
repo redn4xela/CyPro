@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.43/01
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.43-01
+threat-no: G0.43
+threat-label: Einspielen von Nachrichten
+rank: 01
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Gegenseitige Authentisierung der Systeme
+source-refs: OPS.1.1.7.A5, NET.3.4.A24
+source-original: OPS.1.1.7.A5 – Gegenseitige Authentisierung von Systemmanagement-Lösung und zu verwaltenden Systemen · NET.3.4.A24 – Nutzung sicherer Protokolle zwischen NAC-Komponenten
+scope: Übergreifend; Teilanforderung für NAC
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.43
+inferred-function: no
+
+Erschwert die Einspeisung gefälschter Kommunikationspartner.

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.23/08
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.23-08
+threat-no: G0.23
+threat-label: Unbefugtes Eindringen in IT-Systeme
+rank: 08
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Zugangsmittel sperren und Einbruchsweg schließen
+source-refs: DER.2.3.A4, DER.2.3.A5
+source-original: DER.2.3.A4 – Sperrung und Änderung von Zugangsdaten und kryptografischen Schlüsseln · DER.2.3.A5 – Schließen des initialen Einbruchswegs
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.23
+inferred-function: no
+
+Stoppt fortgesetzten Missbrauch nach einem Vorfall.

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.23/07
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.23-07
+threat-no: G0.23
+threat-label: Unbefugtes Eindringen in IT-Systeme
+rank: 07
+control-function: response
+control-label: Reaktion
+source-phase: Reaktion
+caption: Kompromittierte Netzabschnitte isolieren
+source-refs: DER.2.3.A3
+source-original: DER.2.3.A3 – Isolierung der betroffenen Netzabschnitte
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Eskalationsweg, konkrete Sofortmaßnahmen und Übungsnachweis prüfen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.23
+inferred-function: no
+
+Unterbricht Ausbreitung und weiteren Zugriff.

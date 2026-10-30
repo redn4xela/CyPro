@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.31/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.31-04
+threat-no: G0.31
+threat-label: Fehlerhafte Nutzung oder Administration von Geräten und Systemen
+rank: 04
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Fernwartung verbindlich regeln
+source-refs: IND.3.2.A4
+source-original: IND.3.2.A4 – Verbindliche Regelung der OT-Fernwartung durch Dritte
+scope: OT/ICS – nur bei Einsatz
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.31
+inferred-function: no
+
+Schützt die Bedienung sicherheitskritischer OT.

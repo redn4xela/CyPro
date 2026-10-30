@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.41/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.41-04
+threat-no: G0.41
+threat-label: Sabotage
+rank: 04
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: OT-Vorgänge sowie Fernwartung kontrollieren
+source-refs: IND.1.A10, IND.3.2.A10
+source-original: IND.1.A10 – Monitoring, Protokollierung und Detektion · IND.3.2.A10 – Beobachtung und Kontrolle von OT-Fernwartungssitzungen
+scope: Systemtypen: OT/ICS
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.41
+inferred-function: no
+
+Meldet ungewöhnliche Veränderungen und Zugriffe.

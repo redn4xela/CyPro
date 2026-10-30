@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.28/05
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.28-05
+threat-no: G0.28
+threat-label: Software-Schwachstellen oder -Fehler
+rank: 05
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Schwachstellen systematisch auffinden
+source-refs: OPS.1.1.1.A22, IND.1.A12
+source-original: OPS.1.1.1.A22 – Automatisierte Tests auf Schwachstellen · IND.1.A12 – Etablieren eines Schwachstellen-Managements
+scope: Übergreifend; Teilanforderung für OT/ICS
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.28
+inferred-function: no
+
+Macht verwundbare Komponenten sichtbar.

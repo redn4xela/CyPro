@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.14/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.14-10
+threat-no: G0.14
+threat-label: Ausspähen von Informationen / Spionage
+rank: 10
+control-function: detection
+control-label: Erkennung
+source-phase: Detektiv
+caption: Hostbasierte Angriffserkennung
+source-refs: SYS.1.6.A24
+source-original: SYS.1.6.A24 – Hostbasierte Angriffserkennung
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.14
+inferred-function: yes

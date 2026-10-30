@@ -1,0 +1,17 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.18/10
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.18-10
+threat-no: G0.18
+threat-label: Fehlplanung oder fehlende Anpassung
+rank: 10
+control-function: detection
+control-label: Erkennung
+source-phase: Detektiv
+caption: Hostbasierte Angriffserkennung
+source-refs: SYS.1.6.A24
+source-original: SYS.1.6.A24 – Hostbasierte Angriffserkennung
+scope: System
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.18
+inferred-function: yes

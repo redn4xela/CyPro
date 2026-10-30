@@ -1,0 +1,61 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/measure-catalog
+type: text/vnd.tiddlywiki
+
+\define cypro-add-catalog-measure(catalog, threat)
+<!--
+  Add a catalog measure to a threat without changing the existing measure model.
+  If the catalog item was already instantiated elsewhere, reuse the same measure.
+-->
+<$let
+    catalogTiddler="$catalog$"
+    threatTiddler="$threat$"
+    catalogId={{{ [[$catalog$]get[catalog-id]] }}}
+    existingMeasure={{{ [tag[measure]field:catalog-id<catalogId>sort[id]first[]] }}}
+    statusField={{{ [[$threat$]addsuffix[_STATUS]] }}}
+>
+
+<$list filter="[<existingMeasure>is[blank]]" variable="null">
+<$let
+    newTitle={{{ [function[cypro-next-id],[measure],[M]] }}}
+    newTags={{{ [[measure]] [[$threat$]] +[join[ ]] }}}
+>
+<$action-createtiddler
+    $basetitle=<<newTitle>>
+    id=<<newTitle>>
+    caption={{{ [[$catalog$]get[caption]] }}}
+    tags=<<newTags>>
+    catalog-id=<<catalogId>>
+    control-function={{{ [[$catalog$]get[control-function]] }}}
+    control-label={{{ [[$catalog$]get[control-label]] }}}
+    source-phase={{{ [[$catalog$]get[source-phase]] }}}
+    source-refs={{{ [[$catalog$]get[source-refs]] }}}
+    source-scope={{{ [[$catalog$]get[scope]] }}}
+    source-evidence={{{ [[$catalog$]get[evidence]] }}}
+    source-catalog={{{ [[$catalog$]get[source]] }}}
+    text={{{ [[$catalog$]get[text]] }}}
+/>
+<$action-setfield
+    $tiddler=<<newTitle>>
+    $field=<<statusField>>
+    $value="not-implemented"
+/>
+</$let>
+</$list>
+
+<$list filter="[<existingMeasure>!is[blank]]" variable="null">
+<$action-listops
+    $tiddler=<<existingMeasure>>
+    $tags="[[$threat$]]"
+/>
+<$action-setfield
+    $tiddler=<<existingMeasure>>
+    $field=<<statusField>>
+    $value="not-implemented"
+/>
+</$list>
+
+<<update-risk-actions "$threat$">>
+
+</$let>
+\end

@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-04
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 04
+control-function: prevention
+control-label: Prävention
+source-phase: Prävention
+caption: Wechselmedien und Datenaustausch prüfen
+source-refs: CON.7.A9, SYS.4.5.A16
+source-original: CON.7.A9 – Sicherer Umgang mit mobilen Datenträgern · SYS.4.5.A16 – Nutzung dedizierter IT-Systeme zur Datenprüfung
+scope: Systemtypen: Mobile Nutzung, Wechseldatenträger
+evidence: Konfiguration, Richtlinie und Freigabe der Schutzfunktion vorlegen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Verringert Einschleusung über physische Datenträger.

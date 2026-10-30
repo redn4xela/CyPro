@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.39/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.39-06
+threat-no: G0.39
+threat-label: Schadprogramme
+rank: 06
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Sicherheitsereignisse zentral korrelieren
+source-refs: DER.1.A11, DER.1.A15
+source-original: DER.1.A11 – Nutzung einer zentralen Protokollierungsinfrastruktur für die Auswertung sicherheitsrelevanter Ereignisse · DER.1.A15 – Zentrale Detektion und Echtzeitüberprüfung von Ereignismeldungen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.39
+inferred-function: no
+
+Verbindet einzelne Signale zu einem Vorfallsbild.

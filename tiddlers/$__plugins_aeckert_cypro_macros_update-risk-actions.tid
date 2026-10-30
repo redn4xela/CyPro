@@ -6,74 +6,90 @@ type: text/vnd.tiddlywiki
 
 \define update-risk-actions(threat)
 <!--
-  update-risk-actions(threat) — recalculate a threat's risk scores.
+  Recalculate threat risk.
 
-  CyPro's risk model (per threat):
-    risk = impact x probability        (both on a 1..5 scale)
-  We track two snapshots of that product:
-    - initial_risk : the raw risk before any mitigating measures
-    - final_risk   : the risk left after the assigned measures take effect
+  Package model:
+  - initial risk remains impact x probability;
+  - once measure status fields are used, per-measure RI/RP values no longer
+    determine the actual residual risk;
+  - only implemented measures enable a package reassessment;
+  - package_impact and package_probability hold the manual reassessment;
+  - planned measures never change final_risk.
 
-  Measures linked to a threat store their effect in two per-threat fields named
-  "<threatTitle>_RI" (Reduzierung Impact / Schadenshöhe) and "<threatTitle>_RP"
-  (Reduzierung Probability / Eintrittshäufigkeit). Those values are stored as
-  NEGATIVE numbers (the UI offers 0, -1, -2, -3, -4 — see viewtemplates/threat/
-  measures). We SUM every measure's contribution and ADD it to the initial value,
-  then floor the result at 1 with max[1] so risk never drops below the minimum.
-  (A measure reducing risk = a negative number added, not subtracted.)
-
-  Called as the `actions` of the measure radio buttons and the add/remove measure
-  buttons, so the four risk fields stay in sync whenever a measure changes.
-
-  TASK-127 semantics — "unassessed" is not "risk 1": a threat is only assessed when
-  BOTH `initial_impact` and `initial_probability` carry a value. If either is blank
-  (never rated, or a partially rated threat), the derived fields are CLEARED instead
-  of written, so the threat does not appear as a fabricated 1x1. A real out-of-range
-  value like `0` is still clamped to 1; only blank means unassessed.
-
-  Note: the math operators treat an empty operand as 0 (multiply) or return the
-  operand (add), so a blank source cannot simply "propagate empty" through the
-  calculation — an explicit assessed-guard is required (the two $list branches below).
-
-  Parameter `threat` is optional: if blank we fall back to <currentTiddler>, so the
-  macro works both when explicitly targeting a threat and when run inside one.
+  Compatibility:
+  - threats whose linked measures have no status fields still use the legacy
+    RI/RP model until they are migrated.
 -->
-<!-- 1. Compute the values (read fields, derive reductions, clamp) and an `assessed`
-     marker (non-empty only when BOTH source fields carry a value). -->
 <$let
     tiddler={{{ [<__threat__>!is[blank]then<__threat__>else<currentTiddler>] }}}
     assessed={{{ [<tiddler>has[initial_impact]has[initial_probability]then[yes]] }}}
-    reduction_impact_field={{{ [<tiddler>addsuffix[_RI]] }}}
-    reduction_probability_field={{{ [<tiddler>addsuffix[_RP]] }}}
-    initial_impact={{{ [<tiddler>get[initial_impact]max[1]min[4]] }}}
-    initial_probability={{{ [<tiddler>get[initial_probability]max[1]min[4]] }}}
-		initial_risk={{{ [<initial_impact>multiply<initial_probability>] }}}
-    reduction_impact={{{ [tag[measure]tag<tiddler>get<reduction_impact_field>sum[]else[0]] }}}
-    reduction_probability={{{ [tag[measure]tag<tiddler>get<reduction_probability_field>sum[]else[0]] }}}
-    final_impact={{{ [<initial_impact>add<reduction_impact>max[1]] }}}
-    final_probability={{{ [<initial_probability>add<reduction_probability>max[1]] }}}
-    final_risk={{{ [<final_impact>multiply<final_probability>] }}}
+    reductionImpactField={{{ [<tiddler>addsuffix[_RI]] }}}
+    reductionProbabilityField={{{ [<tiddler>addsuffix[_RP]] }}}
+    measureStatusField={{{ [<tiddler>addsuffix[_STATUS]] }}}
+    initialImpact={{{ [<tiddler>get[initial_impact]max[1]min[4]] }}}
+    initialProbability={{{ [<tiddler>get[initial_probability]max[1]min[4]] }}}
+    initialRisk={{{ [<initialImpact>multiply<initialProbability>] }}}
+    statusCount={{{ [tag[measure]tag<tiddler>] :filter[has<measureStatusField>] +[count[]] }}}
+    implementedCount={{{ [tag[measure]tag<tiddler>] :filter[get<measureStatusField>match[implemented]] +[count[]] }}}
+    packageAssessed={{{ [<tiddler>has[package_impact]has[package_probability]then[yes]] }}}
+    packageImpact={{{ [<tiddler>get[package_impact]max[1]min[4]] }}}
+    packageProbability={{{ [<tiddler>get[package_probability]max[1]min[4]] }}}
+    legacyReductionImpact={{{ [tag[measure]tag<tiddler>get<reductionImpactField>sum[]else[0]] }}}
+    legacyReductionProbability={{{ [tag[measure]tag<tiddler>get<reductionProbabilityField>sum[]else[0]] }}}
+    legacyFinalImpact={{{ [<initialImpact>add<legacyReductionImpact>max[1]] }}}
+    legacyFinalProbability={{{ [<initialProbability>add<legacyReductionProbability>max[1]] }}}
 >
-<!-- 2a. Assessed: write the four derived fields back to the target threat tiddler -->
 <$list filter="[<assessed>match[yes]]" variable="null">
-<$action-setfield 
-    $tiddler=<<tiddler>> 
-    initial_risk=<<initial_risk>> 
-		final_impact=<<final_impact>> 
-    final_probability=<<final_probability>> 
-    final_risk=<<final_risk>> 
+<$action-setfield $tiddler=<<tiddler>> initial_risk=<<initialRisk>>/>
+<$list filter="[<statusCount>compare:number:eq[0]]" variable="null">
+<$action-setfield
+    $tiddler=<<tiddler>>
+    final_impact=<<legacyFinalImpact>>
+    final_probability=<<legacyFinalProbability>>
+    final_risk={{{ [<legacyFinalImpact>multiply<legacyFinalProbability>] }}}
 />
 </$list>
-<!-- 2b. Unassessed: clear any stale derived value (no fabricated 1x1) -->
-<$list filter="[<assessed>match[yes]] +[count[]match[0]]" variable="null">
-<$action-setfield 
-    $tiddler=<<tiddler>> 
-    initial_risk="" 
-		final_impact="" 
-    final_probability="" 
-    final_risk="" 
+<$list filter="[<statusCount>compare:number:gt[0]]" variable="null">
+<$list filter="[<implementedCount>compare:number:eq[0]]" variable="null">
+<$action-setfield
+    $tiddler=<<tiddler>>
+    package_impact=""
+    package_probability=""
+    final_impact=<<initialImpact>>
+    final_probability=<<initialProbability>>
+    final_risk=<<initialRisk>>
 />
 </$list>
-
+<$list filter="[<implementedCount>compare:number:gt[0]]" variable="null">
+<$list filter="[<packageAssessed>match[yes]]" variable="null">
+<$action-setfield
+    $tiddler=<<tiddler>>
+    final_impact=<<packageImpact>>
+    final_probability=<<packageProbability>>
+    final_risk={{{ [<packageImpact>multiply<packageProbability>] }}}
+/>
+</$list>
+<$list filter="[<packageAssessed>!match[yes]]" variable="null">
+<$action-setfield
+    $tiddler=<<tiddler>>
+    final_impact=<<initialImpact>>
+    final_probability=<<initialProbability>>
+    final_risk=<<initialRisk>>
+/>
+</$list>
+</$list>
+</$list>
+</$list>
+<$list filter="[<assessed>!match[yes]]" variable="null">
+<$action-setfield
+    $tiddler=<<tiddler>>
+    initial_risk=""
+    package_impact=""
+    package_probability=""
+    final_impact=""
+    final_probability=""
+    final_risk=""
+/>
+</$list>
 </$let>
 \end

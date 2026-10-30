@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.23/06
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.23-06
+threat-no: G0.23
+threat-label: Unbefugtes Eindringen in IT-Systeme
+rank: 06
+control-function: detection
+control-label: Erkennung
+source-phase: Erkennung
+caption: Privilegierte Aktionen protokollieren
+source-refs: OPS.1.1.2.A30, OPS.1.1.7.A25
+source-original: OPS.1.1.2.A30 – Sicherheitsmonitoring administrativer Tätigkeiten · OPS.1.1.7.A25 – Protokollierung und Reglementierung von Systemmanagement-Sitzungen
+scope: Übergreifend – systemspezifisch prüfen
+evidence: Alarmregeln, Protokolle und einen erprobten Meldeweg nachweisen.
+source: KRT2023_Massnahmen_nach_19_Gefaehrdungen.xlsx / G0.23
+inferred-function: no
+
+Macht missbräuchliche Administration nachvollziehbar.

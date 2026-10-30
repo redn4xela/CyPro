@@ -1,0 +1,19 @@
+title: $:/plugins/aeckert/cypro/data/measure-catalog/G0.15/04
+tags: cypro-measure-catalog
+type: text/vnd.tiddlywiki
+catalog-id: G0.15-04
+threat-no: G0.15
+threat-label: Abhören
+rank: 04
+control-function: recovery
+control-label: Wiederherstellung
+source-phase: 
+caption: Etablierung sicherer, unabhängiger Kommunikationskanäle
+source-refs: DER.2.3.A8
+source-original: DER.2.3.A8 – Etablierung sicherer, unabhängiger Kommunikationskanäle
+scope: 
+evidence: 
+source: krt2023_Gesamtliste_relevante_Gefaehrdungen - ABE.xlsx / G0.15
+inferred-function: yes
+
+Für den Fall eines Ausfalls eines Kommunikationsmittels sollte ein Ersatz geplant und vorbereitet sein
