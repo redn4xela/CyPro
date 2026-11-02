@@ -1,0 +1,218 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/subgroups
+type: text/vnd.tiddlywiki
+
+<!--
+  Sub-KIKS are one-level concrete KIKS below a predefined root KIKS.
+  The child always inherits the parent KIKS type (system or data).
+-->
+
+\define cypro-create-sub-kiks()
+
+<$let
+    parentTitle=<<currentTiddler>>
+    parentId={{{ [<currentTiddler>get[id]] }}}
+    parentType={{{ [<currentTiddler>get[kiks]] }}}
+    inputState={{{ [[$:/temp/cypro/subkiks-caption/]addsuffix<currentTiddler>] }}}
+    newCaption={{{ [<inputState>get[text]trim[]] }}}
+    newTitle={{{ [function[cypro-next-id],[kiks],[K]] }}}
+>
+
+<$list filter="[<newCaption>minlength[1]]" variable="null">
+
+<$action-createtiddler
+    $basetitle=<<newTitle>>
+    id=<<newTitle>>
+    caption=<<newCaption>>
+    tags="KIKS"
+    kiks=<<parentType>>
+    parent-kiks=<<parentTitle>>
+    parent-kiks-id=<<parentId>>
+    subgroup="yes"
+/>
+
+<$action-setfield
+    $tiddler=<<inputState>>
+    text=""
+/>
+
+<$action-navigate $to=<<newTitle>>/>
+
+</$list>
+
+</$let>
+
+\end
+
+
+<$list filter="[<currentTiddler>has[source-preset-id]]" variable="null">
+
+<$let
+    parentType={{{ [<currentTiddler>get[kiks]] }}}
+    inputState={{{ [[$:/temp/cypro/subkiks-caption/]addsuffix<currentTiddler>] }}}
+>
+
+<div class="cypro-subkiks-panel">
+
+<div class="cypro-subkiks-head">
+
+<div>
+<h3>Untergeordnete KIKS</h3>
+<div class="cypro-identification-note">
+Sie können das vorbelegte KIKS in konkrete untergeordnete KIKS aufteilen.
+Der Typ der Obergruppe wird automatisch übernommen und kann in der Untergruppe
+nicht geändert werden.
+</div>
+</div>
+
+<div class="cypro-subkiks-parent-type">
+
+<span>Typ der Obergruppe</span>
+
+<$list filter="[<parentType>match[system]]" variable="null">
+<strong>System</strong>
+</$list>
+
+<$list filter="[<parentType>match[data]]" variable="null">
+<strong>Daten</strong>
+</$list>
+
+</div>
+
+</div>
+
+
+<$list
+    filter="[tag[KIKS]field:parent-kiks<currentTiddler>sort[id]limit[1]]"
+    variable="null"
+    emptyMessage="<div class='cypro-subkiks-empty'>Noch keine Untergruppe angelegt.</div>"
+>
+
+<div class="cypro-subkiks-list">
+
+<$list
+    filter="[tag[KIKS]field:parent-kiks<currentTiddler>sort[id]]"
+    variable="childKiks"
+>
+
+<$let
+    childId={{{ [<childKiks>get[id]else<childKiks>] }}}
+    childCaption={{{ [<childKiks>get[caption]else<childKiks>] }}}
+    childType={{{ [<childKiks>get[kiks]] }}}
+>
+
+<div class="cypro-subkiks-row">
+
+<div class="cypro-subkiks-identity">
+<span class="cypro-subkiks-id"><$text text=<<childId>>/></span>
+
+<$link to=<<childKiks>> class="cypro-subkiks-link">
+<strong><$text text=<<childCaption>>/></strong>
+</$link>
+</div>
+
+<div class="cypro-subkiks-type">
+
+<$list filter="[<childType>match[system]]" variable="null">
+<span class="cypro-subkiks-type-badge">System</span>
+</$list>
+
+<$list filter="[<childType>match[data]]" variable="null">
+<span class="cypro-subkiks-type-badge">Daten</span>
+</$list>
+
+</div>
+
+<div>
+<$link to=<<childKiks>> class="cypro-btn cypro-btn-secondary">
+Öffnen
+</$link>
+</div>
+
+</div>
+
+</$let>
+
+</$list>
+
+</div>
+
+</$list>
+
+
+<$list filter="[<cypro-lock-state>!text[yes]]" variable="null">
+
+<div class="cypro-subkiks-create">
+
+<div class="cypro-subkiks-create-copy">
+<strong>Untergeordnetes KIKS hinzufügen</strong>
+<span>
+Nur die Bezeichnung wird benötigt. Der Typ
+<$list filter="[<parentType>match[system]]" variable="null"><strong>System</strong></$list>
+<$list filter="[<parentType>match[data]]" variable="null"><strong>Daten</strong></$list>
+wird automatisch aus der Obergruppe übernommen.
+</span>
+</div>
+
+<div class="cypro-subkiks-create-controls">
+
+<$edit-text
+    tiddler=<<inputState>>
+    field="text"
+    placeholder="Bezeichnung der Untergruppe"
+    class="cypro-field-input cypro-subkiks-input"
+    tag="input"
+/>
+
+<$button
+    class="cypro-btn cypro-btn-primary"
+    actions=<<cypro-create-sub-kiks>>
+>
++ Untergeordnetes KIKS anlegen
+</$button>
+
+</div>
+
+</div>
+
+</$list>
+
+</div>
+
+</$let>
+
+</$list>
+
+
+<$list filter="[<currentTiddler>has[parent-kiks]]" variable="null">
+
+<$let
+    parentTitle={{{ [<currentTiddler>get[parent-kiks]] }}}
+    parentCaption={{{ [<currentTiddler>get[parent-kiks]get[caption]else<parentTitle>] }}}
+    currentType={{{ [<currentTiddler>get[kiks]] }}}
+>
+
+<div class="cypro-subkiks-parent-hint">
+
+<span>Untergeordnetes KIKS von</span>
+
+<$link to=<<parentTitle>>>
+<strong><$text text=<<parentCaption>>/></strong>
+</$link>
+
+<span class="cypro-subkiks-inherited-type">
+
+<$list filter="[<currentType>match[system]]" variable="null">
+System
+</$list>
+
+<$list filter="[<currentType>match[data]]" variable="null">
+Daten
+</$list>
+
+</span>
+
+</div>
+
+</$let>
+
+</$list>

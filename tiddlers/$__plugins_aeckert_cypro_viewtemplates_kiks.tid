@@ -12,13 +12,42 @@ type: text/vnd.tiddlywiki
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/kiks/presetGuidance}}
 
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/subgroups}}
+
 <div class="cypro-kiks-summary-grid">
+
 <div class="cypro-kiks-summary-card">
-{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/typeToggle}}
+
+<$list filter="[<currentTiddler>has[parent-kiks]]" variable="null">
+
+<div class="cypro-kiks-inherited-type">
+<span class="cypro-kiks-inherited-type-label">Typ</span>
+
+<$list filter="[<currentTiddler>get[kiks]match[system]]" variable="null">
+<span class="cypro-kiks-inherited-type-value">System</span>
+</$list>
+
+<$list filter="[<currentTiddler>get[kiks]match[data]]" variable="null">
+<span class="cypro-kiks-inherited-type-value">Daten</span>
+</$list>
+
+<span class="cypro-kiks-inherited-type-note">
+Von der Obergruppe übernommen und für Unter-KIKS nicht änderbar.
+</span>
 </div>
+
+</$list>
+
+<$list filter="[<currentTiddler>!has[parent-kiks]]" variable="null">
+{{||$:/plugins/aeckert/cypro/viewtemplates/kiks/typeToggle}}
+</$list>
+
+</div>
+
 <div class="cypro-kiks-summary-card">
 {{||$:/plugins/aeckert/cypro/viewtemplates/kiks/protectionGoals}}
 </div>
+
 </div>
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/kiks/influenceField}}
