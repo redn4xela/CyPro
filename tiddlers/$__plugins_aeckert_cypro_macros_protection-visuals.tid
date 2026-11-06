@@ -1,0 +1,117 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/protection-visuals
+type: text/vnd.tiddlywiki
+
+\define cypro-risk-badge(value)
+
+<$let riskValue="$value$">
+
+<$list filter="[<riskValue>is[blank]]" variable="null">
+<span class="cypro-risk-badge cypro-risk-badge-empty">–</span>
+</$list>
+
+<$list filter="[<riskValue>!is[blank]compare:number:lteq[3]]" variable="null">
+<span class="cypro-risk-badge cypro-risk-badge-green"><$text text=<<riskValue>>/></span>
+</$list>
+
+<$list filter="[<riskValue>compare:number:gteq[4]compare:number:lteq[6]]" variable="null">
+<span class="cypro-risk-badge cypro-risk-badge-yellow"><$text text=<<riskValue>>/></span>
+</$list>
+
+<$list filter="[<riskValue>compare:number:gteq[7]compare:number:lteq[9]]" variable="null">
+<span class="cypro-risk-badge cypro-risk-badge-orange"><$text text=<<riskValue>>/></span>
+</$list>
+
+<$list filter="[<riskValue>compare:number:gteq[10]]" variable="null">
+<span class="cypro-risk-badge cypro-risk-badge-red"><$text text=<<riskValue>>/></span>
+</$list>
+
+</$let>
+
+\end
+
+
+\define cypro-mini-protection(score)
+
+<$let
+    protectionScore="$score$"
+    needleAngle={{{ [<protectionScore>multiply[18]divide[10]add[-90]] }}}
+>
+
+<div
+    class="cypro-mini-protection"
+    style={{{ [<needleAngle>addprefix[--cypro-mini-angle:]addsuffix[deg;]] }}}
+    title={{{ [<protectionScore>addsuffix[ / 100 Schutzgrad]] }}}
+>
+
+<div class="cypro-mini-protection-arc"></div>
+<div class="cypro-mini-protection-needle"></div>
+<div class="cypro-mini-protection-hub"></div>
+
+<span class="cypro-mini-protection-value">
+<$text text=<<protectionScore>>/>
+</span>
+
+</div>
+
+</$let>
+
+\end
+
+
+\define cypro-kiks-protection-gauge(score,count)
+
+<$let
+    protectionScore="$score$"
+    threatCount="$count$"
+    needleAngle={{{ [<protectionScore>multiply[18]divide[10]add[-90]] }}}
+>
+
+<div
+    class="cypro-kiks-protection-gauge"
+    style={{{ [<needleAngle>addprefix[--cypro-kiks-protection-angle:]addsuffix[deg;]] }}}
+>
+
+<div class="cypro-kiks-protection-gauge-visual">
+
+<div class="cypro-kiks-protection-arc"></div>
+<div class="cypro-kiks-protection-needle"></div>
+<div class="cypro-kiks-protection-hub"></div>
+
+<div class="cypro-kiks-protection-label cypro-kiks-protection-label-left">0</div>
+<div class="cypro-kiks-protection-label cypro-kiks-protection-label-red">40</div>
+<div class="cypro-kiks-protection-label cypro-kiks-protection-label-yellow">70</div>
+<div class="cypro-kiks-protection-label cypro-kiks-protection-label-right">100</div>
+
+</div>
+
+<div class="cypro-kiks-protection-score">
+<strong><$text text=<<protectionScore>>/> / 100</strong>
+
+<$list filter="[<protectionScore>compare:number:lt[40]]" variable="null">
+<span class="cypro-protection-band cypro-protection-band-red">Handlungsbedarf</span>
+</$list>
+
+<$list filter="[<protectionScore>compare:number:gteq[40]compare:number:lt[70]]" variable="null">
+<span class="cypro-protection-band cypro-protection-band-yellow">
+Weitere Maßnahmen können hilfreich sein
+</span>
+</$list>
+
+<$list filter="[<protectionScore>compare:number:gteq[70]]" variable="null">
+<span class="cypro-protection-band cypro-protection-band-green">
+Breite Maßnahmenabdeckung
+</span>
+</$list>
+
+<span class="cypro-kiks-protection-count">
+Aus <$text text=<<threatCount>>/> anwendbaren Gefährdungen
+</span>
+
+</div>
+
+</div>
+
+</$let>
+
+\end

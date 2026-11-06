@@ -24,11 +24,11 @@ type: text/vnd.tiddlywiki
 <$list filter="[<currentTiddler>has[final_risk]]" variable="null">
 <div class="kiks-body-area cypro-risk-display">
     <div class="kiks-field-label">
-        Risikowert:
+        Aktueller Risikowert:
     </div>
     <div class="cypro-risk-values">
         <span class={{{ [<currentTiddler>get[final_risk]compare:number:gteq[10]then[kiks-risk-alert]] }}}>
-            <b><$view field="final_risk"/></b>
+            <$macrocall $name="cypro-risk-badge" value={{{ [<currentTiddler>get[final_risk]] }}}/>
         </span>
     </div>
     <$list filter="[<currentTiddler>get[final_risk]compare:number:gteq[10]]" variable="null">

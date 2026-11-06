@@ -1,0 +1,134 @@
+tags: $:/tags/Global
+title: $:/plugins/aeckert/cypro/macros/measure-editor
+type: text/vnd.tiddlywiki
+
+\function cypro-measure-editor-valid(draft)
+[<draft>get[caption]trim[]minlength[1]then[caption-ok]]
+[<draft>get[control-function]regexp[^(prevention|detection|response|recovery)$]then[function-ok]]
+[<draft>get[status]regexp[^(implemented|planned|not-implemented|financially-not-possible)$]then[status-ok]]
++[count[]match[3]then[yes]else[no]]
+\end
+
+\procedure cypro-open-measure-editor(measure,threat)
+
+<$set name="tv-action-refresh-policy" value="always">
+<$let
+    targetMeasure=<<measure>>
+    targetThreat=<<threat>>
+    draftTitle="$:/temp/cypro/measure-editor/draft"
+>
+<$let statusField={{{ [<targetThreat>addsuffix[_STATUS]] }}}>
+
+<$action-deletetiddler $tiddler=<<draftTitle>>/>
+<$action-setfield
+    $tiddler=<<draftTitle>>
+    target=<<targetMeasure>>
+    threat=<<targetThreat>>
+    is-new={{{ [<targetMeasure>is[blank]then[yes]else[no]] }}}
+    origin={{{ [<targetMeasure>has[catalog-id]then[Katalog]else[Manuell]] }}}
+    caption={{{ [<targetMeasure>get[caption]else[]] }}}
+    text={{{ [<targetMeasure>get[text]else[]] }}}
+    source-refs={{{ [<targetMeasure>get[source-refs]else[]] }}}
+    control-function={{{ [<targetMeasure>get[control-function]else[]] }}}
+    status={{{ [<targetMeasure>get<statusField>else[]] }}}
+/>
+<$action-setfield $tiddler="$:/state/cypro/custom-measure-editor/measure" text=<<targetMeasure>>/>
+<$action-setfield $tiddler="$:/state/cypro/custom-measure-editor/threat" text=<<targetThreat>>/>
+<$action-setfield $tiddler="$:/state/cypro/custom-measure-editor/new" text={{{ [<targetMeasure>is[blank]then[yes]else[]] }}}/>
+<$action-navigate $to="$:/plugins/aeckert/cypro/pages/customMeasureEditor"/>
+
+</$let>
+</$let>
+</$set>
+\end
+
+\procedure cypro-close-measure-editor(threat)
+
+<$let returnThreat=<<threat>>>
+<$action-deletetiddler $tiddler="$:/temp/cypro/measure-editor/draft"/>
+<$action-setfield $tiddler="$:/state/cypro/custom-measure-editor/measure" text=""/>
+<$action-setfield $tiddler="$:/state/cypro/custom-measure-editor/threat" text=""/>
+<$action-setfield $tiddler="$:/state/cypro/custom-measure-editor/new" text=""/>
+<$action-navigate $to=<<returnThreat>>/>
+</$let>
+\end
+
+\procedure cypro-save-measure-editor()
+
+<$set name="tv-action-refresh-policy" value="always">
+<$let draftTitle="$:/temp/cypro/measure-editor/draft">
+<$let
+    targetMeasure={{{ [<draftTitle>get[target]] }}}
+    targetThreat={{{ [<draftTitle>get[threat]] }}}
+    isNew={{{ [<draftTitle>get[is-new]] }}}
+    valid={{{ [function[cypro-measure-editor-valid],<draftTitle>] }}}
+    draftCaption={{{ [<draftTitle>get[caption]trim[]] }}}
+    draftFunction={{{ [<draftTitle>get[control-function]] }}}
+    draftStatus={{{ [<draftTitle>get[status]] }}}
+>
+<$let
+    statusField={{{ [<targetThreat>addsuffix[_STATUS]] }}}
+    lockTitle={{{ [<targetThreat>addprefix[$:/state/cypro/locked/]] }}}
+    nextTitle={{{ [function[cypro-next-id],[measure],[M]] }}}
+    functionLabel={{{ [<draftFunction>match[prevention]then[Prävention]] [<draftFunction>match[detection]then[Erkennung]] [<draftFunction>match[response]then[Reaktion]] [<draftFunction>match[recovery]then[Wiederherstellung / Resilienz]] +[join[]] }}}
+>
+<$let
+    savedTitle={{{ [<isNew>match[yes]then<nextTitle>else<targetMeasure>] }}}
+    functionChanged={{{ [<targetMeasure>get[control-function]else[]match<draftFunction>then[no]else[yes]] }}}
+    statusChanged={{{ [<targetMeasure>get<statusField>else[]match<draftStatus>then[no]else[yes]] }}}
+>
+
+<$list filter="[<valid>match[yes]]" variable="ignoreValid">
+<$list filter="[<targetThreat>tag[threat]]" variable="ignoreThreat">
+<$list filter="[<lockTitle>!text[yes]]" variable="ignoreLock">
+
+<$list filter="[<isNew>match[yes]]" variable="ignoreNew">
+<$action-createtiddler
+    $basetitle=<<savedTitle>>
+    id=<<savedTitle>>
+    tags={{{ [[measure]] [<targetThreat>] +[format:titlelist[]join[ ]] }}}
+    source-catalog="custom"
+/>
+</$list>
+
+<$list filter="[<savedTitle>tag[measure]tag<targetThreat>]" variable="ignoreTarget">
+
+<$action-setfield
+    $tiddler=<<savedTitle>>
+    caption=<<draftCaption>>
+    text={{{ [<draftTitle>get[text]else[]] }}}
+    source-refs={{{ [<draftTitle>get[source-refs]else[]] }}}
+    control-function=<<draftFunction>>
+    control-label=<<functionLabel>>
+/>
+<$action-setfield $tiddler=<<savedTitle>> $field=<<statusField>> $value=<<draftStatus>>/>
+
+<!-- Recalculate all associated threats when shared measure metadata changes. -->
+<$list filter="[<savedTitle>tags[]tag[threat]]" variable="affectedThreat">
+
+<$list filter="[<functionChanged>match[yes]]" variable="ignoreFunction">
+<$action-setfield $tiddler=<<affectedThreat>> package_impact="" package_probability=""/>
+</$list>
+
+<$list filter="[<statusChanged>match[yes]]" variable="ignoreStatus">
+<$list filter="[<affectedThreat>match<targetThreat>]" variable="ignoreCurrent">
+<$action-setfield $tiddler=<<affectedThreat>> package_impact="" package_probability=""/>
+</$list>
+</$list>
+
+<$macrocall $name="update-risk-actions" threat=<<affectedThreat>>/>
+</$list>
+
+<$macrocall $name="cypro-close-measure-editor" threat=<<targetThreat>>/>
+
+</$list>
+</$list>
+</$list>
+</$list>
+
+</$let>
+</$let>
+</$let>
+</$let>
+</$set>
+\end

@@ -1,0 +1,161 @@
+caption: Maßnahme bearbeiten
+title: $:/plugins/aeckert/cypro/pages/customMeasureEditor
+type: text/vnd.tiddlywiki
+
+<$set name="tv-action-refresh-policy" value="always">
+<$let draftTitle="$:/temp/cypro/measure-editor/draft">
+<$let
+    threat={{{ [<draftTitle>get[threat]] }}}
+    isNew={{{ [<draftTitle>get[is-new]] }}}
+>
+
+<$list filter="[<threat>tag[threat]]" variable="ignoreThreat" emptyMessage="<div class='cypro-custom-editor-missing'>Öffnen Sie eine Maßnahme über das Maßnahmenpaket.</div>">
+
+<div class="cypro-custom-editor-page">
+
+<div class="cypro-custom-editor-header">
+
+<div>
+
+<span class="cypro-custom-editor-kicker">Maßnahme · <$view tiddler=<<draftTitle>> field="origin"/></span>
+<h2><$text text={{{ [<isNew>match[yes]then[Neue Maßnahme]else[Maßnahme bearbeiten]] }}}/></h2>
+<div class="muted">
+
+Gefährdung: <strong><$view tiddler=<<threat>> field="caption"/></strong>
+</div>
+</div>
+
+</div>
+
+<p class="cypro-custom-editor-help">Änderungen werden mit „Speichern und zurück“ übernommen. Angaben mit * sind erforderlich.</p>
+
+<div class="cypro-custom-editor-card">
+
+<h3>Grunddaten</h3>
+
+<div class="cypro-custom-editor-grid">
+
+<div class="cypro-custom-editor-field">
+
+<label>Bezeichnung *</label>
+<$edit-text tiddler=<<draftTitle>> field="caption" tag="input" class="cypro-field-input" placeholder="Bezeichnung eingeben" aria-label="Bezeichnung"/>
+</div>
+
+<div class="cypro-custom-editor-field cypro-custom-editor-field-wide">
+
+<label>Beschreibung</label>
+<$edit-text tiddler=<<draftTitle>> field="text" tag="textarea" class="cypro-field-input cypro-custom-editor-textarea" aria-label="Beschreibung"/>
+</div>
+
+<div class="cypro-custom-editor-field">
+
+<label>Referenz / Quelle (optional)</label>
+<$edit-text tiddler=<<draftTitle>> field="source-refs" tag="input" class="cypro-field-input" placeholder="z. B. interne Vorgabe oder externe Referenz" aria-label="Referenz oder Quelle"/>
+</div>
+
+</div>
+
+</div>
+
+<div class="cypro-custom-editor-card">
+
+<h3>Funktionsbereich *</h3>
+<p class="cypro-custom-editor-help">Wählen Sie den Funktionsbereich der Maßnahme.</p>
+
+<div class="cypro-custom-editor-options">
+
+<$button class={{{ [<draftTitle>get[control-function]match[prevention]then[cypro-custom-editor-option cypro-custom-editor-option-active]else[cypro-custom-editor-option]] }}} aria-pressed={{{ [<draftTitle>get[control-function]match[prevention]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> control-function="prevention"/>
+<strong>Prävention</strong>
+<span>Vorbeugende oder risikoreduzierende Maßnahme.</span>
+</$button>
+
+<$button class={{{ [<draftTitle>get[control-function]match[detection]then[cypro-custom-editor-option cypro-custom-editor-option-active]else[cypro-custom-editor-option]] }}} aria-pressed={{{ [<draftTitle>get[control-function]match[detection]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> control-function="detection"/>
+<strong>Erkennung</strong>
+<span>Erkennung von Auffälligkeiten oder Vorfällen.</span>
+</$button>
+
+<$button class={{{ [<draftTitle>get[control-function]match[response]then[cypro-custom-editor-option cypro-custom-editor-option-active]else[cypro-custom-editor-option]] }}} aria-pressed={{{ [<draftTitle>get[control-function]match[response]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> control-function="response"/>
+<strong>Reaktion</strong>
+<span>Behandlung und Eindämmung eines Vorfalls.</span>
+</$button>
+
+<$button class={{{ [<draftTitle>get[control-function]match[recovery]then[cypro-custom-editor-option cypro-custom-editor-option-active]else[cypro-custom-editor-option]] }}} aria-pressed={{{ [<draftTitle>get[control-function]match[recovery]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> control-function="recovery"/>
+<strong>Wiederherstellung / Resilienz</strong>
+<span>Wiederaufnahme und Stabilisierung des Betriebs.</span>
+</$button>
+
+</div>
+
+</div>
+
+<div class="cypro-custom-editor-card">
+
+<h3>Status im Maßnahmenpaket *</h3>
+<p class="cypro-custom-editor-help">Der Status gilt für die oben genannte Gefährdung und wird im Maßnahmenpaket angezeigt. Nur umgesetzte Maßnahmen zählen für den aktuellen Schutzgrad und die Restrisikobewertung.</p>
+
+<div class="cypro-custom-editor-status-grid">
+
+<$button class={{{ [<draftTitle>get[status]match[implemented]then[cypro-custom-editor-status cypro-custom-editor-status-active]else[cypro-custom-editor-status]] }}} aria-pressed={{{ [<draftTitle>get[status]match[implemented]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> status="implemented"/>
+<span>Umgesetzt</span>
+</$button>
+
+<$button class={{{ [<draftTitle>get[status]match[planned]then[cypro-custom-editor-status cypro-custom-editor-status-active]else[cypro-custom-editor-status]] }}} aria-pressed={{{ [<draftTitle>get[status]match[planned]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> status="planned"/>
+<span>In Planung</span>
+</$button>
+
+<$button class={{{ [<draftTitle>get[status]match[not-implemented]then[cypro-custom-editor-status cypro-custom-editor-status-active]else[cypro-custom-editor-status]] }}} aria-pressed={{{ [<draftTitle>get[status]match[not-implemented]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> status="not-implemented"/>
+<span>Nicht umgesetzt</span>
+</$button>
+
+<$button class={{{ [<draftTitle>get[status]match[financially-not-possible]then[cypro-custom-editor-status cypro-custom-editor-status-active]else[cypro-custom-editor-status]] }}} aria-pressed={{{ [<draftTitle>get[status]match[financially-not-possible]then[true]else[false]] }}}>
+<$action-setfield $tiddler=<<draftTitle>> status="financially-not-possible"/>
+<span>Finanziell nicht möglich</span>
+</$button>
+
+</div>
+
+</div>
+
+<div class="cypro-editor-validation" role="status" aria-live="polite">
+
+<$list filter="[<draftTitle>get[caption]trim[]minlength[1]count[]match[0]]" variable="ignoreCaption">
+<p>Bitte eine Bezeichnung eingeben.</p>
+</$list>
+<$list filter="[<draftTitle>get[control-function]regexp[^(prevention|detection|response|recovery)$]count[]match[0]]" variable="ignoreFunction">
+<p>Bitte einen Funktionsbereich wählen.</p>
+</$list>
+<$list filter="[<draftTitle>get[status]regexp[^(implemented|planned|not-implemented|financially-not-possible)$]count[]match[0]]" variable="ignoreStatus">
+<p>Bitte einen Status wählen.</p>
+</$list>
+
+</div>
+
+<div class="cypro-custom-editor-footer">
+
+<$button class="cypro-btn cypro-btn-secondary">
+<$macrocall $name="cypro-close-measure-editor" threat=<<threat>>/>
+<span class="cypro-btn-label"><$text text={{{ [<isNew>match[yes]then[Abbrechen und verwerfen]else[Abbrechen]] }}}/></span>
+</$button>
+
+<$let valid={{{ [function[cypro-measure-editor-valid],<draftTitle>] }}}>
+<$button class="cypro-btn cypro-btn-primary cypro-editor-save" disabled={{{ [<valid>match[yes]then[no]else[yes]] }}}>
+<$macrocall $name="cypro-save-measure-editor"/>
+<span class="cypro-btn-label">Speichern und zurück</span>
+</$button>
+</$let>
+
+</div>
+
+</div>
+
+</$list>
+</$let>
+</$let>
+</$set>

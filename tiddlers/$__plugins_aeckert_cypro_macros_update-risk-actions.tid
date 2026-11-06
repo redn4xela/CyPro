@@ -5,52 +5,94 @@ title: $:/plugins/aeckert/cypro/macros/update-risk-actions
 type: text/vnd.tiddlywiki
 
 \define update-risk-actions(threat)
-<!--
-  Recalculate threat risk.
 
-  Package model:
-  - initial risk remains impact x probability;
-  - once measure status fields are used, per-measure RI/RP values no longer
-    determine the actual residual risk;
-  - only implemented measures enable a package reassessment;
-  - package_impact and package_probability hold the manual reassessment;
-  - planned measures never change final_risk.
-
-  Compatibility:
-  - threats whose linked measures have no status fields still use the legacy
-    RI/RP model until they are migrated.
--->
 <$let
     tiddler={{{ [<__threat__>!is[blank]then<__threat__>else<currentTiddler>] }}}
     assessed={{{ [<tiddler>has[initial_impact]has[initial_probability]then[yes]] }}}
     reductionImpactField={{{ [<tiddler>addsuffix[_RI]] }}}
     reductionProbabilityField={{{ [<tiddler>addsuffix[_RP]] }}}
     measureStatusField={{{ [<tiddler>addsuffix[_STATUS]] }}}
+
     initialImpact={{{ [<tiddler>get[initial_impact]max[1]min[4]] }}}
     initialProbability={{{ [<tiddler>get[initial_probability]max[1]min[4]] }}}
     initialRisk={{{ [<initialImpact>multiply<initialProbability>] }}}
+
     statusCount={{{ [tag[measure]tag<tiddler>] :filter[has<measureStatusField>] +[count[]] }}}
     implementedCount={{{ [tag[measure]tag<tiddler>] :filter[get<measureStatusField>match[implemented]] +[count[]] }}}
+    plannedCount={{{ [tag[measure]tag<tiddler>] :filter[get<measureStatusField>match[planned]] +[count[]] }}}
+
     packageAssessed={{{ [<tiddler>has[package_impact]has[package_probability]then[yes]] }}}
     packageImpact={{{ [<tiddler>get[package_impact]max[1]min[4]] }}}
     packageProbability={{{ [<tiddler>get[package_probability]max[1]min[4]] }}}
+
     legacyReductionImpact={{{ [tag[measure]tag<tiddler>get<reductionImpactField>sum[]else[0]] }}}
     legacyReductionProbability={{{ [tag[measure]tag<tiddler>get<reductionProbabilityField>sum[]else[0]] }}}
+
+    implementedPrevention={{{ [tag[measure]tag<tiddler>field:control-function[prevention]] :filter[get<measureStatusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedDetection={{{ [tag[measure]tag<tiddler>field:control-function[detection]] :filter[get<measureStatusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedResponse={{{ [tag[measure]tag<tiddler>field:control-function[response]] :filter[get<measureStatusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    implementedRecovery={{{ [tag[measure]tag<tiddler>field:control-function[recovery]] :filter[get<measureStatusField>match[implemented]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+
+    plannedPrevention={{{ [tag[measure]tag<tiddler>field:control-function[prevention]] :filter[get<measureStatusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    plannedDetection={{{ [tag[measure]tag<tiddler>field:control-function[detection]] :filter[get<measureStatusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    plannedResponse={{{ [tag[measure]tag<tiddler>field:control-function[response]] :filter[get<measureStatusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+    plannedRecovery={{{ [tag[measure]tag<tiddler>field:control-function[recovery]] :filter[get<measureStatusField>match[planned]] +[count[]compare:number:gt[0]then[1]else[0]] }}}
+>
+
+<$let
     legacyFinalImpact={{{ [<initialImpact>add<legacyReductionImpact>max[1]] }}}
     legacyFinalProbability={{{ [<initialProbability>add<legacyReductionProbability>max[1]] }}}
+
+    implementedCategoryCount={{{ [<implementedPrevention>add<implementedDetection>add<implementedResponse>add<implementedRecovery>] }}}
+    implementedMeasureCap={{{ [<implementedCount>min[6]] }}}
+
+    potentialPrevention={{{ [<implementedPrevention>add<plannedPrevention>compare:number:gt[0]then[1]else[0]] }}}
+    potentialDetection={{{ [<implementedDetection>add<plannedDetection>compare:number:gt[0]then[1]else[0]] }}}
+    potentialResponse={{{ [<implementedResponse>add<plannedResponse>compare:number:gt[0]then[1]else[0]] }}}
+    potentialRecovery={{{ [<implementedRecovery>add<plannedRecovery>compare:number:gt[0]then[1]else[0]] }}}
+
+    potentialMeasureCap={{{ [<implementedCount>add<plannedCount>min[6]] }}}
+    packageBonus={{{ [<packageAssessed>match[yes]then[10]else[0]] }}}
 >
+
+<$let
+    potentialCategoryCount={{{ [<potentialPrevention>add<potentialDetection>add<potentialResponse>add<potentialRecovery>] }}}
+    implementedCategoryScore={{{ [<implementedCategoryCount>multiply[15]] }}}
+    implementedMeasureScore={{{ [<implementedMeasureCap>multiply[5]] }}}
+    potentialCategoryScore={{{ [<potentialCategoryCount>multiply[15]] }}}
+    potentialMeasureScore={{{ [<potentialMeasureCap>multiply[5]] }}}
+>
+
+<$let
+    protectionScore={{{ [<implementedCategoryScore>add<implementedMeasureScore>add<packageBonus>min[100]] }}}
+    potentialProtectionScore={{{ [<potentialCategoryScore>add<potentialMeasureScore>add<packageBonus>min[100]] }}}
+>
+
+<$action-setfield
+    $tiddler=<<tiddler>>
+    protection_score=<<protectionScore>>
+    potential_protection_score=<<potentialProtectionScore>>
+/>
+
 <$list filter="[<assessed>match[yes]]" variable="null">
+
 <$action-setfield $tiddler=<<tiddler>> initial_risk=<<initialRisk>>/>
+
 <$list filter="[<statusCount>compare:number:eq[0]]" variable="null">
+
 <$action-setfield
     $tiddler=<<tiddler>>
     final_impact=<<legacyFinalImpact>>
     final_probability=<<legacyFinalProbability>>
     final_risk={{{ [<legacyFinalImpact>multiply<legacyFinalProbability>] }}}
 />
+
 </$list>
+
 <$list filter="[<statusCount>compare:number:gt[0]]" variable="null">
+
 <$list filter="[<implementedCount>compare:number:eq[0]]" variable="null">
+
 <$action-setfield
     $tiddler=<<tiddler>>
     package_impact=""
@@ -59,28 +101,41 @@ type: text/vnd.tiddlywiki
     final_probability=<<initialProbability>>
     final_risk=<<initialRisk>>
 />
+
 </$list>
+
 <$list filter="[<implementedCount>compare:number:gt[0]]" variable="null">
+
 <$list filter="[<packageAssessed>match[yes]]" variable="null">
+
 <$action-setfield
     $tiddler=<<tiddler>>
     final_impact=<<packageImpact>>
     final_probability=<<packageProbability>>
     final_risk={{{ [<packageImpact>multiply<packageProbability>] }}}
 />
+
 </$list>
+
 <$list filter="[<packageAssessed>!match[yes]]" variable="null">
+
 <$action-setfield
     $tiddler=<<tiddler>>
     final_impact=<<initialImpact>>
     final_probability=<<initialProbability>>
     final_risk=<<initialRisk>>
 />
+
 </$list>
+
 </$list>
+
 </$list>
+
 </$list>
+
 <$list filter="[<assessed>!match[yes]]" variable="null">
+
 <$action-setfield
     $tiddler=<<tiddler>>
     initial_risk=""
@@ -90,6 +145,12 @@ type: text/vnd.tiddlywiki
     final_probability=""
     final_risk=""
 />
+
 </$list>
+
 </$let>
+</$let>
+</$let>
+</$let>
+
 \end

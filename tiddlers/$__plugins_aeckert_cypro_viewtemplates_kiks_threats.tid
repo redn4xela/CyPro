@@ -18,16 +18,21 @@ type: text/vnd.tiddlywiki
 </$list>
 \end
 
-\define render-threat-row()
+\define render-threat-grid-row()
 <$let
     threatId={{{ [<threatTiddler>get[title]] }}}
     threatCaption={{{ [<threatTiddler>get[caption]else<threatId>] }}}
+    threatRisk={{{ [<threatTiddler>get[final_risk]] }}}
+    protectionScore={{{ [<threatTiddler>get[protection_score]else[0]] }}}
     snapshotTitle={{{ [<threatTiddler>addprefix[$:/state/cypro/snapshot/]] }}}
-    inactiveClass={{{ [<threatTiddler>get[applicable]match[no]then[cypro-threat-row-inactive]] }}}
+    rowClass={{{ [<threatTiddler>get[applicable]match[no]then[cypro-threat-grid-row cypro-threat-row-inactive]else[cypro-threat-grid-row]] }}}
     tourClass={{{ [<threatId>match[K01T07]then[cypro-tour-threat-row]] }}}
 >
-<tr class={{{ [<inactiveClass>] [<tourClass>] +[join[ ]] }}}>
-<td class="threat-action-col">
+
+<div class={{{ [<rowClass>] [<tourClass>] +[join[ ]] }}}>
+
+<div class="cypro-threat-grid-cell cypro-threat-grid-action">
+
 <$tiddler tiddler=<<threatTiddler>> islink="no">
 <$button class="cypro-btn cypro-btn-secondary cypro-threat-measures-button" tooltip="Gefährdung bewerten und Maßnahmen anpassen">
 <$list filter="[<snapshotTitle>!is[tiddler]]" variable="null">
@@ -37,62 +42,121 @@ type: text/vnd.tiddlywiki
 <span class="cypro-btn-label">Maßnahmen anpassen</span>
 </$button>
 </$tiddler>
-</td>
-<td class="threat-appl-cell"><<threat-applicability-badge>></td>
-<td class="threat-number-col"><$macrocall $name="cypro-threat-no-label" t=<<threatTiddler>>/></td>
-<td class="threat-caption-col"><$text text=<<threatCaption>>/></td>
-<td class="threat-risk-cell">
+</div>
+
+<div class="cypro-threat-grid-cell cypro-threat-grid-applicability">
+
+<<threat-applicability-badge>>
+</div>
+
+<div class="cypro-threat-grid-cell cypro-threat-grid-number">
+
+<$macrocall $name="cypro-threat-no-label" t=<<threatTiddler>>/>
+</div>
+
+<div class="cypro-threat-grid-cell cypro-threat-grid-caption">
+
+<$text text=<<threatCaption>>/>
+</div>
+
+<div class="cypro-threat-grid-cell cypro-threat-grid-risk">
+
 <$list filter="[<threatTiddler>get[applicable]match[yes]]" variable="null">
-<$list filter="[<threatTiddler>get[final_risk]compare:number:gteq[10]]" variable="null">
-<span class="kiks-risk-alert"><$transclude tiddler=<<threatTiddler>> field="final_risk"/></span>
+<$macrocall $name="cypro-risk-badge" value=<<threatRisk>>/>
 </$list>
-<$list filter="[<threatTiddler>get[final_risk]compare:number:lt[10]]" variable="null">
-<$transclude tiddler=<<threatTiddler>> field="final_risk"/>
+<$list filter="[<threatTiddler>get[applicable]!match[yes]]" variable="null">
+<span class="muted">–</span>
 </$list>
+</div>
+
+<div class="cypro-threat-grid-cell cypro-threat-grid-protection">
+
+<$list filter="[<threatTiddler>get[applicable]match[yes]]" variable="null">
+<$macrocall $name="cypro-mini-protection" score=<<protectionScore>>/>
 </$list>
-</td>
-</tr>
+<$list filter="[<threatTiddler>get[applicable]!match[yes]]" variable="null">
+<span class="muted">–</span>
+</$list>
+</div>
+
+</div>
+
 </$let>
 \end
 
 <div class="kiks-body-area">
-<div class="kiks-field-label">Gefährdungen:</div>
+
+<div class="kiks-field-label">
+
+Gefährdungen:</div>
+
 <$let kiksId={{{ [<currentTiddler>get[id]] }}}>
-<$list filter="[tag[threat]kiks<kiksId>limit[1]]" emptyMessage="<div class='kiks-empty-message'>Noch keine Bedrohungen erfasst.</div>" variable="null">
-<div class="cypro-table-wrap">
-<table class="threat-table tc-table cypro-fixed-table">
-<colgroup>
-<col style="width:18%;">
-<col style="width:15%;">
-<col style="width:12%;">
-<col style="width:43%;">
-<col style="width:12%;">
-</colgroup>
-<thead>
-<tr>
-<th>Aktion</th>
-<th>Anwendbarkeit</th>
-<th>Gefährdungsnr.</th>
-<th>Gefährdung</th>
-<th class="threat-risk-cell">Risikowert</th>
-</tr>
-</thead>
-<tbody>
-<$list filter="[tag[threat]kiks<kiksId>applicable[yes]sort[threat_no]each[id]]" variable="threatTiddler">
-<<render-threat-row>>
-</$list>
-<$list filter="[tag[threat]kiks<kiksId>!applicable[yes]!applicable[no]sort[threat_no]each[id]]" variable="threatTiddler">
-<<render-threat-row>>
-</$list>
-<$list filter="[tag[threat]kiks<kiksId>applicable[no]sort[threat_no]each[id]]" variable="threatTiddler">
-<<render-threat-row>>
-</$list>
-</tbody>
-</table>
+
+<$list
+    filter="[tag[threat]kiks<kiksId>limit[1]]"
+    emptyMessage="<div class='kiks-empty-message'>Noch keine Bedrohungen erfasst.</div>"
+    variable="null"
+>
+
+<div class="cypro-threat-grid-wrap">
+
+<div class="cypro-threat-grid-table">
+
+<div class="cypro-threat-grid-header">
+
+<div>
+
+Aktion</div>
+<div>
+
+Anwendbarkeit</div>
+<div>
+
+Gefährdungsnr.</div>
+<div>
+
+Gefährdung</div>
+<div>
+
+Risikowert</div>
+<div>
+
+Schutzgrad</div>
 </div>
+
+<div class="cypro-threat-grid-body">
+
+<$list filter="[tag[threat]kiks<kiksId>applicable[yes]sort[threat_no]each[id]]" variable="threatTiddler">
+<<render-threat-grid-row>>
 </$list>
-<$button class="cypro-btn cypro-btn-secondary" tooltip="Neue Bedrohung anlegen" actions=<<threat-create-action>>>
+
+<$list filter="[tag[threat]kiks<kiksId>!applicable[yes]!applicable[no]sort[threat_no]each[id]]" variable="threatTiddler">
+<<render-threat-grid-row>>
+</$list>
+
+<$list filter="[tag[threat]kiks<kiksId>applicable[no]sort[threat_no]each[id]]" variable="threatTiddler">
+<<render-threat-grid-row>>
+</$list>
+
+</div>
+
+</div>
+
+</div>
+
+</$list>
+
+<div class="cypro-threat-grid-footer">
+
+<$button
+    class="cypro-btn cypro-btn-secondary"
+    tooltip="Neue Bedrohung anlegen"
+    actions=<<threat-create-action>>
+>
 <span class="cypro-btn-label">Neue Bedrohung</span>
 </$button>
+</div>
+
 </$let>
+
 </div>

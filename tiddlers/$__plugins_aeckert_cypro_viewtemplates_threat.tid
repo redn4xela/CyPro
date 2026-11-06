@@ -12,21 +12,42 @@ type: text/vnd.tiddlywiki
 <$list filter="[all[current]tag[threat]]" variable="null">
 <$set name="isLocked" filter="[<cypro-lock-state>text[yes]]" value="yes" emptyValue="no">
 
+<div class="cypro-threat-page">
+
 {{||$:/plugins/aeckert/cypro/viewtemplates/threat/header}}
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/components/idField}}
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/threat/bsiInfo}}
 
+<div class="cypro-initial-assessment">
+
+<h3>Ausgangsbewertung</h3>
+<div class="cypro-initial-assessment-grid">
+
+<div class="cypro-initial-applicability">
+
 {{||$:/plugins/aeckert/cypro/viewtemplates/threat/applicabilityToggle}}
+</div>
+
+<div>
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/threat/initImp}}
+</div>
+
+<div>
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/threat/initProb}}
+</div>
+
+</div>
+</div>
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/threat/riskDisplay}}
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/threat/measures}}
+
+</div>
 
 </$set>
 </$list>

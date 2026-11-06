@@ -1,0 +1,50 @@
+title: $:/plugins/aeckert/cypro/viewtemplates/kiks/protectionSummary
+type: text/vnd.tiddlywiki
+
+<$let
+    kiksId={{{ [<currentTiddler>get[id]else<currentTiddler>] }}}
+    threatCount={{{ [tag[threat]kiks<kiksId>applicable[yes]count[]] }}}
+    protectionSum={{{ [tag[threat]kiks<kiksId>applicable[yes]get[protection_score]sum[]] }}}
+>
+
+<$let safeThreatCount={{{ [<threatCount>max[1]] }}}>
+
+<$let overallProtection={{{ [<protectionSum>divide<safeThreatCount>round[]] }}}>
+
+<div class="cypro-kiks-protection-summary">
+
+<div class="cypro-kiks-protection-summary-head">
+<div>
+<h3>Gesamtschutzgrad des KIKS</h3>
+<p>
+Der Gesamtschutzgrad ist der Mittelwert der Schutzgrade aller anwendbaren
+Gefährdungen dieses KIKS. Nicht anwendbare Gefährdungen werden nicht
+berücksichtigt.
+</p>
+</div>
+</div>
+
+<$list filter="[<threatCount>compare:number:gt[0]]" variable="null">
+
+<$macrocall
+    $name="cypro-kiks-protection-gauge"
+    score=<<overallProtection>>
+    count=<<threatCount>>
+/>
+
+</$list>
+
+<$list filter="[<threatCount>compare:number:eq[0]]" variable="null">
+
+<div class="cypro-kiks-protection-empty">
+Es sind noch keine anwendbaren Gefährdungen vorhanden. Daher kann noch kein
+Gesamtschutzgrad berechnet werden.
+</div>
+
+</$list>
+
+</div>
+
+</$let>
+</$let>
+</$let>

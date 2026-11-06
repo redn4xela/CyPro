@@ -3,59 +3,93 @@ tags: $:/tags/ViewTemplate
 title: $:/plugins/aeckert/cypro/viewtemplates/form/listKIKS
 type: text/vnd.tiddlywiki
 
-
-<!-- Form viewtemplate for the "Auflistung KIKS" overview page. Read-only table of all
-     KIKS (isLocked is hard-set to "yes"): ID, name, and the highest residual risk among
-     its applicable threats (max of final_risk). The "Neues KIKS anlegen" button lives in
-     the bottom toolbar. -->
 <$list filter="[all[current]field:title[$:/plugins/aeckert/cypro/pages/listKIKS]]" variable="null">
-<$set name="isLocked" value="yes">
 
+<$set name="isLocked" value="yes">
 
 {{||$:/plugins/aeckert/cypro/viewtemplates/components/captionFix}}
 
 <table class="cypro-table">
+
 <thead>
 <tr>
 <th>ID</th>
 <th>Bezeichnung</th>
 <th class="center">Max. Risiko</th>
+<th class="center">Schutzgrad</th>
 </tr>
 </thead>
+
 <tbody>
+
 <$list filter="[tag[KIKS]sort[id]]">
+
 <tr>
+
 <td><$link to=<<currentTiddler>>>{{!!id}}</$link></td>
+
 <td><$macrocall $name="cypro-kiks-caption" t=<<currentTiddler>>/></td>
+
 <td class="center bold">
+
 <$let
     initialMax={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[initial_risk]nsort[]last[]] }}}
     finalMax={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[final_risk]nsort[]last[]] }}}
     packageCount={{{ [tag[threat]kiks<currentTiddler>applicable[yes]has[package_impact]has[package_probability]count[]] }}}
 >
+
 <span class="cypro-risk-transition" title="Maximales Ausgangsrisiko; nach abgeschlossener Maßnahmenpaket-Neubewertung: Ausgangsrisiko → Restrisiko">
+
 <$list filter="[<initialMax>!is[blank]]" variable="null" emptyMessage="–">
-<span class="cypro-risk-transition-initial"><$text text=<<initialMax>>/></span>
+<$macrocall $name="cypro-risk-badge" value=<<initialMax>>/>
 </$list>
+
 <$list filter="[<packageCount>compare:number:gt[0]]" variable="null">
 <span class="cypro-risk-transition-arrow">→</span>
-<$list filter="[<finalMax>compare:number:gteq[10]]" variable="null">
-<span class="kiks-risk-alert cypro-risk-transition-final"><$text text=<<finalMax>>/></span>
+<$macrocall $name="cypro-risk-badge" value=<<finalMax>>/>
 </$list>
-<$list filter="[<finalMax>compare:number:lt[10]]" variable="null">
-<span class="cypro-risk-transition-final"><$text text=<<finalMax>>/></span>
-</$list>
-</$list>
+
 </span>
+
 </$let>
+
 </td>
-</tr>
+
+<td class="center">
+
+<$let
+    protectionThreatCount={{{ [tag[threat]kiks<currentTiddler>applicable[yes]count[]] }}}
+    protectionSum={{{ [tag[threat]kiks<currentTiddler>applicable[yes]get[protection_score]sum[]] }}}
+>
+
+<$let
+    protectionSafeCount={{{ [<protectionThreatCount>max[1]] }}}
+    kiksProtection={{{ [<protectionSum>divide<protectionSafeCount>round[]] }}}
+>
+
+<$list filter="[<protectionThreatCount>compare:number:gt[0]]" variable="null">
+<$macrocall $name="cypro-mini-protection" score=<<kiksProtection>>/>
 </$list>
+
+<$list filter="[<protectionThreatCount>compare:number:eq[0]]" variable="null">
+<span class="muted">–</span>
+</$list>
+
+</$let>
+</$let>
+
+</td>
+
+</tr>
+
+</$list>
+
 </tbody>
+
 </table>
 
-<!-- Prepared/preset KIKS offerings (data-driven; see components/presetKIKS) -->
 <$transclude tiddler="$:/plugins/aeckert/cypro/viewtemplates/components/presetKIKS"/>
 
 </$set>
+
 </$list>
